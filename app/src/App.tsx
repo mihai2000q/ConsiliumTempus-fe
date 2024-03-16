@@ -7,6 +7,7 @@ import { RootState } from "./state/store.ts";
 import Signup from "./features/signup/Signup.tsx";
 import { useMemo } from "react";
 import { themeSettings } from "./theme.ts";
+import Paths from "./utils/Paths.ts";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -20,8 +21,8 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path={'/'} element={<Navigate to={'/login'} replace />} />
-              <Route path={'/login'} element={<Login />} />
-              <Route path={'/signup'} element={<Signup />} />
+              <Route path={Paths.login} element={<Login />} />
+              <Route path={Paths.signup} element={<Signup />} />
             </Route>
           </Routes>
         </ThemeProvider>
