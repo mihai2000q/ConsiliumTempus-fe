@@ -1,11 +1,11 @@
 import { Box } from "@mui/material";
-import { useLocation } from "react-router-dom";
-import Paths from "../../../utils/Paths.ts";
 
-function Sidebar() {
-  const location = useLocation()
+interface SidebarProps {
+  isDisplayable: boolean
+}
 
-  if (cannotDisplay(location.pathname))
+function Sidebar(props: SidebarProps) {
+  if (!props.isDisplayable)
     return <></>
 
   return (
@@ -13,11 +13,6 @@ function Sidebar() {
       SideBar
     </Box>
   );
-}
-
-function cannotDisplay(path: string): boolean
-{
-  return path === Paths.login || path == Paths.signup
 }
 
 export default Sidebar;
