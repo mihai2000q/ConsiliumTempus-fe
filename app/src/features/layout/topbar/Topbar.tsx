@@ -9,12 +9,12 @@ interface TopbarProps {
 }
 
 function Topbar(props: TopbarProps) {
-  if (!props.isDisplayable)
-    return <></>
-
   const mode = useSelector((state: RootState) => state.global.mode)
 
   const dispatch = useDispatch<AppDispatch>()
+
+  if (!props.isDisplayable)
+    return <></>
 
   return (
     <Box width={'100%'}>
