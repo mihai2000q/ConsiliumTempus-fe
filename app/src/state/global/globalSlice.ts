@@ -1,19 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ThemeMode } from "../../theme.ts";
-
-interface GlobalState {
-  mode: ThemeMode
-}
-
-const initialState: GlobalState = {
-  mode: 'dark'
-}
+import { initialState } from "./globalState.ts";
 
 export const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
-    setMode: (state) => {
+    setMode: state => {
       state.mode = state.mode === 'light' ? 'dark' : 'light'
     }
   }
