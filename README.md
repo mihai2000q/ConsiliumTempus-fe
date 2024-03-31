@@ -59,4 +59,4 @@ The project is licensed under the [Apache](https://www.apache.org/licenses/LICEN
 
 ---
 
-**Consilium Tempus** 2024 - 2024
+**Consilium Tempus** 2023 - 2024

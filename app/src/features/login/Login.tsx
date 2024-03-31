@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { setLoginForm } from "./state/loginSlice.ts";
 import { useLazyLoginQuery } from "./state/loginApi.ts";
 import { LoginForm, loginFormInitialValues } from "./state/loginState.ts";
-import { Auth } from "./types/Auth.ts";
-import { setToken } from "../../state/auth/authSlice.ts";
+import { Auth } from "../../types/Auth.ts";
+import { setRefreshToken, setToken } from "../../state/auth/authSlice.ts";
 import { Link, useNavigate } from "react-router-dom";
 import Paths from "../../utils/Paths.ts";
 import { HttpError } from "../../types/HttpError.ts";
@@ -43,6 +43,7 @@ function Login() {
     try {
       const authResult: Auth = await login({ email, password }).unwrap()
       dispatch(setToken(authResult.token))
+      dispatch(setRefreshToken(authResult.refreshToken))
       dispatch(setLoginForm(loginFormInitialValues))
       navigate(Paths.home)
     } catch (err) {
@@ -66,7 +67,7 @@ function Login() {
             </Stack>
             <Stack gap={2}>
               <Typography variant={'h5'}>Login to <strong>Consilium Tempus</strong></Typography>
-              <Typography variant={'subtitle2'}>lorem impsum lorem impsum lorem impsun</Typography>
+              <Typography variant={'subtitle2'}>lorem lorem lorem lorem lorem lorem</Typography>
             </Stack>
             <form onSubmit={handleSubmit}>
               <Stack gap={2}>
