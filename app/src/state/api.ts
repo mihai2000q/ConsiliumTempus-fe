@@ -1,4 +1,10 @@
-import { BaseQueryApi, FetchArgs, createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import {
+  FetchArgs,
+  createApi,
+  fetchBaseQuery,
+  FetchBaseQueryError,
+  BaseQueryFn
+} from "@reduxjs/toolkit/query/react";
 import { logout, setToken } from "./auth/authSlice.ts";
 import { Refresh } from "../types/Refresh.ts";
 import { RootState } from "./store.ts";
@@ -14,19 +20,22 @@ const baseQuery = fetchBaseQuery({
   }
 })
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-ts-comment
-// @ts-expect-error
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const baseQueryWithRefreshToken = async (
-  args: string | FetchArgs,
-  api: BaseQueryApi,
-  extraOptions: NonNullable<unknown>
-) => {
+const baseQueryWithRefreshToken: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result?.error?.status === 403) {
-    console.log('sending the refresh token...')
-    const refreshResult = await baseQuery('auth/refresh', api, extraOptions)
+  if (result?.error?.status === 401) {
+    const authState = (api.getState() as RootState).auth
+    const refreshResult = await baseQuery('auth/refresh', api, {
+      ...extraOptions,
+      body: {
+        token: authState.token,
+        refreshToken: authState.refreshToken
+      }
+    })
     const data = refreshResult?.data as Refresh | undefined
     if (data) {
       api.dispatch(setToken(data.token))
@@ -40,7 +49,7 @@ const baseQueryWithRefreshToken = async (
 }
 
 export const api = createApi({
-  baseQuery: baseQuery,
+  baseQuery: baseQueryWithRefreshToken,
   reducerPath: 'api',
   endpoints: () => ({})
 })
