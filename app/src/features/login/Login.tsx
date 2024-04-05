@@ -7,7 +7,7 @@ import { validationSchema } from "./state/loginValidation.ts";
 import { AppDispatch, RootState } from "../../state/store.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { setLoginForm } from "./state/loginSlice.ts";
-import { useLazyLoginQuery } from "./state/loginApi.ts";
+import { useLoginMutation } from "./state/loginApi.ts";
 import { LoginForm, loginFormInitialValues } from "./state/loginState.ts";
 import { Auth } from "../../types/Auth.ts";
 import { setRefreshToken, setToken } from "../../state/auth/authSlice.ts";
@@ -19,8 +19,8 @@ function Login() {
   const loginForm = useSelector((state: RootState) => state.login.loginForm)
   const dispatch = useDispatch<AppDispatch>()
 
-  const [login, loginQuery] = useLazyLoginQuery()
-  const loginError = (loginQuery.error as HttpError | undefined)?.data
+  const [login, loginMutation] = useLoginMutation()
+  const loginError = (loginMutation.error as HttpError | undefined)?.data
 
   const navigate = useNavigate()
 
@@ -78,14 +78,14 @@ function Login() {
                   name={'email'}
                   label={'Email'}
                   placeholder={'Enter your email'}
-                  error={touched.email && !!errors.email || loginQuery.isError}
-                  helperText={touched.email && errors.email || loginQuery.isError && loginError?.title} />
+                  error={touched.email && !!errors.email || loginMutation.isError}
+                  helperText={touched.email && errors.email || loginMutation.isError && loginError?.title} />
                 <PasswordTextField
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.password && !!errors.password || loginQuery.isError}
-                  helperText={touched.password && errors.password || loginQuery.isError && loginError?.title} />
+                  error={touched.password && !!errors.password || loginMutation.isError}
+                  helperText={touched.password && errors.password || loginMutation.isError && loginError?.title} />
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={'center'}>
                   <Stack direction={"row"} alignItems={"center"}>
                     <Checkbox value={values.rememberMe} onChange={handleChange} />
@@ -93,7 +93,7 @@ function Login() {
                   </Stack>
                   <Typography fontWeight={600} variant={'body2'}>Forgot Password?</Typography>
                 </Stack>
-                <Button disabled={loginQuery.isLoading} variant={'contained'} type={"submit"}>Login</Button>
+                <Button disabled={loginMutation.isLoading} variant={'contained'} type={"submit"}>Login</Button>
               </Stack>
             </form>
             <Stack direction={"row"} justifyContent={'center'}>

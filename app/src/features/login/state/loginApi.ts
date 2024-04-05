@@ -2,7 +2,7 @@ import { api } from "../../../state/api.ts";
 
 export const loginApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    login: builder.query({
+    login: builder.mutation({
       query: body => ({
         url: 'auth/login',
         method: 'POST',
@@ -13,5 +13,5 @@ export const loginApiSlice = api.injectEndpoints({
 })
 
 export const {
-  useLazyLoginQuery
+  useLoginMutation
 } = loginApiSlice

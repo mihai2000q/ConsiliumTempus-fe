@@ -1,8 +1,9 @@
-import { Box, IconButton } from "@mui/material";
+import { AppBar, IconButton, Stack, Toolbar } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../state/store.ts";
-import { DarkModeOutlined, LightModeOutlined } from "@mui/icons-material";
+import { DarkModeOutlined, LightModeOutlined, Menu, Search, Settings } from "@mui/icons-material";
 import { setMode } from "../../../state/global/globalSlice.ts";
+import TopbarUser from "./components/TopbarUser.tsx";
 
 interface TopbarProps {
   isDisplayable: boolean
@@ -17,14 +18,34 @@ function Topbar(props: TopbarProps) {
     return <></>
 
   return (
-    <Box width={'100%'}>
-      <IconButton onClick={() => dispatch(setMode())}>
-        {mode === 'dark' ? <DarkModeOutlined /> : <LightModeOutlined />}
-      </IconButton>
-    </Box>
+    //<AppBar position={'static'}>
+      <Toolbar sx={{
+        width: '100%',
+        justifyContent: "space-between"
+      }}>
+        <IconButton>
+          <Menu />
+        </IconButton>
+
+        <Stack
+          alignItems={"center"}
+          direction={"row"}
+          gap={1}>
+          <IconButton>
+            <Search />
+          </IconButton>
+          <IconButton onClick={() => dispatch(setMode())}>
+            {mode === 'dark' ? <DarkModeOutlined /> : <LightModeOutlined />}
+          </IconButton>
+          <IconButton>
+            <Settings />
+          </IconButton>
+          <TopbarUser />
+        </Stack>
+      </Toolbar>
+    //</AppBar>
   );
 }
-
 
 
 export default Topbar;
