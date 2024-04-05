@@ -1,10 +1,4 @@
-import {
-  FetchArgs,
-  createApi,
-  fetchBaseQuery,
-  FetchBaseQueryError,
-  BaseQueryFn
-} from "@reduxjs/toolkit/query/react";
+import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { logout, setToken } from "./auth/authSlice.ts";
 import { Refresh } from "../types/Refresh.ts";
 import { RootState } from "./store.ts";
@@ -27,15 +21,20 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   let result = await baseQuery(args, api, extraOptions)
 
-  if (result?.error?.status === 401) {
+  if (result?.error?.status === 401 && !isAuthRequest(args)) {
     const authState = (api.getState() as RootState).auth
-    const refreshResult = await baseQuery('auth/refresh', api, {
-      ...extraOptions,
-      body: {
-        token: authState.token,
-        refreshToken: authState.refreshToken
-      }
-    })
+    const refreshResult = await baseQuery(
+      {
+        url: 'auth/refresh',
+        method: 'POST',
+        body: {
+          token: authState.token,
+          refreshToken: authState.refreshToken,
+        },
+      },
+      api,
+      extraOptions
+    )
     const data = refreshResult?.data as Refresh | undefined
     if (data) {
       api.dispatch(setToken(data.token))
@@ -48,8 +47,25 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   return result
 }
 
+function isAuthRequest(args: string | FetchArgs) {
+  return typeof args === "string" && args.includes('auth') ||
+    typeof args === 'object' && args.url.includes('auth')
+}
+
 export const api = createApi({
   baseQuery: baseQueryWithRefreshToken,
   reducerPath: 'api',
-  endpoints: () => ({})
+  tagTypes: [
+    'User'
+  ],
+  endpoints: (build) => ({
+    getCurrentUser: build.query({
+      query: () => `users/current`,
+      providesTags: ['User']
+    }),
+  })
 })
+
+export const {
+  useGetCurrentUserQuery
+} = api
