@@ -9,6 +9,8 @@ import { useMemo } from "react";
 import { themeSettings } from "./theme.ts";
 import Paths from "./utils/Paths.ts";
 import Home from "./features/home/Home.tsx";
+import Calendar from "./features/calendar/Calendar.tsx";
+import MyTasks from "./features/my-tasks/MyTasks.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -26,6 +28,8 @@ function App() {
               <Route path={Paths.signup} element={<Signup />} />
 
               <Route path={Paths.home} element={<Home />} />
+              <Route path={Paths.tasks} element={<MyTasks />} />
+              <Route path={Paths.calendar} element={<Calendar />} />
             </Route>
           </Routes>
         </ThemeProvider>
