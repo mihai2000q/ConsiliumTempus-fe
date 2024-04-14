@@ -1,17 +1,30 @@
-import { Box } from "@mui/material";
+import { Drawer } from "@mui/material";
+import SidebarContent from "./components/SidebarContent.tsx";
 
 interface SidebarProps {
-  isDisplayable: boolean
+  width: number,
+  isDisplayable: boolean,
+  isOpen: boolean,
 }
 
-function Sidebar(props: SidebarProps) {
-  if (!props.isDisplayable)
+function Sidebar({ width, isDisplayable, isOpen }: SidebarProps) {
+  if (!isDisplayable)
     return <></>
 
   return (
-    <Box height={'100%'}>
-      SideBar
-    </Box>
+    <Drawer
+      variant={"persistent"}
+      open={isOpen}
+      sx={{
+        width: width,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: width,
+          boxSizing: 'border-box',
+        },
+      }}>
+      <SidebarContent />
+    </Drawer>
   );
 }
 

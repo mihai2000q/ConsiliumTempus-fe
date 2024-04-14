@@ -26,7 +26,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     const refreshResult = await baseQuery(
       {
         url: 'auth/refresh',
-        method: 'POST',
+        method: 'PUT',
         body: {
           token: authState.token,
           refreshToken: authState.refreshToken,
