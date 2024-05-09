@@ -1,11 +1,11 @@
 import { Avatar, Box, Button, Menu, MenuItem, Skeleton, Stack, Typography } from "@mui/material";
-import { User } from "../../../login/types/User.ts";
-import { useGetCurrentUserQuery } from "../../../../state/api.ts";
-import demoUserPic from '../../../../assets/demo-user-pic.jpg'
+import { User } from "../../../../login/types/User.ts";
+import { useGetCurrentUserQuery } from "../../../../../state/api.ts";
+import demoUserPic from '../../../../../assets/demo-user-pic.jpg'
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../state/store";
-import { logout } from "../../../../state/auth/authSlice";
+import { AppDispatch } from "../../../../../state/store";
+import { logout } from "../../../../../state/auth/authSlice";
 import { ArrowDropDownOutlined } from "@mui/icons-material";
 
 function TopbarUser() {

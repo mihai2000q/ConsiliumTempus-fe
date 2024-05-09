@@ -1,6 +1,6 @@
 import { Stack, styled } from "@mui/material";
-import Topbar from "./topbar/Topbar.tsx";
-import Sidebar from "./sidebar/Sidebar.tsx";
+import Topbar from "./features/topbar/Topbar.tsx";
+import Sidebar from "./features/sidebar/Sidebar.tsx";
 import { Outlet, useLocation } from "react-router-dom";
 import Paths from "../../utils/Paths.ts";
 import { useState } from "react";

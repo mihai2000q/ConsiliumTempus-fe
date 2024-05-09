@@ -1,8 +1,8 @@
 import { IconButton, Stack, styled, Toolbar, ToolbarProps } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../state/store.ts";
+import { AppDispatch, RootState } from "../../../../state/store.ts";
 import { DarkModeOutlined, LightModeOutlined, Menu, Search, Settings } from "@mui/icons-material";
-import { setMode } from "../../../state/global/globalSlice.ts";
+import { setMode } from "../../../../state/global/globalSlice.ts";
 import TopbarUser from "./components/TopbarUser.tsx";
 import React from "react";
 
