@@ -6,13 +6,25 @@ import { Project } from "../types/Project.ts";
 import { Box, IconButton } from "@mui/material";
 import Paths from "../../../../../utils/Paths.ts";
 import { Add } from "@mui/icons-material";
+import AddProjectDialog from "./AddProjectDialog.tsx";
+import { useState } from "react";
 
 function SidebarContent() {
-  const workspaces: Workspace[] | undefined = useGetWorkspacesQuery(undefined).data?.workspaces
-  const projects: Project[] | undefined = useGetProjectsQuery(undefined).data?.projects
+  const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({}).data?.workspaces
+  const projects: Project[] | undefined = useGetProjectsQuery({ order: 'last_activity.desc' }).data?.projects
+
+  const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
+
+  function handleAddProjectDialog() {
+    setAddProjectDialogOpen(true)
+  }
 
   return (
     <Box py={1.5}>
+      <AddProjectDialog
+        workspaces={workspaces}
+        open={addProjectDialogOpen}
+        onClose={() => setAddProjectDialogOpen(false)}/>
       <DrawerList drawerItems={topDrawerItems} />
       <DrawerList
         subheader={"Workspaces"}
@@ -24,8 +36,8 @@ function SidebarContent() {
         subheader={"Projects"}
         subheaderDestination={Paths.projects}
         subheaderAction={
-          <IconButton sx={{ color: 'darkgrey' }}>
-            <Add/>
+          <IconButton onClick={handleAddProjectDialog}>
+            <Add sx={{ color: 'darkgrey' }}/>
           </IconButton>
         }
         drawerItems={projects?.map((p) => ({

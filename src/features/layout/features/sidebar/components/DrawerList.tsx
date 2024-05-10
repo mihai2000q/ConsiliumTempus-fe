@@ -1,7 +1,7 @@
 import { Box, List, ListItemButton, ListSubheader, Skeleton, Typography } from "@mui/material";
 import DrawerItem from "../types/DrawerItem.ts";
 import DrawerListItem from "./DrawerListItem.tsx";
-import { Link } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ReactElement } from "react";
 
 interface DrawerListProps {
@@ -17,6 +17,9 @@ function DrawerList({
   subheaderAction,
   drawerItems
 }: DrawerListProps) {
+  const navigate = useNavigate()
+  const location = useLocation()
+
   return (
     <List
       disablePadding
@@ -26,12 +29,11 @@ function DrawerList({
           <ListSubheader component={'div'} sx={{ padding: 0 }}>
             {subheaderDestination
               ? (
-                <ListItemButton sx={{ paddingY: 0, justifyContent: 'space-between' }}>
-                  <Link
-                    to={subheaderDestination}
-                    style={{ textDecoration: 'none', color: "lightgrey" }}>
-                    {subheader}
-                  </Link>
+                <ListItemButton
+                  selected={location.pathname == subheaderDestination }
+                  sx={{ paddingY: 0, justifyContent: 'space-between' }}
+                  onClick={() => navigate(subheaderDestination)}>
+                  {subheader}
                   {subheaderAction}
                 </ListItemButton>
               )
