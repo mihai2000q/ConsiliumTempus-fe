@@ -2,6 +2,7 @@ import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError 
 import { logout, setToken } from "./auth/authSlice.ts";
 import RefreshResponse from "../types/Refresh.response.ts";
 import { RootState } from "./store.ts";
+import TagTypes from "../utils/TagTypes.ts";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_URL,
@@ -55,13 +56,10 @@ function isAuthRequest(args: string | FetchArgs) {
 export const api = createApi({
   baseQuery: baseQueryWithRefreshToken,
   reducerPath: 'api',
-  tagTypes: [
-    'User'
-  ],
+  tagTypes: [...Object.values(TagTypes)],
   endpoints: (build) => ({
     getCurrentUser: build.query({
-      query: () => `users/current`,
-      providesTags: ['User']
+      query: () => `users/current`
     }),
   })
 })
