@@ -24,6 +24,7 @@ function Layout() {
     marginLeft: `-${isDisplayable ? drawerWidth : 0}px`,
     ...(open && {
       marginLeft: 0,
+      marginRight: 0,
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -51,8 +52,7 @@ function Layout() {
           open={isSidebarOpen}
           sx={{
             padding: 3,
-            height: '100%',
-            width: '100%'
+            flexGrow: 1
           }}>
           <Outlet />
         </Main>
