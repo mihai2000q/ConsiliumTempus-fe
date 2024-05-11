@@ -2,7 +2,7 @@ import { Avatar, Box, Button, Menu, MenuItem, Skeleton, Stack, Typography } from
 import User from "../types/User.model.ts";
 import { useGetCurrentUserQuery } from "../../../../../state/api.ts";
 import demoUserPic from '../../../../../assets/demo-user-pic.jpg'
-import React, { useState } from "react";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../state/store";
 import { logout } from "../../../../../state/auth/authSlice";
@@ -13,15 +13,10 @@ function TopbarUser() {
 
   const user: User | undefined = useGetCurrentUserQuery(undefined).data
 
-  const [menuAnchorEl, setMenuAnchorEl] = useState<null | HTMLElement>(null)
-  const isMenuOpen = Boolean(menuAnchorEl)
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setMenuAnchorEl(event.currentTarget);
-  };
-  const handleCloseMenu = () => setMenuAnchorEl(null)
   function handleLogOut() {
-    handleCloseMenu()
+    setMenuAnchorEl(null)
     dispatch(logout())
   }
 
@@ -41,7 +36,7 @@ function TopbarUser() {
   return (
     <Box>
       <Button
-        onClick={handleClick}
+        onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         sx={{
           textTransform: 'none',
         }}
@@ -68,8 +63,8 @@ function TopbarUser() {
       </Button>
       <Menu
         anchorEl={menuAnchorEl}
-        open={isMenuOpen}
-        onClose={handleCloseMenu}>
+        open={Boolean(menuAnchorEl)}
+        onClose={() => setMenuAnchorEl(null)}>
         <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
       </Menu>
     </Box>

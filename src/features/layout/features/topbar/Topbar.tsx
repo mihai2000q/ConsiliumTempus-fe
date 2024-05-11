@@ -4,12 +4,12 @@ import { AppDispatch, RootState } from "../../../../state/store.ts";
 import { DarkModeOutlined, LightModeOutlined, Menu, Search, Settings } from "@mui/icons-material";
 import { setMode } from "../../../../state/global/globalSlice.ts";
 import TopbarUser from "./components/TopbarUser.tsx";
-import React from "react";
+import { Dispatch, SetStateAction } from "react";
 
 interface TopbarProps {
   isDisplayable: boolean,
   isSidebarOpen: boolean,
-  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>,
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>,
   drawerWidth: number
 }
 
