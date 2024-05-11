@@ -51,7 +51,7 @@ function Layout() {
         <Main
           open={isSidebarOpen}
           sx={{
-            padding: 3,
+            padding: '12px 50px',
             flexGrow: 1
           }}>
           <Outlet />
