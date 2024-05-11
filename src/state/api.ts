@@ -1,6 +1,6 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { logout, setToken } from "./auth/authSlice.ts";
-import { Refresh } from "../types/Refresh.ts";
+import RefreshResponse from "../types/Refresh.response.ts";
 import { RootState } from "./store.ts";
 
 const baseQuery = fetchBaseQuery({
@@ -35,7 +35,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
       api,
       extraOptions
     )
-    const data = refreshResult?.data as Refresh | undefined
+    const data = refreshResult?.data as RefreshResponse | undefined
     if (data) {
       api.dispatch(setToken(data.token))
       result = await baseQuery(args, api, extraOptions)

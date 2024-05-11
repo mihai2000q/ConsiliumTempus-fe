@@ -1,4 +1,4 @@
-export type Auth = {
+export default interface AuthResponse {
   token: string,
   refreshToken: string
 }

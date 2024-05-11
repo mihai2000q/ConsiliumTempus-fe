@@ -1,4 +1,4 @@
-export type HttpError = {
+export default interface HttpErrorResponse {
   data: Error,
   status: number
 }

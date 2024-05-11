@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Menu, MenuItem, Skeleton, Stack, Typography } from "@mui/material";
-import { User } from "../../../../login/types/User.ts";
+import User from "../types/User.model.ts";
 import { useGetCurrentUserQuery } from "../../../../../state/api.ts";
 import demoUserPic from '../../../../../assets/demo-user-pic.jpg'
 import React, { useState } from "react";

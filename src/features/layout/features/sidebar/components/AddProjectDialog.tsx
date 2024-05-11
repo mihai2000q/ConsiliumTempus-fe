@@ -15,14 +15,14 @@ import {
   Stack,
   TextField
 } from "@mui/material";
-import { Workspace } from "../types/Workspace.ts";
+import Workspace from "../types/Workspace.model.ts";
 import { useFormik } from "formik";
 import { addProjectDialogSchema } from "../state/sidebarValidation.ts";
 import { addProjectDialogFormInitialValues } from "../state/sidebarState.ts";
 import { useAddProjectMutation } from "../state/sidebarApi.ts";
 import { useEffect } from "react";
 import { People } from "@mui/icons-material";
-import { HttpError } from "../../../../../types/HttpError.ts";
+import HttpErrorResponse from "../../../../../types/HttpError.response.ts";
 
 interface AddProjectDialogProps {
   workspaces: Workspace[] | undefined,
@@ -57,7 +57,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
       name: values.name,
       description: values.description
     }).unwrap()
-    if ((res as HttpError).data !== undefined) return
+    if ((res as HttpErrorResponse).data !== undefined) return
     resetForm()
     onClose()
   }

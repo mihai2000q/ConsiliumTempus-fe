@@ -1,4 +1,4 @@
-export type User = {
+export default interface User {
   firstName: string,
   lastName: string,
   email: string
