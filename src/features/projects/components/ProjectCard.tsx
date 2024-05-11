@@ -1,6 +1,8 @@
-import { Project } from "../types/Project.ts";
+import Project from "../types/Project.model.ts";
 import { alpha, Box, Card, CardContent, CardMedia, Typography, useTheme } from "@mui/material";
 import Paragraph from "../../../components/text/Paragraph.tsx";
+import { useNavigate } from "react-router-dom";
+import Paths from "../../../utils/Paths.ts";
 
 interface ProjectItemProps {
   project: Project
@@ -8,9 +10,13 @@ interface ProjectItemProps {
 
 function ProjectCard({ project }: ProjectItemProps) {
   const theme = useTheme();
+  const navigate = useNavigate()
 
   return (
-    <Card elevation={6} sx={{ height: 340 }}>
+    <Card
+      elevation={6}
+      onClick={() => navigate(`${Paths.projects}/${project.id}`)}
+      sx={{ height: 340, cursor: 'pointer' }}>
       <Box position="relative">
         <CardMedia
           image={'src/assets/demo-projects.jpg'}
@@ -23,7 +29,7 @@ function ProjectCard({ project }: ProjectItemProps) {
         </Box>
       </Box>
       <CardContent>
-        <Typography variant={'h6'}>{project.name}</Typography>
+        <Typography variant={'h6'} noWrap>{project.name}</Typography>
         <Paragraph
           variant={'caption'}
           lines={3}>
