@@ -8,6 +8,7 @@ import Paths from "../../../../../utils/Paths.ts";
 import { Add } from "@mui/icons-material";
 import AddProjectDialog from "./AddProjectDialog.tsx";
 import { useState } from "react";
+import { createSearchParams } from "react-router-dom";
 
 function SidebarContent() {
   const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({}).data?.workspaces
@@ -30,7 +31,8 @@ function SidebarContent() {
         subheader={"Workspaces"}
         drawerItems={workspaces?.map((w) => ({
           text: w.name,
-          link: `workspaces/${w.id}`
+          link: Paths.workspace,
+          searchParams: `${createSearchParams({ id: w.id })}`
         }))}/>
       <DrawerList
         subheader={"Projects"}
@@ -42,7 +44,8 @@ function SidebarContent() {
         }
         drawerItems={projects?.map((p) => ({
           text: p.name,
-          link: `projects/${p.id}`
+          link: Paths.project,
+          searchParams: `${createSearchParams({ id: p.id })}`
         }))}/>
     </Box>
   );

@@ -49,7 +49,7 @@ function DrawerList({
                 No {subheader ?? "data"}
               </Typography>
               : drawerItems.map((item) =>
-                <DrawerListItem key={item.link} drawerItem={item} />
+                <DrawerListItem key={item.link + item.searchParams} drawerItem={item} />
               )
           )
           : (
