@@ -10,12 +10,12 @@ export default function usePageSize() {
   const isLargeSized = useMediaQuery(theme.breakpoints.up('xl'))
 
   useEffect(() => {
-    if (isSmallSized) {
-      setPageSize(6)
+    if (isLargeSized) {
+      setPageSize(12)
     } else if (isMediumSized) {
       setPageSize(10)
-    } else if (isLargeSized) {
-      setPageSize(12)
+    } else if (isSmallSized) {
+      setPageSize(6)
     }
   }, [isSmallSized, isMediumSized, isLargeSized])
 

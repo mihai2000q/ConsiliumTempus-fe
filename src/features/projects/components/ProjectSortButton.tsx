@@ -26,7 +26,7 @@ function ProjectSortButton({ setOrder }: ProjectSortButtonProps) {
         variant={'outlined'}
         startIcon={<Sort />}
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-        sx={{ textTransform: 'capitalize' }}>
+        sx={{ textTransform: 'capitalize', boxShadow: 4 }}>
         {orderProperty.displayName}
         {orderType === OrderType.Descending
           ? <ArrowDownward fontSize={'small'} sx={{ ml: 0.5 }} />

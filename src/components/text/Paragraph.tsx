@@ -4,14 +4,18 @@ import { ReactNode } from "react";
 
 interface ParagraphProps {
   children: ReactNode,
+  fontWeight?: string | number | undefined,
+  color?: string | undefined,
   variant?: Variant | undefined,
   lines?: number | undefined
 }
 
-function Paragraph({ variant, lines, children } : ParagraphProps) {
+function Paragraph({ fontWeight, color, variant, lines, children } : ParagraphProps) {
   return (
     <Typography
       paragraph
+      fontWeight={fontWeight}
+      color={color}
       variant={variant ?? 'body2'}
       sx={{
         display: '-webkit-box',

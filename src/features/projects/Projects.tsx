@@ -7,7 +7,7 @@ import {
   Skeleton,
   Stack,
   TextField,
-  Typography
+  Typography, useTheme
 } from "@mui/material";
 import ProjectCard from "./components/ProjectCard.tsx";
 import { ReactNode, useState } from "react";
@@ -26,6 +26,8 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 }
 
 function Projects() {
+  const theme = useTheme()
+
   const pageSize = usePageSize()
   const [order, setOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -52,7 +54,7 @@ function Projects() {
 
   return (
     <Stack width={'100%'} height={'100%'} alignItems={'center'}>
-      <Typography variant={'h3'} mb={4} align={'center'}>
+      <Typography variant={'h1'} mb={4} align={'center'} color={theme.palette.background[100]}>
         Projects
       </Typography>
       <Stack
@@ -70,7 +72,7 @@ function Projects() {
             onChange={(e) => setSearchBarValue(e.target.value)}
             InputProps={{
               endAdornment: <Search />
-            }} />
+            }} sx={{ boxShadow: 8, borderRadius: 1 }}/>
           {isFetching && !isLoading &&
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />}
         </Stack>

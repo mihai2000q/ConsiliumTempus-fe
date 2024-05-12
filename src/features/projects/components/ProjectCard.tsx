@@ -3,6 +3,7 @@ import { alpha, Box, Card, CardContent, CardMedia, Typography, useTheme } from "
 import Paragraph from "../../../components/text/Paragraph.tsx";
 import { useNavigate } from "react-router-dom";
 import Paths from "../../../utils/Paths.ts";
+import useIsDarkMode from "../../../hooks/useIsDarkMode.ts";
 
 interface ProjectItemProps {
   project: Project
@@ -10,11 +11,12 @@ interface ProjectItemProps {
 
 function ProjectCard({ project }: ProjectItemProps) {
   const theme = useTheme();
+  const isDarkTheme = useIsDarkMode()
   const navigate = useNavigate()
 
   return (
     <Card
-      elevation={6}
+      elevation={10}
       onClick={() => navigate(`${Paths.projects}/${project.id}`)}
       sx={{ height: 340, cursor: 'pointer' }}>
       <Box position="relative">
@@ -23,15 +25,16 @@ function ProjectCard({ project }: ProjectItemProps) {
           title={project.name}
           sx={{ height: 200 }}/>
         <Box bgcolor={alpha(theme.palette.primary.main, 0.43)} position="absolute" bottom={0} width={'100%'}>
-          <Typography align={'center'} padding={1} variant="subtitle2">
+          <Typography align={'center'} padding={1} fontWeight={500} variant={'subtitle1'} color={'white'}>
             Project started on 12 September 2023
           </Typography>
         </Box>
       </Box>
       <CardContent>
-        <Typography variant={'h6'} noWrap>{project.name}</Typography>
+        <Typography variant={'h5'} noWrap>{project.name}</Typography>
         <Paragraph
-          variant={'caption'}
+          variant={'subtitle1'}
+          color={isDarkTheme ? theme.palette.grey[300] : undefined}
           lines={3}>
           {project.description}
         </Paragraph>
