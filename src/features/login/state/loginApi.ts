@@ -1,10 +1,11 @@
 import { api } from "../../../state/api.ts";
+import Urls from "../../../utils/Urls.ts";
 
 export const loginApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     login: builder.mutation({
       query: body => ({
-        url: 'auth/login',
+        url: `${Urls.auth}/login`,
         method: 'POST',
         body: body
       })
