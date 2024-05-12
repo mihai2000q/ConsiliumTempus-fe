@@ -10,5 +10,5 @@ export const validationSchema = yup.object().shape({
   password: yup
     .string()
     .matches(passwordRegex, "Invalid Password")
-    .required()
+    .required("Password is required")
 })

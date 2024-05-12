@@ -67,7 +67,7 @@ function Login() {
             </Stack>
             <Stack gap={2}>
               <Typography variant={'h5'}>Login to <strong>Consilium Tempus</strong></Typography>
-              <Typography variant={'subtitle2'}>lorem lorem lorem lorem lorem lorem</Typography>
+              <Typography variant={'body2'}>lorem lorem lorem lorem lorem lorem</Typography>
             </Stack>
             <form onSubmit={handleSubmit}>
               <Stack gap={2}>
@@ -89,18 +89,26 @@ function Login() {
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={'center'}>
                   <Stack direction={"row"} alignItems={"center"}>
                     <Checkbox value={values.rememberMe} onChange={handleChange} />
-                    <Typography variant={"body2"}>Remember me</Typography>
+                    <Typography variant={"subtitle1"}>Remember me</Typography>
                   </Stack>
                   <Typography fontWeight={600} variant={'body2'}>Forgot Password?</Typography>
                 </Stack>
-                <Button disabled={loginMutation.isLoading} variant={'contained'} type={"submit"}>Login</Button>
+                <Button
+                  variant={'contained'}
+                  type={"submit"}
+                  disabled={loginMutation.isLoading}
+                  sx={{
+                    textTransform: 'none'
+                  }}>
+                  Login
+                </Button>
               </Stack>
             </form>
             <Stack direction={"row"} justifyContent={'center'}>
               <Stack direction={"row"}>
                 <Typography mr={1}>Not a member yet?</Typography>
                 <Typography fontWeight={600}>
-                  <Link to={Paths.signup}>
+                  <Link to={Paths.signup} style={{ color: 'white', textDecoration: 'none' }}>
                     Join Us
                   </Link>
                 </Typography>
