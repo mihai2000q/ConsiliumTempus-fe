@@ -1,7 +1,7 @@
 import Project from "../types/Project.model.ts";
 import { alpha, Box, Card, CardContent, CardMedia, Typography, useTheme } from "@mui/material";
 import Paragraph from "../../../components/text/Paragraph.tsx";
-import { useNavigate } from "react-router-dom";
+import { createSearchParams, useNavigate } from "react-router-dom";
 import Paths from "../../../utils/Paths.ts";
 import useIsDarkMode from "../../../hooks/useIsDarkMode.ts";
 
@@ -14,10 +14,17 @@ function ProjectCard({ project }: ProjectItemProps) {
   const isDarkTheme = useIsDarkMode()
   const navigate = useNavigate()
 
+  const handleClick = () => {
+    navigate({
+      pathname: Paths.project,
+      search: `?${createSearchParams({ id: project.id })}`
+    })
+  }
+
   return (
     <Card
       elevation={10}
-      onClick={() => navigate(`${Paths.projects}/${project.id}`)}
+      onClick={handleClick}
       sx={{ height: 340, cursor: 'pointer' }}>
       <Box position="relative">
         <CardMedia
