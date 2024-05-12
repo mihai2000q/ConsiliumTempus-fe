@@ -54,7 +54,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   async function handleSubmitForm() {
     const res = await addProject({
       workspaceId: values.workspaceId,
-      name: values.name,
+      name: values.projectName,
       description: values.description
     }).unwrap()
     if ((res as HttpErrorResponse).data !== undefined) return
@@ -70,14 +70,14 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
           <Stack spacing={2}>
             <TextField
               variant="filled"
-              name={'name'}
+              name={'projectName'}
               label={"Name"}
               placeholder="Enter the project name"
-              value={values.name}
+              value={values.projectName}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={touched.name && !!errors.name}
-              helperText={touched.name && errors.name} />
+              error={touched.projectName && !!errors.projectName}
+              helperText={touched.projectName && errors.projectName} />
             <TextField
               variant="filled"
               name={'description'}

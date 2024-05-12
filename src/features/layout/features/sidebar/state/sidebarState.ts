@@ -1,11 +1,11 @@
 export interface AddProjectDialogForm {
-  name: string,
+  projectName: string,
   description: string,
   workspaceId: string | undefined
 }
 
 export const addProjectDialogFormInitialValues: AddProjectDialogForm = {
-  name: "",
+  projectName: "",
   description: "",
   workspaceId: undefined
 }
