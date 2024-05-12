@@ -1,4 +1,4 @@
-import { Box, List, ListItemButton, ListSubheader, Skeleton, Typography } from "@mui/material";
+import { List, ListItemButton, ListSubheader, Skeleton, Typography } from "@mui/material";
 import DrawerItem from "../types/DrawerItem.ts";
 import DrawerListItem from "./DrawerListItem.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -33,11 +33,11 @@ function DrawerList({
                   selected={location.pathname == subheaderDestination }
                   sx={{ paddingY: 0, justifyContent: 'space-between' }}
                   onClick={() => navigate(subheaderDestination)}>
-                  {subheader}
+                  <Typography fontWeight={500}>{subheader}</Typography>
                   {subheaderAction}
                 </ListItemButton>
               )
-              : <Box px={1.6}>{subheader}</Box>}
+              : <Typography fontWeight={500} px={1.6} py={1}>{subheader}</Typography>}
           </ListSubheader>)
       }>
       {

@@ -16,10 +16,10 @@ function DrawerListItem({ drawerItem }: DrawerListItemProps) {
         <ListItemIcon>
           {drawerItem?.icon
             ? drawerItem.icon
-            : <Avatar sx={{ width: 34, height: 34 }}>{drawerItem.text[0]}</Avatar>}
+            : <Avatar sx={{ width: 32, height: 32, fontSize: 14 }}>{drawerItem.text[0]}</Avatar>}
         </ListItemIcon>
         <ListItemText>
-          <Typography noWrap>
+          <Typography variant={'body1'} fontWeight={600} noWrap>
             {drawerItem.text}
           </Typography>
         </ListItemText>

@@ -13,7 +13,7 @@ import {
   MenuItem,
   Select,
   Stack,
-  TextField
+  TextField, useTheme
 } from "@mui/material";
 import Workspace from "../types/Workspace.model.ts";
 import { useFormik } from "formik";
@@ -31,6 +31,8 @@ interface AddProjectDialogProps {
 }
 
 function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) {
+  const theme = useTheme()
+
   const [addProject, addProjectMutation] = useAddProjectMutation()
 
   const {
@@ -64,7 +66,9 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
 
   return (
     <Dialog onClose={onClose} open={open} fullWidth>
-      <DialogTitle variant={'h5'}>Add Project</DialogTitle>
+      <DialogTitle variant={'h4'} textAlign={'center'} mt={1} fontWeight={600} color={theme.palette.background[50]}>
+        Add Project
+      </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={2}>
