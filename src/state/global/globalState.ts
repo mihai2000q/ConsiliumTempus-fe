@@ -1,4 +1,4 @@
-import { ThemeMode } from "../../theme.ts";
+import { ThemeMode } from "../../theme/theme.ts";
 
 interface GlobalState {
   mode: ThemeMode
