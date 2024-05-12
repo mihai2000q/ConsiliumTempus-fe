@@ -13,7 +13,7 @@ import {
   MenuItem,
   Select,
   Stack,
-  TextField
+  TextField, useTheme
 } from "@mui/material";
 import Workspace from "../types/Workspace.model.ts";
 import { useFormik } from "formik";
@@ -31,6 +31,8 @@ interface AddProjectDialogProps {
 }
 
 function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) {
+  const theme = useTheme()
+
   const [addProject, addProjectMutation] = useAddProjectMutation()
 
   const {
@@ -54,7 +56,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   async function handleSubmitForm() {
     const res = await addProject({
       workspaceId: values.workspaceId,
-      name: values.name,
+      name: values.projectName,
       description: values.description
     }).unwrap()
     if ((res as HttpErrorResponse).data !== undefined) return
@@ -64,20 +66,22 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
 
   return (
     <Dialog onClose={onClose} open={open} fullWidth>
-      <DialogTitle variant={'h5'}>Add Project</DialogTitle>
+      <DialogTitle variant={'h4'} textAlign={'center'} mt={1} fontWeight={600} color={theme.palette.background[50]}>
+        Add Project
+      </DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Stack spacing={2}>
             <TextField
               variant="filled"
-              name={'name'}
+              name={'projectName'}
               label={"Name"}
               placeholder="Enter the project name"
-              value={values.name}
+              value={values.projectName}
               onChange={handleChange}
               onBlur={handleBlur}
-              error={touched.name && !!errors.name}
-              helperText={touched.name && errors.name} />
+              error={touched.projectName && !!errors.projectName}
+              helperText={touched.projectName && errors.projectName} />
             <TextField
               variant="filled"
               name={'description'}

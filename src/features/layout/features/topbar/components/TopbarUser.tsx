@@ -7,8 +7,11 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../state/store";
 import { logout } from "../../../../../state/auth/authSlice";
 import { ArrowDropDownOutlined } from "@mui/icons-material";
+import useIsDarkMode from "../../../../../hooks/useIsDarkMode.ts";
 
 function TopbarUser() {
+  const isDarkTheme = useIsDarkMode()
+
   const dispatch = useDispatch<AppDispatch>()
 
   const user: User | undefined = useGetCurrentUserQuery(undefined).data
@@ -39,6 +42,7 @@ function TopbarUser() {
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         sx={{
           textTransform: 'none',
+          color: 'inherit',
         }}
       >
         <Stack direction={'row'} justifyContent="center" alignItems={"center"}>
@@ -47,6 +51,7 @@ function TopbarUser() {
             src={demoUserPic} />
           <Stack ml={1} width={150}>
             <Typography
+              variant={'h6'}
               fontWeight={'bold'}
               noWrap>
               {user.firstName} {user.lastName}
@@ -54,6 +59,7 @@ function TopbarUser() {
 
             <Typography
               variant={'body2'}
+              fontWeight={isDarkTheme ? 'light' : 400}
               noWrap>
               {user.email}
             </Typography>
