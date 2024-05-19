@@ -13,7 +13,7 @@ import {
   MenuItem,
   Select,
   Stack,
-  TextField, useTheme
+  TextField
 } from "@mui/material";
 import Workspace from "../types/Workspace.model.ts";
 import { useFormik } from "formik";
@@ -31,8 +31,6 @@ interface AddProjectDialogProps {
 }
 
 function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) {
-  const theme = useTheme()
-
   const [addProject, addProjectMutation] = useAddProjectMutation()
 
   const {
@@ -56,8 +54,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   async function handleSubmitForm() {
     const res = await addProject({
       workspaceId: values.workspaceId,
-      name: values.projectName,
-      description: values.description
+      name: values.projectName
     }).unwrap()
     if ((res as HttpErrorResponse).data !== undefined) return
     resetForm()
@@ -66,7 +63,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
 
   return (
     <Dialog onClose={onClose} open={open} fullWidth>
-      <DialogTitle variant={'h4'} textAlign={'center'} mt={1} fontWeight={600} color={theme.palette.background[50]}>
+      <DialogTitle variant={'h4'} mt={1} fontWeight={600}>
         Add Project
       </DialogTitle>
       <form onSubmit={handleSubmit}>
@@ -82,16 +79,6 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
               onBlur={handleBlur}
               error={touched.projectName && !!errors.projectName}
               helperText={touched.projectName && errors.projectName} />
-            <TextField
-              variant="filled"
-              name={'description'}
-              label={"Description"}
-              placeholder="Enter the project description"
-              onBlur={handleBlur}
-              value={values.description}
-              onChange={handleChange}
-              multiline
-              rows={8} />
             <FormControl>
               <InputLabel variant={'filled'}>Workspace</InputLabel>
               <Select
@@ -105,7 +92,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
                   style: { display: 'flex', alignItems: 'center'  },
                 }}>
                 {
-                  workspaces && workspaces?.map((workspace) => (
+                  workspaces?.map((workspace) => (
                     <MenuItem key={workspace.id} value={workspace.id}>
                       <ListItemIcon><People /></ListItemIcon>
                       <ListItemText>{workspace.name}</ListItemText>
