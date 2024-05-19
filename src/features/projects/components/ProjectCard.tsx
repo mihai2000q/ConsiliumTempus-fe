@@ -11,7 +11,7 @@ interface ProjectItemProps {
 
 function ProjectCard({ project }: ProjectItemProps) {
   const theme = useTheme();
-  const isDarkTheme = useIsDarkMode()
+  const isDarkMode = useIsDarkMode()
   const navigate = useNavigate()
 
   const handleClick = () => {
@@ -41,7 +41,7 @@ function ProjectCard({ project }: ProjectItemProps) {
         <Typography variant={'h5'} noWrap>{project.name}</Typography>
         <Paragraph
           variant={'subtitle1'}
-          color={isDarkTheme ? theme.palette.grey[300] : undefined}
+          color={isDarkMode ? theme.palette.grey[300] : undefined}
           lines={3}>
           {project.description}
         </Paragraph>

@@ -10,7 +10,7 @@ import { ArrowDropDownOutlined } from "@mui/icons-material";
 import useIsDarkMode from "../../../../../hooks/useIsDarkMode.ts";
 
 function TopbarUser() {
-  const isDarkTheme = useIsDarkMode()
+  const isDarkMode = useIsDarkMode()
 
   const dispatch = useDispatch<AppDispatch>()
 
@@ -59,7 +59,7 @@ function TopbarUser() {
 
             <Typography
               variant={'body2'}
-              fontWeight={isDarkTheme ? 'light' : 400}
+              fontWeight={isDarkMode ? 'light' : 400}
               noWrap>
               {user.email}
             </Typography>
