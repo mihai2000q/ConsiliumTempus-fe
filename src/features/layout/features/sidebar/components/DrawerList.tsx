@@ -58,7 +58,7 @@ function DrawerList({
           )
           : (
             <>
-              {Array(5).fill(0).map((_, i) => (
+              {Array.from(Array(5)).map((_, i) => (
                 <Skeleton key={i} variant={'text'} sx={{ fontSize: '2rem' }} />
               ))}
             </>

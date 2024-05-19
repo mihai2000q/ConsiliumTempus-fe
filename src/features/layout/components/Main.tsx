@@ -15,7 +15,7 @@ export const Main = styled(
       prop !== 'isLayoutDisplayable'
   }
 )<MainProps>(({ theme, isSidebarOpen, isLayoutDisplayable, drawerWidth }) => ({
-  padding: '76px 50px 12px 50px',
+  padding: '76px 30px 12px 30px',
   flexGrow: 1,
   marginLeft: `-${isLayoutDisplayable ? drawerWidth : 0}px`,
   background: `linear-gradient(

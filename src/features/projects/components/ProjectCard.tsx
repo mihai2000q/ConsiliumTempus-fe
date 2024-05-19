@@ -1,5 +1,5 @@
 import Project from "../types/Project.model.ts";
-import { alpha, Box, Card, CardContent, CardMedia, Typography, useTheme } from "@mui/material";
+import { alpha, Box, CardContent, CardMedia, Typography, useTheme } from "@mui/material";
 import Paragraph from "../../../components/text/Paragraph.tsx";
 import { createSearchParams, useNavigate } from "react-router-dom";
 import Paths from "../../../utils/Paths.ts";
@@ -22,15 +22,20 @@ function ProjectCard({ project }: ProjectItemProps) {
   }
 
   return (
-    <Card
-      elevation={10}
+    <Box
       onClick={handleClick}
-      sx={{ height: 340, cursor: 'pointer' }}>
+      sx={{
+        height: 340,
+        cursor: 'pointer',
+        boxShadow: 10,
+        borderRadius: '6px',
+        bgcolor: alpha(theme.palette.background[900], 0.6)
+      }}>
       <Box position="relative">
         <CardMedia
           image={'src/assets/demo-projects.jpg'}
           title={project.name}
-          sx={{ height: 200 }}/>
+          sx={{ height: 200, borderRadius: '6px 6px 0px 0px' }}/>
         <Box bgcolor={alpha(theme.palette.primary.main, 0.43)} position="absolute" bottom={0} width={'100%'}>
           <Typography align={'center'} padding={1} fontWeight={500} variant={'subtitle1'} color={'white'}>
             Project started on 12 September 2023
@@ -46,7 +51,7 @@ function ProjectCard({ project }: ProjectItemProps) {
           {project.description}
         </Paragraph>
       </CardContent>
-    </Card>
+    </Box>
   );
 }
 
