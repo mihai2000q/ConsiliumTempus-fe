@@ -1,6 +1,10 @@
-export default class Urls {
-  public static auth = '/auth'
-  public static users = '/users'
-  public static workspaces = '/workspaces'
-  public static projects = '/projects'
+enum Urls {
+  Auth = '/auth',
+  Users = '/users',
+  Workspaces = '/workspaces',
+  Projects = '/projects',
+  ProjectSprints = '/projects/sprints',
+  ProjectTasks = '/projects/tasks'
 }
+
+export default Urls;

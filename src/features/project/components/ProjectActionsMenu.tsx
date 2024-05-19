@@ -53,7 +53,7 @@ function ProjectActionsMenu({ anchorEl, setAnchorEl } : ProjectActionsMenuProps 
   }
   const handleDeleteProject = () => {
     console.log("Project deleted")
-    navigate(Paths.projects)
+    navigate(Paths.Projects)
     handleCloseMenu()
   }
 

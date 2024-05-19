@@ -6,17 +6,17 @@ const topDrawerItems: DrawerItem[] = [
   {
     text: 'Home',
     icon: (<Home />),
-    link: Paths.home
+    link: Paths.Home
   },
   {
     text: 'My Tasks',
     icon: (<CheckBox />),
-    link: Paths.tasks
+    link: Paths.Tasks
   },
   {
     text: 'Calendar',
     icon: (<CalendarMonth />),
-    link: Paths.calendar
+    link: Paths.Calendar
   },
 ]
 

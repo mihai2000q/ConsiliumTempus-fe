@@ -27,7 +27,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     const authState = (api.getState() as RootState).auth
     const refreshResult = await baseQuery(
       {
-        url: `${Urls.auth}/refresh`,
+        url: `${Urls.Auth}/refresh`,
         method: 'PUT',
         body: {
           token: authState.token,
@@ -50,8 +50,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 }
 
 function isAuthRequest(args: string | FetchArgs) {
-  return typeof args === "string" && args.includes(Urls.auth) ||
-    typeof args === 'object' && args.url.includes(Urls.auth)
+  return typeof args === "string" && args.includes(Urls.Auth) ||
+    typeof args === 'object' && args.url.includes(Urls.Auth)
 }
 
 export const api = createApi({
@@ -60,7 +60,7 @@ export const api = createApi({
   tagTypes: [...Object.values(TagTypes)],
   endpoints: (build) => ({
     getCurrentUser: build.query({
-      query: () => `${Urls.users}/current`
+      query: () => `${Urls.Users}/current`
     }),
   })
 })

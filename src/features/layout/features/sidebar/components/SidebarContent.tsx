@@ -34,12 +34,12 @@ function SidebarContent() {
         subheader={"Workspaces"}
         drawerItems={workspaces?.map((w) => ({
           text: w.name,
-          link: Paths.workspace,
+          link: Paths.Workspace,
           searchParams: `${createSearchParams({ id: w.id })}`
         }))}/>
       <DrawerList
         subheader={"Projects"}
-        subheaderDestination={Paths.projects}
+        subheaderDestination={Paths.Projects}
         subheaderAction={
           <IconButton onClick={handleAddProjectDialog}>
             <Add sx={{ color: 'darkgrey' }}/>
@@ -47,7 +47,7 @@ function SidebarContent() {
         }
         drawerItems={projects?.map((p) => ({
           text: p.name,
-          link: Paths.project,
+          link: Paths.Project,
           searchParams: `${createSearchParams({ id: p.id })}`
         }))}/>
     </Box>

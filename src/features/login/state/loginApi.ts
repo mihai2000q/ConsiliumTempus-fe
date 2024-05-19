@@ -8,7 +8,7 @@ export const loginApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     login: builder.mutation<AuthResponse | HttpErrorResponse, LoginRequest>({
       query: body => ({
-        url: `${Urls.auth}/login`,
+        url: `${Urls.Auth}/login`,
         method: 'POST',
         body: body
       })

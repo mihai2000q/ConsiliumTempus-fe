@@ -49,7 +49,7 @@ function Login() {
       dispatch(setToken(authRes.token))
       dispatch(setRefreshToken(authRes.refreshToken))
       dispatch(setLoginForm(loginFormInitialValues))
-      navigate(Paths.home)
+      navigate(Paths.Home)
     } catch (err) {
       console.log(err)
     }
@@ -112,7 +112,7 @@ function Login() {
               <Stack direction={"row"}>
                 <Typography mr={1}>Not a member yet?</Typography>
                 <Typography fontWeight={600}>
-                  <Link to={Paths.signup} style={{ color: 'white', textDecoration: 'none' }}>
+                  <Link to={Paths.Signup} style={{ color: 'white', textDecoration: 'none' }}>
                     Join Us
                   </Link>
                 </Typography>

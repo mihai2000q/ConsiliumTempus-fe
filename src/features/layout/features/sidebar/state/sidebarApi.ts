@@ -11,22 +11,22 @@ import HttpErrorResponse from "../../../../../types/HttpError.response.ts";
 export const sidebarApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getWorkspaces: builder.query<WorkspaceResponse, GetWorkspacesQueryParameters>({
-      query: (arg) => ({
-        url: Urls.workspaces,
+      query: arg => ({
+        url: Urls.Workspaces,
         params: arg
       }),
       providesTags: [TagTypes.Workspaces]
     }),
     getProjects: builder.query<ProjectResponse, GetProjectsQueryParameters>({
-      query: (arg) => ({
-        url: Urls.projects,
+      query: arg => ({
+        url: Urls.Projects,
         params: arg
       }),
       providesTags: [TagTypes.Projects]
     }),
     addProject: builder.mutation<HttpMessageResponse | HttpErrorResponse, AddProjectRequest>({
       query: body => ({
-        url: Urls.projects,
+        url: Urls.Projects,
         method: 'POST',
         body: body
       }),

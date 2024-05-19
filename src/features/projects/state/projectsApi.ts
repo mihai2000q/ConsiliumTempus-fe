@@ -8,7 +8,7 @@ export const projectsApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjects: builder.query<ProjectResponse, GetProjectsQueryParameters>({
       query: arg => ({
-        url: Urls.projects,
+        url: Urls.Projects,
         arg: arg,
       }),
       providesTags: [TagTypes.Projects]

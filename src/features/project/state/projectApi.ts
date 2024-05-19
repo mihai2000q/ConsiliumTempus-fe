@@ -10,13 +10,13 @@ export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProject: builder.query<Project, GetProjectQueryParameters>({
       query: (arg) => ({
-        url: `${Urls.projects}/${arg.id}`
+        url: `${Urls.Projects}/${arg.id}`
       }),
       providesTags: [TagTypes.Projects]
     }),
     updateProject: builder.mutation<HttpMessageResponse | HttpErrorResponse, UpdateProjectRequest>({
       query: body => ({
-        url: Urls.projects,
+        url: Urls.Projects,
         method: 'PUT',
         body: body
       }),
