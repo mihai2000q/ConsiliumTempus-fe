@@ -1,5 +1,5 @@
 enum TagTypes {
-  Project = "Project",
+  Projects = "Projects",
   Workspace = "Workspace"
 }
 

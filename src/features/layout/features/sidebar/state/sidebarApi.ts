@@ -14,7 +14,7 @@ export const sidebarApiSlice = api.injectEndpoints({
         url: Urls.projects,
         params: arg
       }),
-      providesTags: [TagTypes.Project]
+      providesTags: [TagTypes.Projects]
     }),
     addProject: builder.mutation({
       query: body => ({
@@ -22,7 +22,7 @@ export const sidebarApiSlice = api.injectEndpoints({
         method: 'POST',
         body: body
       }),
-      invalidatesTags: [TagTypes.Project]
+      invalidatesTags: [TagTypes.Projects]
     })
   })
 })

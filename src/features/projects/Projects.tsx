@@ -7,7 +7,7 @@ import {
   Skeleton,
   Stack,
   TextField,
-  Typography, useTheme
+  Typography
 } from "@mui/material";
 import ProjectCard from "./components/ProjectCard.tsx";
 import { ReactNode, useState } from "react";
@@ -26,8 +26,6 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 }
 
 function Projects() {
-  const theme = useTheme()
-
   const pageSize = usePageSize()
   const [order, setOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
@@ -54,7 +52,7 @@ function Projects() {
 
   return (
     <Stack width={'100%'} height={'100%'} alignItems={'center'}>
-      <Typography variant={'h1'} mb={4} align={'center'} color={theme.palette.background[100]}>
+      <Typography variant={'h1'} mb={4} align={'center'}>
         Projects
       </Typography>
       <Stack
