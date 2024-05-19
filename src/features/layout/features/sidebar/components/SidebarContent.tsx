@@ -11,7 +11,10 @@ import { useState } from "react";
 import { createSearchParams } from "react-router-dom";
 
 function SidebarContent() {
-  const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({}).data?.workspaces
+  const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({
+    isPersonalWorkspaceFirst: true,
+    order: 'last_activity.desc'
+  }).data?.workspaces
   const projects: Project[] | undefined = useGetProjectsQuery({ order: 'last_activity.desc' }).data?.projects
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
