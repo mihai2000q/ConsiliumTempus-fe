@@ -41,9 +41,13 @@ function Login() {
     dispatch(setLoginForm(values))
     const { email, password } = values
     try {
-      const authResult: AuthResponse = await login({ email, password }).unwrap()
-      dispatch(setToken(authResult.token))
-      dispatch(setRefreshToken(authResult.refreshToken))
+      let authRes = await login({ email, password }).unwrap()
+
+      if ((authRes as HttpErrorResponse).data !== undefined) return
+
+      authRes = authRes as AuthResponse
+      dispatch(setToken(authRes.token))
+      dispatch(setRefreshToken(authRes.refreshToken))
       dispatch(setLoginForm(loginFormInitialValues))
       navigate(Paths.home)
     } catch (err) {

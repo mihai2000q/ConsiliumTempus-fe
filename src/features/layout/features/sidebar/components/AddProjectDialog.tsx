@@ -53,7 +53,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
 
   async function handleSubmitForm() {
     const res = await addProject({
-      workspaceId: values.workspaceId,
+      workspaceId: values.workspaceId!,
       name: values.projectName
     }).unwrap()
     if ((res as HttpErrorResponse).data !== undefined) return

@@ -4,7 +4,3 @@ export default interface ProjectResponse {
   projects: Project[],
   totalCount: number
 }
-
-export type GetProjectsQueryParameters = {
-  order?: string
-}

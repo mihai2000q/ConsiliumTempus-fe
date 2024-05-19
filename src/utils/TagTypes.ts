@@ -1,6 +1,6 @@
 enum TagTypes {
   Projects = "Projects",
-  Workspace = "Workspace"
+  Workspaces = "Workspaces"
 }
 
 export default TagTypes

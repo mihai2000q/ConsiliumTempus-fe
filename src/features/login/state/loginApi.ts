@@ -1,9 +1,12 @@
 import { api } from "../../../state/api.ts";
 import Urls from "../../../utils/Urls.ts";
+import AuthResponse from "../../../types/Auth.response.ts";
+import HttpErrorResponse from "../../../types/HttpError.response.ts";
+import LoginRequest from "../types/Login.request.ts";
 
 export const loginApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    login: builder.mutation({
+    login: builder.mutation<AuthResponse | HttpErrorResponse, LoginRequest>({
       query: body => ({
         url: `${Urls.auth}/login`,
         method: 'POST',
