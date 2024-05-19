@@ -12,6 +12,7 @@ import Home from "./features/home/Home.tsx";
 import Calendar from "./features/calendar/Calendar.tsx";
 import MyTasks from "./features/my-tasks/MyTasks.tsx";
 import Projects from "./features/projects/Projects.tsx";
+import Project from "./features/project/Project.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -32,6 +33,7 @@ function App() {
               <Route path={Paths.tasks} element={<MyTasks />} />
               <Route path={Paths.calendar} element={<Calendar />} />
               <Route path={Paths.projects} element={<Projects />} />
+              <Route path={Paths.project} element={<Project />} />
             </Route>
           </Routes>
         </ThemeProvider>
