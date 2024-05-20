@@ -41,7 +41,7 @@ function SidebarContent() {
         subheader={"Projects"}
         subheaderDestination={Paths.Projects}
         subheaderAction={
-          <IconButton onClick={handleAddProjectDialog}>
+          <IconButton variant={'circular'} onClick={handleAddProjectDialog}>
             <Add sx={{ color: 'darkgrey' }}/>
           </IconButton>
         }

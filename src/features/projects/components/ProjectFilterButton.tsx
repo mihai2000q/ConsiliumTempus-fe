@@ -8,7 +8,7 @@ interface ProjectFilterButtonProps {
 function ProjectFilterButton({ } : ProjectFilterButtonProps) {
   return (
     <>
-      <Button variant={'outlined'} startIcon={<FilterAlt />} sx={{ textTransform: 'capitalize', boxShadow: 4 }}>Filter</Button>
+      <Button variant={'outlined'} startIcon={<FilterAlt />} sx={{ boxShadow: 4 }}>Filter</Button>
     </>
   );
 }

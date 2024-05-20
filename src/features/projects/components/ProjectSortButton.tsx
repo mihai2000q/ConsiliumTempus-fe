@@ -26,11 +26,11 @@ function ProjectSortButton({ setOrder }: ProjectSortButtonProps) {
         variant={'outlined'}
         startIcon={<Sort />}
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-        sx={{ textTransform: 'capitalize', boxShadow: 4 }}>
+        sx={{ boxShadow: 4 }}>
         {orderProperty.displayName}
         {orderType === OrderType.Descending
-          ? <ArrowDownward fontSize={'small'} sx={{ ml: 0.5 }} />
-          : <ArrowUpward fontSize={'small'} sx={{ ml: 0.5 }} />}
+          ? <ArrowDownward sx={{ ml: 0.5 }} />
+          : <ArrowUpward sx={{ ml: 0.5 }} />}
       </Button>
 
       <Menu
@@ -39,6 +39,7 @@ function ProjectSortButton({ setOrder }: ProjectSortButtonProps) {
         onClose={handleCloseMenu}>
         <Stack direction={'row'} justifyContent={'space-evenly'}>
           <IconButton
+            variant={'circular'}
             disabled={orderType === OrderType.Ascending}
             onClick={() => {
               setOrderType(OrderType.Ascending)
@@ -48,6 +49,7 @@ function ProjectSortButton({ setOrder }: ProjectSortButtonProps) {
             <KeyboardArrowUp />
           </IconButton>
           <IconButton
+            variant={'circular'}
             disabled={orderType === OrderType.Descending}
             onClick={() => {
               setOrderType(OrderType.Descending)

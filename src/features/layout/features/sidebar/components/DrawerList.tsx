@@ -36,7 +36,7 @@ function DrawerList({
                     onClick={() => navigate(subheaderDestination)}>
                     <Typography fontWeight={500}>{subheader}</Typography>
                   </ListItemButton>
-                  <Box display={'flex'} position={'absolute'} bottom={0} right={0} mr={1}>
+                  <Box display={'flex'} position={'absolute'} bottom={3} right={0} mr={1}>
                     {subheaderAction}
                   </Box>
                 </Box>

@@ -39,9 +39,9 @@ function TopbarUser() {
   return (
     <Box>
       <Button
+        variant={'text'}
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         sx={{
-          textTransform: 'none',
           color: 'inherit',
         }}
       >

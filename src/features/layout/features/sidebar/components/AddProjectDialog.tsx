@@ -22,7 +22,6 @@ import { addProjectDialogFormInitialValues } from "../state/sidebarState.ts";
 import { useAddProjectMutation } from "../state/sidebarApi.ts";
 import { useEffect } from "react";
 import { People } from "@mui/icons-material";
-import HttpErrorResponse from "../../../../../types/HttpError.response.ts";
 
 interface AddProjectDialogProps {
   workspaces: Workspace[] | undefined,
@@ -52,11 +51,11 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   }, [workspaces])
 
   async function handleSubmitForm() {
-    const res = await addProject({
+    await addProject({
       workspaceId: values.workspaceId!,
-      name: values.projectName
+      name: ""
     }).unwrap()
-    if ((res as HttpErrorResponse).data !== undefined) return
+    if (addProjectMutation.error !== undefined) return
     resetForm()
     onClose()
   }
