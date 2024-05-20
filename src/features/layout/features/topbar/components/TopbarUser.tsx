@@ -39,12 +39,8 @@ function TopbarUser() {
   return (
     <Box>
       <Button
-        variant={'text'}
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-        sx={{
-          color: 'inherit',
-        }}
-      >
+        sx={{ color: 'inherit', borderRadius: '8px', '&:hover': { color: 'inherit' } }}>
         <Stack direction={'row'} justifyContent="center" alignItems={"center"}>
           <Avatar
             alt={"User Profile Picture"}

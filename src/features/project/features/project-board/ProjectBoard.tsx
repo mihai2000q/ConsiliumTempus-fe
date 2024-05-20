@@ -1,41 +1,93 @@
-import { useEffect, useState } from "react";
-import { useGetProjectSprintsQuery } from "./state/projectBoardApi.ts";
-import { ListItemText, MenuItem, Select, Stack } from "@mui/material";
-import { ProjectSprint } from "./types/ProjectSprint.response.ts";
+import { useState } from "react";
+import { Button, ButtonGroup, Divider, Menu, MenuItem, Stack } from "@mui/material";
 import ProjectStages from "./components/stage/ProjectStages.tsx";
 import ProjectStagesLoader from "./components/stage/ProjectStagesLoader.tsx";
+import {
+  Add,
+  ArrowDropDownOutlined,
+  FilterList,
+  GroupWorkOutlined,
+  Sort,
+  VisibilityOffOutlined
+} from "@mui/icons-material";
 
 interface ProjectBoardProps {
-  projectId: string
+  sprintId: string | undefined
 }
 
-function ProjectBoard({ projectId }: ProjectBoardProps) {
-  const sprints: ProjectSprint[] | undefined = useGetProjectSprintsQuery({ projectId: projectId }).data?.sprints
+function ProjectBoard({ sprintId }: ProjectBoardProps) {
+  const handleAddTask = () => {
+    console.log('Task Added')
+  }
+  const handleAddStage = () => {
+    console.log('Stage Added')
+  }
+  const handleAddSprint = () => {
+    console.log('Sprint Added')
+  }
 
-  const [sprintId, setSprintId] = useState<string | undefined>(undefined)
-  useEffect(() => {
-    setSprintId(sprints && sprints[sprints.length - 1].id)
-  }, [sprints]);
+  type Option = { option: string, action: () => void }
+  const addOptions: Option[] = [
+    { option: 'Add Task', action: handleAddTask },
+    { option: 'Add Stage', action: handleAddStage },
+    { option: 'Add Sprint', action: handleAddSprint },
+  ]
+  const [addOption, setAddOption] = useState(addOptions[0])
+
+  const [addOptionsMenuAnchorEl, setAddOptionsMenuAnchorEl] =
+    useState<HTMLElement | null>(null)
+  const handleCloseAddOptionsMenu = () => setAddOptionsMenuAnchorEl(null)
 
   return (
     <Stack alignItems="start" height={'100%'} mt={1}>
-      <Select
-        variant="standard"
-        value={sprintId ?? ''}
-        onChange={(e) => setSprintId(e.target.value)}
-        SelectDisplayProps={{
-          style: { paddingLeft: 5, paddingTop: 5 }
-        }}>
-        {
-          sprints?.map((sprint) => (
-            <MenuItem key={sprint.id} value={sprint.id}>
-              <ListItemText>{sprint.name}</ListItemText>
+      <Stack direction={'row'} alignItems={'center'} spacing={2}>
+        <ButtonGroup variant={'outlined'} size={'small'}>
+          <Button
+            startIcon={<Add />}
+            sx={{ borderRadius: 1.5 }}
+            onClick={addOption.action}>
+            {addOption.option}
+          </Button>
+          <Button
+            size={'small'}
+            sx={{ borderRadius: 1.5 }}
+            onClick={(e) => setAddOptionsMenuAnchorEl(e.currentTarget)}>
+            <ArrowDropDownOutlined />
+          </Button>
+        </ButtonGroup>
+        <Menu
+          open={Boolean(addOptionsMenuAnchorEl)}
+          anchorEl={addOptionsMenuAnchorEl}
+          onClose={handleCloseAddOptionsMenu}>
+          {addOptions.map((a, i) => (
+            <MenuItem
+              key={i}
+              onClick={() => {
+                setAddOption(a)
+                handleCloseAddOptionsMenu()
+              }}>
+              {a.option}
             </MenuItem>
-          ))
-        }
-      </Select>
+          ))}
+        </Menu>
 
-      <Stack direction={'row'} spacing={3} mt={4} height={'71vh'}>
+        <Stack direction={'row'} alignItems={'center'} spacing={1}>
+          <Button startIcon={<FilterList />} size={'small'}>
+            Filter
+          </Button>
+          <Button startIcon={<Sort />} size={'small'}>
+            Sort
+          </Button>
+          <Button startIcon={<GroupWorkOutlined />} size={'small'}>
+            Group By
+          </Button>
+          <Button startIcon={<VisibilityOffOutlined />} size={'small'}>
+            Hide
+          </Button>
+        </Stack>
+      </Stack>
+
+      <Stack direction={'row'} spacing={3} mt={3} height={800}>
         {sprintId ? <ProjectStages sprintId={sprintId} /> : <ProjectStagesLoader />}
       </Stack>
     </Stack>

@@ -31,7 +31,7 @@ function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
   return (
     <Stack
       height={'100%'}
-      width={350}
+      width={335}
       borderRadius={4}
       p={1.5}
       bgcolor={alpha(theme.palette.primary[800], 0.25)}
@@ -72,8 +72,7 @@ function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
               <ProjectTaskCard key={task.id} task={task} />
             ))
         }
-        <Button variant={'text'} sx={{ borderRadius: 1 }}>
-          <Add sx={{ mr: 0.5 }} />
+        <Button startIcon={<Add />}>
           Add Task
         </Button>
       </Stack>

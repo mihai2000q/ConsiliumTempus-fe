@@ -1,6 +1,18 @@
 import { useSearchParams } from "react-router-dom";
 import { useGetProjectQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
-import { Avatar, Button, Divider, IconButton, Skeleton, Stack, Tab, Tabs, Typography, useTheme } from "@mui/material";
+import {
+  Avatar,
+  Button,
+  Divider,
+  IconButton, ListItemText,
+  MenuItem, Select,
+  Skeleton,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+  useTheme
+} from "@mui/material";
 import demoProjectPicture from './../../assets/demo-projects.jpg'
 import {
   AccessTimeRounded,
@@ -24,6 +36,8 @@ import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
+import { ProjectSprint } from "./features/project-board/types/ProjectSprint.response.ts";
+import { useGetProjectSprintsQuery } from "./features/project-board/state/projectBoardApi.ts";
 
 function Project() {
   const theme = useTheme()
@@ -36,7 +50,7 @@ function Project() {
 
   const [isFavorite, setIsFavorite] = useState(false)
   useDependencyOnceEffect(
-    () => { setIsFavorite(project!.isFavorite); console.log('just updated')},
+    () => setIsFavorite(project!.isFavorite),
     project
   )
 
@@ -56,8 +70,15 @@ function Project() {
       name: newName,
       isFavorite: newIsFavorite
     }).unwrap()
-    console.log('just updated with', newIsFavorite)
   }
+
+  const sprints: ProjectSprint[] | undefined = useGetProjectSprintsQuery({ projectId: projectId }).data?.sprints
+
+  const [sprintId, setSprintId] = useState<string | undefined>(undefined)
+  useDependencyOnceEffect(
+    () => setSprintId(sprints && sprints[sprints.length - 1].id),
+    sprints
+  )
 
   return (
     <Stack alignItems="start" height={'100%'}>
@@ -95,20 +116,35 @@ function Project() {
                 }}>
                 {isFavorite ? <Star /> : <StarOutline />}
               </IconButton>
-              <Button sx={{
-                color: theme.palette.primary[100],
-                justifyContent: 'center',
-                borderRadius: 2
-              }}>
-                <CircleOutlined />
-                <Typography ml={1} pt={'2px'}>Set Status</Typography>
+              <Button
+                startIcon={<CircleOutlined />}
+                sx={{
+                  color: theme.palette.primary[100],
+                  justifyContent: 'center',
+                  borderRadius: 2
+                }}>
+                <Typography fontWeight={500} ml={1} pt={'2px'}>Set Status</Typography>
               </Button>
+              <Select
+                variant="standard"
+                value={sprintId ?? ''}
+                onChange={(e) => setSprintId(e.target.value)}
+                SelectDisplayProps={{
+                  style: { paddingLeft: 5, paddingTop: 5 }
+                }}>
+                {
+                  sprints?.map((sprint) => (
+                    <MenuItem key={sprint.id} value={sprint.id}>
+                      <ListItemText>{sprint.name}</ListItemText>
+                    </MenuItem>
+                  ))
+                }
+              </Select>
             </>
         }
       </Stack>
-      <Divider flexItem sx={{ mb: 1, mt: 2 }} />
 
-      <Tabs value={tab} onChange={handleTabChange} sx={{ minHeight: '10px' }}>
+      <Tabs value={tab} onChange={handleTabChange} sx={{ mt: 1 }}>
         <Tab icon={<SubjectRounded />} label={'Overview'} />
         <Tab icon={<ListRounded />} label={'List'} />
         <Tab icon={<SpaceDashboardRounded />} label={'Board'} />
@@ -119,6 +155,7 @@ function Project() {
         <Tab icon={<AttachFileRounded />} label={'Files'} />
         <Tab icon={<CampaignRounded />} label={'Announcements'} />
       </Tabs>
+      <Divider flexItem />
 
       <TabPanel value={tab} index={ProjectTabs.Overview}>
         This is the overview
@@ -127,7 +164,7 @@ function Project() {
         This is the list
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Board}>
-        <ProjectBoard projectId={projectId} />
+        <ProjectBoard sprintId={sprintId} />
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Dashboard}>
         THis is the dashboard

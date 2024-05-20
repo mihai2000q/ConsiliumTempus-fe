@@ -21,15 +21,14 @@ function ProjectStages({ sprintId }: ProjectStagesProps) {
           <ProjectStagePanel key={stage.id} stage={stage} />
         ))}
         <Button
-          variant={'text'}
+          size={'large'}
+          startIcon={<Add />}
           sx={{
             width: 350,
             borderRadius: 4,
             fontSize: 16,
             alignItems: 'start',
-            pt: 2,
-            textTransform: 'none' }}>
-          <Add sx={{ mr: 0.5 }} />
+            pt: 2 }}>
           Add Stage
         </Button>
       </>

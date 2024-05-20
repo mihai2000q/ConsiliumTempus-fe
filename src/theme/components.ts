@@ -1,4 +1,4 @@
-import { Theme } from "@mui/material";
+import { alpha, Theme } from "@mui/material";
 
 export const components = {
   MuiCssBaseline: {
@@ -25,9 +25,33 @@ export const components = {
   },
   MuiButton: {
     styleOverrides: {
-      root: {
-        textTransform: 'none'
-      }
+      root: ({ ownerState, theme }) => ({
+        textTransform: 'none',
+        '& .MuiButton-startIcon': {
+          marginRight: 2
+        },
+        ...(ownerState.variant === 'outlined' && {
+          '&:hover': {
+            color: theme.palette.primary[300],
+          },
+        }),
+        ...(ownerState.variant === 'text' && {
+          '&:hover': {
+            color: theme.palette.primary[100],
+          },
+        }),
+        ...(ownerState.variant === 'text' && ownerState.size === 'small' && {
+          padding: '6px 8px',
+          borderRadius: '6px',
+          fontSize: '12px',
+          '&:hover': {
+            color: theme.palette.primary[100],
+          },
+          '& .MuiButton-startIcon': {
+            marginRight: 4
+          },
+        })
+      })
     }
   },
   MuiIconButton: {
@@ -76,17 +100,30 @@ export const components = {
       fontSize: 'small'
     }
   },
+  MuiTabs: {
+    styleOverrides: {
+      root: {
+        minHeight: '10px'
+      }
+    }
+  },
   MuiTab: {
     defaultProps: {
       iconPosition: 'start'
     },
     styleOverrides: {
-      root: {
+      root: ({ ownerState, theme }) => ({
         textTransform: 'none',
         borderRadius: '8px 8px 0px 0px',
         padding: '8px 8px 10px 6px',
-        minHeight: '10px'
-      }
+        minHeight: '10px',
+        '&:hover': {
+          color: ownerState.selected ? theme.palette.primary[200] : theme.palette.primary[50],
+          "& .MuiTouchRipple-root": {
+            backgroundColor: alpha(theme.palette.background[500], 0.1),
+          }
+        }
+      })
     },
   },
 }

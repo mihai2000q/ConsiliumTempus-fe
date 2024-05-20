@@ -9,7 +9,9 @@ interface DrawerListItemProps {
 function DrawerListItem({ drawerItem }: DrawerListItemProps) {
   const location = useLocation()
   const isSelected = drawerItem.link === location.pathname &&
-    (drawerItem.searchParams ? drawerItem.searchParams === location.search.replace('?', '') : true)
+    (drawerItem.searchParams
+      ? location.search.replace('?', '').startsWith(drawerItem.searchParams)
+      : true)
 
   const navigate = useNavigate()
   const handleClick = () => drawerItem.searchParams
