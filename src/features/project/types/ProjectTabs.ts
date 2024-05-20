@@ -1,5 +1,11 @@
 export enum ProjectTabs {
   Overview,
   List,
-  Board
+  Board,
+  Dashboard,
+  Timeline,
+  Calendar,
+  EventStorming,
+  Files,
+  Announcements,
 }
