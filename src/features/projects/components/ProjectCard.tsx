@@ -16,7 +16,7 @@ function ProjectCard({ project }: ProjectItemProps) {
 
   const handleClick = () => {
     navigate({
-      pathname: Paths.project,
+      pathname: Paths.Project,
       search: `?${createSearchParams({ id: project.id })}`
     })
   }

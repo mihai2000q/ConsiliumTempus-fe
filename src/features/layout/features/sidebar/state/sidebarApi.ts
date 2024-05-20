@@ -6,7 +6,6 @@ import Urls from "../../../../../utils/Urls.ts";
 import { GetWorkspacesQueryParameters } from "../types/Workspace.request.ts";
 import { AddProjectRequest, GetProjectsQueryParameters } from "../types/Project.request.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
-import HttpErrorResponse from "../../../../../types/HttpError.response.ts";
 
 export const sidebarApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -24,7 +23,7 @@ export const sidebarApiSlice = api.injectEndpoints({
       }),
       providesTags: [TagTypes.Projects]
     }),
-    addProject: builder.mutation<HttpMessageResponse | HttpErrorResponse, AddProjectRequest>({
+    addProject: builder.mutation<HttpMessageResponse, AddProjectRequest>({
       query: body => ({
         url: Urls.Projects,
         method: 'POST',

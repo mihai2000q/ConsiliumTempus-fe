@@ -4,17 +4,15 @@ import Project from "../types/Project.model.ts";
 import Urls from "../../../utils/Urls.ts";
 import { GetProjectQueryParameters, UpdateProjectRequest } from "../types/Project.request.ts";
 import HttpMessageResponse from "../../../types/HttpMessage.response.ts";
-import HttpErrorResponse from "../../../types/HttpError.response.ts";
 
 export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProject: builder.query<Project, GetProjectQueryParameters>({
       query: (arg) => ({
         url: `${Urls.Projects}/${arg.id}`
-      }),
-      providesTags: [TagTypes.Projects]
+      })
     }),
-    updateProject: builder.mutation<HttpMessageResponse | HttpErrorResponse, UpdateProjectRequest>({
+    updateProject: builder.mutation<HttpMessageResponse, UpdateProjectRequest>({
       query: body => ({
         url: Urls.Projects,
         method: 'PUT',

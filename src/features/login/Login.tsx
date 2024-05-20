@@ -43,7 +43,7 @@ function Login() {
     try {
       let authRes = await login({ email, password }).unwrap()
 
-      if ((authRes as HttpErrorResponse).data !== undefined) return
+      if (loginMutation.error !== undefined) return
 
       authRes = authRes as AuthResponse
       dispatch(setToken(authRes.token))
