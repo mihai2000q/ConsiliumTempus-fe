@@ -11,12 +11,27 @@ import {
 } from "@mui/icons-material";
 import Paths from "../../../utils/Paths.ts";
 import { useNavigate } from "react-router-dom";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 
 interface ProjectActionsMenuProps {
   anchorEl: HTMLElement | null,
   setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>
 }
+
+interface ProjectActionsMenuItemProps {
+  icon: ReactNode,
+  children: ReactNode,
+  color?: string | undefined,
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  disabled?: boolean | undefined
+}
+
+const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color } : ProjectActionsMenuItemProps) => (
+  <MenuItem disabled={disabled} onClick={onClick}>
+    <ListItemIcon>{icon}</ListItemIcon>
+    <Typography pt={0.5} color={color}>{children}</Typography>
+  </MenuItem>
+)
 
 function ProjectActionsMenu({ anchorEl, setAnchorEl } : ProjectActionsMenuProps ) {
   const theme = useTheme()
@@ -59,58 +74,37 @@ function ProjectActionsMenu({ anchorEl, setAnchorEl } : ProjectActionsMenuProps 
 
   return (
     <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleCloseMenu}>
-      <MenuItem onClick={handleEditProject}>
-        <ListItemIcon>
-          <Edit fontSize={'small'} />
-        </ListItemIcon>
-        <Typography pt={0.5}>Edit Project Details</Typography>
-      </MenuItem>
-      <MenuItem disabled>
-        <ListItemIcon>
-          <ManageAccounts fontSize={'small'} />
-        </ListItemIcon>
-        <Typography pt={0.5}>Manage Allowed Members</Typography>
-      </MenuItem>
+      <ProjectActionsMenuItem icon={<Edit />} onClick={handleEditProject}>
+        Edit Project Details
+      </ProjectActionsMenuItem>
+      <ProjectActionsMenuItem disabled icon={<ManageAccounts />}>
+        Manage Allowed Members
+      </ProjectActionsMenuItem>
 
       <Divider variant={'middle'}/>
-      <MenuItem onClick={handleDuplicateProject}>
-        <ListItemIcon>
-          <ContentCopy fontSize={'small'} />
-        </ListItemIcon>
-        <Typography pt={0.5}>Duplicate</Typography>
-      </MenuItem>
-      <MenuItem onClick={handleAddProjectToPortfolio}>
-        <ListItemIcon>
-          <CreateNewFolder fontSize={'small'} />
-        </ListItemIcon>
-        <Typography pt={0.5}>Add To Portfolio</Typography>
-      </MenuItem>
-      <MenuItem onClick={handleSaveProjectTemplate}>
-        <ListItemIcon>
-          <Save fontSize={'small'} />
-        </ListItemIcon>
-        <Typography pt={0.5}>Save Project as Template</Typography>
-      </MenuItem>
-      <MenuItem onClick={handleMoveToNextSprint}>
-        <ListItemIcon>
-          <MoveDown fontSize={'small'} />
-        </ListItemIcon>
-        <Typography pt={0.5}>Move To The Next Sprint</Typography>
-      </MenuItem>
+      <ProjectActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateProject}>
+        Duplicate
+      </ProjectActionsMenuItem>
+      <ProjectActionsMenuItem icon={<CreateNewFolder />} onClick={handleAddProjectToPortfolio}>
+        Add To Portfolio
+      </ProjectActionsMenuItem>
+      <ProjectActionsMenuItem icon={<Save />} onClick={handleSaveProjectTemplate}>
+        Save as Template
+      </ProjectActionsMenuItem>
+      <ProjectActionsMenuItem icon={<MoveDown />} onClick={handleMoveToNextSprint}>
+        Move To The Next Sprint
+      </ProjectActionsMenuItem>
 
       <Divider variant={'middle'}/>
-      <MenuItem onClick={handleArchiveProject}>
-        <ListItemIcon>
-          <Archive fontSize={'small'} />
-        </ListItemIcon>
-        <Typography pt={0.5}>Archive</Typography>
-      </MenuItem>
-      <MenuItem onClick={handleDeleteProject}>
-        <ListItemIcon>
-          <Delete fontSize={'small'} sx={{ color: `${theme.palette.error.light}` }} />
-        </ListItemIcon>
-        <Typography pt={0.5} color={theme.palette.error.light}>Delete Project</Typography>
-      </MenuItem>
+      <ProjectActionsMenuItem icon={<Archive />} onClick={handleArchiveProject}>
+        Archive
+      </ProjectActionsMenuItem>
+      <ProjectActionsMenuItem
+        color={theme.palette.error.light}
+        icon={<Delete sx={{ color: theme.palette.error.light }} />}
+        onClick={handleDeleteProject}>
+        Delete Project
+      </ProjectActionsMenuItem>
     </Menu>
   );
 }

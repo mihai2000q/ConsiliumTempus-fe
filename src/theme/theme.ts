@@ -32,6 +32,10 @@ const lightThemePalette = {
     ...lightThemeColors.secondary,
     main: lightThemeColors.secondary[300],
   },
+  triadic: {
+    ...lightThemeColors.triadic,
+    main: lightThemeColors.triadic[900],
+  },
   background: {
     ...lightThemeColors.background,
     default: lightThemeColors.background[900],
