@@ -38,9 +38,9 @@ import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
-import { ProjectSprint } from "./features/project-board/types/ProjectSprint.response.ts";
 import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
 import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
+import ProjectSprint from "./types/ProjectSprint.model.ts";
 
 function Project() {
   const theme = useTheme()
@@ -74,13 +74,10 @@ function Project() {
   )
 
   const [updateProject] = useUpdateProjectMutation()
-  const handleUpdateProject = async ({
-    newName = name,
-    newIsFavorite = isFavorite
-  }) => {
+  const handleUpdateProject = async ({ newIsFavorite = isFavorite }) => {
     await updateProject({
       id: projectId,
-      name: newName,
+      name: name,
       isFavorite: newIsFavorite
     }).unwrap()
   }

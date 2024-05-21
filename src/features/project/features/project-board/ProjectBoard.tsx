@@ -20,8 +20,10 @@ interface ProjectBoardProps {
 function ProjectBoard({ sprintId }: ProjectBoardProps) {
   const sprint: ProjectSprint | undefined = useGetProjectSprintQuery({ id: sprintId }).data
 
+  const [showAddTaskCard, setShowAddTaskCard] = useState(false)
+
   const handleAddTask = () => {
-    console.log('Task Added')
+    setShowAddTaskCard(true)
   }
   const handleAddStage = () => {
     console.log('Stage Added')
@@ -97,8 +99,12 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
             <ProjectStagesLoader />
             :
             <>
-              {sprint?.stages.map((stage) => (
-                <ProjectStagePanel key={stage.id} stage={stage} />
+              {sprint?.stages.map((stage, i) => (
+                <ProjectStagePanel
+                  key={stage.id}
+                  stage={stage}
+                  showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
+                  setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined} />
               ))}
               <Button
                 size={'large'}
@@ -108,7 +114,11 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
                   borderRadius: 4,
                   fontSize: 16,
                   alignItems: 'start',
-                  pt: 2 }}>
+                  pt: 2,
+                  '& .MuiButton-startIcon': {
+                    marginTop: '2px'
+                  }
+                }}>
                 Add Stage
               </Button>
             </>

@@ -11,15 +11,18 @@ import ProjectStage from "../../types/ProjectStage.model.ts";
 import { useGetProjectTasksQuery } from "../../state/projectBoardApi.ts";
 import ProjectTaskCard from "../task/ProjectTaskCard.tsx";
 import { Add, AddRounded, MoreHorizRounded, SearchRounded } from "@mui/icons-material";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import ProjectStageActionsMenu from "./ProjectStageActionsMenu.tsx";
 import ProjectTasksLoader from "../task/ProjectTasksLoader.tsx";
+import AddProjectTaskCard from "../task/AddProjectTaskCard.tsx";
 
 interface ProjectStagePanelProps {
-  stage: ProjectStage
+  stage: ProjectStage,
+  showAddTaskCard?: boolean | undefined,
+  setShowAddTaskCard?: Dispatch<SetStateAction<boolean>> | undefined
 }
 
-function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
+function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: ProjectStagePanelProps) {
   const theme = useTheme()
 
   const getProjectTasksQuery = useGetProjectTasksQuery({ projectStageId: stage.id }).data
@@ -28,7 +31,8 @@ function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const [showAddTaskCard, setShowAddTaskCard] = useState(false)
+  const [showTopAddTaskCard, setShowTopAddTaskCard] = useState(false)
+  const [showBottomAddTaskCard, setShowBottomAddTaskCard] = useState(false)
 
   return (
     <Stack
@@ -51,7 +55,7 @@ function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
           <IconButton>
             <SearchRounded />
           </IconButton>
-          <IconButton>
+          <IconButton onClick={() => setShowTopAddTaskCard(true)}>
             <AddRounded />
           </IconButton>
           <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
@@ -62,18 +66,32 @@ function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
       </Stack>
       <Stack spacing={1} px={0.75} py={1} sx={{ overflow: 'auto', maxHeight: '100%' }}>
         {
+          showTopAddTaskCard &&
+            <AddProjectTaskCard
+              closeCard={() => setShowTopAddTaskCard(false)}
+              projectStageId={stage.id}
+              onTop={true} />
+        }
+        {
+          showAddTaskCard && setShowAddTaskCard &&
+            <AddProjectTaskCard
+              closeCard={() => setShowAddTaskCard(false)}
+              projectStageId={stage.id}
+              onTop={true} />
+        }
+        {
           !tasks
             ? <ProjectTasksLoader />
             : tasks.map((task) => (<ProjectTaskCard key={task.id} task={task} />))
         }
-        {showAddTaskCard &&
-          <ProjectTaskCard
-            addNewTaskProps={{
-              closeCard: () => setShowAddTaskCard(false),
-              projectStageId: stage.id,
-              onTop: false
-            }} />}
-        <Button startIcon={<Add />} onClick={() => setShowAddTaskCard(!showAddTaskCard)}>
+        {
+          showBottomAddTaskCard &&
+            <AddProjectTaskCard
+                closeCard={() => setShowBottomAddTaskCard(false)}
+                projectStageId={stage.id}
+                onTop={false} />
+        }
+        <Button startIcon={<Add />} onClick={() => setShowBottomAddTaskCard(!showBottomAddTaskCard)}>
           Add Task
         </Button>
       </Stack>

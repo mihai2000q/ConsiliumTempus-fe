@@ -1,11 +1,7 @@
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { ContentCopy, DeleteOutlined, Edit, Visibility } from "@mui/icons-material";
-
-interface ProjectTaskActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>
-}
+import { ContentCopy, DeleteOutlined, Visibility } from "@mui/icons-material";
+import { useDeleteProjectTaskMutation } from "../../state/projectBoardApi.ts";
 
 interface ProjectStageActionsMenuItemProps {
   icon: ReactNode,
@@ -28,15 +24,17 @@ const ProjectStageActionsMenuItem = ({
   </MenuItem>
 )
 
-function ProjectTaskActionsMenu({ anchorEl, setAnchorEl }: ProjectTaskActionsMenuProps) {
+interface ProjectTaskActionsMenuProps {
+  anchorEl: HTMLElement | null,
+  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  taskId: string
+}
+
+function ProjectTaskActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskActionsMenuProps) {
   const theme = useTheme()
 
   const handleCloseMenu = () => setAnchorEl(null)
 
-  const handleRenameTask = () => {
-    console.log('Task renamed!')
-    handleCloseMenu()
-  }
   const handleViewDetails = () => {
     console.log('Task details viewed!')
     handleCloseMenu()
@@ -45,8 +43,10 @@ function ProjectTaskActionsMenu({ anchorEl, setAnchorEl }: ProjectTaskActionsMen
     console.log('Task duplicated!')
     handleCloseMenu()
   }
+
+  const [deleteProjectTask] = useDeleteProjectTaskMutation()
   const handleDeleteTask = () => {
-    console.log('Task deleted')
+    deleteProjectTask({ id: taskId }).unwrap()
     handleCloseMenu()
   }
 
@@ -56,9 +56,6 @@ function ProjectTaskActionsMenu({ anchorEl, setAnchorEl }: ProjectTaskActionsMen
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={handleCloseMenu}>
-      <ProjectStageActionsMenuItem icon={<Edit />} onClick={handleRenameTask}>
-        Rename Task
-      </ProjectStageActionsMenuItem>
       <ProjectStageActionsMenuItem icon={<Visibility />} onClick={handleViewDetails}>
         View Details
       </ProjectStageActionsMenuItem>

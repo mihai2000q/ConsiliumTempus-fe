@@ -1,15 +1,15 @@
 import { ProjectTask } from "../../types/ProjectTask.response.ts";
-import { alpha, Box, Button, ButtonProps, IconButton, InputBase, Stack, styled, Typography } from "@mui/material";
-import { Person } from "@mui/icons-material";
+import { alpha, Box, Button, ButtonProps, IconButton, Stack, styled, Typography, useTheme } from "@mui/material";
+import { CheckCircleOutlineRounded, CheckCircleRounded, Person } from "@mui/icons-material";
 import { useState } from "react";
 import ProjectTaskActionsMenu from "./ProjectTaskActionsMenu.tsx";
-import { useAddProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 
 export const TaskCard = styled(Button)<ButtonProps>(({ theme }) => ({
   borderRadius: '16px',
   justifyContent: 'start',
   width: '100%',
-  padding: '16px 16px 60px 16px',
+  padding: '16px 16px 55px 16px',
   background: alpha(theme.palette.primary[900], 0.5),
   color: theme.palette.background[100],
   border: 'solid 1px',
@@ -21,23 +21,19 @@ export const TaskCard = styled(Button)<ButtonProps>(({ theme }) => ({
 }))
 
 interface ProjectTaskCardProps {
-  task?: ProjectTask | undefined,
-  addNewTaskProps?: {
-    closeCard: (() => void),
-    projectStageId: string,
-    onTop: boolean
-  }
+  task: ProjectTask,
 }
 
-function ProjectTaskCard({
-  task,
-  addNewTaskProps
-}: ProjectTaskCardProps) {
+function ProjectTaskCard({ task }: ProjectTaskCardProps) {
+  const theme = useTheme()
+
+  const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
+
+  const [isCompleted, setIsCompleted] = useState(false)
+
   function handleClick() {
     console.log('Task clicked')
   }
-
-  const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
@@ -46,18 +42,15 @@ function ProjectTaskCard({
     setTaskMenuAnchorEl(e.currentTarget)
   }
 
-  const [newName, setNewName] = useState(task?.name ?? '')
+  const [updateProjectTask] = useUpdateProjectTaskMutation()
 
-  const [addProjectTask] = useAddProjectTaskMutation()
-  function addNewTask() {
-    if (newName !== '') {
-      addProjectTask({
-        projectStageId: addNewTaskProps!.projectStageId,
-        name: newName,
-        onTop: addNewTaskProps!.onTop
-      }).unwrap()
-    }
-    addNewTaskProps!.closeCard()
+  function updateTask({ newIsCompleted = isCompleted }) {
+    updateProjectTask({
+      id: task.id,
+      name: task.name,
+      isCompleted: newIsCompleted,
+      assigneeId: null
+    }).unwrap()
   }
 
   return (
@@ -66,22 +59,30 @@ function ProjectTaskCard({
         component={'div'}
         onClick={handleClick}
         onContextMenu={handleRightClick}
-        onBlur={addNewTaskProps && addNewTask}
-        onKeyUp={(e) => addNewTaskProps && (e.key === 'Enter') && addNewTask()}
         sx={{ boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
         <Stack width={'100%'}>
-          {
-            addNewTaskProps
-              ? (
-                <InputBase
-                  fullWidth
-                  placeholder={'Enter new task name'}
-                  autoFocus={true}
-                  value={newName}
-                  onChange={(e) => setNewName(e.target.value)} />
-              )
-              : <Typography>{task!.name}</Typography>
-          }
+          <Typography>
+            <IconButton
+              variant={'circular'}
+              size={'small'}
+              onClick={(e) => {
+                e.stopPropagation()
+                setIsCompleted(!isCompleted)
+                updateTask({ newIsCompleted: !isCompleted })
+              }}
+              sx={{
+                color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
+                mb: '1px',
+                '&:hover': {
+                  color: isCompleted ? theme.palette.success.dark : theme.palette.success.light,
+                }
+              }}>
+              {isCompleted
+                ? <CheckCircleRounded fontSize={'small'} />
+                : <CheckCircleOutlineRounded fontSize={'small'} />}
+            </IconButton>
+            {task.name}
+          </Typography>
         </Stack>
       </TaskCard>
       <Stack direction={'row'} mt={2} position={'absolute'} bottom={0} padding={2}>
@@ -89,9 +90,12 @@ function ProjectTaskCard({
           <Person fontSize={'inherit'} />
         </IconButton>
       </Stack>
-      <ProjectTaskActionsMenu
-        anchorEl={taskMenuAnchorEl}
-        setAnchorEl={setTaskMenuAnchorEl} />
+      {task &&
+        <ProjectTaskActionsMenu
+          anchorEl={taskMenuAnchorEl}
+          setAnchorEl={setTaskMenuAnchorEl}
+          taskId={task.id} />
+      }
     </Box>
   );
 }
