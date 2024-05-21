@@ -3,7 +3,6 @@ import {
   Button,
   CircularProgress,
   IconButton,
-  Skeleton,
   Stack,
   Typography,
   useTheme
@@ -14,6 +13,7 @@ import ProjectTaskCard from "../task/ProjectTaskCard.tsx";
 import { Add, AddRounded, MoreHorizRounded, SearchRounded } from "@mui/icons-material";
 import { useState } from "react";
 import ProjectStageActionsMenu from "./ProjectStageActionsMenu.tsx";
+import ProjectTasksLoader from "../task/ProjectTasksLoader.tsx";
 
 interface ProjectStagePanelProps {
   stage: ProjectStage
@@ -27,6 +27,8 @@ function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
   const totalTasksCount = getProjectTasksQuery?.totalCount
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
+
+  const [showAddTaskCard, setShowAddTaskCard] = useState(false)
 
   return (
     <Stack
@@ -61,18 +63,17 @@ function ProjectStagePanel({ stage }: ProjectStagePanelProps) {
       <Stack spacing={1} px={0.75} py={1} sx={{ overflow: 'auto', maxHeight: '100%' }}>
         {
           !tasks
-            ?
-            <>
-              {Array.from(Array(5)).map((_, i) => (
-                <Skeleton variant={'rectangular'} key={i} height={100} width={'100%'} sx={{ borderRadius: 4 }} />
-              ))}
-            </>
-            :
-            tasks.map((task) => (
-              <ProjectTaskCard key={task.id} task={task} />
-            ))
+            ? <ProjectTasksLoader />
+            : tasks.map((task) => (<ProjectTaskCard key={task.id} task={task} />))
         }
-        <Button startIcon={<Add />}>
+        {showAddTaskCard &&
+          <ProjectTaskCard
+            addNewTaskProps={{
+              closeCard: () => setShowAddTaskCard(false),
+              projectStageId: stage.id,
+              onTop: false
+            }} />}
+        <Button startIcon={<Add />} onClick={() => setShowAddTaskCard(!showAddTaskCard)}>
           Add Task
         </Button>
       </Stack>

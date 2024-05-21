@@ -34,11 +34,13 @@ export const components = {
         ...(ownerState.variant === 'outlined' && {
           '&:hover': {
             color: theme.palette.primary[300],
+            backgroundColor: alpha(theme.palette.primary[100], 0.1)
           },
         }),
         ...(ownerState.variant === 'text' && {
           '&:hover': {
             color: theme.palette.primary[100],
+            backgroundColor: alpha(theme.palette.primary[100], 0.1)
           },
         }),
         ...(ownerState.variant === 'text' && ownerState.size === 'small' && {
@@ -47,6 +49,7 @@ export const components = {
           fontSize: '12px',
           '&:hover': {
             color: theme.palette.primary[100],
+            backgroundColor: alpha(theme.palette.primary[100], 0.1)
           },
           '& .MuiButton-startIcon': {
             marginRight: 4
@@ -121,7 +124,7 @@ export const components = {
         '&:hover': {
           color: ownerState.selected ? theme.palette.primary[200] : theme.palette.primary[50],
           "& .MuiTouchRipple-root": {
-            backgroundColor: alpha(theme.palette.background[500], 0.1),
+            backgroundColor: alpha(theme.palette.primary[100], 0.1),
           }
         }
       })
