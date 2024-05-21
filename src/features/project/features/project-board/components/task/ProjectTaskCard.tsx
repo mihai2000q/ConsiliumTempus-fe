@@ -1,6 +1,8 @@
 import { ProjectTask } from "../../types/ProjectTask.response.ts";
 import { alpha, Button, IconButton, Stack, Typography, useTheme } from "@mui/material";
 import { Person } from "@mui/icons-material";
+import { useState } from "react";
+import ProjectTaskActionsMenu from "./ProjectTaskActionsMenu.tsx";
 
 interface ProjectTaskCardProps {
   task: ProjectTask
@@ -9,9 +11,19 @@ interface ProjectTaskCardProps {
 function ProjectTaskCard({ task }: ProjectTaskCardProps) {
   const theme = useTheme()
 
+  const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
+
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  function handleRightClick(e) {
+    e.preventDefault()
+    setTaskMenuAnchorEl(e.currentTarget)
+  }
+
   return (
     <Button
       component={'div'}
+      onContextMenu={handleRightClick}
       sx={{
         borderRadius: 4,
         boxShadow: 2,
@@ -37,6 +49,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           </IconButton>
         </Stack>
       </Stack>
+      <ProjectTaskActionsMenu anchorEl={taskMenuAnchorEl} setAnchorEl={setTaskMenuAnchorEl} />
     </Button>
   );
 }

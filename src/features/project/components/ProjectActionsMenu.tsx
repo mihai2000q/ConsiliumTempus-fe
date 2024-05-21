@@ -3,7 +3,7 @@ import {
   Archive,
   ContentCopy,
   CreateNewFolder,
-  Delete,
+  DeleteOutlined,
   Edit,
   ManageAccounts,
   MoveDown,
@@ -101,7 +101,7 @@ function ProjectActionsMenu({ anchorEl, setAnchorEl } : ProjectActionsMenuProps 
       </ProjectActionsMenuItem>
       <ProjectActionsMenuItem
         color={theme.palette.error.light}
-        icon={<Delete sx={{ color: theme.palette.error.light }} />}
+        icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
         onClick={handleDeleteProject}>
         Delete Project
       </ProjectActionsMenuItem>

@@ -1,7 +1,7 @@
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
 import {
-  Delete,
+  DeleteOutlined,
   East,
   Edit,
   ElectricBolt,
@@ -79,7 +79,7 @@ function ProjectStageActionsMenu({ anchorEl, setAnchorEl }: ProjectStageActionsM
       </ProjectStageActionsMenuItem>
       <ProjectStageActionsMenuItem
         color={theme.palette.error.light}
-        icon={<Delete sx={{ color: theme.palette.error.light }} />}
+        icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
         onClick={handleDeleteStage}>
         Delete Stage
       </ProjectStageActionsMenuItem>
