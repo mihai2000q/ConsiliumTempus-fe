@@ -1,13 +1,10 @@
 import { useSearchParams } from "react-router-dom";
-import { useGetProjectQuery, useGetProjectSprintsQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
+import { useGetProjectQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
 import {
   Avatar,
   Button,
   Divider,
   IconButton,
-  ListItemText,
-  MenuItem,
-  Select,
   Skeleton,
   Stack,
   Tab,
@@ -40,7 +37,7 @@ import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
 import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
 import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
-import ProjectSprint from "./types/ProjectSprint.model.ts";
+import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
 
 function Project() {
   const theme = useTheme()
@@ -66,12 +63,7 @@ function Project() {
     [name]
   )
 
-  const sprints: ProjectSprint[] | undefined = useGetProjectSprintsQuery({ projectId: projectId }).data?.sprints
   const [sprintId, setSprintId] = useState<string | undefined>(undefined)
-  useDependencyOnceEffect(
-    () => setSprintId(sprints && sprints[sprints.length - 1].id),
-    sprints
-  )
 
   const [updateProject] = useUpdateProjectMutation()
   const handleUpdateProject = async ({ newIsFavorite = isFavorite }) => {
@@ -134,21 +126,7 @@ function Project() {
                 }}>
                 <Typography fontWeight={500} ml={1} pt={'2px'}>Set Status</Typography>
               </Button>
-              <Select
-                variant="standard"
-                value={sprintId ?? ''}
-                onChange={(e) => setSprintId(e.target.value)}
-                SelectDisplayProps={{
-                  style: { paddingLeft: 5, paddingTop: 5 }
-                }}>
-                {
-                  sprints?.map((sprint) => (
-                    <MenuItem key={sprint.id} value={sprint.id}>
-                      <ListItemText>{sprint.name}</ListItemText>
-                    </MenuItem>
-                  ))
-                }
-              </Select>
+              <ProjectSprintsSelector projectId={projectId} sprintId={sprintId} setSprintId={setSprintId} />
             </>
         }
       </Stack>
