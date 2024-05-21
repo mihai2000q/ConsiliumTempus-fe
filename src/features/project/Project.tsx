@@ -1,11 +1,13 @@
 import { useSearchParams } from "react-router-dom";
-import { useGetProjectQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
+import { useGetProjectQuery, useGetProjectSprintsQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
 import {
   Avatar,
   Button,
   Divider,
-  IconButton, ListItemText,
-  MenuItem, Select,
+  IconButton,
+  ListItemText,
+  MenuItem,
+  Select,
   Skeleton,
   Stack,
   Tab,
@@ -37,7 +39,7 @@ import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
 import { ProjectSprint } from "./features/project-board/types/ProjectSprint.response.ts";
-import { useGetProjectSprintsQuery } from "./features/project-board/state/projectBoardApi.ts";
+import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
 
 function Project() {
   const theme = useTheme()
@@ -46,23 +48,33 @@ function Project() {
   const projectId = searchParams.get(ProjectSearchParams.Id)!
   const tab = Number(searchParams.get(ProjectSearchParams.Tab)) ?? ProjectTabs.Overview
 
-  const project = useGetProjectQuery({ id: projectId })?.data
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
+  const project = useGetProjectQuery({ id: projectId })?.data
   const [isFavorite, setIsFavorite] = useState(false)
+  const [name, setName] = useState('')
   useDependencyOnceEffect(
-    () => setIsFavorite(project!.isFavorite),
+    () => {
+      setName(project!.name)
+      setIsFavorite(project!.isFavorite)
+    },
     project
   )
+  useTimeoutCallbackSkipOnce(
+    () => handleUpdateProject({}).then(),
+    [name]
+  )
 
-  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
-  const handleTabChange = (_e: SyntheticEvent<Element, Event>, newTab: number) => {
-    searchParams.set(ProjectSearchParams.Tab, newTab.toString())
-    setSearchParams(searchParams)
-  }
+  const sprints: ProjectSprint[] | undefined = useGetProjectSprintsQuery({ projectId: projectId }).data?.sprints
+  const [sprintId, setSprintId] = useState<string | undefined>(undefined)
+  useDependencyOnceEffect(
+    () => setSprintId(sprints && sprints[sprints.length - 1].id),
+    sprints
+  )
 
   const [updateProject] = useUpdateProjectMutation()
   const handleUpdateProject = async ({
-    newName = project!.name,
+    newName = name,
     newIsFavorite = isFavorite
   }) => {
     await updateProject({
@@ -72,13 +84,10 @@ function Project() {
     }).unwrap()
   }
 
-  const sprints: ProjectSprint[] | undefined = useGetProjectSprintsQuery({ projectId: projectId }).data?.sprints
-
-  const [sprintId, setSprintId] = useState<string | undefined>(undefined)
-  useDependencyOnceEffect(
-    () => setSprintId(sprints && sprints[sprints.length - 1].id),
-    sprints
-  )
+  const handleTabChange = (_e: SyntheticEvent<Element, Event>, newTab: number) => {
+    searchParams.set(ProjectSearchParams.Tab, newTab.toString())
+    setSearchParams(searchParams)
+  }
 
   return (
     <Stack alignItems="start" height={'100%'}>
@@ -164,7 +173,7 @@ function Project() {
         This is the list
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Board}>
-        <ProjectBoard sprintId={sprintId} />
+        {sprintId && <ProjectBoard sprintId={sprintId} />}
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Dashboard}>
         THis is the dashboard

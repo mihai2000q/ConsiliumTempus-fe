@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Button, ButtonGroup, Divider, Menu, MenuItem, Stack } from "@mui/material";
-import ProjectStages from "./components/stage/ProjectStages.tsx";
+import { Button, ButtonGroup, Menu, MenuItem, Stack } from "@mui/material";
 import ProjectStagesLoader from "./components/stage/ProjectStagesLoader.tsx";
 import {
   Add,
@@ -10,12 +9,17 @@ import {
   Sort,
   VisibilityOffOutlined
 } from "@mui/icons-material";
+import ProjectSprint from "./types/ProjectSprint.model.ts";
+import { useGetProjectSprintQuery } from "./state/projectBoardApi.ts";
+import ProjectStagePanel from "./components/stage/ProjectStagePanel.tsx";
 
 interface ProjectBoardProps {
-  sprintId: string | undefined
+  sprintId: string
 }
 
 function ProjectBoard({ sprintId }: ProjectBoardProps) {
+  const sprint: ProjectSprint | undefined = useGetProjectSprintQuery({ id: sprintId }).data
+
   const handleAddTask = () => {
     console.log('Task Added')
   }
@@ -88,7 +92,27 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
       </Stack>
 
       <Stack direction={'row'} spacing={3} mt={3} height={800}>
-        {sprintId ? <ProjectStages sprintId={sprintId} /> : <ProjectStagesLoader />}
+        {
+          !sprint ?
+            <ProjectStagesLoader />
+            :
+            <>
+              {sprint?.stages.map((stage) => (
+                <ProjectStagePanel key={stage.id} stage={stage} />
+              ))}
+              <Button
+                size={'large'}
+                startIcon={<Add />}
+                sx={{
+                  width: 350,
+                  borderRadius: 4,
+                  fontSize: 16,
+                  alignItems: 'start',
+                  pt: 2 }}>
+                Add Stage
+              </Button>
+            </>
+        }
       </Stack>
     </Stack>
   );

@@ -1,21 +1,14 @@
 import { api } from "../../../../../state/api.ts";
 import Urls from "../../../../../utils/Urls.ts";
 import TagTypes from "../../../../../utils/TagTypes.ts";
-import { ProjectSprintResponse } from "../types/ProjectSprint.response.ts";
-import { GetProjectSprintQueryParameters, GetProjectSprintsQueryParameters } from "../types/ProjectSprint.request.ts";
+import { GetProjectSprintQueryParameters } from "../types/ProjectSprint.request.ts";
 import ProjectSprint from "../types/ProjectSprint.model.ts";
 import { ProjectTaskResponse } from "../types/ProjectTask.response.ts";
 import { GetProjectTasksQueryParameters } from "../types/ProjectTask.request.ts";
 
 export const projectSprintApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getProjectSprints: builder.query<ProjectSprintResponse, GetProjectSprintsQueryParameters>({
-      query: arg => ({
-        url: Urls.ProjectSprints,
-        params: arg
-      }),
-      providesTags: [TagTypes.ProjectSprints]
-    }),
+
     getProjectSprint: builder.query<ProjectSprint, GetProjectSprintQueryParameters>({
       query: arg => ({
         url: `${Urls.ProjectSprints}/${arg.id}`
@@ -33,7 +26,6 @@ export const projectSprintApiSlice = api.injectEndpoints({
 })
 
 export const {
-  useGetProjectSprintsQuery,
   useGetProjectSprintQuery,
   useGetProjectTasksQuery,
 } = projectSprintApiSlice
