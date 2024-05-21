@@ -40,19 +40,15 @@ function Login() {
   async function handleSubmitForm(values: LoginForm) {
     dispatch(setLoginForm(values))
     const { email, password } = values
-    try {
-      let authRes = await login({ email, password }).unwrap()
+    let authRes = await login({ email, password }).unwrap()
 
-      if (loginMutation.error !== undefined) return
+    if (loginMutation.error !== undefined) return
 
-      authRes = authRes as AuthResponse
-      dispatch(setToken(authRes.token))
-      dispatch(setRefreshToken(authRes.refreshToken))
-      dispatch(setLoginForm(loginFormInitialValues))
-      navigate(Paths.Home)
-    } catch (err) {
-      console.log(err)
-    }
+    authRes = authRes as AuthResponse
+    dispatch(setToken(authRes.token))
+    dispatch(setRefreshToken(authRes.refreshToken))
+    dispatch(setLoginForm(loginFormInitialValues))
+    navigate(Paths.Home)
   }
 
   return (

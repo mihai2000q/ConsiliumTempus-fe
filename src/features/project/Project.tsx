@@ -107,11 +107,8 @@ function Project() {
                 <OutlinedInputTextField
                   typographyVariant={'h6'}
                   value={name}
-                  onChange={(e) => {
-                    console.log(name)
-                    setName(e.target.value)
-                  }}
-                  sx={{ ml: 1 }}/>
+                  onChange={(e) => setName(e.target.value)}
+                  sx={{ ml: 1 }} />
                 <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
                   <ArrowDropDown />
                 </IconButton>

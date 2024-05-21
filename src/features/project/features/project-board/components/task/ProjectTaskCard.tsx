@@ -62,29 +62,34 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         sx={{ boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
         <Stack width={'100%'}>
           <Typography>
-            <IconButton
-              variant={'circular'}
-              size={'small'}
-              onClick={(e) => {
-                e.stopPropagation()
-                setIsCompleted(!isCompleted)
-                updateTask({ newIsCompleted: !isCompleted })
-              }}
-              sx={{
-                color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
-                mb: '1px',
-                '&:hover': {
-                  color: isCompleted ? theme.palette.success.dark : theme.palette.success.light,
-                }
-              }}>
-              {isCompleted
-                ? <CheckCircleRounded fontSize={'small'} />
-                : <CheckCircleOutlineRounded fontSize={'small'} />}
-            </IconButton>
+            <IconButton hidden={true}></IconButton>
             {task.name}
           </Typography>
         </Stack>
       </TaskCard>
+      <IconButton
+        variant={'circular'}
+        size={'small'}
+        onClick={() => {
+          setIsCompleted(!isCompleted)
+          updateTask({ newIsCompleted: !isCompleted })
+        }}
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          mt: 1.89,
+          ml: 2,
+          color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
+          mb: '1px',
+          '&:hover': {
+            color: isCompleted ? theme.palette.success.dark : theme.palette.success.light,
+          }
+        }}>
+        {isCompleted
+          ? <CheckCircleRounded fontSize={'small'} />
+          : <CheckCircleOutlineRounded fontSize={'small'} />}
+      </IconButton>
       <Stack direction={'row'} mt={2} position={'absolute'} bottom={0} padding={2}>
         <IconButton variant={'dashed'}>
           <Person fontSize={'inherit'} />
