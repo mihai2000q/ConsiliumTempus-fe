@@ -39,6 +39,7 @@ import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
 import { ProjectSprint } from "./features/project-board/types/ProjectSprint.response.ts";
+import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
 import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
 
 function Project() {
@@ -97,7 +98,7 @@ function Project() {
             ?
             <>
               <Skeleton variant={'circular'} width={35} height={35} sx={{ borderRadius: 2 }} />
-              <Skeleton variant={'text'} width={200} height={30} sx={{ ml: 1 }} />
+              <Skeleton variant={'text'} width={200} height={40} sx={{ ml: 1 }} />
             </>
             :
             <>
@@ -106,9 +107,11 @@ function Project() {
                   alt={project.name}
                   src={demoProjectPicture}
                   sx={{ borderRadius: 2 }} />
-                <Typography variant={'h6'} ml={1.5} mr={1}>
-                  {project.name}
-                </Typography>
+                <OutlinedInputTextField
+                  typographyVariant={'h6'}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  sx={{ ml: 1 }}/>
                 <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
                   <ArrowDropDown />
                 </IconButton>

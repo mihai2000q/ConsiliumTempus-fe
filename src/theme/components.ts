@@ -1,4 +1,5 @@
 import { alpha, Theme } from "@mui/material";
+import { ChangeEventHandler, FocusEventHandler } from "react";
 
 export const components = {
   MuiCssBaseline: {
@@ -132,9 +133,14 @@ declare module '@mui/material/IconButton' {
   interface IconButtonOwnProps {
     variant?: 'standard' | 'dashed' | 'circular';
   }
+}
 
-  interface ButtonOwnProps {
-    borderRadius?: number | string,
-    boxShadow?: number | string,
+declare module '@mui/material/Typography' {
+  interface TypographyOwnProps {
+    onFocus?: FocusEventHandler<HTMLSpanElement>,
+    onBlur?: FocusEventHandler<HTMLSpanElement>,
+    onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,
+    contentEditable?: boolean,
+    suppressContentEditableWarning?: boolean,
   }
 }
