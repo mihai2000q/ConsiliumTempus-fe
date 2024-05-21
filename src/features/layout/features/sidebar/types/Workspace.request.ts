@@ -1,4 +1,4 @@
-export interface GetWorkspacesQueryParameters {
+export interface GetWorkspacesRequest {
   isPersonalWorkspaceFirst: boolean,
   order?: string
 }

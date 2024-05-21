@@ -1,4 +1,4 @@
-export type GetProjectsQueryParameters = {
+export type GetProjectsRequest = {
   order?: string
 }
 

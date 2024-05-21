@@ -2,19 +2,17 @@ import { api } from "../../../state/api.ts";
 import TagTypes from "../../../utils/TagTypes.ts";
 import Project from "../types/Project.model.ts";
 import Urls from "../../../utils/Urls.ts";
-import { GetProjectQueryParameters, UpdateProjectRequest } from "../types/Project.request.ts";
+import { GetProjectRequest, UpdateProjectRequest } from "../types/Project.request.ts";
 import HttpMessageResponse from "../../../types/HttpMessage.response.ts";
-import { ProjectSprintResponse } from "../features/project-board/types/ProjectSprint.response.ts";
-import { GetProjectSprintsQueryParameters } from "../features/project-board/types/ProjectSprint.request.ts";
+import { GetProjectSprintsRequest } from "../types/ProjectSprint.request.ts";
+import { ProjectSprintResponse } from "../types/ProjectSprint.response.ts";
 
 export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getProject: builder.query<Project, GetProjectQueryParameters>({
-      query: (arg) => ({
-        url: `${Urls.Projects}/${arg.id}`
-      })
+    getProject: builder.query<Project, GetProjectRequest>({
+      query: (arg) => `${Urls.Projects}/${arg.id}`
     }),
-    getProjectSprints: builder.query<ProjectSprintResponse, GetProjectSprintsQueryParameters>({
+    getProjectSprints: builder.query<ProjectSprintResponse, GetProjectSprintsRequest>({
       query: arg => ({
         url: Urls.ProjectSprints,
         params: arg

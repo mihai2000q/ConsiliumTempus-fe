@@ -1,4 +1,4 @@
-export interface GetProjectQueryParameters {
+export interface GetProjectRequest {
   id: string
 }
 
