@@ -32,10 +32,10 @@ function Projects() {
   const [searchName, setSearchName] = useState('')
 
   const [searchBarValue, setSearchBarValue] = useState('')
-  useTimeoutCallback({
-    action: () => setSearchName(searchBarValue),
-    dependencies: [searchBarValue]
-  })
+  useTimeoutCallback(
+    () => setSearchName(searchBarValue),
+    [searchBarValue]
+  )
 
   const {
     data,

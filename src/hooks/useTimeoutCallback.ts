@@ -1,18 +1,27 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
-interface TimeoutCallback {
-  action: () => void,
+export default function useUpdateTimeoutCallback(
+  effect: () => void,
   dependencies: unknown[],
-  timeoutAfter?: number
-}
+  timeoutAfter = 500
+) {
+  const isInitialMount = useRef(false);
 
-export default function useTimeoutCallback({ action, dependencies, timeoutAfter = 500 }: TimeoutCallback) {
   useEffect(() => {
+    isInitialMount.current = true
+  }, []);
+
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false
+      return
+    }
+
     const timeoutId = setTimeout(() => {
-      action()
+      effect()
     }, timeoutAfter);
 
     return () => clearTimeout(timeoutId);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [...dependencies, action]);
+  }, dependencies);
 }
