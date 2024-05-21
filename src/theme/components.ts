@@ -1,5 +1,5 @@
 import { alpha, Theme } from "@mui/material";
-import { ChangeEventHandler, FocusEventHandler } from "react";
+import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from "react";
 
 export const components = {
   MuiCssBaseline: {
@@ -140,6 +140,7 @@ declare module '@mui/material/IconButton' {
 
 declare module '@mui/material/Typography' {
   interface TypographyOwnProps {
+    onKeyDown?: KeyboardEventHandler<HTMLSpanElement>,
     onFocus?: FocusEventHandler<HTMLSpanElement>,
     onBlur?: FocusEventHandler<HTMLSpanElement>,
     onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,

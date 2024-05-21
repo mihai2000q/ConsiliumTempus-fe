@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-export default function useUpdateTimeoutCallback(
+export default function useTimeoutCallback(
   effect: () => void,
   dependencies: unknown[],
   timeoutAfter = 500

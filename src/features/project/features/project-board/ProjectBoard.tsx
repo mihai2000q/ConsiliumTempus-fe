@@ -12,6 +12,7 @@ import {
 import ProjectSprint from "./types/ProjectSprint.model.ts";
 import { useGetProjectSprintQuery } from "./state/projectBoardApi.ts";
 import ProjectStagePanel from "./components/stage/ProjectStagePanel.tsx";
+import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
 
 interface ProjectBoardProps {
   sprintId: string
@@ -21,12 +22,14 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
   const sprint: ProjectSprint | undefined = useGetProjectSprintQuery({ id: sprintId }).data
 
   const [showAddTaskCard, setShowAddTaskCard] = useState(false)
+  const [showLeftAddStagePanel, setShowLeftAddStagePanel] = useState(false)
+  const [showRightAddStagePanel, setShowRightAddStagePanel] = useState(false)
 
   const handleAddTask = () => {
     setShowAddTaskCard(true)
   }
   const handleAddStage = () => {
-    console.log('Stage Added')
+    setShowLeftAddStagePanel(true)
   }
   const handleAddSprint = () => {
     console.log('Sprint Added')
@@ -99,6 +102,13 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
             <ProjectStagesLoader />
             :
             <>
+              {
+                showLeftAddStagePanel &&
+                <AddProjectStagePanel
+                  sprintId={sprintId}
+                  closeCard={() => setShowLeftAddStagePanel(false)}
+                  onTop={true} />
+              }
               {sprint?.stages.map((stage, i) => (
                 <ProjectStagePanel
                   key={stage.id}
@@ -106,21 +116,31 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
                   showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
                   setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined} />
               ))}
-              <Button
-                size={'large'}
-                startIcon={<Add />}
-                sx={{
-                  width: 350,
-                  borderRadius: 4,
-                  fontSize: 16,
-                  alignItems: 'start',
-                  pt: 2,
-                  '& .MuiButton-startIcon': {
-                    marginTop: '2px'
-                  }
-                }}>
-                Add Stage
-              </Button>
+              {
+                showRightAddStagePanel
+                  ?
+                  <AddProjectStagePanel
+                    sprintId={sprintId}
+                    closeCard={() => setShowRightAddStagePanel(false)}
+                    onTop={false} />
+                  :
+                  <Button
+                    size={'large'}
+                    startIcon={<Add />}
+                    onClick={() => setShowRightAddStagePanel(true)}
+                    sx={{
+                      width: 350,
+                      borderRadius: 4,
+                      fontSize: 16,
+                      alignItems: 'start',
+                      pt: 2,
+                      '& .MuiButton-startIcon': {
+                        marginTop: '2px'
+                      }
+                    }}>
+                    Add Stage
+                  </Button>
+              }
             </>
         }
       </Stack>
