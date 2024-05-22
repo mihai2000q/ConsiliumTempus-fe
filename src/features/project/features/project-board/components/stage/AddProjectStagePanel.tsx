@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAddStageToProjectSprintMutation } from "../../state/projectBoardApi.ts";
-import OutlinedContentEditable from "../../../../../../components/textfield/OutlinedContentEditable.tsx";
 import { StagePanel } from "./ProjectStagePanel.tsx";
+import OutlinedInputTextField from "../../../../../../components/textfield/OutlinedInputTextField.tsx";
 
 interface AddProjectStagePanelProps {
   sprintId: string,
@@ -25,11 +25,10 @@ function AddProjectStagePanel({ sprintId, closeCard, onTop }: AddProjectStagePan
 
   return (
     <StagePanel boxShadow={4}>
-      <OutlinedContentEditable
-        autoFocus
-        typographyVariant={'h6'}
+      <OutlinedInputTextField
+        placeholder={'Enter stage name'}
         value={newStageName}
-        handleChange={setNewStageName}
+        onChange={setNewStageName}
         onBlur={handleAddStageToProjectSprint} />
     </StagePanel>
   );

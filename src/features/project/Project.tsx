@@ -35,7 +35,7 @@ import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
-import OutlinedContentEditable from "../../components/textfield/OutlinedContentEditable.tsx";
+import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
 import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
 import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
 import { useSelector } from "react-redux";

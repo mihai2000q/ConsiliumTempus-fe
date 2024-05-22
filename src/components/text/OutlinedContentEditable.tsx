@@ -8,9 +8,7 @@ interface OutlinedInputTextFieldProps {
   value: string,
   handleChange: (change: string) => void,
   typographyVariant?: OverridableStringUnion<Variant | 'inherit', TypographyPropsVariantOverrides>,
-  sx?: SxProps<Theme> | undefined,
-  autoFocus?: boolean | undefined,
-  onBlur?: (() => void) | undefined
+  sx?: SxProps<Theme> | undefined
 }
 
 function OutlinedContentEditable({
@@ -18,8 +16,6 @@ function OutlinedContentEditable({
   handleChange,
   typographyVariant,
   sx,
-  autoFocus,
-  onBlur
 }: OutlinedInputTextFieldProps) {
   const theme = useTheme()
 
@@ -28,13 +24,6 @@ function OutlinedContentEditable({
   const borderColor = alpha(theme.palette.background[100], 0.7)
 
   const contentEditableRef = useRef(null)
-  useEffect(() => {
-    if (autoFocus && contentEditableRef !== null) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      contentEditableRef.current.focus()
-    }
-  }, [autoFocus, contentEditableRef]);
 
   useEffect(() => {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -73,10 +62,7 @@ function OutlinedContentEditable({
         spellCheck={false}
         onInput={(e) => handleChange(e.currentTarget.textContent ?? '')}
         onFocus={() => setIsFocused(true)}
-        onBlur={() => {
-          setIsFocused(false)
-          if (onBlur) onBlur()
-        }}
+        onBlur={() => setIsFocused(false)}
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             e.preventDefault()
