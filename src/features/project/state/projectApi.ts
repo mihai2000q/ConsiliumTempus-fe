@@ -25,7 +25,7 @@ export const projectApiSlice = api.injectEndpoints({
         method: 'PUT',
         body: body
       }),
-      invalidatesTags: [TagTypes.Projects]
+      invalidatesTags: [TagTypes.Projects, TagTypes.SidebarProjects]
     })
   })
 })
