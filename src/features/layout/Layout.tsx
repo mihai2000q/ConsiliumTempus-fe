@@ -42,7 +42,7 @@ function Layout() {
 }
 
 function isLayoutDisplayable(path: string): boolean {
-  return path !== Paths.login && path !== Paths.signup
+  return path !== Paths.Login && path !== Paths.Signup
 }
 
 export default Layout;

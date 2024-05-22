@@ -8,9 +8,13 @@ import Paths from "../../../../../utils/Paths.ts";
 import { Add } from "@mui/icons-material";
 import AddProjectDialog from "./AddProjectDialog.tsx";
 import { useState } from "react";
+import { createSearchParams } from "react-router-dom";
 
 function SidebarContent() {
-  const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({}).data?.workspaces
+  const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({
+    isPersonalWorkspaceFirst: true,
+    order: 'last_activity.desc'
+  }).data?.workspaces
   const projects: Project[] | undefined = useGetProjectsQuery({ order: 'last_activity.desc' }).data?.projects
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
@@ -30,19 +34,21 @@ function SidebarContent() {
         subheader={"Workspaces"}
         drawerItems={workspaces?.map((w) => ({
           text: w.name,
-          link: `workspaces/${w.id}`
+          link: Paths.Workspace,
+          searchParams: `${createSearchParams({ id: w.id })}`
         }))}/>
       <DrawerList
         subheader={"Projects"}
-        subheaderDestination={Paths.projects}
+        subheaderDestination={Paths.Projects}
         subheaderAction={
-          <IconButton onClick={handleAddProjectDialog}>
+          <IconButton variant={'circular'} onClick={handleAddProjectDialog}>
             <Add sx={{ color: 'darkgrey' }}/>
           </IconButton>
         }
         drawerItems={projects?.map((p) => ({
           text: p.name,
-          link: `projects/${p.id}`
+          link: Paths.Project,
+          searchParams: `${createSearchParams({ id: p.id })}`
         }))}/>
     </Box>
   );

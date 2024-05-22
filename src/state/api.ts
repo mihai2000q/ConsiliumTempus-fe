@@ -3,6 +3,7 @@ import { logout, setToken } from "./auth/authSlice.ts";
 import RefreshResponse from "../types/Refresh.response.ts";
 import { RootState } from "./store.ts";
 import TagTypes from "../utils/TagTypes.ts";
+import Urls from "../utils/Urls.ts";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_URL,
@@ -26,7 +27,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     const authState = (api.getState() as RootState).auth
     const refreshResult = await baseQuery(
       {
-        url: 'auth/refresh',
+        url: `${Urls.Auth}/refresh`,
         method: 'PUT',
         body: {
           token: authState.token,
@@ -49,8 +50,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 }
 
 function isAuthRequest(args: string | FetchArgs) {
-  return typeof args === "string" && args.includes('auth') ||
-    typeof args === 'object' && args.url.includes('auth')
+  return typeof args === "string" && args.includes(Urls.Auth) ||
+    typeof args === 'object' && args.url.includes(Urls.Auth)
 }
 
 export const api = createApi({
@@ -59,7 +60,7 @@ export const api = createApi({
   tagTypes: [...Object.values(TagTypes)],
   endpoints: (build) => ({
     getCurrentUser: build.query({
-      query: () => `users/current`
+      query: () => `${Urls.Users}/current`
     }),
   })
 })

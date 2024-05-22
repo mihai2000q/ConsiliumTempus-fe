@@ -12,6 +12,7 @@ import Home from "./features/home/Home.tsx";
 import Calendar from "./features/calendar/Calendar.tsx";
 import MyTasks from "./features/my-tasks/MyTasks.tsx";
 import Projects from "./features/projects/Projects.tsx";
+import Project from "./features/project/Project.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -25,13 +26,14 @@ function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path={'/'} element={<Navigate to={'/login'} replace />} />
-              <Route path={Paths.login} element={<Login />} />
-              <Route path={Paths.signup} element={<Signup />} />
+              <Route path={Paths.Login} element={<Login />} />
+              <Route path={Paths.Signup} element={<Signup />} />
 
-              <Route path={Paths.home} element={<Home />} />
-              <Route path={Paths.tasks} element={<MyTasks />} />
-              <Route path={Paths.calendar} element={<Calendar />} />
-              <Route path={Paths.projects} element={<Projects />} />
+              <Route path={Paths.Home} element={<Home />} />
+              <Route path={Paths.Tasks} element={<MyTasks />} />
+              <Route path={Paths.Calendar} element={<Calendar />} />
+              <Route path={Paths.Projects} element={<Projects />} />
+              <Route path={Paths.Project} element={<Project />} />
             </Route>
           </Routes>
         </ThemeProvider>

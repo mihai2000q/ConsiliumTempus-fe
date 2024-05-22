@@ -25,22 +25,22 @@ function Topbar({ isDisplayable, isSidebarOpen, setIsSidebarOpen, drawerWidth }:
 
   return (
     <AppToolbar drawerWidth={drawerWidth} isSidebarOpen={isSidebarOpen}>
-      <IconButton onClick={() => setIsSidebarOpen((prev) => !prev)}>
-        <Menu />
+      <IconButton variant={'circular'} onClick={() => setIsSidebarOpen((prev) => !prev)}>
+        <Menu fontSize={'medium'} />
       </IconButton>
 
       <Stack
         alignItems={"center"}
         direction={"row"}
         gap={1}>
-        <IconButton>
-          <Search />
+        <IconButton variant={'circular'}>
+          <Search fontSize={'medium'} />
         </IconButton>
-        <IconButton onClick={() => dispatch(setMode())}>
-          {isDarkMode ? <DarkModeOutlined /> : <LightModeOutlined />}
+        <IconButton variant={'circular'} onClick={() => dispatch(setMode())}>
+          {isDarkMode ? <DarkModeOutlined fontSize={'medium'} /> : <LightModeOutlined fontSize={'medium'} />}
         </IconButton>
-        <IconButton>
-          <Settings />
+        <IconButton variant={'circular'}>
+          <Settings fontSize={'medium'} />
         </IconButton>
         <TopbarUser />
       </Stack>

@@ -1,5 +1,6 @@
 import { darkThemeColors, lightThemeColors } from "./colors.ts";
 import { typographies } from "./typography.ts";
+import { components } from "./components.ts";
 
 export type ThemeMode = 'dark' | 'light';
 
@@ -31,6 +32,10 @@ const lightThemePalette = {
     ...lightThemeColors.secondary,
     main: lightThemeColors.secondary[300],
   },
+  triadic: {
+    ...lightThemeColors.triadic,
+    main: lightThemeColors.triadic[900],
+  },
   background: {
     ...lightThemeColors.background,
     default: lightThemeColors.background[900],
@@ -43,7 +48,12 @@ export const themeSettings = (mode: ThemeMode) => {
       mode: mode,
       ...(mode === 'dark' ? darkThemePalette : lightThemePalette)
     },
-    ...typographies
+    typography: {
+      ...typographies
+    },
+    components: {
+      ...components
+    }
   }
 }
 

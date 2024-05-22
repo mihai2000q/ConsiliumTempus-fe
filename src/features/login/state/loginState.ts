@@ -9,11 +9,3 @@ export const loginFormInitialValues: LoginForm = {
   password: "",
   rememberMe: false
 }
-
-interface LoginState {
-  loginForm: LoginForm
-}
-
-export const initialState: LoginState = {
-  loginForm: loginFormInitialValues
-}

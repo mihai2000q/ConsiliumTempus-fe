@@ -5,10 +5,3 @@ export default interface ProjectResponse {
   totalCount: number,
   totalPages: number | null
 }
-
-export interface GetProjectsQueryParameters {
-  pageSize: number,
-  currentPage: number,
-  order: string,
-  name: string | null,
-}
