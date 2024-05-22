@@ -4,9 +4,8 @@ import demoPicture from '../../assets/demo-picture.png'
 import demoLogo from '../../assets/demo-logo.png'
 import { useFormik } from "formik";
 import { validationSchema } from "./state/loginValidation.ts";
-import { AppDispatch, RootState } from "../../state/store.ts";
-import { useDispatch, useSelector } from "react-redux";
-import { setLoginForm } from "./state/loginSlice.ts";
+import { AppDispatch } from "../../state/store.ts";
+import { useDispatch } from "react-redux";
 import { useLoginMutation } from "./state/loginApi.ts";
 import { LoginForm, loginFormInitialValues } from "./state/loginState.ts";
 import AuthResponse from "../../types/Auth.response.ts";
@@ -16,7 +15,6 @@ import Paths from "../../utils/Paths.ts";
 import HttpErrorResponse from "../../types/HttpError.response.ts";
 
 function Login() {
-  const loginForm = useSelector((state: RootState) => state.login.loginForm)
   const dispatch = useDispatch<AppDispatch>()
 
   const [login, loginMutation] = useLoginMutation()
@@ -32,13 +30,12 @@ function Login() {
     handleChange,
     handleSubmit
   } = useFormik({
-    initialValues: loginForm,
+    initialValues: loginFormInitialValues,
     validationSchema: validationSchema,
     onSubmit: handleSubmitForm
   })
 
   async function handleSubmitForm(values: LoginForm) {
-    dispatch(setLoginForm(values))
     const { email, password } = values
     let authRes = await login({ email, password }).unwrap()
 
@@ -47,7 +44,6 @@ function Login() {
     authRes = authRes as AuthResponse
     dispatch(setToken(authRes.token))
     dispatch(setRefreshToken(authRes.refreshToken))
-    dispatch(setLoginForm(loginFormInitialValues))
     navigate(Paths.Home)
   }
 
