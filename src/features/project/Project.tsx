@@ -35,7 +35,7 @@ import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
-import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
+import OutlinedContentEditable from "../../components/textfield/OutlinedContentEditable.tsx";
 import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
 import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
 import { useSelector } from "react-redux";
@@ -98,10 +98,10 @@ function Project() {
                   alt={project.name}
                   src={demoProjectPicture}
                   sx={{ borderRadius: 2 }} />
-                <OutlinedInputTextField
+                <OutlinedContentEditable
                   typographyVariant={'h6'}
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  handleChange={setName}
                   sx={{ ml: 1 }} />
                 <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
                   <ArrowDropDown />

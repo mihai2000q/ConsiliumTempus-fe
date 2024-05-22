@@ -1,27 +1,25 @@
 import { alpha, Box, SxProps, Theme, Typography, useTheme } from "@mui/material";
-import { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { OverridableStringUnion } from "@mui/types";
 import { Variant } from "@mui/material/styles/createTypography";
 import { TypographyPropsVariantOverrides } from "@mui/material/Typography/Typography";
 
 interface OutlinedInputTextFieldProps {
   value: string,
-  onChange: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,
+  handleChange: (change: string) => void,
   typographyVariant?: OverridableStringUnion<Variant | 'inherit', TypographyPropsVariantOverrides>,
   sx?: SxProps<Theme> | undefined,
   autoFocus?: boolean | undefined,
   onBlur?: (() => void) | undefined
-  onEnter?: (() => void) | undefined
 }
 
-function OutlinedInputTextField({
+function OutlinedContentEditable({
   value,
-  onChange,
+  handleChange,
   typographyVariant,
   sx,
   autoFocus,
-  onBlur,
-  onEnter
+  onBlur
 }: OutlinedInputTextFieldProps) {
   const theme = useTheme()
 
@@ -29,14 +27,24 @@ function OutlinedInputTextField({
 
   const borderColor = alpha(theme.palette.background[100], 0.7)
 
-  const inputRef = useRef(null)
+  const contentEditableRef = useRef(null)
   useEffect(() => {
-    if (autoFocus && inputRef !== null) {
+    if (autoFocus && contentEditableRef !== null) {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      inputRef.current.focus()
+      contentEditableRef.current.focus()
     }
-  }, [autoFocus, inputRef]);
+  }, [autoFocus, contentEditableRef]);
+
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    if (contentEditableRef.current && contentEditableRef.current.textContent !== value) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      contentEditableRef.current.textContent = value;
+    }
+  });
 
   return (
     <Box sx={{
@@ -55,12 +63,15 @@ function OutlinedInputTextField({
         })
     }}>
       <Typography
-        ref={inputRef}
+        ref={contentEditableRef}
         variant={typographyVariant}
+        component={'span'}
         role={'textbox'}
         contentEditable
         suppressContentEditableWarning
-        onChange={onChange}
+        suppressHydrationWarning
+        spellCheck={false}
+        onInput={(e) => handleChange(e.currentTarget.textContent ?? '')}
         onFocus={() => setIsFocused(true)}
         onBlur={() => {
           setIsFocused(false)
@@ -69,21 +80,18 @@ function OutlinedInputTextField({
         onKeyDown={(e) => {
           if (e.key === 'Enter') {
             e.preventDefault()
-            if (onEnter) onEnter()
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            inputRef.current.blur()
+            contentEditableRef.current.blur()
           }
         }}
         sx={{
           py: 0.3,
           px: 0.75,
           outline: 0,
-        }}>
-        {value}
-      </Typography>
+        }} />
     </Box>
   );
 }
 
-export default OutlinedInputTextField;
+export default OutlinedContentEditable;
