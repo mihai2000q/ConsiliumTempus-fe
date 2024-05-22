@@ -40,6 +40,7 @@ import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.t
 import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store.ts";
+import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
 
 function Project() {
   const theme = useTheme()
@@ -147,7 +148,7 @@ function Project() {
       <Divider flexItem />
 
       <TabPanel value={tab} index={ProjectTabs.Overview}>
-        This is the overview
+        <ProjectOverview projectId={projectId} />
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.List}>
         This is the list
