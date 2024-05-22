@@ -3,7 +3,7 @@ import {
   Button,
   CircularProgress,
   IconButton,
-  Stack,
+  Stack, StackProps, styled,
   Typography,
   useTheme
 } from "@mui/material";
@@ -15,6 +15,14 @@ import { Dispatch, SetStateAction, useState } from "react";
 import ProjectStageActionsMenu from "./ProjectStageActionsMenu.tsx";
 import ProjectTasksLoader from "../task/ProjectTasksLoader.tsx";
 import AddProjectTaskCard from "../task/AddProjectTaskCard.tsx";
+
+export const StagePanel = styled(Stack)<StackProps>(({ theme }) => ({
+  height: '100%',
+  width: 335,
+  borderRadius: '16px',
+  padding: '12px',
+  background: alpha(theme.palette.primary[800], 0.25)
+}))
 
 interface ProjectStagePanelProps {
   stage: ProjectStage,
@@ -35,16 +43,10 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
   const [showBottomAddTaskCard, setShowBottomAddTaskCard] = useState(false)
 
   return (
-    <Stack
-      height={'100%'}
-      width={335}
-      borderRadius={4}
-      p={1.5}
-      bgcolor={alpha(theme.palette.primary[800], 0.25)}
-      boxShadow={4}>
+    <StagePanel boxShadow={4}>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Stack direction={'row'} alignItems={'center'}>
-          <Typography variant={'h6'} color={theme.palette.background[200]} mr={1}>
+          <Typography variant={'h6'} color={theme.palette.background[200]} mr={1} noWrap maxWidth={150}>
             {stage.name}
           </Typography>
           {totalTasksCount === undefined
@@ -61,7 +63,10 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
             <MoreHorizRounded />
           </IconButton>
-          <ProjectStageActionsMenu anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} />
+          <ProjectStageActionsMenu
+            anchorEl={menuAnchorEl}
+            setAnchorEl={setMenuAnchorEl}
+            stageId={stage.id} />
         </Stack>
       </Stack>
       <Stack spacing={1} px={0.75} py={1} sx={{ overflow: 'auto', maxHeight: '100%' }}>
@@ -95,7 +100,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           Add Task
         </Button>
       </Stack>
-    </Stack>
+    </StagePanel>
   );
 }
 

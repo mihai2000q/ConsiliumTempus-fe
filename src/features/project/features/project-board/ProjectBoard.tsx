@@ -96,7 +96,7 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
         </Stack>
       </Stack>
 
-      <Stack direction={'row'} spacing={3} mt={3} height={800}>
+      <Stack direction={'row'} spacing={2.25} mt={3} height={800}>
         {
           !sprint ?
             <ProjectStagesLoader />

@@ -38,6 +38,8 @@ import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
 import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
 import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
 import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
+import { useSelector } from "react-redux";
+import { RootState } from "../../state/store.ts";
 
 function Project() {
   const theme = useTheme()
@@ -63,7 +65,7 @@ function Project() {
     [name]
   )
 
-  const [sprintId, setSprintId] = useState<string | undefined>(undefined)
+  const sprintId = useSelector((state: RootState) => state.project.sprintId)
 
   const [updateProject] = useUpdateProjectMutation()
   const handleUpdateProject = async ({ newIsFavorite = isFavorite }) => {
@@ -126,7 +128,7 @@ function Project() {
                 }}>
                 <Typography fontWeight={500} ml={1} pt={'2px'}>Set Status</Typography>
               </Button>
-              <ProjectSprintsSelector projectId={projectId} sprintId={sprintId} setSprintId={setSprintId} />
+              <ProjectSprintsSelector projectId={projectId} />
             </>
         }
       </Stack>
