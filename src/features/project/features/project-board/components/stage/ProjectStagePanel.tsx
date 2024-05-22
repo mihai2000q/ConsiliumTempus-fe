@@ -8,13 +8,17 @@ import {
   useTheme
 } from "@mui/material";
 import ProjectStage from "../../types/ProjectStage.model.ts";
-import { useGetProjectTasksQuery } from "../../state/projectBoardApi.ts";
+import { useGetProjectTasksQuery, useUpdateStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
 import ProjectTaskCard from "../task/ProjectTaskCard.tsx";
 import { Add, AddRounded, MoreHorizRounded, SearchRounded } from "@mui/icons-material";
 import { Dispatch, SetStateAction, useState } from "react";
 import ProjectStageActionsMenu from "./ProjectStageActionsMenu.tsx";
 import ProjectTasksLoader from "../task/ProjectTasksLoader.tsx";
 import AddProjectTaskCard from "../task/AddProjectTaskCard.tsx";
+import OutlinedContentEditable from "../../../../../../components/text/OutlinedContentEditable.tsx";
+import useTimeoutCallback from "../../../../../../hooks/useTimeoutCallback.ts";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../../state/store.ts";
 
 export const StagePanel = styled(Stack)<StackProps>(({ theme }) => ({
   height: '100%',
@@ -33,6 +37,18 @@ interface ProjectStagePanelProps {
 function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: ProjectStagePanelProps) {
   const theme = useTheme()
 
+  const sprintId = useSelector((state: RootState) => state.project.sprintId)
+  const [stageName, setStageName] = useState(stage.name)
+  const [updateStageFromProjectSprint] = useUpdateStageFromProjectSprintMutation()
+  useTimeoutCallback(
+    () => updateStageFromProjectSprint({
+      id: sprintId!,
+      stageId: stage.id,
+      name: stageName
+    }),
+    [stageName]
+  )
+
   const getProjectTasksQuery = useGetProjectTasksQuery({ projectStageId: stage.id }).data
   const tasks = getProjectTasksQuery?.tasks
   const totalTasksCount = getProjectTasksQuery?.totalCount
@@ -46,9 +62,16 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
     <StagePanel boxShadow={4}>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Stack direction={'row'} alignItems={'center'}>
-          <Typography variant={'h6'} color={theme.palette.background[200]} mr={1} noWrap maxWidth={150}>
-            {stage.name}
-          </Typography>
+          <OutlinedContentEditable
+            typographyVariant={'h6'}
+            value={stageName}
+            handleChange={setStageName}
+            noWrap
+            sx={{
+              color: theme.palette.background[200],
+              maxWidth: 180,
+              mr: '1px'
+            }} />
           {totalTasksCount === undefined
             ? <CircularProgress size={16} />
             : <Typography fontWeight={300}>{totalTasksCount}</Typography>}

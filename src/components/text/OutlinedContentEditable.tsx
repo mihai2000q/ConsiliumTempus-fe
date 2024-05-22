@@ -8,7 +8,8 @@ interface OutlinedInputTextFieldProps {
   value: string,
   handleChange: (change: string) => void,
   typographyVariant?: OverridableStringUnion<Variant | 'inherit', TypographyPropsVariantOverrides>,
-  sx?: SxProps<Theme> | undefined
+  sx?: SxProps<Theme> | undefined,
+  noWrap?: boolean | undefined
 }
 
 function OutlinedContentEditable({
@@ -16,10 +17,15 @@ function OutlinedContentEditable({
   handleChange,
   typographyVariant,
   sx,
+  noWrap
 }: OutlinedInputTextFieldProps) {
   const theme = useTheme()
 
   const [isFocused, setIsFocused] = useState(false)
+  const [localNoWrap, setLocalNoWrap] = useState(noWrap)
+  useEffect(() => {
+    if (noWrap !== undefined) setLocalNoWrap(!isFocused)
+  }, [isFocused]);
 
   const borderColor = alpha(theme.palette.background[100], 0.7)
 
@@ -54,12 +60,12 @@ function OutlinedContentEditable({
       <Typography
         ref={contentEditableRef}
         variant={typographyVariant}
-        component={'span'}
         role={'textbox'}
         contentEditable
         suppressContentEditableWarning
         suppressHydrationWarning
         spellCheck={false}
+        noWrap={localNoWrap}
         onInput={(e) => handleChange(e.currentTarget.textContent ?? '')}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
@@ -72,9 +78,8 @@ function OutlinedContentEditable({
           }
         }}
         sx={{
-          py: 0.3,
-          px: 0.75,
-          outline: 0,
+          px: '4px',
+          outline: 0
         }} />
     </Box>
   );
