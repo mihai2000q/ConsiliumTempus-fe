@@ -2,8 +2,10 @@ import { ProjectTask } from "../../types/ProjectTask.response.ts";
 import { alpha, Box, Button, ButtonProps, IconButton, Stack, styled, Typography, useTheme } from "@mui/material";
 import { CheckCircleOutlineRounded, CheckCircleRounded, Person } from "@mui/icons-material";
 import { useState } from "react";
-import ProjectTaskActionsMenu from "./ProjectTaskActionsMenu.tsx";
+import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
 import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { useDispatch } from "react-redux";
+import { openDrawer } from "../../../../../../state/project-task-drawer/projectTaskDrawerSlice.ts";
 
 export const TaskCard = styled(Button)<ButtonProps>(({ theme }) => ({
   borderRadius: '16px',
@@ -26,13 +28,14 @@ interface ProjectTaskCardProps {
 
 function ProjectTaskCard({ task }: ProjectTaskCardProps) {
   const theme = useTheme()
+  const dispatch = useDispatch()
 
   const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const [isCompleted, setIsCompleted] = useState(false)
 
   function handleClick() {
-    console.log('Task clicked')
+    dispatch(openDrawer(task.id))
   }
 
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -96,7 +99,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         </IconButton>
       </Stack>
       {task &&
-        <ProjectTaskActionsMenu
+        <ProjectTaskCardActionsMenu
           anchorEl={taskMenuAnchorEl}
           setAnchorEl={setTaskMenuAnchorEl}
           taskId={task.id} />
