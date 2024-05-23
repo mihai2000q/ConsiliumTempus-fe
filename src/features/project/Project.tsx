@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useGetProjectQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
 import {
   Avatar,
@@ -28,54 +28,57 @@ import {
   SubjectRounded,
   TimelineRounded
 } from "@mui/icons-material";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
 import ProjectActionsMenu from "./components/ProjectActionsMenu.tsx";
 import { ProjectTabs } from "./types/ProjectTabs.ts";
 import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
-import useDependencyOnceEffect from "../../hooks/useDependencyOnceEffect.ts";
 import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
-import useTimeoutCallbackSkipOnce from "../../hooks/useTimeoutCallbackSkipOnce.ts";
 import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store.ts";
 import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
+import ProjectParams from "./utils/ProjectParams.ts";
+import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
+import useDependencyState from "../../hooks/useDependencyState.ts";
+import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
+import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 
 function Project() {
   const theme = useTheme()
 
+  const params = useParams()
+  const projectId = params[ProjectParams.Id] ?? ''
+
   const [searchParams, setSearchParams] = useSearchParams()
-  const projectId = searchParams.get(ProjectSearchParams.Id)!
   const tab = Number(searchParams.get(ProjectSearchParams.Tab)) ?? ProjectTabs.Overview
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const project = useGetProjectQuery({ id: projectId })?.data
-  const [isFavorite, setIsFavorite] = useState(false)
-  const [name, setName] = useState('')
-  useDependencyOnceEffect(
-    () => {
-      setName(project!.name)
-      setIsFavorite(project!.isFavorite)
-    },
-    project
-  )
-  useTimeoutCallbackSkipOnce(
-    () => handleUpdateProject({}).then(),
-    [name]
-  )
-
-  const sprintId = useSelector((state: RootState) => state.project.sprintId)
+  const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
+  const [isFavorite, setIsFavorite, refreshIsFavorite] = useDependencyState(false)
+  useEffect(() => {
+    setFacadeName(project?.name ?? '')
+    setIsFavorite(project?.isFavorite ?? false)
+  }, [project])
 
   const [updateProject] = useUpdateProjectMutation()
-  const handleUpdateProject = async ({ newIsFavorite = isFavorite }) => {
-    await updateProject({
+  useUpdateEffect(() => {
+    if (name.value === '' || isNoneUserDependencyState([isFavorite, name])) return
+
+    updateProject({
       id: projectId,
-      name: name,
-      isFavorite: newIsFavorite
+      name: name.value,
+      isFavorite: isFavorite.value
     }).unwrap()
-  }
+
+    refreshName()
+    refreshIsFavorite()
+  }, [isFavorite, name])
+
+  const sprintId = useSelector((state: RootState) => state.project.sprintId)
 
   const handleTabChange = (_e: SyntheticEvent<Element, Event>, newTab: number) => {
     searchParams.set(ProjectSearchParams.Tab, newTab.toString())
@@ -101,8 +104,8 @@ function Project() {
                   sx={{ borderRadius: 2 }} />
                 <OutlinedContentEditable
                   typographyVariant={'h6'}
-                  value={name}
-                  handleChange={setName}
+                  value={facadeName}
+                  handleChange={(n) => setFacadeName(n, true)}
                   sx={{ ml: 1 }} />
                 <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
                   <ArrowDropDown />
@@ -110,10 +113,7 @@ function Project() {
               </Stack>
               <ProjectActionsMenu anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} />
               <IconButton
-                onClick={() => {
-                  setIsFavorite(!isFavorite)
-                  handleUpdateProject({ newIsFavorite: !isFavorite }).then()
-                }}
+                onClick={() => setIsFavorite(!isFavorite, true)}
                 sx={{
                   color: theme.palette.primary[100],
                   '&:hover': { color: theme.palette.secondary.main }

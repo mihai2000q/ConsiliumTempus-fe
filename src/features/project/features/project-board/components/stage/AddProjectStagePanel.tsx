@@ -26,6 +26,7 @@ function AddProjectStagePanel({ sprintId, closeCard, onTop }: AddProjectStagePan
   return (
     <StagePanel boxShadow={4}>
       <OutlinedInputTextField
+        autoFocus
         placeholder={'Enter stage name'}
         value={newStageName}
         onChange={setNewStageName}

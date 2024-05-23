@@ -31,7 +31,7 @@ function DrawerList({
               ? (
                 <Box>
                   <ListItemButton
-                    selected={location.pathname == subheaderDestination }
+                    selected={location.pathname == subheaderDestination}
                     sx={{ py: 1.3, justifyContent: 'space-between' }}
                     onClick={() => navigate(subheaderDestination)}>
                     <Typography fontWeight={500}>{subheader}</Typography>
@@ -53,7 +53,7 @@ function DrawerList({
                 No {subheader ?? "data"}
               </Typography>
               : drawerItems.map((item) =>
-                <DrawerListItem key={item.link + item.searchParams} drawerItem={item} />
+                <DrawerListItem key={item.link} drawerItem={item} />
               )
           )
           : (

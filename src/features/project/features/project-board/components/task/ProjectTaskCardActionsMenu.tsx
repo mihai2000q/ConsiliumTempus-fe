@@ -1,9 +1,11 @@
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { ContentCopy, DeleteOutlined, Visibility } from "@mui/icons-material";
+import { ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
 import { useDeleteProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { useNavigate } from "react-router-dom";
+import Paths from "../../../../../../utils/Paths.ts";
 
-interface ProjectStageActionsMenuItemProps {
+interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
   children: ReactNode,
   color?: string | undefined,
@@ -11,33 +13,39 @@ interface ProjectStageActionsMenuItemProps {
   disabled?: boolean | undefined
 }
 
-const ProjectStageActionsMenuItem = ({
+const ProjectTaskActionsMenuItem = ({
   onClick,
   icon,
   children,
   disabled,
   color
-} : ProjectStageActionsMenuItemProps) => (
+} : ProjectTaskActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
     <Typography pt={0.5} color={color}>{children}</Typography>
   </MenuItem>
 )
 
-interface ProjectTaskActionsMenuProps {
+interface ProjectTaskCardActionsMenuProps {
   anchorEl: HTMLElement | null,
   setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
   taskId: string
 }
 
-function ProjectTaskActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskActionsMenuProps) {
+function ProjectTaskCardActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskCardActionsMenuProps) {
   const theme = useTheme()
+
+  const navigate = useNavigate()
 
   const handleCloseMenu = () => setAnchorEl(null)
 
   const handleViewDetails = () => {
-    console.log('Task details viewed!')
     handleCloseMenu()
+    navigate(`${Paths.ProjectTask}/${taskId}`)
+  }
+  const handleCopyTaskLink = () => {
+    handleCloseMenu()
+    navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
   }
   const handleDuplicateTask = () => {
     console.log('Task duplicated!')
@@ -56,20 +64,23 @@ function ProjectTaskActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskAc
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={handleCloseMenu}>
-      <ProjectStageActionsMenuItem icon={<Visibility />} onClick={handleViewDetails}>
+      <ProjectTaskActionsMenuItem icon={<Visibility />} onClick={handleViewDetails}>
         View Details
-      </ProjectStageActionsMenuItem>
-      <ProjectStageActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateTask}>
+      </ProjectTaskActionsMenuItem>
+      <ProjectTaskActionsMenuItem icon={<LinkOutlined />} onClick={handleCopyTaskLink}>
+        Copy Task Link
+      </ProjectTaskActionsMenuItem>
+      <ProjectTaskActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateTask}>
         Duplicate Task
-      </ProjectStageActionsMenuItem>
-      <ProjectStageActionsMenuItem
+      </ProjectTaskActionsMenuItem>
+      <ProjectTaskActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
         onClick={handleDeleteTask}>
         Delete Task
-      </ProjectStageActionsMenuItem>
+      </ProjectTaskActionsMenuItem>
     </Menu>
   );
 }
 
-export default ProjectTaskActionsMenu;
+export default ProjectTaskCardActionsMenu;

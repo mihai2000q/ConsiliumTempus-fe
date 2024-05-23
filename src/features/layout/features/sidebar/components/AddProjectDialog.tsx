@@ -20,8 +20,8 @@ import { useFormik } from "formik";
 import { addProjectDialogSchema } from "../state/sidebarValidation.ts";
 import { addProjectDialogFormInitialValues } from "../state/sidebarState.ts";
 import { useAddProjectMutation } from "../state/sidebarApi.ts";
-import { useEffect } from "react";
 import { People } from "@mui/icons-material";
+import { useEffect } from "react";
 
 interface AddProjectDialogProps {
   workspaces: Workspace[] | undefined,
@@ -53,7 +53,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   async function handleSubmitForm() {
     await addProject({
       workspaceId: values.workspaceId!,
-      name: ""
+      name: values.projectName
     }).unwrap()
     if (addProjectMutation.error !== undefined) return
     resetForm()

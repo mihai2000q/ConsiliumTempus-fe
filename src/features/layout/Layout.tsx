@@ -5,6 +5,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Paths from "../../utils/Paths.ts";
 import { useState } from "react";
 import { Main } from "./components/Main.tsx";
+import ProjectTaskDrawer from "../project-task-drawer/ProjectTaskDrawer.tsx";
 
 const drawerWidth = 250
 
@@ -37,6 +38,7 @@ function Layout() {
           <Outlet />
         </Main>
       </Stack>
+      <ProjectTaskDrawer />
     </Stack>
   );
 }
