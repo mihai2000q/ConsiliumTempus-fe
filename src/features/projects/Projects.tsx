@@ -14,8 +14,8 @@ import { ReactNode, useState } from "react";
 import { Search } from "@mui/icons-material";
 import ProjectSortButton from "./components/ProjectSortButton.tsx";
 import ProjectFilterButton from "./components/ProjectFilterButton.tsx";
-import useTimeoutCallback from "../../hooks/useTimeoutCallback.ts";
 import usePageSize from "./hooks/usePageSize.ts";
+import useFacadeState from "../../hooks/useFacadeState.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -29,13 +29,7 @@ function Projects() {
   const pageSize = usePageSize()
   const [order, setOrder] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const [searchName, setSearchName] = useState('')
-
-  const [searchBarValue, setSearchBarValue] = useState('')
-  useTimeoutCallback(
-    () => setSearchName(searchBarValue),
-    [searchBarValue]
-  )
+  const [searchName, searchFacadeName, setSearchFacadeName] = useFacadeState('')
 
   const {
     data,
@@ -66,8 +60,8 @@ function Projects() {
             name={'project-search'}
             label={'Search'}
             placeholder={'Search by name'}
-            value={searchBarValue}
-            onChange={(e) => setSearchBarValue(e.target.value)}
+            value={searchFacadeName}
+            onChange={(e) => setSearchFacadeName(e.target.value)}
             InputProps={{
               endAdornment: <Search />
             }} sx={{ boxShadow: 8, borderRadius: 1 }}/>
@@ -95,7 +89,7 @@ function Projects() {
         flexGrow={1}
         spacing={4}>
         {
-          isLoading
+          !projects
             ? (
               <>
                 {Array.from(Array(pageSize)).map((_, i) => (
@@ -115,9 +109,9 @@ function Projects() {
         }
       </Grid>
       {
-        isLoading
+        !projects
           ? <CircularProgress color={'secondary'} size={27} thickness={7} />
-          : totalPages &&
+          : totalPages !== null &&
           <Pagination
             disabled={isFetching}
             count={totalPages}
