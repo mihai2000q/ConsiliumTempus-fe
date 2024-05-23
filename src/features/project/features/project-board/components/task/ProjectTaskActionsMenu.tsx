@@ -1,7 +1,9 @@
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { ContentCopy, DeleteOutlined, Visibility } from "@mui/icons-material";
+import { ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
 import { useDeleteProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { useNavigate } from "react-router-dom";
+import Paths from "../../../../../../utils/Paths.ts";
 
 interface ProjectStageActionsMenuItemProps {
   icon: ReactNode,
@@ -33,11 +35,17 @@ interface ProjectTaskActionsMenuProps {
 function ProjectTaskActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskActionsMenuProps) {
   const theme = useTheme()
 
+  const navigate = useNavigate()
+
   const handleCloseMenu = () => setAnchorEl(null)
 
   const handleViewDetails = () => {
-    console.log('Task details viewed!')
     handleCloseMenu()
+    navigate(`${Paths.ProjectTask}/${taskId}`)
+  }
+  const handleCopyTaskLink = () => {
+    handleCloseMenu()
+    navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
   }
   const handleDuplicateTask = () => {
     console.log('Task duplicated!')
@@ -58,6 +66,9 @@ function ProjectTaskActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskAc
       onClose={handleCloseMenu}>
       <ProjectStageActionsMenuItem icon={<Visibility />} onClick={handleViewDetails}>
         View Details
+      </ProjectStageActionsMenuItem>
+      <ProjectStageActionsMenuItem icon={<LinkOutlined />} onClick={handleCopyTaskLink}>
+        Copy Task Link
       </ProjectStageActionsMenuItem>
       <ProjectStageActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateTask}>
         Duplicate Task
