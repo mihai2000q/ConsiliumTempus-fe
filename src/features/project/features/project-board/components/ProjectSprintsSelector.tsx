@@ -1,4 +1,4 @@
-import { Button, Menu, MenuItem, useTheme } from "@mui/material";
+import { Button, CircularProgress, Menu, MenuItem, useTheme } from "@mui/material";
 import ProjectSprint from "../../../types/ProjectSprint.model.ts";
 import { useGetProjectSprintsQuery } from "../../../state/projectApi.ts";
 import useDependencyOnceEffect from "../../../../../hooks/useDependencyOnceEffect.ts";
@@ -35,6 +35,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
   return (
     <>
       <Button
+        disabled={currentSprint === undefined}
         endIcon={<ArrowDropDown />}
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         sx={{
@@ -45,7 +46,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
             marginLeft: 0.5
           }
         }}>
-        {currentSprint?.name ?? ''}
+        {currentSprint?.name ?? <CircularProgress size={20} thickness={8} sx={{ marginX: 1 }} />}
       </Button>
       <Menu open={Boolean(menuAnchorEl)} anchorEl={menuAnchorEl} onClose={handleCloseMenu}>
         {sprints?.map((sprint) => (
