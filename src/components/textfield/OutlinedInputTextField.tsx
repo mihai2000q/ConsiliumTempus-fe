@@ -8,6 +8,8 @@ const OutlinedInput = styled(
       prop !== 'isFocused' &&
       prop !== 'isTitle'
   }
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
 )<InputBaseProps>(({ theme, isFocused, error, isTitle }) => ({
   border: `solid 2px transparent`,
   borderRadius: isTitle === true ? '4px' : '9px',
@@ -69,6 +71,8 @@ function OutlinedInputTextField({
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       isFocused={isFocused}
       isTitle={isTitle}
       onFocus={() => setIsFocused(true)}
