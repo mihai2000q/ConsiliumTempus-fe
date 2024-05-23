@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useGetProjectQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
 import {
   Avatar,
@@ -41,12 +41,15 @@ import ProjectSprintsSelector from "./features/project-board/components/ProjectS
 import { useSelector } from "react-redux";
 import { RootState } from "../../state/store.ts";
 import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
+import ProjectParams from "./utils/ProjectParams.ts";
 
 function Project() {
   const theme = useTheme()
 
+  const params = useParams()
+  const projectId = params[ProjectParams.Id] ?? ''
+
   const [searchParams, setSearchParams] = useSearchParams()
-  const projectId = searchParams.get(ProjectSearchParams.Id)!
   const tab = Number(searchParams.get(ProjectSearchParams.Tab)) ?? ProjectTabs.Overview
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)

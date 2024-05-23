@@ -14,6 +14,8 @@ import MyTasks from "./features/my-tasks/MyTasks.tsx";
 import Projects from "./features/projects/Projects.tsx";
 import Project from "./features/project/Project.tsx";
 import ProjectTask from "./features/project-task/ProjectTask.tsx";
+import ProjectTaskParams from "./features/project-task/utils/ProjectTaskParams.ts";
+import ProjectParams from "./features/project/utils/ProjectParams.ts";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -36,8 +38,8 @@ function App() {
               <Route path={Paths.Tasks} element={<MyTasks />} />
               <Route path={Paths.Calendar} element={<Calendar />} />
               <Route path={Paths.Projects} element={<Projects />} />
-              <Route path={Paths.Project} element={<Project />} />
-              <Route path={`${Paths.ProjectTask}/:id`} element={<ProjectTask />} />
+              <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
+              <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
             </Route>
           </Routes>
         </ThemeProvider>

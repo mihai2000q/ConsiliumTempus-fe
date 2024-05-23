@@ -8,22 +8,13 @@ interface DrawerListItemProps {
 
 function DrawerListItem({ drawerItem }: DrawerListItemProps) {
   const location = useLocation()
-  const isSelected = drawerItem.link === location.pathname &&
-    (drawerItem.searchParams
-      ? location.search.replace('?', '').startsWith(drawerItem.searchParams)
-      : true)
 
   const navigate = useNavigate()
-  const handleClick = () => drawerItem.searchParams
-    ? navigate({
-      pathname: drawerItem.link,
-      search: drawerItem.searchParams
-    })
-    : navigate(drawerItem.link)
+  const handleClick = () => navigate(drawerItem.link)
 
   return (
     <ListItem disablePadding>
-      <ListItemButton selected={isSelected} onClick={handleClick}>
+      <ListItemButton selected={drawerItem.link === location.pathname} onClick={handleClick}>
         <ListItemIcon>
           {drawerItem?.icon
             ? drawerItem.icon

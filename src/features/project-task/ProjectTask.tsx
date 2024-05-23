@@ -1,10 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useGetProjectTaskQuery } from "./state/projectTaskApi.ts";
 import { Stack, Typography } from "@mui/material";
+import ProjectTaskParams from "./utils/ProjectTaskParams.ts";
 
 function ProjectTask() {
   const params = useParams()
-  const id = params['id']!
+  const id = params[ProjectTaskParams.Id] ?? ''
 
   const task = useGetProjectTaskQuery({ id: id }).data
 

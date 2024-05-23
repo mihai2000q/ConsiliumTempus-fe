@@ -1,5 +1,4 @@
 enum ProjectSearchParams {
-  Id = 'id',
   Tab = "tab"
 }
 
