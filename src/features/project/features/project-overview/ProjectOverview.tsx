@@ -1,8 +1,9 @@
 import { Stack, TextField, Typography } from "@mui/material";
 import { useGetProjectOverviewQuery, useUpdateProjectOverviewMutation } from "./state/projectOverviewApi.ts";
-import { useState } from "react";
-import useDependencyOnceEffect from "../../../../hooks/useDependencyOnceEffect.ts";
-import useTimeoutCallbackSkipOnce from "../../../../hooks/useTimeoutCallbackSkipOnce.ts";
+import useDependencyFacadeState from "../../../../hooks/useDependencyFacadeState.ts";
+import useUpdateEffect from "../../../../hooks/useUpdateEffect.ts";
+import { isNoneUserDependencyState } from "../../../../types/DependencyState.ts";
+import { useEffect } from "react";
 
 interface ProjectOverviewProps {
   projectId: string
@@ -11,24 +12,22 @@ interface ProjectOverviewProps {
 function ProjectOverview({ projectId }: ProjectOverviewProps) {
   const projectOverview = useGetProjectOverviewQuery({ id: projectId }).data
 
-  const [description, setDescription] = useState('')
-  useDependencyOnceEffect(
-    () => setDescription(projectOverview!.description),
-    projectOverview
-  )
+  const [description, refreshDescription, facadeDescription, setFacadeDescription] = useDependencyFacadeState('')
+  useEffect(() => {
+    setFacadeDescription(projectOverview?.description ?? '')
+  }, [projectOverview])
 
   const [updateProjectOverview] = useUpdateProjectOverviewMutation()
-  const handleUpdateProjectOverview = ({ newDescription = description }) => {
+  useUpdateEffect(() => {
+    if (isNoneUserDependencyState([description])) return
+
     updateProjectOverview({
       id: projectId,
-      description: newDescription
-    })
-    console.log('just updated')
-  }
-  useTimeoutCallbackSkipOnce(
-    () => handleUpdateProjectOverview({}),
-    [description]
-  )
+      description: description.value
+    }).unwrap()
+
+    refreshDescription()
+  }, [description])
 
   if (!projectOverview) return <></>
 
@@ -37,8 +36,8 @@ function ProjectOverview({ projectId }: ProjectOverviewProps) {
       <Typography variant={'h6'}>Description</Typography>
       <TextField
         placeholder={'Enter a description'}
-        value={description}
-        onChange={(e) => setDescription(e.target.value)}
+        value={facadeDescription}
+        onChange={(e) => setFacadeDescription(e.target.value, true)}
         multiline
         minRows={5}
         sx={{

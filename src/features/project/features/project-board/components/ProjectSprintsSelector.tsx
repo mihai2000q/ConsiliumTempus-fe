@@ -1,12 +1,12 @@
 import { Button, CircularProgress, Menu, MenuItem, useTheme } from "@mui/material";
 import ProjectSprint from "../../../types/ProjectSprint.model.ts";
 import { useGetProjectSprintsQuery } from "../../../state/projectApi.ts";
-import useDependencyOnceEffect from "../../../../../hooks/useDependencyOnceEffect.ts";
 import { useEffect, useState } from "react";
 import { ArrowDropDown } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../../state/store.ts";
 import { setProjectSprintId } from "../../../../../state/project/projectSlice.ts";
+import useUpdateEffect from "../../../../../hooks/useUpdateEffect.ts";
 
 interface ProjectSprintsSelectorProps {
   projectId: string
@@ -20,14 +20,13 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
 
   const sprints: ProjectSprint[] | undefined = useGetProjectSprintsQuery({ projectId: projectId }).data?.sprints
   const [currentSprint, setCurrentSprint] = useState<ProjectSprint>()
-  useDependencyOnceEffect(
-    () => setCurrentSprint(sprints && sprints[sprints.length - 1]),
-    sprints
-  )
-
   useEffect(() => {
+    setCurrentSprint(sprints && sprints[sprints.length - 1])
+  }, [sprints])
+
+  useUpdateEffect(() => {
     dispatch(setProjectSprintId(currentSprint?.id))
-  }, [currentSprint, dispatch]);
+  }, [currentSprint]);
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const handleCloseMenu = () => setMenuAnchorEl(null)
