@@ -13,9 +13,12 @@ import Calendar from "./features/calendar/Calendar.tsx";
 import MyTasks from "./features/my-tasks/MyTasks.tsx";
 import Projects from "./features/projects/Projects.tsx";
 import Project from "./features/project/Project.tsx";
+import ProjectTask from "./features/project-task/ProjectTask.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode])
 
   return (
@@ -34,6 +37,7 @@ function App() {
               <Route path={Paths.Calendar} element={<Calendar />} />
               <Route path={Paths.Projects} element={<Projects />} />
               <Route path={Paths.Project} element={<Project />} />
+              <Route path={`${Paths.ProjectTask}/:id`} element={<ProjectTask />} />
             </Route>
           </Routes>
         </ThemeProvider>

@@ -10,7 +10,7 @@ import { ProjectSprintResponse } from "../types/ProjectSprint.response.ts";
 export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProject: builder.query<Project, GetProjectRequest>({
-      query: (arg) => `${Urls.Projects}/${arg.id}`
+      query: arg => `${Urls.Projects}/${arg.id}`
     }),
     getProjectSprints: builder.query<ProjectSprintResponse, GetProjectSprintsRequest>({
       query: arg => ({

@@ -8,6 +8,7 @@ enum Paths {
   Workspace = '/workspace',
   Projects = '/projects',
   Project = '/project',
+  ProjectTask = '/task',
 }
 
 export default Paths
