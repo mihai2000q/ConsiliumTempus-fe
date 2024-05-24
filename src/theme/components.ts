@@ -1,4 +1,4 @@
-import { alpha, Theme } from "@mui/material";
+import { alpha, ButtonProps, DrawerProps, ListItemButtonProps, Theme } from "@mui/material";
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from "react";
 
 export const components = {
@@ -26,7 +26,7 @@ export const components = {
   },
   MuiButton: {
     styleOverrides: {
-      root: ({ ownerState, theme }) => ({
+      root: ({ ownerState, theme } : { ownerState: ButtonProps, theme: Theme }) => ({
         textTransform: 'none',
         '& .MuiButton-startIcon': {
           marginRight: 2
@@ -116,6 +116,8 @@ export const components = {
       iconPosition: 'start'
     },
     styleOverrides: {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       root: ({ ownerState, theme }) => ({
         textTransform: 'none',
         borderRadius: '8px 8px 0px 0px',
@@ -123,13 +125,74 @@ export const components = {
         minHeight: '10px',
         '&:hover': {
           color: ownerState.selected ? theme.palette.primary[200] : theme.palette.primary[50],
-          "& .MuiTouchRipple-root": {
-            backgroundColor: alpha(theme.palette.primary[100], 0.1),
-          }
+          backgroundColor: alpha(theme.palette.primary[100], 0.1),
         }
       })
     },
   },
+  MuiListItemIcon: {
+    styleOverrides: {
+      root: {
+        minWidth: 0
+      }
+    }
+  },
+  MuiListItemButton: {
+    styleOverrides: {
+      root: ({ ownerState, theme } : { ownerState: ListItemButtonProps, theme: Theme }) => ({
+        alignItems: 'center',
+        borderRadius: '10px',
+        margin: '1px 16px',
+        padding: '4px 12px',
+        color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
+        '&:hover': {
+          color: theme.palette.background[50],
+          backgroundColor: alpha(theme.palette.primary[100], 0.1),
+          '& .MuiListItemIcon-root': {
+            color: theme.palette.background[50],
+          }
+        },
+        '& .MuiListItemIcon-root': {
+          color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
+          marginRight: '8px'
+        }
+      })
+    }
+  },
+  MuiDrawer: {
+    styleOverrides: {
+      root: ({ ownerState, theme } : { ownerState: DrawerProps, theme: Theme }) => ({
+        ...(ownerState.variant === 'persistent' && {
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            backgroundColor: theme.palette.background[800]
+          },
+        })
+      })
+    }
+  },
+  MuiMenu: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiPaper-root': {
+          backgroundColor: theme.palette.background[900],
+          color: theme.palette.background[50],
+          backgroundImage: 'none'
+        }
+      })
+    }
+  },
+  MuiPopper: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiTooltip-tooltip': {
+          backgroundColor: theme.palette.popover.backgroundColor,
+          color: theme.palette.popover.textColor
+        }
+      })
+    }
+  }
 }
 
 declare module '@mui/material/IconButton' {
