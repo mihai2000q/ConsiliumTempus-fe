@@ -2,7 +2,7 @@ export type GetProjectsRequest = {
   order?: string
 }
 
-export type AddProjectRequest = {
+export type CreateProjectRequest = {
   workspaceId: string,
   name: string
 }

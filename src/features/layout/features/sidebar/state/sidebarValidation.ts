@@ -5,3 +5,9 @@ export const addProjectDialogSchema = yup.object().shape({
     .string()
     .required("Name is required"),
 })
+
+export const addWorkspaceDialogSchema = yup.object().shape({
+  workspaceName: yup
+    .string()
+    .required("Name is required"),
+})
