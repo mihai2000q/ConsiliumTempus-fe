@@ -3,7 +3,7 @@ import {
   Button,
   CircularProgress,
   IconButton,
-  Stack, StackProps, styled,
+  Stack, StackProps, styled, Tooltip,
   Typography,
   useTheme
 } from "@mui/material";
@@ -72,9 +72,17 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
               maxWidth: 180,
               mr: '1px'
             }} />
-          {totalTasksCount === undefined
-            ? <CircularProgress size={16} />
-            : <Typography fontWeight={300}>{totalTasksCount}</Typography>}
+          {
+            totalTasksCount === undefined
+              ? <CircularProgress size={16} />
+              :
+              <Tooltip
+                sx={{ cursor: 'default' }}
+                placement={'top'}
+                title={`There are ${totalTasksCount} task${totalTasksCount === 1 ? '' : 's'} in this stage`}>
+                <Typography fontWeight={300}>{totalTasksCount}</Typography>
+              </Tooltip>
+          }
         </Stack>
         <Stack direction={'row'}>
           <IconButton>
