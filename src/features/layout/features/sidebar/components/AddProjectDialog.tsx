@@ -30,7 +30,7 @@ interface AddProjectDialogProps {
 }
 
 function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) {
-  const [addProject, addProjectMutation] = useAddProjectMutation()
+  const [addProject, { error, isLoading }] = useAddProjectMutation()
 
   const {
     values,
@@ -55,7 +55,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
       workspaceId: values.workspaceId!,
       name: values.projectName
     }).unwrap()
-    if (addProjectMutation.error !== undefined) return
+    if (error !== undefined) return
     resetForm()
     onClose()
   }
@@ -88,7 +88,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
                 onBlur={handleBlur}
                 sx={{ '& .MuiListItemIcon-root': { minWidth: 0, mr: 1 } }}
                 SelectDisplayProps={{
-                  style: { display: 'flex', alignItems: 'center'  },
+                  style: { display: 'flex', alignItems: 'center' },
                 }}>
                 {
                   workspaces?.map((workspace) => (
@@ -104,10 +104,10 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
         </DialogContent>
         <DialogActions>
           <Box position={'relative'}>
-            <Button disabled={addProjectMutation.isLoading} variant={'contained'} type={"submit"}>
+            <Button disabled={isLoading} variant={'contained'} type={"submit"}>
               Add
             </Button>
-            {addProjectMutation.isLoading &&
+            {isLoading &&
               <CircularProgress
                 color={"secondary"}
                 thickness={7}

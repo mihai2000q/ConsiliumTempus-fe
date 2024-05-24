@@ -8,6 +8,7 @@ import Paths from "../../../../../utils/Paths.ts";
 import { Add } from "@mui/icons-material";
 import AddProjectDialog from "./AddProjectDialog.tsx";
 import { useState } from "react";
+import AddWorkspaceDialog from "./AddWorkspaceDialog.tsx";
 
 function SidebarContent() {
   const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({
@@ -17,9 +18,13 @@ function SidebarContent() {
   const projects: Project[] | undefined = useGetProjectsQuery({ order: 'last_activity.desc' }).data?.projects
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
+  const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)
 
-  function handleAddProjectDialog() {
+  function handleOpenAddProjectDialog() {
     setAddProjectDialogOpen(true)
+  }
+  function handleOpenAddWorkspaceDialog() {
+    setAddWorkspaceDialogOpen(true)
   }
 
   return (
@@ -27,10 +32,19 @@ function SidebarContent() {
       <AddProjectDialog
         workspaces={workspaces}
         open={addProjectDialogOpen}
-        onClose={() => setAddProjectDialogOpen(false)}/>
+        onClose={() => setAddProjectDialogOpen(false)} />
+      <AddWorkspaceDialog
+        open={addWorkspaceDialogOpen}
+        onClose={() => setAddWorkspaceDialogOpen(false)} />
       <DrawerList drawerItems={topDrawerItems} />
       <DrawerList
         subheader={"Workspaces"}
+        subheaderDestination={Paths.Workspaces}
+        subheaderAction={
+          <IconButton variant={'circular'} onClick={handleOpenAddWorkspaceDialog}>
+            <Add sx={{ color: 'darkgrey' }}/>
+          </IconButton>
+        }
         drawerItems={workspaces?.map((w) => ({
           text: w.name,
           link: `${Paths.Workspace}/${w.id}`
@@ -39,7 +53,7 @@ function SidebarContent() {
         subheader={"Projects"}
         subheaderDestination={Paths.Projects}
         subheaderAction={
-          <IconButton variant={'circular'} onClick={handleAddProjectDialog}>
+          <IconButton variant={'circular'} onClick={handleOpenAddProjectDialog}>
             <Add sx={{ color: 'darkgrey' }}/>
           </IconButton>
         }
