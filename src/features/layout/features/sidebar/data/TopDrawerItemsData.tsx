@@ -1,16 +1,16 @@
 import DrawerItem from "../types/DrawerItem.ts";
-import { CalendarMonth, CheckBox, Home } from "@mui/icons-material";
+import { CalendarMonth, ChecklistRounded, HomeRounded } from "@mui/icons-material";
 import Paths from "../../../../../utils/Paths.ts";
 
 const topDrawerItems: DrawerItem[] = [
   {
     text: 'Home',
-    icon: (<Home />),
+    icon: (<HomeRounded />),
     link: Paths.Home
   },
   {
     text: 'My Tasks',
-    icon: (<CheckBox />),
+    icon: (<ChecklistRounded />),
     link: Paths.Tasks
   },
   {

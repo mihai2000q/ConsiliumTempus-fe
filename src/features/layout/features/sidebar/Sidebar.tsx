@@ -17,11 +17,7 @@ function Sidebar({ width, isDisplayable, isOpen }: SidebarProps) {
       open={isOpen}
       sx={{
         width: width,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: width,
-          boxSizing: 'border-box',
-        },
+        '& .MuiDrawer-paper': { width: width }
       }}>
       <SidebarContent />
     </Drawer>
