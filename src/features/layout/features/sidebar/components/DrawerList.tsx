@@ -1,8 +1,20 @@
-import { Box, List, ListItemButton, ListSubheader, Skeleton, Typography } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  List,
+  ListItemButton,
+  ListSubheader,
+  Skeleton,
+  Stack,
+  Typography,
+  useTheme
+} from "@mui/material";
 import DrawerItem from "../types/DrawerItem.ts";
 import DrawerListItem from "./DrawerListItem.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ReactElement } from "react";
+import { ReactElement, useState } from "react";
+import useIsDarkMode from "../../../../../hooks/useIsDarkMode.ts";
+import { ArrowDropDownRounded, ArrowRightRounded } from "@mui/icons-material";
 
 interface DrawerListProps {
   drawerItems: DrawerItem[] | undefined,
@@ -17,52 +29,83 @@ function DrawerList({
   subheaderAction,
   drawerItems
 }: DrawerListProps) {
+  const theme = useTheme()
+  const isDarkMode = useIsDarkMode()
   const navigate = useNavigate()
   const location = useLocation()
+
+  const [hideItems, setHideItems  ] = useState(false)
 
   return (
     <List
       disablePadding
       component="nav"
       subheader={
-        (subheader &&
-          <ListSubheader component={'div'} sx={{ padding: 0 }}>
-            {subheaderDestination
-              ? (
-                <Box>
-                  <ListItemButton
-                    selected={location.pathname == subheaderDestination}
-                    sx={{ py: 1.3, justifyContent: 'space-between' }}
-                    onClick={() => navigate(subheaderDestination)}>
-                    <Typography fontWeight={500}>{subheader}</Typography>
-                  </ListItemButton>
-                  <Box display={'flex'} position={'absolute'} bottom={3} right={0} mr={1}>
-                    {subheaderAction}
+        (
+          subheader &&
+          <ListSubheader component={'div'} sx={{ padding: 0, backgroundColor: 'inherit' }}>
+            {
+              subheaderDestination
+                ? (
+                  <Box>
+                    <ListItemButton
+                      selected={location.pathname == subheaderDestination}
+                      onClick={() => navigate(subheaderDestination)}
+                      sx={{
+                        marginBottom: 0,
+                        py: 1.3,
+                        justifyContent: 'space-between',
+                        color: isDarkMode ? theme.palette.grey[300] : theme.palette.grey[600],
+                        '&:hover': { color: theme.palette.background[100] }
+                      }}>
+                      <Typography fontWeight={500}>{subheader}</Typography>
+                    </ListItemButton>
+
+                    <Box position={'absolute'} bottom={0} left={'1px'}>
+                      <IconButton sx={{ width: 20, height: 20 }} onClick={() => setHideItems(!hideItems)}>
+                        {hideItems ? <ArrowDropDownRounded /> : <ArrowRightRounded />}
+                      </IconButton>
+                    </Box>
+
+                    <Box display={'flex'} position={'absolute'} bottom={'13%'} right={'0'} pr={'18px'}>
+                      {subheaderAction}
+                    </Box>
                   </Box>
-                </Box>
-              )
-              : <Typography fontWeight={500} px={1.6} py={1}>{subheader}</Typography>}
-          </ListSubheader>)
+                )
+                : <Typography fontWeight={500} px={1.6} py={1}>{subheader}</Typography>
+            }
+          </ListSubheader>
+        )
       }>
       {
-        drawerItems
-          ? (
-            drawerItems.length === 0
-              ?
-              <Typography ml={5} my={1} variant={'body2'} fontWeight={"lighter"}>
-                No {subheader ?? "data"}
-              </Typography>
-              : drawerItems.map((item) =>
-                <DrawerListItem key={item.link} drawerItem={item} />
-              )
-          )
-          : (
-            <>
-              {Array.from(Array(5)).map((_, i) => (
-                <Skeleton key={i} variant={'text'} sx={{ fontSize: '2rem' }} />
-              ))}
-            </>
-          )
+        hideItems
+          ? <></>
+          : drawerItems
+            ? (
+              drawerItems.length === 0
+                ?
+                <Typography ml={5} my={1} variant={'body2'} fontWeight={"lighter"}>
+                  No {subheader ?? "data"}
+                </Typography>
+                : drawerItems.map((item) =>
+                  <DrawerListItem key={item.link} drawerItem={item} />
+                )
+            )
+            : (
+              <Stack>
+                {Array.from(Array(5)).map((_, i) => (
+                  <Skeleton
+                    key={i}
+                    variant={'rectangular'}
+                    height={35}
+                    sx={{
+                      borderRadius: 2,
+                      margin: '1px 8px',
+                      padding: '6px 8px'
+                    }} />
+                ))}
+              </Stack>
+            )
       }
     </List>
   );
