@@ -45,7 +45,7 @@ function TopbarUser() {
           <Avatar
             alt={"User Profile Picture"}
             src={demoUserPic} />
-          <Stack ml={1} width={150}>
+          <Stack ml={2} mr={1} maxWidth={150}>
             <Typography
               variant={'h6'}
               fontWeight={'bold'}

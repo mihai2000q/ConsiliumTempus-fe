@@ -8,7 +8,6 @@ import { AppDispatch } from "../../state/store.ts";
 import { useDispatch } from "react-redux";
 import { useLoginMutation } from "./state/loginApi.ts";
 import { LoginForm, loginFormInitialValues } from "./state/loginState.ts";
-import AuthResponse from "../../types/Auth.response.ts";
 import { setRefreshToken, setToken } from "../../state/auth/authSlice.ts";
 import { Link, useNavigate } from "react-router-dom";
 import Paths from "../../utils/Paths.ts";
@@ -17,8 +16,15 @@ import HttpErrorResponse from "../../types/HttpError.response.ts";
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
 
-  const [login, loginMutation] = useLoginMutation()
-  const loginError = (loginMutation.error as HttpErrorResponse | undefined)?.data
+  const [
+    login,
+    {
+      error,
+      isError,
+      isLoading
+    }
+  ] = useLoginMutation()
+  const loginError = (error as HttpErrorResponse | undefined)?.data
 
   const navigate = useNavigate()
 
@@ -37,13 +43,12 @@ function Login() {
 
   async function handleSubmitForm(values: LoginForm) {
     const { email, password } = values
-    let authRes = await login({ email, password }).unwrap()
+    const res = await login({ email, password }).unwrap()
 
-    if (loginMutation.error !== undefined) return
+    if (isError) return
 
-    authRes = authRes as AuthResponse
-    dispatch(setToken(authRes.token))
-    dispatch(setRefreshToken(authRes.refreshToken))
+    dispatch(setToken(res.token))
+    dispatch(setRefreshToken(res.refreshToken))
     navigate(Paths.Home)
   }
 
@@ -74,14 +79,14 @@ function Login() {
                   name={'email'}
                   label={'Email'}
                   placeholder={'Enter your email'}
-                  error={touched.email && !!errors.email || loginMutation.isError}
-                  helperText={touched.email && errors.email || loginMutation.isError && loginError?.title} />
+                  error={touched.email && !!errors.email || isError}
+                  helperText={touched.email && errors.email || isError && loginError?.title} />
                 <PasswordTextField
                   value={values.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  error={touched.password && !!errors.password || loginMutation.isError}
-                  helperText={touched.password && errors.password || loginMutation.isError && loginError?.title} />
+                  error={touched.password && !!errors.password || isError}
+                  helperText={touched.password && errors.password || isError && loginError?.title} />
                 <Stack direction={"row"} justifyContent={"space-between"} alignItems={'center'}>
                   <Stack direction={"row"} alignItems={"center"}>
                     <Checkbox value={values.rememberMe} onChange={handleChange} />
@@ -92,7 +97,7 @@ function Login() {
                 <Button
                   variant={'contained'}
                   type={"submit"}
-                  disabled={loginMutation.isLoading}
+                  disabled={isLoading}
                   sx={{
                     textTransform: 'none'
                   }}>
