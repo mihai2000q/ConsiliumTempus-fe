@@ -135,6 +135,9 @@ export const components = {
         borderRadius: '8px 8px 0px 0px',
         padding: '8px 8px 10px 6px',
         minHeight: '10px',
+        transition: theme.transitions.create(['background-color', 'color'], {
+          duration: theme.transitions.duration.short,
+        }),
         '&:hover': {
           color: ownerState.selected ? theme.palette.primary[200] : theme.palette.primary[50],
           backgroundColor: alpha(theme.palette.primary[100], 0.1),
@@ -156,6 +159,9 @@ export const components = {
         borderRadius: '10px',
         margin: '1px 16px',
         padding: '4px 12px',
+        transition: theme.transitions.create(['background-color', 'color'], {
+          duration: theme.transitions.duration.short,
+        }),
         color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
         '&:hover': {
           color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
@@ -165,6 +171,9 @@ export const components = {
           }
         },
         '& .MuiListItemIcon-root': {
+          transition: theme.transitions.create(['color'], {
+            duration: theme.transitions.duration.short,
+          }),
           color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
           marginRight: '8px'
         }

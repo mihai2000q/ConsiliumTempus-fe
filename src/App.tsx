@@ -27,7 +27,7 @@ function App() {
     <div className={'app'}>
       <BrowserRouter>
         <ThemeProvider theme={theme}>
-          <CssBaseline />
+          <CssBaseline enableColorScheme />
           <Routes>
             <Route element={<Layout />}>
               <Route path={'/'} element={<Navigate to={'/login'} replace />} />
