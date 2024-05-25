@@ -1,4 +1,4 @@
-import { alpha, Theme } from "@mui/material";
+import { alpha, ButtonProps, DrawerProps, ListItemButtonProps, Theme } from "@mui/material";
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from "react";
 
 export const components = {
@@ -22,11 +22,23 @@ export const components = {
       h6: {
         color: theme.palette.background[100]
       },
-    })
+      "@global": {
+        "*::-webkit-scrollbar": {
+          width: "5px"
+        },
+        "*::-webkit-scrollbar-track": {
+          background: "#E4EFEF"
+        },
+        "*::-webkit-scrollbar-thumb": {
+          background: "#1D388F61",
+          borderRadius: "2px"
+        }
+      }
+    }),
   },
   MuiButton: {
     styleOverrides: {
-      root: ({ ownerState, theme }) => ({
+      root: ({ ownerState, theme } : { ownerState: ButtonProps, theme: Theme }) => ({
         textTransform: 'none',
         '& .MuiButton-startIcon': {
           marginRight: 2
@@ -116,20 +128,93 @@ export const components = {
       iconPosition: 'start'
     },
     styleOverrides: {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
       root: ({ ownerState, theme }) => ({
         textTransform: 'none',
         borderRadius: '8px 8px 0px 0px',
         padding: '8px 8px 10px 6px',
         minHeight: '10px',
+        transition: theme.transitions.create(['background-color', 'color'], {
+          duration: theme.transitions.duration.short,
+        }),
         '&:hover': {
           color: ownerState.selected ? theme.palette.primary[200] : theme.palette.primary[50],
-          "& .MuiTouchRipple-root": {
-            backgroundColor: alpha(theme.palette.primary[100], 0.1),
-          }
+          backgroundColor: alpha(theme.palette.primary[100], 0.1),
         }
       })
     },
   },
+  MuiListItemIcon: {
+    styleOverrides: {
+      root: {
+        minWidth: 0
+      }
+    }
+  },
+  MuiListItemButton: {
+    styleOverrides: {
+      root: ({ ownerState, theme } : { ownerState: ListItemButtonProps, theme: Theme }) => ({
+        alignItems: 'center',
+        borderRadius: '10px',
+        margin: '1px 16px',
+        padding: '4px 12px',
+        transition: theme.transitions.create(['background-color', 'color'], {
+          duration: theme.transitions.duration.short,
+        }),
+        color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
+        '&:hover': {
+          color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
+          backgroundColor: alpha(theme.palette.primary[100], 0.1),
+          '& .MuiListItemIcon-root': {
+            color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
+          }
+        },
+        '& .MuiListItemIcon-root': {
+          transition: theme.transitions.create(['color'], {
+            duration: theme.transitions.duration.short,
+          }),
+          color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
+          marginRight: '8px'
+        }
+      })
+    }
+  },
+  MuiDrawer: {
+    styleOverrides: {
+      root: ({ ownerState, theme } : { ownerState: DrawerProps, theme: Theme }) => ({
+        ...(ownerState.variant === 'persistent' && {
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            backgroundColor: theme.palette.background[800],
+            ...(theme.palette.mode === 'dark' && { border: 0 })
+          },
+        })
+      })
+    }
+  },
+  MuiMenu: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiPaper-root': {
+          backgroundColor: theme.palette.background[900],
+          color: theme.palette.background[50],
+          backgroundImage: 'none'
+        }
+      })
+    }
+  },
+  MuiPopper: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiTooltip-tooltip': {
+          backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background[700] : theme.palette.primary[600],
+          color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.background[900]
+        }
+      })
+    }
+  }
 }
 
 declare module '@mui/material/IconButton' {

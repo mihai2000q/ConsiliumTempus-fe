@@ -13,6 +13,7 @@ The expected labels to use are:
 - **feature** for new features that are added to the application
 - **improvement** when the proposed issue makes the code more performant (or in any way considered better)
 - **refactor** when the code is just being cleaned up
+- **styling** when the written code is intended to change only the appearance of a component
 - **test** if a unit or end-to-end test for the source code is being written
 
 ## Git Branches
@@ -24,6 +25,7 @@ Based on the above label, the branch will have similar prefixes:
 - **feature** for a _feature_ issue
 - **improve** for an _improvement_ issue
 - **refactor** for a _refactor_ issue
+- **style** for a _styling_ issue
 - **test** for a _test_ issue
 
 For example, if your ticket's name is "Project - New Dropdown for Sprints" 
@@ -33,13 +35,13 @@ Also, the main development branch is **develop**, and **master** is used for rel
 
 ## Git Commits
 
-The commits on branches should follow a structure (*#TAG SCREEN - CHANGES*).
+The commits on branches should follow a structure (*#TAG FEATURE - CHANGES*).
 First, there should be a hashtag followed by the number of the issue (e.g., #3)
-followed by the Screen's name that is the target of the commit
+followed by the Feature's name that is the target of the commit
 (e.g., Project) 
 followed by a dash and the changes done on it 
 (by preference, try to include a meaningful verb like add or update).
 For example, `#3 Project - Add New Dropdown for Sprints`.
 
-Note: if the target of the commit has nothing to do with any screen, no worries, just try to be as concise as possible.
-However, if multiple screen are affected, submit more small commits.
+Note: if the target of the commit has nothing to do with any feature, no worries, just try to be as concise as possible.
+However, if multiple features are affected, submit more small commits.

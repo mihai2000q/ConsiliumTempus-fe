@@ -14,8 +14,8 @@ export const darkThemeColors = {
   },
   secondary: {
     // light purple
-    50: "#edd2f1",
-    100: "#d3c7de",
+    50: "#ede6f1",
+    100: "#edd2f1",
     200: "#b7a2c9", // primary
     300: "#9d7bb7",
     400: "#8a5dac",
@@ -33,11 +33,11 @@ export const darkThemeColors = {
     200: "#f5f0ff",
     300: "#f0ebff",
     400: "#d2cee6",
-    500: "#b5b1c9",
-    600: "#8b869d",
-    700: "#757187",
-    800: "#555166",
-    900: "#322f42", // primary
+    500: "#716a8f",
+    600: "#595370",
+    700: "#3b374b",
+    800: "#322f42", // primary
+    900: "#282b3c",
   },
   background: {
     // dark purple

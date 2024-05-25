@@ -13,7 +13,7 @@ function Layout() {
   const location = useLocation()
   const isDisplayable = isLayoutDisplayable(location.pathname)
 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
   return (
     <Stack

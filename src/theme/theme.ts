@@ -53,7 +53,7 @@ export const themeSettings = (mode: ThemeMode) => {
     },
     components: {
       ...components
-    }
+    },
   }
 }
 

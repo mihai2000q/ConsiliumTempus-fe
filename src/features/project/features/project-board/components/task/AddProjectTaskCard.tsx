@@ -6,10 +6,12 @@ import { useState } from "react";
 interface AddProjectTaskCardProps{
   closeCard: (() => void),
   projectStageId: string,
-  onTop: boolean
+  onTop: boolean,
+  mb?: number | undefined,
+  mt?: number | undefined,
 }
 
-function AddProjectTaskCard({ closeCard, projectStageId, onTop }: AddProjectTaskCardProps) {
+function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddProjectTaskCardProps) {
   const [name, setName] = useState('')
 
   const [addProjectTask] = useAddProjectTaskMutation()
@@ -39,7 +41,13 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop }: AddProjectTask
       disableRipple
       onBlur={handleBlur}
       onKeyUp={handleOnKeyUp}
-      sx={{ padding: 2, boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
+      sx={{
+        padding: 2,
+        boxShadow: 2,
+        '&:hover': { boxShadow: 4 },
+        mt: mt,
+        mb: mb
+      }}>
         <InputBase
           autoFocus
           fullWidth

@@ -3,7 +3,7 @@ import {
   Button,
   CircularProgress,
   IconButton,
-  Stack, StackProps, styled,
+  Stack, StackProps, styled, Tooltip,
   Typography,
   useTheme
 } from "@mui/material";
@@ -24,7 +24,7 @@ export const StagePanel = styled(Stack)<StackProps>(({ theme }) => ({
   height: '100%',
   width: 335,
   borderRadius: '16px',
-  padding: '12px',
+  padding: '12px 12px 0px 12px',
   background: alpha(theme.palette.primary[800], 0.25)
 }))
 
@@ -72,10 +72,19 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
               maxWidth: 180,
               mr: '1px'
             }} />
-          {totalTasksCount === undefined
-            ? <CircularProgress size={16} />
-            : <Typography fontWeight={300}>{totalTasksCount}</Typography>}
+          {
+            totalTasksCount === undefined
+              ? <CircularProgress size={16} />
+              :
+              <Tooltip
+                sx={{ cursor: 'default' }}
+                placement={'top'}
+                title={`There are ${totalTasksCount} task${totalTasksCount === 1 ? '' : 's'} in this stage`}>
+                <Typography fontWeight={300}>{totalTasksCount}</Typography>
+              </Tooltip>
+          }
         </Stack>
+
         <Stack direction={'row'}>
           <IconButton>
             <SearchRounded />
@@ -92,10 +101,12 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
             stageId={stage.id} />
         </Stack>
       </Stack>
-      <Stack spacing={1} px={0.75} py={1} sx={{ overflow: 'auto', maxHeight: '100%' }}>
+
+      <Stack px={0.75} pt={1} sx={{ overflow: 'auto', maxHeight: '100%' }}>
         {
           showTopAddTaskCard &&
             <AddProjectTaskCard
+              mb={1}
               closeCard={() => setShowTopAddTaskCard(false)}
               projectStageId={stage.id}
               onTop={true} />
@@ -103,6 +114,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
         {
           showAddTaskCard && setShowAddTaskCard &&
             <AddProjectTaskCard
+              mb={1}
               closeCard={() => setShowAddTaskCard(false)}
               projectStageId={stage.id}
               onTop={true} />
@@ -115,11 +127,16 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
         {
           showBottomAddTaskCard &&
             <AddProjectTaskCard
+                mt={1}
+                mb={1}
                 closeCard={() => setShowBottomAddTaskCard(false)}
                 projectStageId={stage.id}
                 onTop={false} />
         }
-        <Button startIcon={<Add />} onClick={() => setShowBottomAddTaskCard(!showBottomAddTaskCard)}>
+        <Button
+          startIcon={<Add />}
+          onClick={() => setShowBottomAddTaskCard(!showBottomAddTaskCard)}
+          sx={{ mb: 1.5, mt: 0.5 }}>
           Add Task
         </Button>
       </Stack>
