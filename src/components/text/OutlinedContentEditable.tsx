@@ -44,6 +44,7 @@ function OutlinedContentEditable({
   return (
     <Box sx={{
       ...sx,
+      boxSizing: 'border-box',
       border: 'solid 2px transparent',
       borderRadius: 1.5,
       ...(isFocused

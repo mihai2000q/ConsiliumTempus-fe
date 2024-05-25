@@ -15,7 +15,7 @@ const OutlinedInput = styled(
   borderRadius: isTitle === true ? '4px' : '9px',
   fontSize: isTitle === true ? 20 : 14,
   '& .MuiInputBase-input': {
-    padding: isTitle === true ? '1px 5px' : '2px 5px',
+    padding: isTitle === true ? '1px 5px' : '4px 6px',
   },
   ...(isFocused
     ? {
@@ -24,7 +24,7 @@ const OutlinedInput = styled(
     : {
       '&:hover': {
         '& .MuiInputBase-input': {
-          padding: isTitle === true ? '2px 6px' : '3px 6px',
+          padding: isTitle === true ? '2px 6px' : '5px 7px',
         },
         border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`,
       },

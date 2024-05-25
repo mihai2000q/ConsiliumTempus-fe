@@ -11,7 +11,7 @@ export const TaskCard = styled(Button)<ButtonProps>(({ theme }) => ({
   borderRadius: '16px',
   justifyContent: 'start',
   width: '100%',
-  padding: '16px 16px 55px 16px',
+  padding: '16px 16px 60px 16px',
   background: alpha(theme.palette.primary[900], 0.5),
   color: theme.palette.background[100],
   border: 'solid 1px',
@@ -57,7 +57,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
   }
 
   return (
-    <Box position={'relative'}>
+    <Box position={'relative'} my={0.5}>
       <TaskCard
         component={'div'}
         onClick={handleClick}
@@ -65,7 +65,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         sx={{ boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
         <Stack width={'100%'}>
           <Typography>
-            <IconButton hidden={true}></IconButton>
+            <IconButton hidden={true} sx={{ height: 15 }}></IconButton>
             {task.name}
           </Typography>
         </Stack>
@@ -81,7 +81,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           position: 'absolute',
           top: 0,
           left: 0,
-          mt: 1.89,
+          mt: 1.5,
           ml: 2,
           color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
           mb: '1px',
@@ -93,7 +93,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           ? <CheckCircleRounded fontSize={'small'} />
           : <CheckCircleOutlineRounded fontSize={'small'} />}
       </IconButton>
-      <Stack direction={'row'} mt={2} position={'absolute'} bottom={0} padding={2}>
+      <Stack direction={'row'} position={'absolute'} bottom={0} padding={2}>
         <IconButton variant={'dashed'}>
           <Person fontSize={'inherit'} />
         </IconButton>

@@ -187,7 +187,8 @@ export const components = {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
             boxSizing: 'border-box',
-            backgroundColor: theme.palette.background[800]
+            backgroundColor: theme.palette.background[800],
+            ...(theme.palette.mode === 'dark' && { border: 0 })
           },
         })
       })
