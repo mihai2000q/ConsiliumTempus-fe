@@ -17,10 +17,6 @@ const darkThemePalette = {
     ...darkThemeColors.triadic,
     main: darkThemeColors.triadic[900],
   },
-  popover: {
-    backgroundColor: darkThemeColors.background[700],
-    textColor: darkThemeColors.background[100],
-  },
   background: {
     ...darkThemeColors.background,
     default: darkThemeColors.background[900],
@@ -40,10 +36,6 @@ const lightThemePalette = {
     ...lightThemeColors.triadic,
     main: lightThemeColors.triadic[900],
   },
-  popover: {
-    backgroundColor: lightThemeColors.primary[600],
-    textColor: lightThemeColors.background[900],
-  },
   background: {
     ...lightThemeColors.background,
     default: lightThemeColors.background[900],
@@ -61,14 +53,13 @@ export const themeSettings = (mode: ThemeMode) => {
     },
     components: {
       ...components
-    }
+    },
   }
 }
 
 declare module '@mui/material/styles' {
   interface Palette {
-    triadic: PaletteColor,
-    popover: { backgroundColor: string, textColor: string }
+    triadic: PaletteColor
   }
 
   interface PaletteColor {

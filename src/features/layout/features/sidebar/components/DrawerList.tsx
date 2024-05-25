@@ -63,7 +63,7 @@ function DrawerList({
 
                     <Box position={'absolute'} bottom={0} left={'1px'}>
                       <IconButton sx={{ width: 20, height: 20 }} onClick={() => setHideItems(!hideItems)}>
-                        {hideItems ? <ArrowDropDownRounded /> : <ArrowRightRounded />}
+                        {hideItems ? <ArrowRightRounded /> : <ArrowDropDownRounded />}
                       </IconButton>
                     </Box>
 
@@ -99,9 +99,8 @@ function DrawerList({
                     variant={'rectangular'}
                     height={35}
                     sx={{
-                      borderRadius: 2,
-                      margin: '1px 8px',
-                      padding: '6px 8px'
+                      borderRadius: '10px',
+                      margin: '1px 16px',
                     }} />
                 ))}
               </Stack>

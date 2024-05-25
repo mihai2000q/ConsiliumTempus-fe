@@ -84,6 +84,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
               </Tooltip>
           }
         </Stack>
+
         <Stack direction={'row'}>
           <IconButton>
             <SearchRounded />
@@ -100,6 +101,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
             stageId={stage.id} />
         </Stack>
       </Stack>
+
       <Stack spacing={1} px={0.75} py={1} sx={{ overflow: 'auto', maxHeight: '100%' }}>
         {
           showTopAddTaskCard &&

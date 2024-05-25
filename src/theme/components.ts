@@ -22,7 +22,19 @@ export const components = {
       h6: {
         color: theme.palette.background[100]
       },
-    })
+      "@global": {
+        "*::-webkit-scrollbar": {
+          width: "5px"
+        },
+        "*::-webkit-scrollbar-track": {
+          background: "#E4EFEF"
+        },
+        "*::-webkit-scrollbar-thumb": {
+          background: "#1D388F61",
+          borderRadius: "2px"
+        }
+      }
+    }),
   },
   MuiButton: {
     styleOverrides: {
@@ -146,10 +158,10 @@ export const components = {
         padding: '4px 12px',
         color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
         '&:hover': {
-          color: theme.palette.background[50],
+          color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
           backgroundColor: alpha(theme.palette.primary[100], 0.1),
           '& .MuiListItemIcon-root': {
-            color: theme.palette.background[50],
+            color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
           }
         },
         '& .MuiListItemIcon-root': {
@@ -187,8 +199,8 @@ export const components = {
     styleOverrides: {
       root: ({ theme } : { theme: Theme }) => ({
         '& .MuiTooltip-tooltip': {
-          backgroundColor: theme.palette.popover.backgroundColor,
-          color: theme.palette.popover.textColor
+          backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background[700] : theme.palette.primary[600],
+          color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.background[900]
         }
       })
     }

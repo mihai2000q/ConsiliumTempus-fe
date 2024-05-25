@@ -95,12 +95,12 @@ function SidebarContent() {
         <Button
           variant={'outlined'}
           startIcon={<MailOutlined sx={{ mr: '3px' }} />}
-          sx={{ marginX: 2, marginTop: 2 }}>
+          sx={{ marginX: 2, marginTop: 3, marginBottom: 2 }}>
           Invite teammates
         </Button>
         <Typography
           variant={'caption'}
-          ml={1} mt={1} mb={0.5}
+          ml={1} mb={0.5}
           fontWeight={400}
           color={theme.palette.background[300]}>
           © {new Date().getFullYear()} Consilium Tempus
