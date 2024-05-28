@@ -10,7 +10,10 @@ function DrawerListItem({ drawerItem }: DrawerListItemProps) {
   const location = useLocation()
 
   const navigate = useNavigate()
-  const handleClick = () => navigate(drawerItem.link)
+  const handleClick = () => {
+    if (location.pathname !== drawerItem.link)
+      navigate(drawerItem.link)
+  }
 
   return (
     <ListItem disablePadding>
