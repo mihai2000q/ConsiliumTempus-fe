@@ -1,5 +1,5 @@
 import { InputBase } from "@mui/material";
-import { TaskCard } from "./ProjectTaskCard.tsx";
+import { StyledProjectTaskCard } from "./ProjectTaskCard.tsx";
 import { useAddProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useState } from "react";
 
@@ -36,7 +36,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
   }
 
   return (
-    <TaskCard
+    <StyledProjectTaskCard
       component={'div'}
       disableRipple
       onBlur={handleBlur}
@@ -54,7 +54,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
           placeholder={'Enter new task name'}
           value={name}
           onChange={(e) => setName(e.target.value)} />
-    </TaskCard>
+    </StyledProjectTaskCard>
   );
 }
 
