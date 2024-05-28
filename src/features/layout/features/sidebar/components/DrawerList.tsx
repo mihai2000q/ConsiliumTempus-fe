@@ -1,5 +1,6 @@
 import {
   Box,
+  Collapse,
   IconButton,
   List,
   ListItemButton,
@@ -80,33 +81,33 @@ function DrawerList({
         )
       }>
       {
-        hideItems
-          ? <></>
-          : drawerItems
-            ? (
-              drawerItems.length === 0
-                ?
-                <Typography ml={5} my={1} variant={'body2'} fontWeight={"lighter"}>
-                  No {subheader ?? "data"}
-                </Typography>
-                : drawerItems.map((item) =>
+        drawerItems
+          ? (
+            drawerItems.length === 0
+              ?
+              <Typography ml={5} my={1} variant={'body2'} fontWeight={"lighter"}>
+                No {subheader ?? "data"}
+              </Typography>
+              : <Collapse in={!hideItems}>
+                {drawerItems.map((item) =>
                   <DrawerListItem key={item.link} drawerItem={item} />
-                )
-            )
-            : (
-              <Stack>
-                {Array.from(Array(5)).map((_, i) => (
-                  <Skeleton
-                    key={i}
-                    variant={'rectangular'}
-                    height={35}
-                    sx={{
-                      borderRadius: '10px',
-                      margin: '1px 16px',
-                    }} />
-                ))}
-              </Stack>
-            )
+                )}
+              </Collapse>
+          )
+          : (
+            <Stack>
+              {Array.from(Array(5)).map((_, i) => (
+                <Skeleton
+                  key={i}
+                  variant={'rectangular'}
+                  height={35}
+                  sx={{
+                    borderRadius: '10px',
+                    margin: '1px 16px',
+                  }} />
+              ))}
+            </Stack>
+          )
       }
     </List>
   );
