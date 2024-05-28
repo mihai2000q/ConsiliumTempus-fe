@@ -20,7 +20,7 @@ import useTimeoutCallback from "../../../../../../hooks/useTimeoutCallback.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../state/store.ts";
 
-export const StagePanel = styled(Stack)<StackProps>(({ theme }) => ({
+export const StyledProjectStagePanel = styled(Stack)<StackProps>(({ theme }) => ({
   height: '100%',
   width: 335,
   borderRadius: '16px',
@@ -59,7 +59,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
   const [showBottomAddTaskCard, setShowBottomAddTaskCard] = useState(false)
 
   return (
-    <StagePanel boxShadow={4}>
+    <StyledProjectStagePanel boxShadow={4}>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Stack direction={'row'} alignItems={'center'}>
           <OutlinedContentEditable
@@ -140,7 +140,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           Add Task
         </Button>
       </Stack>
-    </StagePanel>
+    </StyledProjectStagePanel>
   );
 }
 

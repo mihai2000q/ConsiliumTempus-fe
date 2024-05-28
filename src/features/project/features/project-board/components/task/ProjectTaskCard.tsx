@@ -7,7 +7,7 @@ import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useDispatch } from "react-redux";
 import { openDrawer } from "../../../../../../state/project-task-drawer/projectTaskDrawerSlice.ts";
 
-export const TaskCard = styled(Button)<ButtonProps>(({ theme }) => ({
+export const StyledProjectTaskCard = styled(Button)<ButtonProps>(({ theme }) => ({
   borderRadius: '16px',
   justifyContent: 'start',
   width: '100%',
@@ -58,7 +58,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
 
   return (
     <Box position={'relative'} my={0.5}>
-      <TaskCard
+      <StyledProjectTaskCard
         component={'div'}
         onClick={handleClick}
         onContextMenu={handleRightClick}
@@ -69,7 +69,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
             {task.name}
           </Typography>
         </Stack>
-      </TaskCard>
+      </StyledProjectTaskCard>
       <IconButton
         variant={'circular'}
         size={'small'}
