@@ -43,7 +43,7 @@ function DrawerList({
       subheader={
         (
           subheader &&
-          <ListSubheader component={'div'} sx={{ padding: 0, backgroundColor: 'inherit' }}>
+          <ListSubheader component={'div'} sx={{ padding: 0, backgroundColor: theme.palette.background[800] }}>
             {
               subheaderDestination
                 ? (
@@ -53,7 +53,9 @@ function DrawerList({
                       onClick={() => navigate(subheaderDestination)}
                       sx={{
                         marginBottom: 0,
-                        py: 1.3,
+                        padding: '10px 26px 10px 26px',
+                        marginLeft: '2px',
+                        marginRight: '2px',
                         justifyContent: 'space-between',
                         color: isDarkMode ? theme.palette.grey[300] : theme.palette.grey[600],
                         '&:hover': { color: theme.palette.background[100] }
@@ -61,13 +63,13 @@ function DrawerList({
                       <Typography fontWeight={500}>{subheader}</Typography>
                     </ListItemButton>
 
-                    <Box position={'absolute'} bottom={0} left={'1px'}>
+                    <Box position={'absolute'} bottom={0} top={'-5px'} left={'5px'}>
                       <IconButton sx={{ width: 20, height: 20 }} onClick={() => setHideItems(!hideItems)}>
                         {hideItems ? <ArrowRightRounded /> : <ArrowDropDownRounded />}
                       </IconButton>
                     </Box>
 
-                    <Box display={'flex'} position={'absolute'} bottom={'13%'} right={'0'} pr={'18px'}>
+                    <Box display={'flex'} position={'absolute'} bottom={'13%'} right={'0'} pr={'8px'}>
                       {subheaderAction}
                     </Box>
                   </Box>

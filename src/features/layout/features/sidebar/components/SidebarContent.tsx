@@ -41,26 +41,20 @@ function SidebarContent() {
   }
 
   return (
-    <Stack display={'flex'} mt={1.5} justifyContent={'space-between'} height={'100%'}>
-      <Stack>
-        <Stack direction={'row'} alignItems={'center'} mb={2}>
-          <img src={demoLogo} alt={'logo'} width={50} style={{ marginLeft: '14px' }} />
-          <Typography
-            variant="h6"
-            pl={2}
-            color={theme.palette.background[200]}
-            fontWeight={500}
-            sx={{ textShadow: `1px 1px 2px ${theme.palette.background[200]}` }}>
-            Consilium Tempus
-          </Typography>
-        </Stack>
-        <AddProjectDialog
-          workspaces={workspaces}
-          open={addProjectDialogOpen}
-          onClose={() => setAddProjectDialogOpen(false)} />
-        <AddWorkspaceDialog
-          open={addWorkspaceDialogOpen}
-          onClose={() => setAddWorkspaceDialogOpen(false)} />
+    <Stack pt={1.5} height={'100%'} sx={{ overflowY: 'hidden' }}>
+      <Stack direction={'row'} alignItems={'center'} mb={2}>
+        <img src={demoLogo} alt={'logo'} width={50} style={{ marginLeft: '14px' }} />
+        <Typography
+          variant="h6"
+          pl={2}
+          color={theme.palette.background[200]}
+          fontWeight={500}
+          sx={{ textShadow: `1px 1px 2px ${theme.palette.background[200]}` }}>
+          Consilium Tempus
+        </Typography>
+      </Stack>
+
+      <Stack flexGrow={1} sx={{ overflowY: 'auto' }}>
         <DrawerList drawerItems={topDrawerItems} />
         <DrawerList
           subheader={"Workspaces"}
@@ -90,7 +84,7 @@ function SidebarContent() {
           }))}/>
       </Stack>
 
-      <Stack display={'flex'}>
+      <Stack>
         <Divider />
         <Button
           variant={'outlined'}
@@ -106,6 +100,14 @@ function SidebarContent() {
           © {new Date().getFullYear()} Consilium Tempus
         </Typography>
       </Stack>
+
+      <AddProjectDialog
+        workspaces={workspaces}
+        open={addProjectDialogOpen}
+        onClose={() => setAddProjectDialogOpen(false)} />
+      <AddWorkspaceDialog
+        open={addWorkspaceDialogOpen}
+        onClose={() => setAddWorkspaceDialogOpen(false)} />
     </Stack>
   );
 }
