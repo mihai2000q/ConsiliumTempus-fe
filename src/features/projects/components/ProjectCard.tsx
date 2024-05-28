@@ -1,9 +1,31 @@
 import Project from "../types/Project.model.ts";
-import { alpha, Box, CardContent, CardMedia, Typography, useTheme } from "@mui/material";
+import { alpha, Box, BoxProps, CardContent, CardMedia, styled, Typography, useTheme } from "@mui/material";
 import Paragraph from "../../../components/text/Paragraph.tsx";
 import { useNavigate } from "react-router-dom";
 import Paths from "../../../utils/Paths.ts";
 import useIsDarkMode from "../../../hooks/useIsDarkMode.ts";
+
+const StyledProjectCard = styled(Box)<BoxProps>(({ theme }) => ({
+  height: 340,
+  cursor: 'pointer',
+  borderRadius: '6px',
+  backgroundColor: alpha(theme.palette.background[900], 0.6),
+  transition: theme.transitions.create(['transform', 'box-shadow', 'background-color'], {
+    duration: theme.transitions.duration.short,
+  }),
+  '&:hover': {
+    transform: 'scale(1.05)',
+    backgroundColor: theme.palette.background[900]
+  }
+}))
+
+const ProjectStatus = styled(Box)<BoxProps>(({ theme }) => ({
+  position: "absolute",
+  bottom: 0,
+  width: '100%',
+  backgroundColor: alpha(theme.palette.primary.main, 0.43),
+  backdropFilter: 'blur(2px)'
+}))
 
 interface ProjectItemProps {
   project: Project
@@ -19,26 +41,21 @@ function ProjectCard({ project }: ProjectItemProps) {
   }
 
   return (
-    <Box
+    <StyledProjectCard
       onClick={handleClick}
-      sx={{
-        height: 340,
-        cursor: 'pointer',
-        boxShadow: 10,
-        borderRadius: '6px',
-        bgcolor: alpha(theme.palette.background[900], 0.6)
-      }}>
+      sx={{ boxShadow: 10, '&:hover': { boxShadow: 20 }, }}>
       <Box position="relative">
         <CardMedia
           image={'src/assets/demo-projects.jpg'}
           title={project.name}
-          sx={{ height: 200, borderRadius: '6px 6px 0px 0px' }}/>
-        <Box bgcolor={alpha(theme.palette.primary.main, 0.43)} position="absolute" bottom={0} width={'100%'}>
+          sx={{ height: 200, borderRadius: '6px 6px 0px 0px' }} />
+        <ProjectStatus>
           <Typography align={'center'} padding={1} fontWeight={500} variant={'subtitle1'} color={'white'}>
             Project started on 12 September 2023
           </Typography>
-        </Box>
+        </ProjectStatus>
       </Box>
+
       <CardContent>
         <Typography variant={'h5'} noWrap>{project.name}</Typography>
         <Paragraph
@@ -48,7 +65,7 @@ function ProjectCard({ project }: ProjectItemProps) {
           {project.description}
         </Paragraph>
       </CardContent>
-    </Box>
+    </StyledProjectCard>
   );
 }
 
