@@ -6,7 +6,7 @@ const StyledButtonGroup = styled(Stack)<StackProps>(({ theme }) => ({
   alignItems: "center",
   flexDirection: 'row',
   backgroundColor: theme.palette.background[900],
-  padding: '5px 8px',
+  padding: '5px 5px',
   borderRadius: '16px',
 }))
 
@@ -21,7 +21,7 @@ const StyledButton = styled(Button, {
   transition: theme.transitions.create(['background-color', 'color', 'padding'], {
     duration: theme.transitions.duration.standard,
   }),
-  borderRadius: '10px',
+  borderRadius: '11px',
   padding: '6px 10px',
   margin: '0px 2px',
   '& .MuiButton-startIcon': {

@@ -1,6 +1,11 @@
 import { alpha, InputBase, InputBaseProps, styled, SxProps, Theme } from "@mui/material";
 import { useRef, useState } from "react";
 
+interface OutlinedInputProps extends InputBaseProps {
+  isFocused: boolean,
+  isTitle: boolean
+}
+
 const OutlinedInput = styled(
   InputBase,
   {
@@ -8,9 +13,7 @@ const OutlinedInput = styled(
       prop !== 'isFocused' &&
       prop !== 'isTitle'
   }
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-)<InputBaseProps>(({ theme, isFocused, error, isTitle }) => ({
+)<OutlinedInputProps>(({ theme, isFocused, error, isTitle }) => ({
   border: `solid 2px transparent`,
   borderRadius: isTitle === true ? '4px' : '9px',
   fontSize: isTitle === true ? 20 : 14,
@@ -71,10 +74,8 @@ function OutlinedInputTextField({
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       isFocused={isFocused}
-      isTitle={isTitle}
+      isTitle={isTitle ?? false}
       onFocus={() => setIsFocused(true)}
       onBlur={() => {
         setIsFocused(false)

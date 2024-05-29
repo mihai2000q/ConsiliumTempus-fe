@@ -108,7 +108,7 @@ function Projects() {
         justifyContent={'space-between'}
         px={1.5}
         mt={1}
-        mb={2}>
+        mb={1.5}>
         {
           data
             ?
@@ -117,6 +117,7 @@ function Projects() {
             </Typography>
             : <CircularProgress color={'secondary'} size={20} thickness={8} />
         }
+
         <ButtonGroup variant='text'>
           <Button sx={{ paddingX: 4 }}>
             <ViewStreamRounded />
