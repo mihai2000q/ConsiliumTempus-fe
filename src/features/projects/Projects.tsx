@@ -36,6 +36,7 @@ function Projects() {
 
   const [order, setOrder] = useState('')
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
+
   const pageSize = usePageSize()
 
   const {
