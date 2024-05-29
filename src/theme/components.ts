@@ -36,6 +36,13 @@ export const components = {
       }
     }),
   },
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        borderRadius: '4px'
+      }
+    }
+  },
   MuiButton: {
     styleOverrides: {
       root: ({ ownerState, theme } : { ownerState: ButtonProps, theme: Theme }) => ({
