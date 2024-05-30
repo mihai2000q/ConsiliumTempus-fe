@@ -5,7 +5,6 @@ import {
   Button,
   Divider,
   IconButton,
-  Skeleton,
   Stack,
   Tab,
   Tabs,
@@ -44,6 +43,7 @@ import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import useDependencyState from "../../hooks/useDependencyState.ts";
 import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
 import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
+import ProjectLoader from "./components/ProjectLoader.tsx";
 
 function Project() {
   const theme = useTheme()
@@ -85,53 +85,47 @@ function Project() {
     setSearchParams(searchParams)
   }
 
+  if (!project) return <ProjectLoader />
+
   return (
     <Stack alignItems="start" height={'100%'}>
       <Stack direction={'row'} alignItems={'center'} spacing={0.75}>
-        {
-          !project
-            ?
-            <>
-              <Skeleton variant={'circular'} width={35} height={35} sx={{ borderRadius: 2 }} />
-              <Skeleton variant={'text'} width={200} height={40} sx={{ ml: 1 }} />
-            </>
-            :
-            <>
-              <Stack direction={'row'} alignItems={'center'}>
-                <Avatar
-                  alt={project.name}
-                  src={demoProjectPicture}
-                  sx={{ borderRadius: 2 }} />
-                <OutlinedContentEditable
-                  typographyVariant={'h6'}
-                  value={facadeName}
-                  handleChange={(n) => setFacadeName(n, true)}
-                  sx={{ ml: 1 }} />
-                <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
-                  <ArrowDropDown />
-                </IconButton>
-              </Stack>
-              <ProjectActionsMenu anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} />
-              <IconButton
-                onClick={() => setIsFavorite(!isFavorite, true)}
-                sx={{
-                  color: theme.palette.primary[100],
-                  '&:hover': { color: theme.palette.secondary.main }
-                }}>
-                {isFavorite ? <Star /> : <StarOutline />}
-              </IconButton>
-              <Button
-                startIcon={<CircleOutlined />}
-                sx={{
-                  color: theme.palette.primary[100],
-                  justifyContent: 'center',
-                  borderRadius: 2
-                }}>
-                <Typography fontWeight={500} ml={1} pt={'2px'}>Set Status</Typography>
-              </Button>
-              <ProjectSprintsSelector projectId={projectId} />
-            </>
-        }
+        <Stack direction={'row'} alignItems={'center'}>
+          <Avatar
+            alt={project.name}
+            src={demoProjectPicture}
+            sx={{ borderRadius: 2 }} />
+          <OutlinedContentEditable
+            typographyVariant={'h6'}
+            value={facadeName}
+            handleChange={(n) => setFacadeName(n, true)}
+            sx={{ ml: 1 }} />
+          <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
+            <ArrowDropDown />
+          </IconButton>
+          <ProjectActionsMenu anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} />
+        </Stack>
+
+        <IconButton
+          onClick={() => setIsFavorite(!isFavorite, true)}
+          sx={{
+            color: theme.palette.primary[100],
+            '&:hover': { color: theme.palette.secondary.main }
+          }}>
+          {isFavorite ? <Star /> : <StarOutline />}
+        </IconButton>
+
+        <Button
+          startIcon={<CircleOutlined />}
+          sx={{
+            color: theme.palette.primary[100],
+            justifyContent: 'center',
+            borderRadius: 2
+          }}>
+          <Typography fontWeight={500} ml={1} pt={'2px'}>Set Status</Typography>
+        </Button>
+
+        <ProjectSprintsSelector projectId={projectId} />
       </Stack>
 
       <Tabs value={tab} onChange={handleTabChange} sx={{ mt: 1 }}>

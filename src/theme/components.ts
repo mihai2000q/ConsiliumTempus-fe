@@ -36,6 +36,13 @@ export const components = {
       }
     }),
   },
+  MuiTextField: {
+    styleOverrides: {
+      root: {
+        borderRadius: '4px'
+      }
+    }
+  },
   MuiButton: {
     styleOverrides: {
       root: ({ ownerState, theme } : { ownerState: ButtonProps, theme: Theme }) => ({
@@ -128,9 +135,7 @@ export const components = {
       iconPosition: 'start'
     },
     styleOverrides: {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      root: ({ ownerState, theme }) => ({
+      root: ({ ownerState, theme } : { ownerState: { selected: true }, theme: Theme }) => ({
         textTransform: 'none',
         borderRadius: '8px 8px 0px 0px',
         padding: '8px 8px 10px 6px',

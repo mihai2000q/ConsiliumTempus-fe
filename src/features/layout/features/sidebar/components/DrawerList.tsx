@@ -37,6 +37,11 @@ function DrawerList({
 
   const [hideItems, setHideItems  ] = useState(false)
 
+  const handleSubheaderClick = () => {
+    if (subheaderDestination && location.pathname !== subheaderDestination)
+      navigate(subheaderDestination)
+  }
+
   return (
     <List
       disablePadding
@@ -50,8 +55,8 @@ function DrawerList({
                 ? (
                   <Box>
                     <ListItemButton
-                      selected={location.pathname == subheaderDestination}
-                      onClick={() => navigate(subheaderDestination)}
+                      selected={location.pathname === subheaderDestination}
+                      onClick={handleSubheaderClick}
                       sx={{
                         marginBottom: 0,
                         padding: '10px 26px 10px 26px',
