@@ -31,7 +31,6 @@ export const Main = styled(
   }),
   ...(isSidebarOpen && {
     marginLeft: 0,
-    marginRight: 0,
     transition: theme.transitions.create('margin', {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,

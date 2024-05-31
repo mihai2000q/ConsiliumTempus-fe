@@ -22,18 +22,6 @@ export const components = {
       h6: {
         color: theme.palette.background[100]
       },
-      "@global": {
-        "*::-webkit-scrollbar": {
-          width: "5px"
-        },
-        "*::-webkit-scrollbar-track": {
-          background: "#E4EFEF"
-        },
-        "*::-webkit-scrollbar-thumb": {
-          background: "#1D388F61",
-          borderRadius: "2px"
-        }
-      }
     }),
   },
   MuiTextField: {
