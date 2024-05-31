@@ -1,76 +1,50 @@
-import { Avatar, Box, Button, Menu, MenuItem, Skeleton, Stack, Typography } from "@mui/material";
+import { Avatar, AvatarProps, Button, ButtonProps, Stack, styled } from "@mui/material";
 import User from "../types/User.model.ts";
 import { useGetCurrentUserQuery } from "../../../../../state/api.ts";
 import demoUserPic from '../../../../../assets/demo-user-pic.jpg'
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../../state/store";
-import { logout } from "../../../../../state/auth/authSlice";
 import { ArrowDropDownOutlined } from "@mui/icons-material";
-import useIsDarkMode from "../../../../../hooks/useIsDarkMode.ts";
+import TopbarUserMenu from "./TopbarUserMenu.tsx";
+import TopbarUserLoader from "./TopbarUserLoader.tsx";
+
+const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: theme.palette.mode === 'dark' ? 'inherit' : theme.palette.grey[700],
+  borderRadius: '8px',
+  padding: '6px 0 6px 6px',
+  '&:hover': {
+    color: theme.palette.mode === 'dark' ? 'inherit' : theme.palette.grey[600],
+    '& .MuiAvatar-root': {
+      filter: 'brightness(80%)'
+    }
+  }
+}))
+
+const StyledAvatar = styled(Avatar)<AvatarProps>(({ theme }) => ({
+  width: 35,
+  height: 35,
+  transition: theme.transitions.create(['filter'], {
+    duration: theme.transitions.duration.standard,
+  })
+}))
 
 function TopbarUser() {
-  const isDarkMode = useIsDarkMode()
-
-  const dispatch = useDispatch<AppDispatch>()
-
   const user: User | undefined = useGetCurrentUserQuery(undefined).data
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  function handleLogOut() {
-    setMenuAnchorEl(null)
-    dispatch(logout())
-  }
-
-  if (!user)
-    return (
-      <Button>
-        <Stack direction="row" justifyContent="center" alignItems={"center"}>
-          <Skeleton variant={"circular"} width={40} height={40}  />
-          <Stack ml={1}>
-            <Skeleton variant={"text"} width={175} height={30} />
-            <Skeleton variant={"text"} width={175} height={17} />
-          </Stack>
-        </Stack>
-      </Button>
-    )
+  if (!user) return <TopbarUserLoader />
 
   return (
-    <Box>
-      <Button
-        onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-        sx={{ color: 'inherit', borderRadius: '8px', '&:hover': { color: 'inherit' } }}>
+    <>
+      <StyledButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
         <Stack direction={'row'} justifyContent="center" alignItems={"center"}>
-          <Avatar
-            alt={"User Profile Picture"}
-            src={demoUserPic} />
-          <Stack ml={2} mr={1} maxWidth={150}>
-            <Typography
-              variant={'h6'}
-              fontWeight={'bold'}
-              noWrap>
-              {user.firstName} {user.lastName}
-            </Typography>
-
-            <Typography
-              variant={'body2'}
-              fontWeight={isDarkMode ? 'light' : 400}
-              noWrap>
-              {user.email}
-            </Typography>
-          </Stack>
-          <ArrowDropDownOutlined />
+          <StyledAvatar alt={"User Profile Picture"} src={demoUserPic} />
+          <ArrowDropDownOutlined sx={{ mx: '2px' }} />
         </Stack>
-      </Button>
-      <Menu
-        anchorEl={menuAnchorEl}
-        open={Boolean(menuAnchorEl)}
-        onClose={() => setMenuAnchorEl(null)}>
-        <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
-      </Menu>
-    </Box>
-  );
+      </StyledButton>
+      <TopbarUserMenu anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} user={user} />
+    </>
+  )
 }
 
 export default TopbarUser;

@@ -15,7 +15,7 @@ import DrawerListItem from "./DrawerListItem.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ReactElement, useState } from "react";
 import useIsDarkMode from "../../../../../hooks/useIsDarkMode.ts";
-import { ArrowDropDownRounded, ArrowRightRounded } from "@mui/icons-material";
+import { ArrowDropDownRounded } from "@mui/icons-material";
 
 interface DrawerListProps {
   drawerItems: DrawerItem[] | undefined,
@@ -58,20 +58,26 @@ function DrawerList({
                       selected={location.pathname === subheaderDestination}
                       onClick={handleSubheaderClick}
                       sx={{
-                        marginBottom: 0,
+                        margin: '0 2px',
                         padding: '10px 26px 10px 26px',
-                        marginLeft: '2px',
-                        marginRight: '2px',
-                        justifyContent: 'space-between',
                         color: isDarkMode ? theme.palette.grey[300] : theme.palette.grey[600],
-                        '&:hover': { color: theme.palette.background[100] }
+                        '&:hover': { color: theme.palette.background[100] },
                       }}>
                       <Typography fontWeight={500}>{subheader}</Typography>
                     </ListItemButton>
 
                     <Box position={'absolute'} bottom={0} top={'-5px'} left={'5px'}>
-                      <IconButton sx={{ width: 20, height: 20 }} onClick={() => setHideItems(!hideItems)}>
-                        {hideItems ? <ArrowRightRounded /> : <ArrowDropDownRounded />}
+                      <IconButton
+                        sx={{
+                          width: 20,
+                          height: 20,
+                          transition: theme.transitions.create(['transform'], {
+                            duration: theme.transitions.duration.short,
+                          }),
+                          transform: hideItems ? 'rotate(-90deg)' : undefined
+                        }}
+                        onClick={() => setHideItems(!hideItems)}>
+                        <ArrowDropDownRounded />
                       </IconButton>
                     </Box>
 

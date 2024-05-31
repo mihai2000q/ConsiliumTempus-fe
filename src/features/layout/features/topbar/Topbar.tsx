@@ -1,12 +1,9 @@
 import { IconButton, Stack } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../state/store.ts";
-import { DarkModeOutlined, LightModeOutlined, Menu, Search, Settings } from "@mui/icons-material";
-import { setMode } from "../../../../state/global/globalSlice.ts";
+import { Menu, NotificationsOutlined, NotificationsRounded } from "@mui/icons-material";
 import TopbarUser from "./components/TopbarUser.tsx";
 import { Dispatch, SetStateAction } from "react";
 import { AppToolbar } from "./components/AppToolbar.tsx";
-import useIsDarkMode from "../../../../hooks/useIsDarkMode.ts";
+import TopbarSearchBar from "./components/TopbarSearchBar.tsx";
 
 interface TopbarProps {
   isDisplayable: boolean,
@@ -16,31 +13,29 @@ interface TopbarProps {
 }
 
 function Topbar({ isDisplayable, isSidebarOpen, setIsSidebarOpen, drawerWidth }: TopbarProps) {
-  const isDarkMode = useIsDarkMode()
-
-  const dispatch = useDispatch<AppDispatch>()
-
   if (!isDisplayable)
     return <></>
 
+  function handleMenu() {
+    setIsSidebarOpen((prev) => !prev)
+  }
+  function handleNotifications() {
+
+  }
+
   return (
     <AppToolbar drawerWidth={drawerWidth} isSidebarOpen={isSidebarOpen}>
-      <IconButton variant={'circular'} onClick={() => setIsSidebarOpen((prev) => !prev)}>
-        <Menu fontSize={'medium'} />
+      <IconButton variant={'circular'} onClick={handleMenu}>
+        <Menu />
       </IconButton>
 
       <Stack
         alignItems={"center"}
         direction={"row"}
-        gap={1}>
-        <IconButton variant={'circular'}>
-          <Search fontSize={'medium'} />
-        </IconButton>
-        <IconButton variant={'circular'} onClick={() => dispatch(setMode())}>
-          {isDarkMode ? <DarkModeOutlined fontSize={'medium'} /> : <LightModeOutlined fontSize={'medium'} />}
-        </IconButton>
-        <IconButton variant={'circular'}>
-          <Settings fontSize={'medium'} />
+        spacing={1}>
+        <TopbarSearchBar />
+        <IconButton variant={'circular'} onClick={handleNotifications}>
+          <NotificationsOutlined />
         </IconButton>
         <TopbarUser />
       </Stack>
