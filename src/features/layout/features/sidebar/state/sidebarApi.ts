@@ -6,21 +6,16 @@ import Urls from "../../../../../utils/Urls.ts";
 import { CreateWorkspaceRequest, GetWorkspacesRequest } from "../types/Workspace.request.ts";
 import { CreateProjectRequest, GetProjectsRequest } from "../types/Project.request.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import createQueryParams from "../../../../../utils/createQueryParams.ts";
 
 export const sidebarApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getWorkspaces: builder.query<WorkspaceResponse, GetWorkspacesRequest>({
-      query: arg => ({
-        url: Urls.Workspaces,
-        params: arg
-      }),
+      query: arg => Urls.Workspaces + createQueryParams(arg),
       providesTags: [TagTypes.SidebarWorkspaces]
     }),
     getProjects: builder.query<ProjectResponse, GetProjectsRequest>({
-      query: arg => ({
-        url: Urls.Projects,
-        params: arg
-      }),
+      query: arg => Urls.Projects + createQueryParams(arg),
       providesTags: [TagTypes.SidebarProjects]
     }),
     addProject: builder.mutation<HttpMessageResponse, CreateProjectRequest>({
