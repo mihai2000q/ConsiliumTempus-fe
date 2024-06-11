@@ -16,7 +16,7 @@ import { GridViewRounded, Search, ViewStreamRounded } from "@mui/icons-material"
 import ProjectSortButton from "./components/ProjectSortButton.tsx";
 import ProjectFilterButton from "./components/ProjectFilterButton.tsx";
 import usePageSize from "./hooks/usePageSize.ts";
-import ProjectsButtonGroup from "./components/ProjectsButtonGroup.tsx";
+import ProjectsLifecycleButtons from "./components/ProjectsLifecycleButtons.tsx";
 import useProjectsPageCount from "./hooks/useProjectsPageCount.ts";
 import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
@@ -25,6 +25,7 @@ import projectsSearchParamsState from "./state/ProjectsSearchParamsState.ts";
 import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
 import FilterOperator from "../../utils/FilterOperator.ts";
 import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
+import { ProjectLifecycle } from "./types/Project.model.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -39,7 +40,6 @@ function Projects() {
 
   const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam();
 
-  const [orderBy, setOrderBy] = useState<string[]>([])
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
   useUpdateEffect(() => {
     addToSearchQueryParam(
@@ -48,6 +48,11 @@ function Projects() {
       searchName.trim() === '' ? null : searchName
     )
   }, [searchName])
+
+  const [lifecycle, setLifecycle] = useState<ProjectLifecycle>('active')
+  const [active, setActive] = useState(true)
+
+  const [orderBy, setOrderBy] = useState<string[]>([])
 
   const pageSize = usePageSize()
 
@@ -105,7 +110,12 @@ function Projects() {
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />}
         </Stack>
 
-        <ProjectsButtonGroup />
+        <ProjectsLifecycleButtons
+          lifecycle={lifecycle}
+          setLifecycle={setLifecycle}
+          active={active}
+          setActive={setActive}
+          addToSearchQueryParam={addToSearchQueryParam} />
 
         <Stack direction={'row'} spacing={2}>
           <ProjectSortButton setOrder={setOrderBy} />

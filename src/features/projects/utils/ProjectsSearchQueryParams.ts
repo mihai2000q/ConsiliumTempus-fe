@@ -1,5 +1,6 @@
 enum ProjectsSearchQueryParams {
-  Name = 'name'
+  Name = 'name',
+  Lifecycle = 'lifecycle',
 }
 
 export default ProjectsSearchQueryParams;

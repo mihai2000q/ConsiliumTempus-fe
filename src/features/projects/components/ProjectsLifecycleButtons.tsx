@@ -1,6 +1,9 @@
 import { Button, ButtonProps, Stack, StackProps, styled } from "@mui/material";
 import { ArchiveOutlined, HourglassEmptyOutlined, SkipNextOutlined } from "@mui/icons-material";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
+import { ProjectLifecycle } from "../types/Project.model.ts";
+import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
+import FilterOperator from "../../../utils/FilterOperator.ts";
 
 const StyledButtonGroup = styled(Stack)<StackProps>(({ theme }) => ({
   alignItems: "center",
@@ -71,40 +74,54 @@ const StyledButton = styled(Button, {
   )
 }))
 
-type ProjectsButtonGroupState = 'archived' | 'active' | 'upcoming'
+interface ProjectsLifecycleButtonsProps {
+  lifecycle: ProjectLifecycle,
+  setLifecycle: Dispatch<SetStateAction<ProjectLifecycle>>,
+  active: boolean,
+  setActive: Dispatch<SetStateAction<boolean>>,
+  addToSearchQueryParam: (property: string, operator: FilterOperator, value: string | null) => void
+}
 
-function ProjectsButtonGroup() {
-  const [state, setState] = useState<ProjectsButtonGroupState>('active')
-  const [active, setActive] = useState(true)
-
-  const handleClick = (newState: ProjectsButtonGroupState) => {
-    if (newState === state) {
+function ProjectsLifecycleButtons({
+  lifecycle,
+  setLifecycle,
+  active,
+  setActive,
+  addToSearchQueryParam
+}: ProjectsLifecycleButtonsProps) {
+  const handleClick = (newLifecycle: ProjectLifecycle) => {
+    if (newLifecycle === lifecycle) {
       setActive(!active)
     } else {
-      setState(newState)
+      setLifecycle(newLifecycle)
       setActive(true)
     }
+    addToSearchQueryParam(
+      ProjectsSearchQueryParams.Lifecycle,
+      FilterOperator.Equal,
+      active ? lifecycle : null
+    )
   }
 
   return (
     <StyledButtonGroup>
       <StyledButton
         startIcon={<ArchiveOutlined />}
-        selected={state === 'archived'}
+        selected={lifecycle === 'archived'}
         active={active}
         onClick={() => handleClick('archived')}>
         Archived Projects
       </StyledButton>
       <StyledButton
         startIcon={<SkipNextOutlined />}
-        selected={state === 'active'}
+        selected={lifecycle === 'active'}
         active={active}
         onClick={() => handleClick('active')}>
         Active Projects
       </StyledButton>
       <StyledButton
         startIcon={<HourglassEmptyOutlined />}
-        selected={state === 'upcoming'}
+        selected={lifecycle === 'upcoming'}
         active={active}
         onClick={() => handleClick('upcoming')}>
         Upcoming Projects
@@ -113,4 +130,4 @@ function ProjectsButtonGroup() {
   );
 }
 
-export default ProjectsButtonGroup;
+export default ProjectsLifecycleButtons;
