@@ -22,6 +22,9 @@ import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import useFacadeState from "../../hooks/useFacadeState.ts";
 import projectsSearchParamsState from "./state/ProjectsSearchParamsState.ts";
+import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
+import FilterOperator from "../../utils/FilterOperator.ts";
+import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -34,8 +37,17 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
-  const [order, setOrder] = useState('')
+  const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam();
+
+  const [orderBy, setOrderBy] = useState<string[]>([])
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
+  useUpdateEffect(() => {
+    addToSearchQueryParam(
+      ProjectsSearchQueryParams.Name,
+      FilterOperator.Contains,
+      searchName.trim() === '' ? null : searchName
+    )
+  }, [searchName])
 
   const pageSize = usePageSize()
 
@@ -44,21 +56,21 @@ function Projects() {
     isLoading,
     isFetching
   } = useGetProjectsQuery({
-    order: order,
+    orderBy: orderBy,
     pageSize: pageSize,
     currentPage: searchParams.currentPage,
-    name: searchName.trim()
+    search: searchQueryParam
   })
   const projects = data?.projects
 
   useUpdateEffect(() => {
     setSearchParams({ ...searchParams, currentPage: 1 })
-  }, [searchName]);
+  }, [searchName])
 
   useUpdateEffect(() => {
-    if (data && data.projects.length === 0 && data.totalPages)
-      setSearchParams({ ...searchParams, currentPage: data.totalPages })
-  }, [data, pageSize]);
+    if (data && data.projects.length === 0 && data.totalCount != 0)
+      setSearchParams({ ...searchParams, currentPage: Math.ceil(pageSize / data.totalCount)})
+  }, [data, pageSize])
 
   const [startPageCount, endPageCount] = useProjectsPageCount(data, pageSize, searchParams.currentPage)
 
@@ -96,7 +108,7 @@ function Projects() {
         <ProjectsButtonGroup />
 
         <Stack direction={'row'} spacing={2}>
-          <ProjectSortButton setOrder={setOrder} />
+          <ProjectSortButton setOrder={setOrderBy} />
           <ProjectFilterButton />
         </Stack>
       </Stack>
@@ -162,10 +174,9 @@ function Projects() {
       {
         !data
           ? <CircularProgress color={'secondary'} size={27} thickness={7} />
-          : data?.totalPages !== null &&
-          <Pagination
+          : <Pagination
             disabled={isFetching}
-            count={data.totalPages}
+            count={Math.ceil(data.totalCount / pageSize)}
             page={searchParams.currentPage}
             onChange={handleCurrentPageChange}
             color="primary"
