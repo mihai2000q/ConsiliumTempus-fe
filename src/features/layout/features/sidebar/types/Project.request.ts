@@ -1,5 +1,5 @@
 export type GetProjectsRequest = {
-  order?: string
+  orderBy?: string[] | undefined
 }
 
 export type CreateProjectRequest = {

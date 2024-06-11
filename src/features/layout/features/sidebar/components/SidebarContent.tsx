@@ -18,9 +18,11 @@ function SidebarContent() {
 
   const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({
     isPersonalWorkspaceFirst: true,
-    order: 'last_activity.desc'
+    orderBy: ['last_activity.desc']
   }).data?.workspaces
-  const projects: Project[] | undefined = useGetProjectsQuery({ order: 'last_activity.desc' }).data?.projects
+  const projects: Project[] | undefined = useGetProjectsQuery({
+    orderBy: ['last_activity.desc']
+  }).data?.projects
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
   const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)

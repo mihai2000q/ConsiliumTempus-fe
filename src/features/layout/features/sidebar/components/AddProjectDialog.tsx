@@ -47,12 +47,14 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   })
 
   useEffect(() => {
-    values.workspaceId = workspaces && workspaces[0].id
-  }, [workspaces])
+    if (values.workspaceId === undefined) values.workspaceId = workspaces && workspaces[0].id
+  }, [values, workspaces])
 
   async function handleSubmitForm() {
+    if (values.workspaceId === undefined) return
+
     await addProject({
-      workspaceId: values.workspaceId!,
+      workspaceId: values.workspaceId,
       name: values.projectName
     }).unwrap()
     if (isError) return
@@ -83,10 +85,10 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
               <Select
                 variant="filled"
                 name={'workspaceId'}
-                value={values.workspaceId}
+                value={values.workspaceId ?? ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                sx={{ '& .MuiListItemIcon-root': { minWidth: 0, mr: 1 } }}
+                sx={{ '& .MuiListItemIcon-root': { mr: 1 } }}
                 SelectDisplayProps={{
                   style: { display: 'flex', alignItems: 'center' },
                 }}>

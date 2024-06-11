@@ -1,5 +1,5 @@
 import { IconButton, Stack } from "@mui/material";
-import { Menu, NotificationsOutlined, NotificationsRounded } from "@mui/icons-material";
+import { Menu, NotificationsOutlined } from "@mui/icons-material";
 import TopbarUser from "./components/TopbarUser.tsx";
 import { Dispatch, SetStateAction } from "react";
 import { AppToolbar } from "./components/AppToolbar.tsx";
