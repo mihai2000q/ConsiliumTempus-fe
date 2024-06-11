@@ -1,4 +1,4 @@
-import { alpha, ButtonProps, DrawerProps, ListItemButtonProps, Theme } from "@mui/material";
+import { alpha, ButtonProps, DrawerProps, lighten, ListItemButtonProps, Theme } from "@mui/material";
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from "react";
 
 export const components = {
@@ -204,6 +204,18 @@ export const components = {
         '& .MuiTooltip-tooltip': {
           backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background[700] : theme.palette.primary[600],
           color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.background[900]
+        }
+      })
+    }
+  },
+  MuiDialog: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiDialog-paper': {
+          backgroundImage: 'none',
+          backgroundColor: theme.palette.mode === 'dark'
+            ? lighten(theme.palette.background[900], 0.02)
+            : lighten(theme.palette.background[800], 0.02)
         }
       })
     }
