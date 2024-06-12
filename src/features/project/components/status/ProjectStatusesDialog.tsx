@@ -5,7 +5,7 @@ import {
   Button,
   Dialog,
   Divider,
-  IconButton, Link,
+  IconButton,
   Skeleton,
   Stack,
   styled,
@@ -21,6 +21,7 @@ import { Close, MoreHoriz } from "@mui/icons-material";
 import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
 import ProjectStatusActionsMenu from "./ProjectStatusActionsMenu.tsx";
+import UserLabel from "../../../../components/label/UserLabel.tsx";
 
 interface ProjectStatusButtonProps extends BoxProps {
   isSelected: boolean
@@ -136,7 +137,7 @@ function ProjectStatusesDialog() {
         <Divider />
 
         <Stack direction={'row'} flexGrow={1} sx={{ overflowY: 'hidden' }}>
-          <Stack width={280} sx={{ overflowY: 'auto' }}>
+          <Stack minWidth={280} sx={{ overflowY: 'auto' }}>
             {data.statuses.map((status) => (
               <div key={status.id}>
                 <ProjectStatusButton
@@ -182,21 +183,27 @@ function ProjectStatusesDialog() {
 
               <Stack spacing={1}>
                 <Stack direction={'row'} alignItems={'center'}>
-                  <Typography variant={'body2'} mr={9} color={'text.secondary'}>Status</Typography>
+                  <Typography variant={'body2'} mr={10} color={'text.secondary'}>Status</Typography>
                   <ProjectStatusLabel status={projectStatusSelected.status} />
                 </Stack>
                 <Stack direction={'row'} alignItems={'center'}>
-                  <Typography variant={'body2'} mr={7} color={'text.secondary'}>Publisher</Typography>
-                  <Typography>{projectStatusSelected.createdBy.name}</Typography>
-                  {projectStatusSelected.createdDateTime !== projectStatusSelected.updatedDateTime && (
-                    <>
-                      <Typography variant={'subtitle2'} color={'text.secondary'} ml={1} mr={1}>updated by</Typography>
-                      <Link>
-                        {projectStatusSelected.updatedBy.name}
-                      </Link>
-                    </>
-                  )}
+                  <Typography variant={'body2'} mr={5} color={'text.secondary'}>Published By</Typography>
+                  <UserLabel user={{ ...projectStatusSelected.createdBy }} />
+                  <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
+                  <Typography variant={'body2'}>
+                    {new Date(projectStatusSelected.createdDateTime).toLocaleDateString()}
+                  </Typography>
                 </Stack>
+                {projectStatusSelected.createdDateTime !== projectStatusSelected.updatedDateTime && (
+                  <Stack direction={'row'} alignItems={'center'}>
+                    <Typography variant={'body2'} mr={6} color={'text.secondary'}>Updated By</Typography>
+                    <UserLabel user={{ ...projectStatusSelected.updatedBy }} />
+                    <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
+                    <Typography variant={'body2'}>
+                      {new Date(projectStatusSelected.updatedDateTime).toLocaleDateString()}
+                    </Typography>
+                  </Stack>
+                )}
               </Stack>
 
               <Stack>

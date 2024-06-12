@@ -77,8 +77,9 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
               ? <CircularProgress size={16} />
               :
               <Tooltip
-                sx={{ cursor: 'default' }}
+                arrow
                 placement={'top'}
+                sx={{ cursor: 'default' }}
                 title={`There are ${totalTasksCount} task${totalTasksCount === 1 ? '' : 's'} in this stage`}>
                 <Typography fontWeight={300}>{totalTasksCount}</Typography>
               </Tooltip>

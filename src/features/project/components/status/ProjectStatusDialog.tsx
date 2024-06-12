@@ -178,9 +178,9 @@ function ProjectStatusDialog({
             </Stack>
 
             {initialProjectStatus && (
-              <Stack direction={'row'} alignItems={'center'} spacing={10}>
+              <Stack direction={'row'} alignItems={'center'} spacing={9}>
                 <Typography>Publisher</Typography>
-                <Typography variant={'h6'}>{initialProjectStatus.createdBy.name}</Typography>
+                <Link variant={'h6'}>{initialProjectStatus.createdBy.name}</Link>
               </Stack>
             )}
 
