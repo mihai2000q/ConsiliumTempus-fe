@@ -1,16 +1,6 @@
 import { useParams, useSearchParams } from "react-router-dom";
 import { useGetProjectQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
-import {
-  Avatar,
-  Button,
-  Divider,
-  IconButton,
-  Stack,
-  Tab,
-  Tabs,
-  Typography,
-  useTheme
-} from "@mui/material";
+import { Avatar, Button, Divider, IconButton, Stack, Tab, Tabs, Typography, useTheme } from "@mui/material";
 import demoProjectPicture from './../../assets/demo-projects.jpg'
 import {
   AccessTimeRounded,
@@ -29,7 +19,7 @@ import {
 } from "@mui/icons-material";
 import { SyntheticEvent, useEffect, useState } from "react";
 import ProjectActionsMenu from "./components/ProjectActionsMenu.tsx";
-import { ProjectTabs } from "./types/ProjectTabs.ts";
+import { ProjectTabs } from "./utils/ProjectTabs.ts";
 import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
@@ -44,6 +34,9 @@ import useDependencyState from "../../hooks/useDependencyState.ts";
 import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
 import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 import ProjectLoader from "./components/ProjectLoader.tsx";
+import ProjectStatusMenu from "./components/status/ProjectStatusMenu.tsx";
+import ProjectStatusLabel from "./components/status/ProjectStatusLabel.tsx";
+import ProjectStatusesDialog from "./components/status/ProjectStatusesDialog.tsx";
 
 function Project() {
   const theme = useTheme()
@@ -55,6 +48,7 @@ function Project() {
   const tab = Number(searchParams.get(ProjectSearchParams.Tab)) ?? ProjectTabs.Overview
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
+  const [statusMenuAnchorEl, setStatusMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const project = useGetProjectQuery({ id: projectId })?.data
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
@@ -107,23 +101,36 @@ function Project() {
         </Stack>
 
         <IconButton
-          onClick={() => setIsFavorite(!isFavorite, true)}
+          onClick={() => setIsFavorite(!isFavorite.value, true)}
           sx={{
             color: theme.palette.primary[100],
             '&:hover': { color: theme.palette.secondary.main }
           }}>
-          {isFavorite ? <Star /> : <StarOutline />}
+          {isFavorite.value ? <Star /> : <StarOutline />}
         </IconButton>
 
         <Button
-          startIcon={<CircleOutlined />}
+          onClick={(e) => setStatusMenuAnchorEl(e.currentTarget)}
           sx={{
             color: theme.palette.primary[100],
             justifyContent: 'center',
             borderRadius: 2
           }}>
-          <Typography fontWeight={500} ml={1} pt={'2px'}>Set Status</Typography>
+          {project.latestStatus !== null
+            ? (<ProjectStatusLabel status={project.latestStatus.status} />)
+            : (
+              <>
+                <CircleOutlined sx={{ fontSize: '16px' }} />
+                <Typography fontWeight={500} ml={'4px'} pt={'2px'}>Set Status</Typography>
+              </>
+            )}
         </Button>
+        <ProjectStatusMenu
+          anchorEl={statusMenuAnchorEl}
+          setAnchorEl={setStatusMenuAnchorEl}
+          projectId={projectId}
+          projectName={project.name}
+          latestStatus={project.latestStatus} />
 
         <ProjectSprintsSelector projectId={projectId} />
       </Stack>
@@ -168,6 +175,8 @@ function Project() {
       <TabPanel value={tab} index={ProjectTabs.Announcements}>
         THis is the announcements
       </TabPanel>
+
+      <ProjectStatusesDialog />
     </Stack>
   );
 }

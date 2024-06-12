@@ -1,0 +1,98 @@
+import { ProjectStatus } from "../../types/Project.model.ts";
+import { Divider, Menu, MenuItem, Stack, Typography } from "@mui/material";
+import { Dispatch, SetStateAction, useState } from "react";
+import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
+import ProjectStatusDialog from "./ProjectStatusDialog.tsx";
+import { projectStatuses } from "../../data/ProjectStatuses.ts";
+import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../state/store.ts";
+import { openProjectStatusesDialog } from "../../../../state/project/projectSlice.ts";
+import ProjectStatusType from "../../types/ProjectStatusType.ts";
+
+interface ProjectStatusMenuProps {
+  anchorEl: HTMLElement | null,
+  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  projectId: string,
+  projectName: string,
+  latestStatus: ProjectStatus | null
+}
+
+function ProjectStatusMenu({
+  anchorEl,
+  setAnchorEl,
+  projectId,
+  projectName,
+  latestStatus
+}: ProjectStatusMenuProps) {
+  const dispatch = useDispatch<AppDispatch>()
+
+  const [addStatusDialogOpen, setAddStatusDialogOpen] = useState(false)
+  const handleCloseAddStatusDialog = () => setAddStatusDialogOpen(false)
+
+  const [status, setStatus] = useState<ProjectStatusType>('AtRisk')
+
+  const handleCloseMenu = () => setAnchorEl(null)
+
+  function handleLatestStatusClick() {
+    handleCloseMenu()
+    dispatch(openProjectStatusesDialog({
+      isOpen: true,
+      statusIdSelected: latestStatus!.id,
+      projectId: projectId,
+      projectName: projectName
+    }))
+  }
+
+  function handleStatusClick(status: ProjectStatusType) {
+    setStatus(status)
+    handleCloseMenu()
+    setAddStatusDialogOpen(true)
+  }
+
+  return (
+    <>
+      <Menu
+        open={Boolean(anchorEl)}
+        anchorEl={anchorEl}
+        onClose={handleCloseMenu}
+        sx={{
+          ...(latestStatus && {
+            '& .MuiList-root': {
+              paddingTop: 0
+            }
+          })
+        }}>
+        {latestStatus &&
+          <Stack>
+            <Divider color={projectStatusToColor.get(latestStatus.status) ?? 'white'} sx={{ height: 10 }} />
+            <MenuItem onClick={handleLatestStatusClick}>
+              <Stack maxWidth={200}>
+                <Typography variant={'subtitle1'} color={'text.secondary'} fontWeight={600}>View latest update</Typography>
+                <Typography variant={'h6'} noWrap>{latestStatus.title}</Typography>
+                <Stack direction={'row'} spacing={0.5}>
+                  <Typography variant={'body2'} color={'darkgrey'} noWrap>{latestStatus.createdBy.name} -</Typography>
+                  <Typography variant={'body2'} color={'darkgrey'}>{new Date(latestStatus.createdDateTime).toLocaleDateString()}</Typography>
+                </Stack>
+              </Stack>
+            </MenuItem>
+          </Stack>
+        }
+        {projectStatuses.map(status => (
+          <MenuItem key={status} onClick={() => handleStatusClick(status)}>
+            <ProjectStatusLabel status={status} />
+          </MenuItem>
+        ))}
+      </Menu>
+
+      <ProjectStatusDialog
+        open={addStatusDialogOpen}
+        onClose={handleCloseAddStatusDialog}
+        projectId={projectId}
+        projectName={projectName}
+        initialStatus={status} />
+    </>
+  );
+}
+
+export default ProjectStatusMenu;

@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialState } from "./projectState.ts";
+import { initialState, ProjectStatusesDialogState } from "./projectState.ts";
 
 export const projectSlice = createSlice({
   name: 'project',
@@ -7,10 +7,23 @@ export const projectSlice = createSlice({
   reducers: {
     setProjectSprintId: (state, action: PayloadAction<string | undefined>) => {
       state.sprintId = action.payload
+    },
+    openProjectStatusesDialog: (state, action: PayloadAction<ProjectStatusesDialogState>) => {
+      state.projectStatusesDialog = action.payload
+    },
+    closeProjectStatusesDialog: (state) => {
+      state.projectStatusesDialog.isOpen = false
+      state.projectStatusesDialog.statusIdSelected = undefined
+      state.projectStatusesDialog.projectId = undefined
+      state.projectStatusesDialog.projectName = undefined
     }
   }
 })
 
-export const { setProjectSprintId } = projectSlice.actions
+export const {
+  setProjectSprintId,
+  openProjectStatusesDialog,
+  closeProjectStatusesDialog
+} = projectSlice.actions
 
 export default projectSlice.reducer
