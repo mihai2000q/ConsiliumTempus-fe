@@ -22,6 +22,7 @@ import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
 import ProjectStatusActionsMenu from "./ProjectStatusActionsMenu.tsx";
 import UserLabel from "../../../../components/label/UserLabel.tsx";
+import ProjectStatusMenu from "./ProjectStatusMenu.tsx";
 
 interface ProjectStatusButtonProps extends BoxProps {
   isSelected: boolean
@@ -83,6 +84,7 @@ function ProjectStatusesDialog() {
     }
   }, [data, statusIdSelected]);
 
+  const [actionsMenuAnchorEl, setActionsMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const handleClose = () => dispatch(closeProjectStatusesDialog())
@@ -129,7 +131,17 @@ function ProjectStatusesDialog() {
               {data.totalCount} status update{data.totalCount > 1 ? 's' : ''}
             </Typography>
           </Stack>
-          <Button variant={'outlined'}>Add New Status</Button>
+
+          <Button variant={'alt-outlined'} onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
+            Add New Status
+          </Button>
+          <ProjectStatusMenu
+            anchorEl={menuAnchorEl}
+            setAnchorEl={setMenuAnchorEl}
+            projectId={projectId}
+            projectName={projectName}
+            latestStatus={null} />
+
           <IconButton variant={'circular'} onClick={handleClose}>
             <Close />
           </IconButton>
@@ -169,12 +181,12 @@ function ProjectStatusesDialog() {
                 <Typography variant={'h5'}>{projectStatusSelected.title}</Typography>
 
                 <Stack direction={'row'}>
-                  <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
+                  <IconButton onClick={(e) => setActionsMenuAnchorEl(e.currentTarget)}>
                     <MoreHoriz />
                   </IconButton>
                   <ProjectStatusActionsMenu
-                    anchorEl={menuAnchorEl}
-                    setAnchorEl={setMenuAnchorEl}
+                    anchorEl={actionsMenuAnchorEl}
+                    setAnchorEl={setActionsMenuAnchorEl}
                     projectId={projectId}
                     projectName={projectName}
                     projectStatus={projectStatusSelected} />

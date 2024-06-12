@@ -50,6 +50,9 @@ function UserLabel({
     <>
       <StyledUserLabel
         onMouseEnter={(e) => setFacadePopoverAnchorEl(e.currentTarget)}
+        onMouseLeave={() => {
+          if (popoverAnchorEl === null) setFacadePopoverAnchorEl(null)}
+        }
         sx={{ '&:hover': { boxShadow: 4 } }}>
         <Avatar src={demoUserPic} alt={'user profile picture'} sx={{ width: 23, height: 23, mr: 0.75 }} />
         <Typography noWrap>{user.name}</Typography>
