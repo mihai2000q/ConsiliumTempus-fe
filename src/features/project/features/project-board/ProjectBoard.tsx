@@ -26,10 +26,10 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
   const [showRightAddStagePanel, setShowRightAddStagePanel] = useState(false)
 
   const handleAddTask = () => {
-    setShowAddTaskCard(true)
+    setShowAddTaskCard(s => !s)
   }
   const handleAddStage = () => {
-    setShowLeftAddStagePanel(true)
+    setShowLeftAddStagePanel(s => !s)
   }
   const handleAddSprint = () => {
     console.log('Sprint Added')

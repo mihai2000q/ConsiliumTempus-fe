@@ -128,7 +128,7 @@ function ProjectTaskDrawer() {
               error={facadeName === ''}
               placeholder={'Enter a name'}
               value={facadeName}
-              onChange={(e) => setFacadeName(e, true)} />
+              onChange={(e) => setFacadeName(e.target.value, true)} />
 
             <Stack spacing={1}>
               <Typography>Description</Typography>

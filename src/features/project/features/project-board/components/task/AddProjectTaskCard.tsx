@@ -32,7 +32,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   function handleOnKeyUp(e) {
-    if ((e.key === 'Enter')) handleBlur()
+    if ((e.key === 'Enter')) addNewTask()
   }
 
   return (

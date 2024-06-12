@@ -89,7 +89,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           <IconButton>
             <SearchRounded />
           </IconButton>
-          <IconButton onClick={() => setShowTopAddTaskCard(true)}>
+          <IconButton onClick={() => setShowTopAddTaskCard(!showTopAddTaskCard)}>
             <AddRounded />
           </IconButton>
           <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>

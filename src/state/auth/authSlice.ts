@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "./authState.ts";
 
 export const authSlice = createSlice({
-  name: 'global',
+  name: 'auth',
   initialState,
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {

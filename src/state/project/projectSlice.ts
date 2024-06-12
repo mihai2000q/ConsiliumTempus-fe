@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "./projectState.ts";
 
 export const projectSlice = createSlice({
-  name: 'global',
+  name: 'project',
   initialState,
   reducers: {
     setProjectSprintId: (state, action: PayloadAction<string | undefined>) => {

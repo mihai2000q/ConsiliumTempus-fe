@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "./projectTaskDrawerState.ts";
 
 export const projectTaskDrawerSlice = createSlice({
-  name: 'global',
+  name: 'projectTaskDrawer',
   initialState,
   reducers: {
     openDrawer: (state, action: PayloadAction<string>) => {
