@@ -1,9 +1,9 @@
-import { ProjectStatusType } from "../../types/Project.model.ts";
 import { Box, BoxProps, styled, Typography } from "@mui/material";
 import { projectStatusToBackgroundColor } from "../../data/ProjectStatusToBackgroundColor.ts";
 import { projectStatusNormalization } from "../../data/ProjectStatusNormalization.ts";
 import { Check, Circle } from "@mui/icons-material";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
+import ProjectStatusType from "../../types/ProjectStatusType.ts";
 
 interface StyledLabelProps extends BoxProps {
   status: ProjectStatusType

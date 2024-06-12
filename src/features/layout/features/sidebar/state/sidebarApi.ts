@@ -12,11 +12,11 @@ export const sidebarApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getWorkspaces: builder.query<WorkspaceResponse, GetWorkspacesRequest>({
       query: arg => Urls.Workspaces + createQueryParams(arg),
-      providesTags: [TagTypes.SidebarWorkspaces]
+      providesTags: [TagTypes.Workspaces]
     }),
     getProjects: builder.query<ProjectResponse, GetProjectsRequest>({
       query: arg => Urls.Projects + createQueryParams(arg),
-      providesTags: [TagTypes.SidebarProjects]
+      providesTags: [TagTypes.Projects]
     }),
     addProject: builder.mutation<HttpMessageResponse, CreateProjectRequest>({
       query: body => ({
@@ -24,7 +24,7 @@ export const sidebarApiSlice = api.injectEndpoints({
         method: 'POST',
         body: body
       }),
-      invalidatesTags: [TagTypes.Projects, TagTypes.SidebarProjects]
+      invalidatesTags: [TagTypes.Projects]
     }),
     addWorkspace: builder.mutation<HttpMessageResponse, CreateWorkspaceRequest>({
       query: body => ({
@@ -32,7 +32,7 @@ export const sidebarApiSlice = api.injectEndpoints({
         method: 'POST',
         body: body
       }),
-      invalidatesTags: [TagTypes.Workspaces, TagTypes.SidebarWorkspaces]
+      invalidatesTags: [TagTypes.Workspaces]
     })
   })
 })

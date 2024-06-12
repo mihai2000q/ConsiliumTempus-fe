@@ -45,7 +45,7 @@ export const projectApiSlice = api.injectEndpoints({
         method: 'PUT',
         body: body
       }),
-      invalidatesTags: [TagTypes.Projects, TagTypes.SidebarProjects]
+      invalidatesTags: [TagTypes.Projects]
     }),
     updateStatusFromProject: builder.mutation<HttpMessageResponse, UpdateStatusFromProjectRequest>({
       query: body => ({
@@ -60,7 +60,7 @@ export const projectApiSlice = api.injectEndpoints({
         url: `${Urls.Projects}/${arg.id}`,
         method: 'DELETE'
       }),
-      invalidatesTags: [TagTypes.Projects, TagTypes.SidebarProjects]
+      invalidatesTags: [TagTypes.Projects]
     }),
     removeStatusFromProject: builder.mutation<HttpMessageResponse, RemoveStatusFromProjectRequest>({
       query: arg => ({

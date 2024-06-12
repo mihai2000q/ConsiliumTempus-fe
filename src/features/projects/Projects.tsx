@@ -49,7 +49,7 @@ function Projects() {
     )
   }, [searchName])
 
-  const [lifecycle, setLifecycle] = useState<ProjectLifecycle>('active')
+  const [lifecycle, setLifecycle] = useState<ProjectLifecycle>('Active')
   const [active, setActive] = useState(true)
 
   const [orderBy, setOrderBy] = useState<string[]>([])

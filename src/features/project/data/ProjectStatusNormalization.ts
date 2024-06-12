@@ -1,4 +1,4 @@
-import { ProjectStatusType } from "../types/Project.model.ts";
+import ProjectStatusType from "../types/ProjectStatusType.ts";
 
 export const projectStatusNormalization: Map<ProjectStatusType, string> = new Map<ProjectStatusType, string>()
 projectStatusNormalization.set('OnTrack', 'On Track')

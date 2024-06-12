@@ -9,7 +9,7 @@ export default interface Project {
   latestStatus: ProjectStatus | null
 }
 
-export type ProjectLifecycle = 'archived' | 'active' | 'upcoming'
+export type ProjectLifecycle = 'Archived' | 'Active' | 'Upcoming'
 
 interface Owner {
   id: string,

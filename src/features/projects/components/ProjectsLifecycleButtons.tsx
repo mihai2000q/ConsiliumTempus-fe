@@ -107,23 +107,23 @@ function ProjectsLifecycleButtons({
     <StyledButtonGroup>
       <StyledButton
         startIcon={<ArchiveOutlined />}
-        selected={lifecycle === 'archived'}
+        selected={lifecycle === 'Archived'}
         active={active}
-        onClick={() => handleClick('archived')}>
+        onClick={() => handleClick('Archived')}>
         Archived Projects
       </StyledButton>
       <StyledButton
         startIcon={<SkipNextOutlined />}
-        selected={lifecycle === 'active'}
+        selected={lifecycle === 'Active'}
         active={active}
-        onClick={() => handleClick('active')}>
+        onClick={() => handleClick('Active')}>
         Active Projects
       </StyledButton>
       <StyledButton
         startIcon={<HourglassEmptyOutlined />}
-        selected={lifecycle === 'upcoming'}
+        selected={lifecycle === 'Upcoming'}
         active={active}
-        onClick={() => handleClick('upcoming')}>
+        onClick={() => handleClick('Upcoming')}>
         Upcoming Projects
       </StyledButton>
     </StyledButtonGroup>

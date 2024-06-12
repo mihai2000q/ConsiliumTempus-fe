@@ -1,4 +1,4 @@
-import { ProjectStatusType } from "../types/Project.model.ts";
+import ProjectStatusType from "../types/ProjectStatusType.ts";
 
 export const projectStatuses: ProjectStatusType[] = [
   'OnTrack',

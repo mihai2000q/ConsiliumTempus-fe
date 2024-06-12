@@ -97,7 +97,11 @@ function Project() {
           <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
             <ArrowDropDown />
           </IconButton>
-          <ProjectActionsMenu anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} />
+          <ProjectActionsMenu
+            anchorEl={menuAnchorEl}
+            setAnchorEl={setMenuAnchorEl}
+            projectId={projectId}
+            project={project} />
         </Stack>
 
         <IconButton

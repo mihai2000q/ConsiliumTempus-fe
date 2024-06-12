@@ -32,6 +32,61 @@ export const components = {
     }
   },
   MuiButton: {
+    variants: [
+      {
+        props: { variant: 'alt-text' },
+        style: ({ theme } : { theme: Theme }) => ({
+          borderRadius: '6px',
+          color: theme.palette.background[300],
+          '&:hover': {
+            color: theme.palette.background[50],
+            backgroundColor: alpha(theme.palette.background[100], 0.1)
+          },
+        }),
+      },
+      {
+        props: { variant: 'alt-text', size: 'small' },
+        style: ({ theme } : { theme: Theme }) => ({
+          fontSize: 12,
+          fontWeight: 300,
+          borderRadius: '6px',
+          color: theme.palette.background[300],
+          '&:hover': {
+            color: theme.palette.background[50],
+            backgroundColor: alpha(theme.palette.background[100], 0.1)
+          },
+        }),
+      },
+      {
+        props: { variant: 'alt-outlined' },
+        style: ({ theme } : { theme: Theme }) => ({
+          fontWeight: 500,
+          borderRadius: '8px',
+          border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
+          color: theme.palette.background[300],
+          '&:hover': {
+            borderColor: alpha(theme.palette.background[100], 0.5),
+            color: theme.palette.background[50],
+            backgroundColor: alpha(theme.palette.background[100], 0.1)
+          },
+        }),
+      },
+      {
+        props: { variant: 'alt-outlined', size: 'small' },
+        style: ({ theme } : { theme: Theme }) => ({
+          fontSize: 12,
+          fontWeight: 300,
+          borderRadius: '6px',
+          border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
+          color: theme.palette.background[200],
+          '&:hover': {
+            borderColor: alpha(theme.palette.background[100], 0.7),
+            color: theme.palette.background[50],
+            backgroundColor: alpha(theme.palette.background[100], 0.1)
+          },
+        }),
+      },
+    ],
     styleOverrides: {
       root: ({ ownerState, theme } : { ownerState: ButtonProps, theme: Theme }) => ({
         textTransform: 'none',
@@ -257,6 +312,13 @@ export const components = {
 declare module '@mui/material/IconButton' {
   interface IconButtonOwnProps {
     variant?: 'standard' | 'dashed' | 'circular';
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsVariantOverrides {
+    'alt-outlined': true,
+    'alt-text': true
   }
 }
 
