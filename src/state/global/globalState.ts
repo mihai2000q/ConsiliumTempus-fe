@@ -1,9 +1,11 @@
 import { ThemeMode } from "../../theme/theme.ts";
 
 interface GlobalState {
-  mode: ThemeMode
+  mode: ThemeMode,
+  userId: string | undefined
 }
 
 export const initialState: GlobalState = {
-  mode: 'dark'
+  mode: 'dark',
+  userId: undefined,
 }
