@@ -20,5 +20,5 @@ interface Owner {
 interface ProjectStatus {
   id: string,
   status: string,
-  updatedDateTime: Date
+  updatedDateTime: string
 }

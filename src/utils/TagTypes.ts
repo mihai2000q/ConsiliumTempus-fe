@@ -3,6 +3,7 @@ enum TagTypes {
   Projects = "Projects",
   ProjectOverview = "ProjectOverview",
   ProjectSprints = "ProjectSprints",
+  ProjectStatuses = "ProjectStatuses",
   ProjectSprint = "ProjectSprint",
   ProjectTasks = "ProjectTasks",
   SidebarWorkspaces = "SidebarWorkspaces",
