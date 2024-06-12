@@ -1,4 +1,4 @@
-import { alpha, ButtonProps, DrawerProps, lighten, ListItemButtonProps, Theme } from "@mui/material";
+import { alpha, ButtonProps, darken, DrawerProps, lighten, ListItemButtonProps, Theme } from "@mui/material";
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from "react";
 
 export const components = {
@@ -36,9 +36,11 @@ export const components = {
       root: ({ ownerState, theme } : { ownerState: ButtonProps, theme: Theme }) => ({
         textTransform: 'none',
         '& .MuiButton-startIcon': {
-          marginRight: 2
+          marginRight: '2px'
         },
         ...(ownerState.variant === 'outlined' && {
+          color: theme.palette.primary[400],
+          backgroundColor: 'transparent',
           '&:hover': {
             color: theme.palette.primary[300],
             backgroundColor: alpha(theme.palette.primary[100], 0.1)
@@ -59,8 +61,14 @@ export const components = {
             backgroundColor: alpha(theme.palette.primary[100], 0.1)
           },
           '& .MuiButton-startIcon': {
-            marginRight: 4
+            marginRight: '4px'
           },
+        }),
+        ...(ownerState.variant === 'contained' && {
+          backgroundColor: theme.palette.primary[700],
+          '&:hover': {
+            backgroundColor: theme.palette.primary[900]
+          }
         })
       })
     }
@@ -70,12 +78,12 @@ export const components = {
       {
         props: { variant: 'standard' },
         style: {
-          borderRadius: '20%',
+          borderRadius: '7px',
           width: 30,
           height: 30,
           fontSize: '17px',
           "& .MuiTouchRipple-root .MuiTouchRipple-child": {
-            borderRadius: '20%',
+            borderRadius: '7px',
           }
         },
       },
@@ -218,6 +226,30 @@ export const components = {
             : lighten(theme.palette.background[800], 0.02)
         }
       })
+    }
+  },
+  MuiAppBar: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        backgroundColor: darken(theme.palette.background[900], 0.3),
+      })
+    }
+  },
+  MuiLink: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        cursor: 'pointer',
+        transition: theme.transitions.create(['color'], {
+          duration: theme.transitions.duration.short,
+        }),
+        color: theme.palette.background[200],
+        '&: hover': {
+          color: theme.palette.secondary[100]
+        }
+      })
+    },
+    defaultProps: {
+      underline: 'hover'
     }
   }
 }
