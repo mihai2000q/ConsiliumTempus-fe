@@ -2,28 +2,6 @@ import { alpha, ButtonProps, darken, DrawerProps, lighten, ListItemButtonProps, 
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from "react";
 
 export const components = {
-  MuiCssBaseline: {
-    styleOverrides: (theme: Theme) => ({
-      h1: {
-        color: theme.palette.background[100]
-      },
-      h2: {
-        color: theme.palette.background[100]
-      },
-      h3: {
-        color: theme.palette.background[100]
-      },
-      h4: {
-        color: theme.palette.background[100]
-      },
-      h5: {
-        color: theme.palette.background[100]
-      },
-      h6: {
-        color: theme.palette.background[100]
-      },
-    }),
-  },
   MuiTextField: {
     styleOverrides: {
       root: {
@@ -60,7 +38,7 @@ export const components = {
       {
         props: { variant: 'alt-outlined' },
         style: ({ theme } : { theme: Theme }) => ({
-          fontWeight: 500,
+          fontWeight: theme.palette.mode === 'dark' ? 500 : 600,
           borderRadius: '8px',
           border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
           color: theme.palette.background[300],

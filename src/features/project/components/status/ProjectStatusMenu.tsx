@@ -71,8 +71,8 @@ function ProjectStatusMenu({
                 <Typography variant={'subtitle1'} color={'text.secondary'} fontWeight={600}>View latest update</Typography>
                 <Typography variant={'h6'} noWrap>{latestStatus.title}</Typography>
                 <Stack direction={'row'} spacing={0.5}>
-                  <Typography variant={'body2'} color={'darkgrey'} noWrap>{latestStatus.createdBy.name} -</Typography>
-                  <Typography variant={'body2'} color={'darkgrey'}>{new Date(latestStatus.createdDateTime).toLocaleDateString()}</Typography>
+                  <Typography variant={'body2'} color={'text.triadic'} noWrap>{latestStatus.createdBy.name} -</Typography>
+                  <Typography variant={'body2'} color={'text.triadic'}>{new Date(latestStatus.createdDateTime).toLocaleDateString()}</Typography>
                 </Stack>
               </Stack>
             </MenuItem>

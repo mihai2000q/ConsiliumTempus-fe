@@ -89,7 +89,7 @@ function SidebarContent() {
       <Stack>
         <Divider />
         <Button
-          variant={'outlined'}
+          variant={'alt-outlined'}
           startIcon={<MailOutlined sx={{ mr: '3px' }} />}
           sx={{ marginX: 2, marginTop: 3, marginBottom: 2 }}>
           Invite teammates

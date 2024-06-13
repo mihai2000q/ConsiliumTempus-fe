@@ -13,9 +13,6 @@ export const projectSlice = createSlice({
     },
     closeProjectStatusesDialog: (state) => {
       state.projectStatusesDialog.isOpen = false
-      state.projectStatusesDialog.statusIdSelected = undefined
-      state.projectStatusesDialog.projectId = undefined
-      state.projectStatusesDialog.projectName = undefined
     }
   }
 })
