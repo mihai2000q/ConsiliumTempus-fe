@@ -1,6 +1,6 @@
 import { Button, ButtonProps, Stack, StackProps, styled } from "@mui/material";
 import { ArchiveOutlined, HourglassEmptyOutlined, SkipNextOutlined } from "@mui/icons-material";
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { ProjectLifecycle } from "../types/Project.model.ts";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
 import FilterOperator from "../../../utils/FilterOperator.ts";
@@ -96,12 +96,15 @@ function ProjectsLifecycleButtons({
       setLifecycle(newLifecycle)
       setActive(true)
     }
+  }
+
+  useEffect(() => {
     addToSearchQueryParam(
       ProjectsSearchQueryParams.Lifecycle,
       FilterOperator.Equal,
       active ? lifecycle : null
     )
-  }
+  }, [active, lifecycle, addToSearchQueryParam]);
 
   return (
     <StyledButtonGroup>
