@@ -17,7 +17,7 @@ import ProjectSortButton from "./components/ProjectSortButton.tsx";
 import ProjectFilterButton from "./components/ProjectFilterButton.tsx";
 import usePageSize from "./hooks/usePageSize.ts";
 import ProjectsLifecycleButtons from "./components/ProjectsLifecycleButtons.tsx";
-import useProjectsPageCount from "./hooks/useProjectsPageCount.ts";
+import useProjectsPages from "./hooks/useProjectsPages.ts";
 import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import useFacadeState from "../../hooks/useFacadeState.ts";
@@ -39,6 +39,7 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
+  const [orderBy, setOrderBy] = useState<string[]>([])
   const [searchQueryParam, addToSearchQueryParam, removeFromSearchQueryParam] = useSearchQueryParam();
 
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
@@ -52,8 +53,6 @@ function Projects() {
 
   const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
   const [active, setActive] = useState(true)
-
-  const [orderBy, setOrderBy] = useState<string[]>([])
 
   const pageSize = usePageSize()
 
@@ -69,16 +68,20 @@ function Projects() {
   })
   const projects = ProjectAdapter.adapt(data?.projects)
 
+  const [startPageCount, endPageCount, totalPages] = useProjectsPages(
+    data,
+    pageSize,
+    searchParams.currentPage
+  )
+
   useUpdateEffect(() => {
     setSearchParams({ ...searchParams, currentPage: 1 })
   }, [searchName])
 
   useUpdateEffect(() => {
-    if (data && data.projects.length === 0 && data.totalCount != 0)
-      setSearchParams({ ...searchParams, currentPage: Math.ceil(pageSize / data.totalCount)})
+    if (data?.projects.length === 0 && data?.totalCount != 0)
+      setSearchParams({ ...searchParams, currentPage: totalPages})
   }, [data, pageSize])
-
-  const [startPageCount, endPageCount] = useProjectsPageCount(data, pageSize, searchParams.currentPage)
 
   const handleSearchNameChangeField = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFacadeName(e.target.value)
@@ -188,7 +191,7 @@ function Projects() {
           ? <CircularProgress color={'secondary'} size={27} thickness={7} />
           : <Pagination
             disabled={isFetching}
-            count={Math.ceil(data.totalCount / pageSize)}
+            count={totalPages}
             page={searchParams.currentPage}
             onChange={handleCurrentPageChange}
             color="primary"
