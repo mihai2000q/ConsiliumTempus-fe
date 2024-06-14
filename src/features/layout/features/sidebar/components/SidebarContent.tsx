@@ -21,7 +21,8 @@ function SidebarContent() {
     orderBy: ['last_activity.desc']
   }).data?.workspaces
   const projects: Project[] | undefined = useGetProjectsQuery({
-    orderBy: ['last_activity.desc']
+    orderBy: ['last_activity.desc'],
+    search: ['lifecycle eq active']
   }).data?.projects
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)

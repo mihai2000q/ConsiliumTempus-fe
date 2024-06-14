@@ -1,4 +1,4 @@
-import { ProjectStatusType } from "./Project.model.ts";
+import ProjectStatusType from "./ProjectStatusType.ts";
 
 export interface GetProjectRequest {
   id: string
