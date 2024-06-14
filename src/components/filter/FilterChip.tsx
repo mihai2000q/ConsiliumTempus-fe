@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useCallback, useEffect, useState } from "react";
 import { alpha, Chip, Stack, Typography, useTheme } from "@mui/material";
 import { Check } from "@mui/icons-material";
 import { Filter } from "../../types/Filter.ts";
@@ -23,14 +23,15 @@ function FilterChip({
   const theme = useTheme()
 
   const [selected, setSelected] = useState(false)
-  useEffect(() => {
-    console.log(filters)
-    setSelected(filters.some(f =>
+  const isSelected = useCallback(() => {
+    return filters.some(f =>
       f.property === filter.property &&
       f.operator === filter.operator &&
       f.value === filter.value)
-    )
-  }, [filters])
+  }, [filters, filter])
+  useEffect(() => {
+    setSelected(isSelected())
+  }, [isSelected])
 
   function handleClick() {
     if (!selected)
