@@ -36,7 +36,6 @@ function ProjectTaskDrawerActionsMenu({ anchorEl, setAnchorEl, taskId }: Project
   const handleCloseMenu = () => setAnchorEl(null)
 
   const handleDuplicateTask = () => {
-    console.log('Task duplicated!')
     handleCloseMenu()
   }
 

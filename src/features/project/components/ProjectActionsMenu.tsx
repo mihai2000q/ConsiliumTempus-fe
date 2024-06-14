@@ -55,42 +55,33 @@ function ProjectActionsMenu({
   const [deleteProject] = useDeleteProjectMutation()
 
   const handleEditProject = () => {
-    console.log("Go to edit project")
     handleCloseMenu()
   }
 
   const handleDuplicateProject = () => {
-    console.log("Project duplicated")
     handleCloseMenu()
   }
   const handleAddProjectToPortfolio = () => {
-    console.log("Project added to portfolio")
     handleCloseMenu()
   }
   const handleSaveProjectTemplate = () => {
-    console.log("Project saved as template")
     handleCloseMenu()
   }
   const handleMoveToNextSprint = () => {
-    console.log("Project moved to next sprint")
     handleCloseMenu()
   }
 
   const handleUnarchiveProject = () => {
-    console.log("Project unarchived")
     handleCloseMenu()
   }
   const handleArchiveProject = () => {
-    console.log("Project archived")
     handleCloseMenu()
   }
 
   const handleUnsetUpcomingProject = () => {
-    console.log("Project unset upcoming")
     handleCloseMenu()
   }
   const handleSetUpcomingProject = () => {
-    console.log("Project set upcoming")
     handleCloseMenu()
   }
 

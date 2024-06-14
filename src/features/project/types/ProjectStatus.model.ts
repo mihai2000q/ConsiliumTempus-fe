@@ -1,4 +1,4 @@
-import ProjectStatusType from "./ProjectStatusType.ts";
+import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
 
 export default interface ProjectStatus {
   id: string,

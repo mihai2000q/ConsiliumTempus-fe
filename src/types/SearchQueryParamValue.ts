@@ -1,4 +1,4 @@
-import ProjectStatusType from "../features/project/types/ProjectStatusType.ts";
+import ProjectStatusType from "../utils/project/ProjectStatusType.ts";
 
 type SearchQueryParamValue = ProjectStatusType | string | boolean | number | null
 

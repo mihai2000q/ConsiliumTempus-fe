@@ -1,9 +1,9 @@
 import { Box, BoxProps, styled, Typography } from "@mui/material";
 import { projectStatusToBackgroundColor } from "../../data/ProjectStatusToBackgroundColor.ts";
-import { projectStatusNormalization } from "../../data/ProjectStatusNormalization.ts";
 import { Check, Circle } from "@mui/icons-material";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
-import ProjectStatusType from "../../types/ProjectStatusType.ts";
+import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
+import normalize from "../../../../utils/normalize.ts";
 
 interface StyledLabelProps extends BoxProps {
   status: ProjectStatusType
@@ -36,7 +36,7 @@ function ProjectStatusLabel({
   return (
     <StyledLabel status={status}>
       {status === 'Completed' ? <Check /> : <Circle />}
-      <Typography variant={'body2'}>{projectStatusNormalization.get(status)}</Typography>
+      <Typography variant={'body2'}>{normalize(status)}</Typography>
     </StyledLabel>
   );
 }

@@ -48,7 +48,6 @@ function ProjectTaskCardActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTa
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
   }
   const handleDuplicateTask = () => {
-    console.log('Task duplicated!')
     handleCloseMenu()
   }
 

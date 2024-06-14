@@ -1,28 +1,21 @@
-import ProjectStatusType from "./ProjectStatusType.ts";
+import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
+import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
 
 export default interface Project {
   name: string,
   isFavorite: boolean,
   lifecycle: ProjectLifecycle,
-  owner: Owner,
+  owner: User,
   isPrivate: boolean,
   latestStatus: ProjectStatus | null
-}
-
-export type ProjectLifecycle = 'Archived' | 'Active' | 'Upcoming'
-
-interface Owner {
-  id: string,
-  name: string,
-  email: string
 }
 
 export interface ProjectStatus {
   id: string,
   title: string,
   status: ProjectStatusType,
-  createdDateTime: string,
-  updatedDateTime: string,
+  createdDateTime: Date,
+  updatedDateTime: Date,
   createdBy: User,
   updatedBy: User
 }

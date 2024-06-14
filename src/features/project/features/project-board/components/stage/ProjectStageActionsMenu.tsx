@@ -47,17 +47,15 @@ function ProjectStageActionsMenu({ anchorEl, setAnchorEl, stageId }: ProjectStag
   const handleCloseMenu = () => setAnchorEl(null)
 
   const handleAddRuleToStage = () => {
-    console.log('Rule Added to stage!')
     handleCloseMenu()
   }
   const handleRenameStage = () => {
-    console.log('Stage Renamed!')
     handleCloseMenu()
   }
 
   enum Placement { Left = 'left', Right = 'right' }
   const handleAddNewStage = (placement: Placement) => {
-    console.log(`Added new stage to ${placement}!`)
+    console.log(placement)
     handleCloseMenu()
   }
 

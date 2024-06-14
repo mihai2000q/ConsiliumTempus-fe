@@ -1,6 +1,6 @@
 import { AddRounded, FilterAlt } from "@mui/icons-material";
 import { Badge, Button, Collapse, Menu, Stack, Typography } from "@mui/material";
-import {  useState } from "react";
+import { useState } from "react";
 import { projectFilterPropertiesData } from "../data/ProjectFilterPropertiesData.tsx";
 import FilterChip from "../../../components/filter/FilterChip.tsx";
 import FilterPropertyMenu from "../../../components/filter/FilterPropertyMenu.tsx";
@@ -33,8 +33,7 @@ function ProjectFilterButton({
   }
 
   function handleRemoveFilter(index: number, filter: Filter) {
-    filters.splice(index, 1)
-    setFilters(filters)
+    setFilters(filters.filter((_, i) => i !== index))
     removeFromSearchQueryParam(filter)
   }
 
@@ -46,20 +45,17 @@ function ProjectFilterButton({
     )
     if (!chipFilter) return
 
-    filters.splice(filters.indexOf(chipFilter), 1)
-    setFilters(filters)
+    setFilters(filters.filter((_, i) => i !== filters.indexOf(chipFilter)))
     removeFromSearchQueryParam(filter)
   }
 
   function handleFilter(index: number, filter: Filter) {
-    filters[index] = filter
-    setFilters(filters)
+    setFilters(filters.map((f, i) => i === index ? filter : f))
     addToSearchQueryParam(filter)
   }
 
   function handleAddFilter(filter: Filter) {
-    filters.push(filter)
-    setFilters(filters)
+    setFilters([...filters, filter])
     addToSearchQueryParam(filter)
   }
 

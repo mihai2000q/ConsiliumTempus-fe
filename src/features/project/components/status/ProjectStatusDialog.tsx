@@ -1,29 +1,33 @@
-import ProjectStatusType from "../../types/ProjectStatusType.ts";
 import {
-  AppBar, Breadcrumbs,
-  Button, Collapse,
+  AppBar,
+  Breadcrumbs,
+  Button,
+  Collapse,
   Dialog,
-  DialogContent, FormControl, FormHelperText,
+  DialogContent,
+  FormControl,
+  FormHelperText,
   IconButton,
   InputBase,
+  Link,
   Menu,
   MenuItem,
   Stack,
   Toolbar,
   Typography,
-  Link, useTheme
+  useTheme
 } from "@mui/material";
 import { useAddStatusToProjectMutation, useUpdateStatusFromProjectMutation } from "../../state/projectApi.ts";
 import { Close } from "@mui/icons-material";
 import { useFormik } from "formik";
 import { projectStatusDialogSchema } from "../../state/projectValidation.ts";
 import { projectStatusDialogFormInitialValues } from "../../state/projectState.ts";
-import { projectStatuses } from "../../data/ProjectStatuses.ts";
 import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
 import { useEffect, useState } from "react";
 import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
 import ProjectStatus from "../../types/ProjectStatus.model.ts";
 import Paths from "../../../../utils/Paths.ts";
+import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
 
 interface AddProjectStatusDialogProps {
   open: boolean,
@@ -55,7 +59,7 @@ function ProjectStatusDialog({
     isError: updateIsError
   }] = useUpdateStatusFromProjectMutation()
 
-  const [statusType, setStatusType] = useState<ProjectStatusType>('OnTrack')
+  const [statusType, setStatusType] = useState(ProjectStatusType.OnTrack)
 
   const {
     values,
@@ -169,7 +173,7 @@ function ProjectStatusDialog({
                 <ProjectStatusLabel status={statusType} />
               </Button>
               <Menu open={Boolean(menuAnchorEl)} anchorEl={menuAnchorEl} onClose={handleCloseMenu}>
-                {projectStatuses.map((s) => (
+                {Object.values(ProjectStatusType).map((s) => (
                   <MenuItem value={s} key={s} onClick={() => handleMenuItemClick(s)}>
                     <ProjectStatusLabel status={s} />
                   </MenuItem>

@@ -25,7 +25,8 @@ import projectsSearchParamsState from "./state/ProjectsSearchParamsState.ts";
 import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
 import FilterOperator from "../../utils/FilterOperator.ts";
 import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
-import { ProjectLifecycle } from "./types/Project.model.ts";
+import ProjectAdapter from "./adapters/Project.adapter.ts";
+import ProjectLifecycle from "../../utils/project/ProjectLifecycle.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -49,7 +50,7 @@ function Projects() {
     })
   }, [searchName])
 
-  const [lifecycle, setLifecycle] = useState<ProjectLifecycle>('Active')
+  const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
   const [active, setActive] = useState(true)
 
   const [orderBy, setOrderBy] = useState<string[]>([])
@@ -66,7 +67,7 @@ function Projects() {
     currentPage: searchParams.currentPage,
     search: searchQueryParam
   })
-  const projects = data?.projects
+  const projects = ProjectAdapter.adapt(data?.projects)
 
   useUpdateEffect(() => {
     setSearchParams({ ...searchParams, currentPage: 1 })

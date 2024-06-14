@@ -3,12 +3,11 @@ import { Divider, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
 import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
 import ProjectStatusDialog from "./ProjectStatusDialog.tsx";
-import { projectStatuses } from "../../data/ProjectStatuses.ts";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../state/store.ts";
 import { openProjectStatusesDialog } from "../../../../state/project/projectSlice.ts";
-import ProjectStatusType from "../../types/ProjectStatusType.ts";
+import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
 
 interface ProjectStatusMenuProps {
   anchorEl: HTMLElement | null,
@@ -30,7 +29,7 @@ function ProjectStatusMenu({
   const [addStatusDialogOpen, setAddStatusDialogOpen] = useState(false)
   const handleCloseAddStatusDialog = () => setAddStatusDialogOpen(false)
 
-  const [status, setStatus] = useState<ProjectStatusType>('AtRisk')
+  const [status, setStatus] = useState(ProjectStatusType.OnTrack)
 
   const handleCloseMenu = () => setAnchorEl(null)
 
@@ -78,7 +77,7 @@ function ProjectStatusMenu({
             </MenuItem>
           </Stack>
         }
-        {projectStatuses.map(status => (
+        {Object.values(ProjectStatusType).map(status => (
           <MenuItem key={status} onClick={() => handleStatusClick(status)}>
             <ProjectStatusLabel status={status} />
           </MenuItem>

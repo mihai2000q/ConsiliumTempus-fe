@@ -1,6 +1,5 @@
 import { api } from "../../../state/api.ts";
 import TagTypes from "../../../utils/TagTypes.ts";
-import Project from "../types/Project.model.ts";
 import Urls from "../../../utils/Urls.ts";
 import {
   AddStatusToProjectRequest, DeleteProjectRequest,
@@ -13,10 +12,11 @@ import HttpMessageResponse from "../../../types/HttpMessage.response.ts";
 import { GetProjectSprintsRequest } from "../types/ProjectSprint.request.ts";
 import { ProjectSprintResponse } from "../types/ProjectSprint.response.ts";
 import { GetProjectStatusesResponse } from "../types/ProjectStatus.response.ts";
+import ProjectResponse from "../types/Project.response.ts";
 
 export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getProject: builder.query<Project, GetProjectRequest>({
+    getProject: builder.query<ProjectResponse, GetProjectRequest>({
       query: arg => `${Urls.Projects}/${arg.id}`,
       providesTags: [TagTypes.Projects]
     }),

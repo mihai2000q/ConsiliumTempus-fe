@@ -98,7 +98,6 @@ function TopbarUserMenu({ anchorEl, setAnchorEl, user }: TopbarUserMenuProps) {
 
   function handleMultipleAccount() {
     handleCloseMenu()
-    console.log('multiple accounts')
   }
   function handleLogOut() {
     handleCloseMenu()
@@ -110,15 +109,12 @@ function TopbarUserMenu({ anchorEl, setAnchorEl, user }: TopbarUserMenuProps) {
   }
   function handleInvite() {
     handleCloseMenu()
-    console.log('invitation')
   }
   function handleProfile() {
     handleCloseMenu()
-    console.log('profile')
   }
   function handleSettings() {
     handleCloseMenu()
-    console.log('settings')
   }
 
   return (

@@ -1,7 +1,7 @@
 import { api } from "../../../../../state/api.ts";
 import TagTypes from "../../../../../utils/TagTypes.ts";
-import WorkspaceResponse from "../types/Workspace.response.ts";
-import ProjectResponse from "../types/Project.response.ts";
+import GetWorkspacesResponse from "../types/Workspace.response.ts";
+import GetProjectsResponse from "../types/Project.response.ts";
 import Urls from "../../../../../utils/Urls.ts";
 import { CreateWorkspaceRequest, GetWorkspacesRequest } from "../types/Workspace.request.ts";
 import { CreateProjectRequest, GetProjectsRequest } from "../types/Project.request.ts";
@@ -10,11 +10,11 @@ import createQueryParams from "../../../../../utils/createQueryParams.ts";
 
 export const sidebarApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getWorkspaces: builder.query<WorkspaceResponse, GetWorkspacesRequest>({
+    getWorkspaces: builder.query<GetWorkspacesResponse, GetWorkspacesRequest>({
       query: arg => Urls.Workspaces + createQueryParams(arg),
       providesTags: [TagTypes.Workspaces]
     }),
-    getProjects: builder.query<ProjectResponse, GetProjectsRequest>({
+    getProjects: builder.query<GetProjectsResponse, GetProjectsRequest>({
       query: arg => Urls.Projects + createQueryParams(arg),
       providesTags: [TagTypes.Projects]
     }),

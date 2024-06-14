@@ -32,7 +32,6 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
     setShowLeftAddStagePanel(s => !s)
   }
   const handleAddSprint = () => {
-    console.log('Sprint Added')
   }
 
   type Option = { option: string, action: () => void }

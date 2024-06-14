@@ -37,6 +37,7 @@ import ProjectLoader from "./components/ProjectLoader.tsx";
 import ProjectStatusMenu from "./components/status/ProjectStatusMenu.tsx";
 import ProjectStatusLabel from "./components/status/ProjectStatusLabel.tsx";
 import ProjectStatusesDialog from "./components/status/ProjectStatusesDialog.tsx";
+import ProjectAdapter from "./adapters/Project.adapter.ts";
 
 function Project() {
   const theme = useTheme()
@@ -50,12 +51,14 @@ function Project() {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [statusMenuAnchorEl, setStatusMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const project = useGetProjectQuery({ id: projectId })?.data
+  const project = ProjectAdapter.adapt(useGetProjectQuery({ id: projectId })?.data)
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
   const [isFavorite, setIsFavorite, refreshIsFavorite] = useDependencyState(false)
   useEffect(() => {
     setFacadeName(project?.name ?? '')
     setIsFavorite(project?.isFavorite ?? false)
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
   }, [project])
 
   const [updateProject] = useUpdateProjectMutation()
