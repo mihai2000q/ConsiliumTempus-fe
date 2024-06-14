@@ -32,24 +32,20 @@ function ProjectFilterButton({
     setFilters([])
   }
 
-  function handleRemoveFilter(index: number, filter: Filter) {
-    setFilters(filters.filter((_, i) => i !== index))
-    removeFromSearchQueryParam(filter)
-  }
-
-  function handleRemoveChipFilter(filter: Filter) {
-    const chipFilter = filters.find(f =>
+  function handleRemoveFilter(filter: Filter) {
+    const filterToRemove = filters.find(f =>
       f.property === filter.property &&
       f.operator === filter.operator &&
       f.value === filter.value
     )
-    if (!chipFilter) return
+    if (!filterToRemove) return
 
-    setFilters(filters.filter((_, i) => i !== filters.indexOf(chipFilter)))
+    setFilters(filters.filter((f => f !== filterToRemove)))
     removeFromSearchQueryParam(filter)
   }
 
   function handleFilter(index: number, filter: Filter) {
+    removeFromSearchQueryParam(filters.filter((_, i) => i === index)[0])
     setFilters(filters.map((f, i) => i === index ? filter : f))
     addToSearchQueryParam(filter)
   }
@@ -89,7 +85,7 @@ function ProjectFilterButton({
                   key={chip.title}
                   filters={filters}
                   handleFilter={handleAddFilter}
-                  removeFilter={handleRemoveChipFilter} />
+                  removeFilter={handleRemoveFilter} />
               ))}
             </Stack>
           </Stack>
@@ -99,10 +95,11 @@ function ProjectFilterButton({
               <Typography color={'text.secondary'}>All Filters</Typography>
               <Stack spacing={1}>
                 {filters.map((filter, index) => (
-                  <Collapse key={index} in={true}>
+                  <Collapse key={JSON.stringify(filter)} in={true}>
                     <FilterProperty
-                      initialFilter={filter}
+                      filterProperties={projectFilterPropertiesData}
                       operatorsMap={projectsSearchQueryParamsFilterOperators}
+                      initialFilter={filter}
                       index={index}
                       filters={filters}
                       handleFilter={handleFilter}
@@ -121,7 +118,7 @@ function ProjectFilterButton({
             Add Filter
           </Button>
           <FilterPropertyMenu
-            data={projectFilterPropertiesData}
+            filterProperties={projectFilterPropertiesData}
             filters={filters}
             operatorsMap={projectsSearchQueryParamsFilterOperators}
             handleFilter={handleAddFilter}

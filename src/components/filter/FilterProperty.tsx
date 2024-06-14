@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { projectFilterPropertiesData } from "../../features/projects/data/ProjectFilterPropertiesData.tsx";
 import FilterPropertySelector from "./FilterPropertySelector.tsx";
 import FilterOperator from "../../utils/FilterOperator.ts";
 import { IconButton, Stack, Tooltip } from "@mui/material";
@@ -8,20 +7,23 @@ import FilterValueSelector from "./FilterValueSelector.tsx";
 import { Close } from "@mui/icons-material";
 import { Filter } from "../../types/Filter.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
+import {default as FilterPropertyType} from "../../types/FilterProperty.ts";
 
 interface FilterPropertyProps {
+  filterProperties: FilterPropertyType[],
+  operatorsMap: Map<string, FilterOperator[]>,
   initialFilter: Filter,
   filters: Filter[],
-  operatorsMap: Map<string, FilterOperator[]>,
   index: number,
   handleFilter: (index: number, filter: Filter) => void,
-  removeFilter: (index: number, filter: Filter) => void
+  removeFilter: (filter: Filter) => void
 }
 
 function FilterProperty({
+  filterProperties,
+  operatorsMap,
   initialFilter,
   filters,
-  operatorsMap,
   index,
   handleFilter,
   removeFilter
@@ -31,22 +33,43 @@ function FilterProperty({
   const [value, setValue] = useState(initialFilter.value)
   useUpdateEffect(() => {
     handleFilter(index, { property, operator, value })
-  }, [property, operator, value]);
+  }, [property, operator, value])
 
   function handleRemoveFilter() {
-    removeFilter(index, { property, operator, value })
+    removeFilter({ property, operator, value })
   }
+
+  function setPropertyAndResetOperatorAndValue(newProperty: string) {
+    const currentOperatorsOnProperty = filters
+      .filter(f => f.property === newProperty)
+      .map(f => f.operator)
+
+    const filterProperty = filterProperties.find(d => d.property === newProperty)
+    if (!filterProperty) return
+
+    const newOperator = currentOperatorsOnProperty.includes(filterProperty.defaultOperator)
+      ? operatorsMap.get(newProperty)?.find(o => !currentOperatorsOnProperty.includes(o))
+      : filterProperty.defaultOperator
+
+    if (!newOperator) return
+
+    setOperator(newOperator)
+    setProperty(newProperty)
+    setValue(filterProperty.defaultValue)
+  }
+  
+  const filterOperators = filters.filter(f => f.property === property).map(f => f.operator)
 
   return (
     <Stack direction={'row'} spacing={1} alignItems={'center'}>
       <FilterPropertySelector
-        data={projectFilterPropertiesData}
+        filterProperties={filterProperties}
         filters={filters}
         operatorsMap={operatorsMap}
         property={property}
-        setProperty={setProperty} />
+        setProperty={setPropertyAndResetOperatorAndValue} />
       <FilterOperatorSelector
-        filterOperators={filters.filter(f => f.property === property).map(f => f.operator)}
+        filterOperators={filterOperators}
         operator={operator}
         setOperator={setOperator}
         availableOperators={operatorsMap.get(property) ?? []} />
@@ -55,10 +78,11 @@ function FilterProperty({
         setValue={setValue}  />
       <Tooltip
         arrow
+        enterDelay={500}
         placement={'top'}
         title={'Remove Filter'}>
         <IconButton variant={'circular'} size={'small'} onClick={handleRemoveFilter}>
-          <Close fontSize={'small'} />
+          <Close sx={{ fontSize: 17, m: '1px' }} />
         </IconButton>
       </Tooltip>
     </Stack>
