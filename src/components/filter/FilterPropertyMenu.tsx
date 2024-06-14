@@ -1,5 +1,5 @@
 import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
-import FilterMenuItem from "../../types/FilterMenuItem.ts";
+import FilterProperty from "../../types/FilterProperty.ts";
 import { MouseEventHandler, ReactNode } from "react";
 import { Filter } from "../../types/Filter.ts";
 import FilterOperator from "../../utils/FilterOperator.ts";
@@ -37,21 +37,21 @@ const FilterPropertyMenuItem = ({
 interface FilterPropertyMenuProps {
   filters: Filter[],
   operatorsMap: Map<string, FilterOperator[]>,
-  data: FilterMenuItem[],
+  filterProperties: FilterProperty[],
   handleFilter: (filter: Filter) => void,
   menuAnchorEl: HTMLElement | null,
   onClose: () => void
 }
 
 function FilterPropertyMenu({
+  filterProperties,
   filters,
   operatorsMap,
-  data,
   menuAnchorEl,
   handleFilter,
   onClose
 }: FilterPropertyMenuProps) {
-  function handleClick(filterMenuItem: FilterMenuItem) {
+  function handleClick(filterMenuItem: FilterProperty) {
     const defaultOperator = filters
       .filter(f => f.property === filterMenuItem.property)
       .map(f => f.operator)
@@ -69,7 +69,7 @@ function FilterPropertyMenu({
 
   return (
     <Menu open={Boolean(menuAnchorEl)} anchorEl={menuAnchorEl} onClose={onClose}>
-      {data.map((f) => (
+      {filterProperties.map((f) => (
         <FilterPropertyMenuItem
           key={f.property}
           disabled={filters.filter(x => x.property === f.property).length === operatorsMap.get(f.property)?.length}

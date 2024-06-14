@@ -1,18 +1,9 @@
-import { ReactNode } from "react";
 import FilterOperator from "../../../utils/FilterOperator.ts";
-import SearchQueryParamValue from "../../../types/SearchQueryParamValue.ts";
 import { ChargingStationOutlined, Lock } from "@mui/icons-material";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
+import FilterProperty from "../../../types/FilterProperty.ts";
 
-interface ProjectFiltersMenuItem {
-  icon: ReactNode,
-  property: string,
-  defaultOperator: FilterOperator,
-  defaultValue: SearchQueryParamValue,
-  title: string
-}
-
-export const projectFilterPropertiesData: ProjectFiltersMenuItem[] = [
+export const projectFilterPropertiesData: FilterProperty[] = [
   {
     icon: <Lock />,
     property: ProjectsSearchQueryParams.IsPrivate,

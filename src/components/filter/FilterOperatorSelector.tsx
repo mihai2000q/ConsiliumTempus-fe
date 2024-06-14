@@ -1,6 +1,7 @@
 import FilterOperator from "../../utils/FilterOperator.ts";
-import { MenuItem, Select } from "@mui/material";
+import { MenuItem } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
+import FilterSelector from "./FilterSelector.tsx";
 
 interface FilterOperatorSelectorProps {
   filterOperators: FilterOperator[],
@@ -26,10 +27,9 @@ function FilterOperatorSelector({
   filterOperatorToDisplay.set(FilterOperator.StartsWith, 'Starts With')
 
   return (
-    <Select
-      size={'small'}
+    <FilterSelector
       value={operator}
-      onChange={(e) => setOperator(e.target.value as FilterOperator)}>
+      onChange={(o) => setOperator(o as FilterOperator)}>
       {availableOperators.map((o) => (
         <MenuItem
           key={o}
@@ -38,7 +38,7 @@ function FilterOperatorSelector({
           {filterOperatorToDisplay.get(o) ?? 'Not known'}
         </MenuItem>
       ))}
-    </Select>
+    </FilterSelector>
   );
 }
 

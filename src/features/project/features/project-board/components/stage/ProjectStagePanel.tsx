@@ -45,9 +45,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
       id: sprintId!,
       stageId: stage.id,
       name: stageName
-    }),
-    [stageName]
-  )
+    }), [stageName])
 
   const getProjectTasksQuery = useGetProjectTasksQuery({ projectStageId: stage.id }).data
   const tasks = getProjectTasksQuery?.tasks

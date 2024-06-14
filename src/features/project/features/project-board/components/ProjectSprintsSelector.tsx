@@ -26,7 +26,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
 
   useUpdateEffect(() => {
     dispatch(setProjectSprintId(currentSprint?.id))
-  }, [currentSprint]);
+  }, [currentSprint]) // TODO: Reference equality
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const handleCloseMenu = () => setMenuAnchorEl(null)

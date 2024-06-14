@@ -48,7 +48,7 @@ function ProjectTaskDrawer() {
     setFacadeName(task?.name ?? '')
     setFacadeDescription(task?.description ?? '')
     setIsCompleted(task?.isCompleted ?? false)
-  }, [task])
+  }, [task]) // TODO: Referential Equality
   
   const [updateProjectTask] = useUpdateProjectTaskMutation()
   useUpdateEffect(() => {

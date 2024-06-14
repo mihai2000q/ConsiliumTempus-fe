@@ -39,7 +39,7 @@ function TopbarUser() {
 
   useEffect(() => {
     dispatch(setUserId(user?.id))
-  }, [dispatch, user]);
+  }, [dispatch, user]) // TODO: Reference equality ?
 
   if (!user) return <TopbarUserLoader />
   

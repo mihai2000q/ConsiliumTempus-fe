@@ -39,7 +39,7 @@ function OutlinedContentEditable({
       // @ts-ignore
       contentEditableRef.current.textContent = value;
     }
-  });
+  }, [contentEditableRef, value]) // TODO: CHECK THIS
 
   return (
     <Box sx={{

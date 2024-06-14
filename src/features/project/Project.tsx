@@ -59,7 +59,7 @@ function Project() {
     setIsFavorite(project?.isFavorite ?? false)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
-  }, [project])
+  }, [project]) // TODO: Referential Equality
 
   const [updateProject] = useUpdateProjectMutation()
   useUpdateEffect(() => {
