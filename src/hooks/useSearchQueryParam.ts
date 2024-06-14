@@ -1,19 +1,17 @@
 import { useState } from "react";
-import FilterOperator from "../utils/FilterOperator.ts";
-
-type SearchQueryParamValue = string | boolean | number | null;
+import SearchQueryParamValue from "../types/SearchQueryParamValue.ts";
+import { Filter } from "../types/Filter.ts";
 
 export default function useSearchQueryParam(): [
   string[],
-  (property: string, operator: FilterOperator, value: SearchQueryParamValue) => void
+  (filter: Filter) => void,
+  (filter: Filter) => void
 ] {
   const propertyOperators: Map<string, SearchQueryParamValue> = new Map<string, SearchQueryParamValue>()
 
   const [searchQueryParam, setSearchQueryParam] = useState<string[]>([])
 
-  const addToSearch = (property: string, operator: FilterOperator, value: SearchQueryParamValue) => {
-    propertyOperators.set(JSON.stringify({ property, operator: operator }), value)
-
+  function createSearchQueryParam() {
     const newParams: string[] = []
     propertyOperators.forEach((value, key) => {
       if (value !== null) {
@@ -24,5 +22,17 @@ export default function useSearchQueryParam(): [
     setSearchQueryParam(newParams)
   }
 
-  return [searchQueryParam, addToSearch]
+  const addToSearch = (filter: Filter) => {
+    const key = JSON.stringify({ property: filter.property, operator: filter.operator })
+    propertyOperators.set(key, filter.value)
+    createSearchQueryParam()
+  }
+
+  const removeFromSearch = (filter: Filter) => {
+    const key = JSON.stringify({ property: filter.property, operator: filter.operator })
+    propertyOperators.delete(key)
+    createSearchQueryParam()
+  }
+
+  return [searchQueryParam, addToSearch, removeFromSearch]
 }

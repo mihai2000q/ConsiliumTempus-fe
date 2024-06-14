@@ -38,15 +38,15 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
-  const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam();
+  const [searchQueryParam, addToSearchQueryParam, removeFromSearchQueryParam] = useSearchQueryParam();
 
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
   useUpdateEffect(() => {
-    addToSearchQueryParam(
-      ProjectsSearchQueryParams.Name,
-      FilterOperator.Contains,
-      searchName.trim() === '' ? null : searchName
-    )
+    addToSearchQueryParam({
+      property: ProjectsSearchQueryParams.Name,
+      operator: FilterOperator.Contains,
+      value: searchName.trim() === '' ? null : searchName
+    })
   }, [searchName])
 
   const [lifecycle, setLifecycle] = useState<ProjectLifecycle>('Active')
@@ -119,7 +119,8 @@ function Projects() {
 
         <Stack direction={'row'} spacing={2}>
           <ProjectSortButton setOrder={setOrderBy} />
-          <ProjectFilterButton />
+          <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
+                               removeFromSearchQueryParam={removeFromSearchQueryParam} />
         </Stack>
       </Stack>
 

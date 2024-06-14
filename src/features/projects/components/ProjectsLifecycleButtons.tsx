@@ -4,6 +4,7 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { ProjectLifecycle } from "../types/Project.model.ts";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
 import FilterOperator from "../../../utils/FilterOperator.ts";
+import { Filter } from "../../../types/Filter.ts";
 
 const StyledButtonGroup = styled(Stack)<StackProps>(({ theme }) => ({
   alignItems: "center",
@@ -79,7 +80,7 @@ interface ProjectsLifecycleButtonsProps {
   setLifecycle: Dispatch<SetStateAction<ProjectLifecycle>>,
   active: boolean,
   setActive: Dispatch<SetStateAction<boolean>>,
-  addToSearchQueryParam: (property: string, operator: FilterOperator, value: string | null) => void
+  addToSearchQueryParam: (filter: Filter) => void
 }
 
 function ProjectsLifecycleButtons({
@@ -99,12 +100,12 @@ function ProjectsLifecycleButtons({
   }
 
   useEffect(() => {
-    addToSearchQueryParam(
-      ProjectsSearchQueryParams.Lifecycle,
-      FilterOperator.Equal,
-      active ? lifecycle : null
-    )
-  }, [active, lifecycle, addToSearchQueryParam]);
+    addToSearchQueryParam({
+      property: ProjectsSearchQueryParams.Lifecycle,
+      operator: FilterOperator.Equal,
+      value: active ? lifecycle : null
+    })
+  }, [active, lifecycle]);
 
   return (
     <StyledButtonGroup>
