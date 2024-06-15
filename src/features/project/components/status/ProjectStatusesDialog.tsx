@@ -163,7 +163,7 @@ function ProjectStatusesDialog() {
                       spacing={1}
                       width={240}>
                       <Typography variant={'body1'} fontWeight={400} fontSize={16} noWrap>{status.title}</Typography>
-                      <Typography>{new Date(status.createdDateTime).toLocaleDateString()}</Typography>
+                      <Typography>{status.createdDateTime.format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <ProjectStatusLabel status={status.status} />
                   </Stack>
@@ -203,7 +203,7 @@ function ProjectStatusesDialog() {
                   <UserLabel user={{ ...projectStatusSelected.createdBy }} />
                   <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
                   <Typography variant={'body2'}>
-                    {new Date(projectStatusSelected.createdDateTime).toLocaleDateString()}
+                    {projectStatusSelected.createdDateTime.format('DD/MM/YYYY')}
                   </Typography>
                 </Stack>
                 {projectStatusSelected.createdDateTime !== projectStatusSelected.updatedDateTime && (
@@ -212,7 +212,7 @@ function ProjectStatusesDialog() {
                     <UserLabel user={{ ...projectStatusSelected.updatedBy }} />
                     <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
                     <Typography variant={'body2'}>
-                      {new Date(projectStatusSelected.updatedDateTime).toLocaleDateString()}
+                      {projectStatusSelected.updatedDateTime.format('DD/MM/YYYY')}
                     </Typography>
                   </Stack>
                 )}

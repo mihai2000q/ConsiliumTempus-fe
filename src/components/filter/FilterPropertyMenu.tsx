@@ -51,31 +51,36 @@ function FilterPropertyMenu({
   handleFilter,
   onClose
 }: FilterPropertyMenuProps) {
-  function handleClick(filterMenuItem: FilterProperty) {
+  function handleClick(filterProperty: FilterProperty) {
     const defaultOperator = filters
-      .filter(f => f.property === filterMenuItem.property)
+      .filter(f => f.property === filterProperty.property)
       .map(f => f.operator)
-      .find(o => o === filterMenuItem.defaultOperator)
+      .find(o => o === filterProperty.defaultOperator)
 
     handleFilter({
-      property: filterMenuItem.property,
+      property: filterProperty.property,
       operator: defaultOperator
-        ? operatorsMap.get(filterMenuItem.property)!.find(o => o !== defaultOperator)!
-        : filterMenuItem.defaultOperator,
-      value: filterMenuItem.defaultValue
+        ? operatorsMap.get(filterProperty.property)!.find(o => o !== defaultOperator)!
+        : filterProperty.defaultOperator,
+      value: filterProperty.defaultValue,
+      valueType: filterProperty.valueType
     })
     onClose()
   }
 
+  const isDisabled = (property: string) => {
+    return filters.filter(x => x.property === property).length === operatorsMap.get(property)?.length
+  }
+
   return (
     <Menu open={Boolean(menuAnchorEl)} anchorEl={menuAnchorEl} onClose={onClose}>
-      {filterProperties.map((f) => (
+      {filterProperties.map((fp) => (
         <FilterPropertyMenuItem
-          key={f.property}
-          disabled={filters.filter(x => x.property === f.property).length === operatorsMap.get(f.property)?.length}
-          icon={f.icon}
-          onClick={() => handleClick(f)}>
-          {f.title}
+          key={fp.property}
+          disabled={isDisabled(fp.property)}
+          icon={fp.icon}
+          onClick={() => handleClick(fp)}>
+          {fp.title}
         </FilterPropertyMenuItem>
       ))}
     </Menu>

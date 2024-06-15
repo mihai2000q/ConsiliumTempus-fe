@@ -4,32 +4,37 @@ import { Dispatch, SetStateAction } from "react";
 import ProjectStatusType from "../../utils/project/ProjectStatusType.ts";
 import normalize from "../../utils/normalize.ts";
 import FilterSelector from "./FilterSelector.tsx";
+import { DatePicker } from "@mui/x-date-pickers";
+import FilterPropertyValueType from "../../utils/FilterPropertyValueType.ts";
+import { Dayjs } from "dayjs";
 
 interface FilterValueSelectorProps {
+  type: FilterPropertyValueType,
+  value: SearchQueryParamValue,
+  setValue: Dispatch<SetStateAction<SearchQueryParamValue>>
+}
+
+interface ValueSelectorProps {
   value: SearchQueryParamValue,
   setValue: Dispatch<SetStateAction<SearchQueryParamValue>>
 }
 
 export default function FilterValueSelector({
+  type,
   value,
   setValue
 }: FilterValueSelectorProps) {
-
-  switch (typeof value) {
-    case "boolean":
+  switch (type) {
+    case FilterPropertyValueType.Boolean:
       return <BooleanSelector value={value} setValue={setValue} />
-    case "string":
-      switch (true) {
-        case Object.values(ProjectStatusType).find(s => s === value) !== undefined:
-          return <ProjectStatusTypeSelector value={value} setValue={setValue} />
-        default: return <></>
-      }
-    default:
-      return <></>
+    case FilterPropertyValueType.ProjectStatusType:
+      return <ProjectStatusTypeSelector value={value} setValue={setValue} />
+    case FilterPropertyValueType.PastDate:
+      return <PastDateSelector value={value} setValue={setValue} />
   }
 }
 
-function BooleanSelector({ value, setValue }: FilterValueSelectorProps) {
+function BooleanSelector({ value, setValue }: ValueSelectorProps) {
   value = value as boolean
 
   return (
@@ -42,7 +47,7 @@ function BooleanSelector({ value, setValue }: FilterValueSelectorProps) {
   )
 }
 
-function ProjectStatusTypeSelector({ value, setValue }: FilterValueSelectorProps) {
+function ProjectStatusTypeSelector({ value, setValue }: ValueSelectorProps) {
   value = value as ProjectStatusType
 
   return (
@@ -53,5 +58,26 @@ function ProjectStatusTypeSelector({ value, setValue }: FilterValueSelectorProps
         <MenuItem key={s} value={s} disabled={value === s}>{normalize(s)}</MenuItem>
       ))}
     </FilterSelector>
+  )
+}
+
+function PastDateSelector({ value, setValue }: ValueSelectorProps) {
+  value = value as Dayjs | null
+
+  return (
+    <DatePicker
+      format={'DD/MM/YYYY'}
+      disableFuture
+      value={value}
+      onChange={(e) => setValue(e)}
+      sx={{
+        '& .MuiInputBase-input': {
+          paddingY: '8.5px',
+          width: 76
+        },
+        '& .MuiInputAdornment-root': {
+          paddingRight: '2px'
+        }
+      }}/>
   )
 }

@@ -20,9 +20,9 @@ function FilterOperatorSelector({
   filterOperatorToDisplay.set(FilterOperator.Equal, '=')
   filterOperatorToDisplay.set(FilterOperator.NotEqual, '≠')
   filterOperatorToDisplay.set(FilterOperator.GreaterThan, '>')
-  filterOperatorToDisplay.set(FilterOperator.GreaterThanOrEqual, '>=')
+  filterOperatorToDisplay.set(FilterOperator.GreaterThanOrEqual, '≥')
   filterOperatorToDisplay.set(FilterOperator.LessThan, '<')
-  filterOperatorToDisplay.set(FilterOperator.LessThanOrEqual, '<=')
+  filterOperatorToDisplay.set(FilterOperator.LessThanOrEqual, '≤')
   filterOperatorToDisplay.set(FilterOperator.Contains, 'Contains')
   filterOperatorToDisplay.set(FilterOperator.StartsWith, 'Starts With')
 

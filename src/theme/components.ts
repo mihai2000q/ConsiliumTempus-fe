@@ -284,6 +284,14 @@ export const components = {
     defaultProps: {
       underline: 'hover'
     }
+  },
+  MuiDateCalendar: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        backgroundColor: lighten(theme.palette.background[900], 0.03),
+        color: theme.palette.background[100]
+      })
+    }
   }
 }
 

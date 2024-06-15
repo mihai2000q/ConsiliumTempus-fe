@@ -31,15 +31,16 @@ function FilterProperty({
   const [property, setProperty] = useState(initialFilter.property)
   const [operator, setOperator] = useState(initialFilter.operator)
   const [value, setValue] = useState(initialFilter.value)
+  const [valueType, setValueType] = useState(initialFilter.valueType)
   useUpdateEffect(() => {
-    handleFilter(index, { property, operator, value })
-  }, [property, operator, value])
+    handleFilter(index, { property, operator, value, valueType })
+  }, [property, operator, value, valueType])
 
   function handleRemoveFilter() {
-    removeFilter({ property, operator, value })
+    removeFilter({ property, operator, value, valueType })
   }
 
-  function setPropertyAndResetOperatorAndValue(newProperty: string) {
+  function setPropertyAndReset(newProperty: string) {
     const currentOperatorsOnProperty = filters
       .filter(f => f.property === newProperty)
       .map(f => f.operator)
@@ -49,13 +50,20 @@ function FilterProperty({
 
     const newOperator = currentOperatorsOnProperty.includes(filterProperty.defaultOperator)
       ? operatorsMap.get(newProperty)?.find(o => !currentOperatorsOnProperty.includes(o))
-      : filterProperty.defaultOperator
+      : operatorsMap.get(newProperty)?.includes(operator)
+        ? operator
+        : filterProperty.defaultOperator
 
     if (!newOperator) return
 
+    const newValue = filterProperty.valueType === valueType
+      ? value
+      : filterProperty.defaultValue
+
     setOperator(newOperator)
     setProperty(newProperty)
-    setValue(filterProperty.defaultValue)
+    setValue(newValue)
+    setValueType(filterProperty.valueType)
   }
   
   const filterOperators = filters.filter(f => f.property === property).map(f => f.operator)
@@ -67,13 +75,14 @@ function FilterProperty({
         filters={filters}
         operatorsMap={operatorsMap}
         property={property}
-        setProperty={setPropertyAndResetOperatorAndValue} />
+        setProperty={setPropertyAndReset} />
       <FilterOperatorSelector
         filterOperators={filterOperators}
         operator={operator}
         setOperator={setOperator}
         availableOperators={operatorsMap.get(property) ?? []} />
       <FilterValueSelector
+        type={valueType}
         value={value}
         setValue={setValue}  />
       <Tooltip

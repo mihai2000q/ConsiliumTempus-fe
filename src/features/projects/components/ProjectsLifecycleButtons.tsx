@@ -3,8 +3,8 @@ import { ArchiveOutlined, HourglassEmptyOutlined, SkipNextOutlined } from "@mui/
 import { Dispatch, SetStateAction, useEffect } from "react";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
 import FilterOperator from "../../../utils/FilterOperator.ts";
-import { Filter } from "../../../types/Filter.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
+import { addToSearchQueryParamType } from "../../../hooks/useSearchQueryParam.ts";
 
 const StyledButtonGroup = styled(Stack)<StackProps>(({ theme }) => ({
   alignItems: "center",
@@ -80,7 +80,7 @@ interface ProjectsLifecycleButtonsProps {
   setLifecycle: Dispatch<SetStateAction<ProjectLifecycle>>,
   active: boolean,
   setActive: Dispatch<SetStateAction<boolean>>,
-  addToSearchQueryParam: (filter: Filter) => void
+  addToSearchQueryParam: addToSearchQueryParamType
 }
 
 function ProjectsLifecycleButtons({

@@ -1,11 +1,21 @@
 import { useRef, useState } from "react";
 import SearchQueryParamValue from "../types/SearchQueryParamValue.ts";
+import FilterOperator from "../utils/FilterOperator.ts";
 import { Filter } from "../types/Filter.ts";
+
+interface FilterSearchQueryParam {
+  property: string,
+  operator: FilterOperator,
+  value: SearchQueryParamValue,
+}
+
+export type addToSearchQueryParamType = (filter: FilterSearchQueryParam | Filter) => void
+export type removeFromSearchQueryParamType = (filter: FilterSearchQueryParam | Filter) => void
 
 export default function useSearchQueryParam(): [
   string[],
-  (filter: Filter) => void,
-  (filter: Filter) => void
+  addToSearchQueryParamType,
+  removeFromSearchQueryParamType
 ] {
   const propertyOperators = useRef(new Map<string, SearchQueryParamValue>())
 
@@ -22,13 +32,13 @@ export default function useSearchQueryParam(): [
     setSearchQueryParam(newParams)
   }
 
-  const addToSearch = (filter: Filter) => {
+  const addToSearch = (filter: FilterSearchQueryParam | Filter) => {
     const key = JSON.stringify({ property: filter.property, operator: filter.operator })
     propertyOperators.current.set(key, filter.value)
     createSearchQueryParam()
   }
 
-  const removeFromSearch = (filter: Filter) => {
+  const removeFromSearch = (filter: FilterSearchQueryParam | Filter) => {
     const key = JSON.stringify({ property: filter.property, operator: filter.operator })
     propertyOperators.current.delete(key)
     createSearchQueryParam()

@@ -2,6 +2,7 @@ import { ProjectResponse } from "../types/Project.response.ts";
 import Project from "../types/Project.model.ts";
 import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
+import dayjs from "dayjs";
 
 export default class ProjectAdapter {
   static adapt(projects: ProjectResponse[] | undefined): Project[] | undefined {
@@ -17,9 +18,9 @@ export default class ProjectAdapter {
           : {
             ...project.latestStatus,
             status: Object.values(ProjectStatusType).find(s => s === project.latestStatus!.status) ?? ProjectStatusType.OnTrack,
-            updatedDateTime: new Date(project.latestStatus.updatedDateTime)
+            updatedDateTime: dayjs(project.latestStatus.updatedDateTime)
           },
-        createdDateTime: new Date(project.createdDateTime)
+        createdDateTime: dayjs(project.createdDateTime)
       }
     })
   }

@@ -8,10 +8,11 @@ import FilterProperty from "../../../components/filter/FilterProperty.tsx";
 import { projectsSearchQueryParamsFilterOperators } from "../utils/ProjectsSearchQueryParamsFilterOperators.ts";
 import { Filter } from "../../../types/Filter.ts";
 import { projectFilterChipsData } from "../data/ProjectFilterChipsData.tsx";
+import { addToSearchQueryParamType, removeFromSearchQueryParamType } from "../../../hooks/useSearchQueryParam.ts";
 
 interface ProjectFilterButtonProps {
-  addToSearchQueryParam: (filter: Filter) => void,
-  removeFromSearchQueryParam: (filter: Filter) => void
+  addToSearchQueryParam: addToSearchQueryParamType
+  removeFromSearchQueryParam: removeFromSearchQueryParamType
 }
 
 function ProjectFilterButton({
@@ -44,6 +45,21 @@ function ProjectFilterButton({
     removeFromSearchQueryParam(filter)
   }
 
+  function handleRemoveFilters(filtersToRemove: Filter[]) {
+    const f: Filter[] = []
+    filtersToRemove.forEach(ff =>{
+      const filterToRemove = filters.find(f =>
+        f.property === ff.property &&
+        f.operator === ff.operator &&
+        f.value === ff.value
+      )
+      if (filterToRemove) f.push(filterToRemove)
+    })
+
+    setFilters(filters.filter((ff => !f.includes(ff))))
+    filtersToRemove.forEach(removeFromSearchQueryParam)
+  }
+
   function handleFilter(index: number, filter: Filter) {
     removeFromSearchQueryParam(filters.filter((_, i) => i === index)[0])
     setFilters(filters.map((f, i) => i === index ? filter : f))
@@ -53,6 +69,11 @@ function ProjectFilterButton({
   function handleAddFilter(filter: Filter) {
     setFilters([...filters, filter])
     addToSearchQueryParam(filter)
+  }
+
+  function handleAddFilters(f: Filter[]) {
+    setFilters([...filters, ...f])
+    f.forEach(addToSearchQueryParam)
   }
 
   return (
@@ -78,14 +99,14 @@ function ProjectFilterButton({
 
           <Stack spacing={1} my={3}>
             <Typography color={'text.secondary'}>Quick Filters</Typography>
-            <Stack flexWrap={"wrap"} direction={'row'} alignItems={'center'} spacing={1}>
+            <Stack flexWrap={"wrap"} direction={'row'} alignItems={'center'} gap={1}>
               {projectFilterChipsData.map((chip) => (
                 <FilterChip
                   { ...chip }
                   key={chip.title}
-                  filters={filters}
-                  handleFilter={handleAddFilter}
-                  removeFilter={handleRemoveFilter} />
+                  allFilters={filters}
+                  handleFilters={handleAddFilters}
+                  removeFilters={handleRemoveFilters} />
               ))}
             </Stack>
           </Stack>

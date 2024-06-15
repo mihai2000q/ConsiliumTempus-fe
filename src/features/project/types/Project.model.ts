@@ -1,5 +1,6 @@
 import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
+import { Dayjs } from "dayjs";
 
 export default interface Project {
   name: string,
@@ -14,8 +15,8 @@ export interface ProjectStatus {
   id: string,
   title: string,
   status: ProjectStatusType,
-  createdDateTime: Date,
-  updatedDateTime: Date,
+  createdDateTime: Dayjs,
+  updatedDateTime: Dayjs,
   createdBy: User,
   updatedBy: User
 }

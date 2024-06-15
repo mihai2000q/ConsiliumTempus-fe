@@ -40,7 +40,11 @@ function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
   const [orderBy, setOrderBy] = useState<string[]>([])
-  const [searchQueryParam, addToSearchQueryParam, removeFromSearchQueryParam] = useSearchQueryParam();
+  const [
+    searchQueryParam,
+    addToSearchQueryParam,
+    removeFromSearchQueryParam
+  ] = useSearchQueryParam();
 
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
   useUpdateEffect(() => {

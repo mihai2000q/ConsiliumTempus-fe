@@ -71,7 +71,7 @@ function ProjectStatusMenu({
                 <Typography variant={'h6'} noWrap>{latestStatus.title}</Typography>
                 <Stack direction={'row'} spacing={0.5}>
                   <Typography variant={'body2'} color={'text.triadic'} noWrap>{latestStatus.createdBy.name} -</Typography>
-                  <Typography variant={'body2'} color={'text.triadic'}>{new Date(latestStatus.createdDateTime).toLocaleDateString()}</Typography>
+                  <Typography variant={'body2'} color={'text.triadic'}>{latestStatus.createdDateTime.format('DD/MM/YYYY')}</Typography>
                 </Stack>
               </Stack>
             </MenuItem>
