@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { alpha, Chip, Stack, Tooltip, Typography, useTheme } from "@mui/material";
 import { Check } from "@mui/icons-material";
 import { Filter } from "../../types/Filter.ts";
@@ -6,50 +6,62 @@ import { Filter } from "../../types/Filter.ts";
 interface FilterChipProps {
   title: string,
   icon: ReactNode,
+  allFilters: Filter[],
   filters: Filter[],
-  filter: Filter,
-  handleFilter: (filter: Filter) => void,
-  removeFilter: (filter: Filter) => void,
+  handleFilters: (filters: Filter[]) => void,
+  removeFilters: (filters: Filter[]) => void,
 }
 
 function FilterChip({
   title,
   icon,
-  filter,
   filters,
-  handleFilter,
-  removeFilter,
+  allFilters,
+  handleFilters,
+  removeFilters,
 }: FilterChipProps) {
   const theme = useTheme()
 
   const [selected, setSelected] = useState(false)
-  const isSelected = useCallback(() => {
-    return filters.some(f =>
-      f.property === filter.property &&
-      f.operator === filter.operator &&
-      f.value === filter.value
-    )
-  }, [filters, filter]) // TODO: Really necessary to use callback ? and if it is, check for filter (Reference Equality)
-  useEffect(() => {
-    setSelected(isSelected())
-  }, [isSelected])
-
   const [disabled, setDisabled] = useState(false)
-  const isDisabled = useCallback(() => {
-    return filters.some(f =>
-      f.property === filter.property &&
-      f.operator === filter.operator
-    ) && !selected
-  }, [filters, filter, selected])
+
+  const isSelected = (filters: Filter[]) => {
+    for (const filter of filters) {
+      const res = allFilters.some(f =>
+        f.property === filter.property &&
+        f.operator === filter.operator &&
+        f.value === filter.value
+      )
+      if (!res) return false
+    }
+    return true
+  }
+  
+  const isDisabled = (selected: boolean, filters: Filter[]) => {
+    if (selected) return false
+
+    for (const filter of filters) {
+      const res = allFilters.some(f =>
+        f.property === filter.property &&
+        f.operator === filter.operator
+      )
+      if (res) return true
+    }
+
+    return false
+  }
+  
   useEffect(() => {
-    setDisabled(isDisabled())
-  }, [isDisabled])
+    const selected = isSelected(filters)
+    setSelected(selected)
+    setDisabled(isDisabled(selected, filters))
+  }, [allFilters, filters]) // TODO: check for filters (Reference Equality)
 
   function handleClick() {
     if (selected)
-      removeFilter(filter)
+      removeFilters(filters)
     else
-      handleFilter(filter)
+      handleFilters(filters)
   }
 
   return (
@@ -60,7 +72,7 @@ function FilterChip({
       disableHoverListener={!disabled}
       disableFocusListener={!disabled}
       disableTouchListener={!disabled}
-      title={'Same property with operator is already active'}>
+      title={`Same property with operator${filters.length > 1 ? 's' : ''} is already active`}>
       <span>
         <Chip
           variant={'outlined'}
