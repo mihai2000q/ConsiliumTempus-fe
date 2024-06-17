@@ -292,6 +292,21 @@ export const components = {
         color: theme.palette.background[100]
       })
     }
+  },
+  MuiBreadcrumbs: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiTypography-root': {
+          color: theme.palette.background[200]
+        },
+        '& .MuiLink-root': {
+          color: 'inherit',
+          '&: hover': {
+            color: theme.palette.background[300]
+          }
+        },
+      })
+    }
   }
 }
 
