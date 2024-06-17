@@ -11,7 +11,6 @@ export default class ProjectAdapter {
     return {
       ...project,
       lifecycle: Object.values(ProjectLifecycle).find(l => l === project.lifecycle) ?? ProjectLifecycle.Active,
-      owner: { ...project.owner },
       latestStatus: project.latestStatus === null
         ? null
         : {
@@ -21,7 +20,7 @@ export default class ProjectAdapter {
           createdDateTime: dayjs(project.latestStatus.createdDateTime),
           createdBy: { ...project.latestStatus.createdBy },
           updatedBy: { ...project.latestStatus.updatedBy },
-        },
+        }
     }
   }
 }

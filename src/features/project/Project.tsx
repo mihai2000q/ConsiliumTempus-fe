@@ -25,8 +25,8 @@ import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
 import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
-import { useSelector } from "react-redux";
-import { RootState } from "../../state/store.ts";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../state/store.ts";
 import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
 import ProjectParams from "./utils/ProjectParams.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
@@ -38,12 +38,19 @@ import ProjectStatusMenu from "./components/status/ProjectStatusMenu.tsx";
 import ProjectStatusLabel from "./components/status/ProjectStatusLabel.tsx";
 import ProjectStatusesDialog from "./components/status/ProjectStatusesDialog.tsx";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
+import { setBreadcrumbs, setProjectId, setProjectName } from "../../state/project/projectSlice.ts";
+import Paths from "../../utils/Paths.ts";
+import useAdapterState from "../../hooks/useAdapterState.ts";
 
 function Project() {
   const theme = useTheme()
+  const dispatch = useDispatch<AppDispatch>()
 
   const params = useParams()
   const projectId = params[ProjectParams.Id] ?? ''
+  useEffect(() => {
+    dispatch(setProjectId(projectId))
+  }, [projectId]);
 
   const [searchParams, setSearchParams] = useSearchParams()
   const tab = Number(searchParams.get(ProjectSearchParams.Tab)) ?? ProjectTabs.Overview
@@ -51,23 +58,36 @@ function Project() {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [statusMenuAnchorEl, setStatusMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const project = ProjectAdapter.adapt(useGetProjectQuery({ id: projectId })?.data)
+  const projectResponse = useGetProjectQuery(
+    { id: projectId },
+    { skip: projectId === '' }
+  )?.data
+  const project = useAdapterState(projectResponse, ProjectAdapter.adapt)
+
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
   const [isFavorite, setIsFavorite, refreshIsFavorite] = useDependencyState(false)
   useEffect(() => {
-    setFacadeName(project?.name ?? '')
-    setIsFavorite(project?.isFavorite ?? false)
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
+    if (project) {
+      setFacadeName(project.name)
+      setIsFavorite(project.isFavorite)
+
+      dispatch(setProjectName(project.name))
+      dispatch(setBreadcrumbs([
+        { path: `${Paths.Workspace}/${project.workspace.id}`, name: project.workspace.name },
+        { path: `${Paths.Project}/${projectId}`, name: project.name },
+      ]))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project]) // TODO: Referential Equality
 
   const [updateProject] = useUpdateProjectMutation()
   useUpdateEffect(() => {
-    if (name.value === '' || isNoneUserDependencyState([isFavorite, name])) return
+    if (!project || name.value === '' || isNoneUserDependencyState([isFavorite, name])) return
 
     updateProject({
       id: projectId,
       name: name.value,
+      lifecycle: project.lifecycle,
       isFavorite: isFavorite.value
     }).unwrap()
 
@@ -135,8 +155,6 @@ function Project() {
         <ProjectStatusMenu
           anchorEl={statusMenuAnchorEl}
           setAnchorEl={setStatusMenuAnchorEl}
-          projectId={projectId}
-          projectName={project.name}
           latestStatus={project.latestStatus} />
 
         <ProjectSprintsSelector projectId={projectId} />

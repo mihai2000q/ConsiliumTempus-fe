@@ -12,16 +12,12 @@ import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
 interface ProjectStatusMenuProps {
   anchorEl: HTMLElement | null,
   setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
-  projectId: string,
-  projectName: string,
   latestStatus: ProjectStatus | null
 }
 
 function ProjectStatusMenu({
   anchorEl,
   setAnchorEl,
-  projectId,
-  projectName,
   latestStatus
 }: ProjectStatusMenuProps) {
   const dispatch = useDispatch<AppDispatch>()
@@ -37,9 +33,7 @@ function ProjectStatusMenu({
     handleCloseMenu()
     dispatch(openProjectStatusesDialog({
       isOpen: true,
-      statusIdSelected: latestStatus!.id,
-      projectId: projectId,
-      projectName: projectName
+      statusIdSelected: latestStatus!.id
     }))
   }
 
@@ -87,8 +81,6 @@ function ProjectStatusMenu({
       <ProjectStatusDialog
         open={addStatusDialogOpen}
         onClose={handleCloseAddStatusDialog}
-        projectId={projectId}
-        projectName={projectName}
         initialStatus={status} />
     </>
   );

@@ -4,7 +4,8 @@ export default interface ProjectResponse {
   lifecycle: string,
   owner: UserResponse,
   isPrivate: boolean,
-  latestStatus: ProjectStatusResponse | null
+  latestStatus: ProjectStatusResponse | null,
+  workspace: WorkspaceResponse
 }
 
 interface UserResponse {
@@ -21,4 +22,9 @@ interface ProjectStatusResponse {
   updatedDateTime: string,
   createdBy: UserResponse,
   updatedBy: UserResponse
+}
+
+interface WorkspaceResponse {
+  id: string,
+  name: string
 }

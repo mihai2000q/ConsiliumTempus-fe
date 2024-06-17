@@ -8,7 +8,8 @@ export default interface Project {
   lifecycle: ProjectLifecycle,
   owner: User,
   isPrivate: boolean,
-  latestStatus: ProjectStatus | null
+  latestStatus: ProjectStatus | null,
+  workspace: Workspace
 }
 
 export interface ProjectStatus {
@@ -25,4 +26,9 @@ interface User {
   id: string,
   name: string,
   email: string,
+}
+
+interface Workspace {
+  id: string,
+  name: string
 }

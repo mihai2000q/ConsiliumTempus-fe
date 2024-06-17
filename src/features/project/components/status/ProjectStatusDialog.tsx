@@ -14,8 +14,7 @@ import {
   MenuItem,
   Stack,
   Toolbar,
-  Typography,
-  useTheme
+  Typography
 } from "@mui/material";
 import { useAddStatusToProjectMutation, useUpdateStatusFromProjectMutation } from "../../state/projectApi.ts";
 import { Close } from "@mui/icons-material";
@@ -26,14 +25,13 @@ import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
 import { useEffect, useState } from "react";
 import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
 import ProjectStatus from "../../types/ProjectStatus.model.ts";
-import Paths from "../../../../utils/Paths.ts";
 import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
+import { RootState } from "../../../../state/store.ts";
+import { useSelector } from "react-redux";
 
 interface AddProjectStatusDialogProps {
   open: boolean,
   onClose: () => void,
-  projectId: string,
-  projectName: string,
   initialStatus?: ProjectStatusType | undefined,
   initialProjectStatus?: ProjectStatus | undefined
 }
@@ -41,14 +39,13 @@ interface AddProjectStatusDialogProps {
 function ProjectStatusDialog({
   open,
   onClose,
-  projectId,
-  projectName,
   initialStatus,
   initialProjectStatus
 }: AddProjectStatusDialogProps) {
-  const placeholder = "Status Update"
+  const titlePlaceholder = "Status Update"
 
-  const theme = useTheme()
+  const projectId = useSelector((state: RootState) => state.project.projectId)
+  const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
   const [addStatusToProject, {
     isLoading: addIsLoading,
@@ -78,7 +75,8 @@ function ProjectStatusDialog({
     if (initialStatus) setStatusType(initialStatus)
   }, [initialStatus]);
   useEffect(() => {
-    if (initialProjectStatus === undefined) return
+    if (!initialProjectStatus) return
+
     values.projectStatusTitle = initialProjectStatus.title
     setStatusType(initialProjectStatus.status)
     values.projectStatusDescription = initialProjectStatus.description
@@ -99,7 +97,7 @@ function ProjectStatusDialog({
   async function addStatus() {
     await addStatusToProject({
       id: projectId,
-      title: values.projectStatusTitle === '' ? placeholder : values.projectStatusTitle,
+      title: values.projectStatusTitle === '' ? titlePlaceholder : values.projectStatusTitle,
       status: statusType,
       description: values.projectStatusDescription
     })
@@ -111,7 +109,7 @@ function ProjectStatusDialog({
     await updateStatusFromProject({
       id: projectId,
       statusId: initialProjectStatus!.id,
-      title: values.projectStatusTitle === '' ? placeholder : values.projectStatusTitle,
+      title: values.projectStatusTitle === '' ? titlePlaceholder : values.projectStatusTitle,
       status: statusType,
       description: values.projectStatusDescription
     })
@@ -132,17 +130,12 @@ function ProjectStatusDialog({
             </IconButton>
 
             <Breadcrumbs separator={'›'} sx={{ flexGrow: 1, ml: 2 }}>
-              <Link
-                href={`${Paths.Project}/${projectId}`}
-                sx={{
-                  color: 'inherit',
-                  '&:hover': {
-                    color: theme.palette.background[300],
-                  }
-                }}>
-                {projectName}
-              </Link>
-              <Typography color={theme.palette.background[200]}>
+              {breadcrumbs.map(breadcrumb => (
+                <Link key={breadcrumb.path} href={breadcrumb.path}>
+                  {breadcrumb.name}
+                </Link>
+              ))}
+              <Typography>
                 {initialProjectStatus !== undefined ? 'Update Status' : 'Add Status'}
               </Typography>
             </Breadcrumbs>
@@ -158,7 +151,7 @@ function ProjectStatusDialog({
               <InputBase
                 fullWidth
                 name={'projectStatusTitle'}
-                placeholder={placeholder}
+                placeholder={titlePlaceholder}
                 value={values.projectStatusTitle}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -182,7 +175,7 @@ function ProjectStatusDialog({
             </Stack>
 
             {initialProjectStatus && (
-              <Stack direction={'row'} alignItems={'center'} spacing={9}>
+              <Stack direction={'row'} alignItems={'end'} spacing={9}>
                 <Typography>Publisher</Typography>
                 <Link variant={'h6'}>{initialProjectStatus.createdBy.name}</Link>
               </Stack>

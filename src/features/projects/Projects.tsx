@@ -27,6 +27,7 @@ import FilterOperator from "../../utils/FilterOperator.ts";
 import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
 import ProjectLifecycle from "../../utils/project/ProjectLifecycle.ts";
+import useAdapterState from "../../hooks/useAdapterState.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -70,7 +71,7 @@ function Projects() {
     currentPage: searchParams.currentPage,
     search: searchQueryParam
   })
-  const projects = ProjectAdapter.adapt(data?.projects)
+  const projects = useAdapterState(data?.projects, ProjectAdapter.adapt)
 
   const [startPageCount, endPageCount, totalPages] = useProjectsPages(
     data,

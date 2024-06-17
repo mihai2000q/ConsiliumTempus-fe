@@ -4,6 +4,8 @@ import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
 import ProjectStatusDialog from "./ProjectStatusDialog.tsx";
 import ProjectStatus from "../../types/ProjectStatus.model.ts";
 import { useRemoveStatusFromProjectMutation } from "../../state/projectApi.ts";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../state/store.ts";
 
 interface ProjectStageActionsMenuItemProps {
   children: ReactNode,
@@ -29,21 +31,21 @@ const ProjectStatusActionsMenuItem = ({
 interface ProjectStatusActionsMenuProps {
   anchorEl: HTMLElement | null,
   setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
-  projectId: string,
-  projectName: string,
+
   projectStatus: ProjectStatus
 }
 
 function ProjectStatusActionsMenu({
   anchorEl,
   setAnchorEl,
-  projectId,
-  projectName,
   projectStatus
 }: ProjectStatusActionsMenuProps) {
   const handleClose = () => setAnchorEl(null)
 
+  const projectId = useSelector((state: RootState) => state.project.projectId)
+
   const [isUpdateProjectStatusDialogOpen, setIsUpdateProjectStatusDialogOpen] = useState(false)
+  const handleCloseUpdateProjectStatusDialog = () => setIsUpdateProjectStatusDialogOpen(false)
 
   const [removeStatusFromProject] = useRemoveStatusFromProjectMutation()
 
@@ -77,9 +79,7 @@ function ProjectStatusActionsMenu({
       </Menu>
       <ProjectStatusDialog
         open={isUpdateProjectStatusDialogOpen}
-        onClose={() => setIsUpdateProjectStatusDialogOpen(false)}
-        projectId={projectId}
-        projectName={projectName}
+        onClose={handleCloseUpdateProjectStatusDialog}
         initialProjectStatus={projectStatus} />
     </>
   );

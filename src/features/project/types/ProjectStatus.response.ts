@@ -1,6 +1,21 @@
-import ProjectStatus from "./ProjectStatus.model.ts";
-
 export interface GetProjectStatusesResponse {
-  statuses: ProjectStatus[],
+  statuses: ProjectStatusResponse[],
   totalCount: number
+}
+
+export interface ProjectStatusResponse {
+  id: string,
+  title: string,
+  status: string,
+  description: string,
+  createdDateTime: string,
+  updatedDateTime: string,
+  createdBy: UserResponse,
+  updatedBy: UserResponse
+}
+
+interface UserResponse {
+  id: string,
+  name: string,
+  email: string,
 }

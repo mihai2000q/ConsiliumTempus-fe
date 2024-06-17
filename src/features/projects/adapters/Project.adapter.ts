@@ -12,7 +12,6 @@ export default class ProjectAdapter {
       return {
         ...project,
         lifecycle: Object.values(ProjectLifecycle).find(l => l === project.lifecycle) ?? ProjectLifecycle.Active,
-        owner: { ...project.owner },
         latestStatus: project.latestStatus === null
           ? null
           : {

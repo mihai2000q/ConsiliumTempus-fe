@@ -16,7 +16,8 @@ import Paths from "../../../utils/Paths.ts";
 import { useNavigate } from "react-router-dom";
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
 import Project from "../types/Project.model.ts";
-import { useDeleteProjectMutation } from "../state/projectApi.ts";
+import { useUpdateProjectMutation, useDeleteProjectMutation } from "../state/projectApi.ts";
+import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -52,6 +53,7 @@ function ProjectActionsMenu({
 
   const handleCloseMenu = () => setAnchorEl(null)
 
+  const [updateProject] = useUpdateProjectMutation()
   const [deleteProject] = useDeleteProjectMutation()
 
   const handleEditProject = () => {
@@ -72,16 +74,40 @@ function ProjectActionsMenu({
   }
 
   const handleUnarchiveProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Active,
+      isFavorite: project.isFavorite
+    }).unwrap()
     handleCloseMenu()
   }
   const handleArchiveProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Archived,
+      isFavorite: project.isFavorite
+    }).unwrap()
     handleCloseMenu()
   }
 
   const handleUnsetUpcomingProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Active,
+      isFavorite: project.isFavorite
+    }).unwrap()
     handleCloseMenu()
   }
   const handleSetUpcomingProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Upcoming,
+      isFavorite: project.isFavorite
+    }).unwrap()
     handleCloseMenu()
   }
 

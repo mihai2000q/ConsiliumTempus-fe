@@ -6,7 +6,6 @@ import {
   Dialog,
   Divider,
   IconButton,
-  Skeleton,
   Stack,
   styled,
   Typography,
@@ -23,6 +22,9 @@ import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
 import ProjectStatusActionsMenu from "./ProjectStatusActionsMenu.tsx";
 import UserLabel from "../../../../components/label/UserLabel.tsx";
 import ProjectStatusMenu from "./ProjectStatusMenu.tsx";
+import ProjectStatusesDialogLoader from "./ProjectStatusesDialogLoader.tsx";
+import ProjectStatusAdapter from "../../adapters/ProjectStatus.adapter.ts";
+import useAdapterState from "../../../../hooks/useAdapterState.ts";
 
 interface ProjectStatusButtonProps extends BoxProps {
   isSelected: boolean
@@ -59,28 +61,29 @@ const ProjectStatusButton = styled(Box, {
 function ProjectStatusesDialog() {
   const {
     isOpen,
-    statusIdSelected,
-    projectId,
-    projectName
+    statusIdSelected
   } = useSelector((state: RootState) => state.project.projectStatusesDialog)
+  const projectId = useSelector((state: RootState) => state.project.projectId)
+  const projectName = useSelector((state: RootState) => state.project.projectName)
 
   const dispatch = useDispatch<AppDispatch>()
 
   const { data } = useGetStatusesFromProjectQuery(
-    { id: projectId! },
-    { skip: projectId === undefined }
+    { id: projectId },
+    { skip: projectId === '' }
   )
+  const statuses = useAdapterState(data?.statuses, ProjectStatusAdapter.adapt)
 
   const [projectStatusSelected, setProjectStatusSelected] = useState<ProjectStatus | undefined>(undefined)
   useEffect(() => {
     if (statusIdSelected) {
-      const st = data?.statuses?.filter(s => s.id === statusIdSelected)[0]
+      const st = statuses?.filter(s => s.id === statusIdSelected)[0]
       if (st)
         setProjectStatusSelected(st)
       else
-        setProjectStatusSelected(data?.statuses && data?.statuses[0])
+        setProjectStatusSelected(statuses && statuses[0])
     } else {
-      setProjectStatusSelected(data?.statuses && data?.statuses[0])
+      setProjectStatusSelected(statuses && statuses[0])
     }
   }, [data, statusIdSelected]);
 
@@ -93,25 +96,8 @@ function ProjectStatusesDialog() {
     setProjectStatusSelected(status)
   }
 
-  if (data === undefined ||
-    projectStatusSelected === undefined ||
-    projectId === undefined ||
-    projectName === undefined) {
-    return (
-      <Dialog
-        open={isOpen}
-        onClose={handleClose}>
-        <Stack direction={'row'}>
-          <Stack width={200}>
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-            <Skeleton />
-          </Stack>
-        </Stack>
-      </Dialog>
-    )
+  if (!data || !projectStatusSelected) {
+    return <ProjectStatusesDialogLoader isOpen={isOpen} onClose={handleClose} />
   }
 
   return (
@@ -121,7 +107,7 @@ function ProjectStatusesDialog() {
       fullWidth
       maxWidth={'lg'}>
       <Stack height={720} sx={{ overflowY: 'hidden' }}>
-        <Stack direction={'row'} paddingX={3} alignItems={'center'} py={2} spacing={2}>
+        <Stack direction={'row'} alignItems={'center'} px={3} py={2} spacing={2}>
           <Stack flexGrow={1}>
             <Stack direction={'row'} alignItems={'center'} spacing={0.5}>
               <Typography variant={'h5'} fontSize={20} fontWeight={500}>Statuses of</Typography>
@@ -138,8 +124,6 @@ function ProjectStatusesDialog() {
           <ProjectStatusMenu
             anchorEl={menuAnchorEl}
             setAnchorEl={setMenuAnchorEl}
-            projectId={projectId}
-            projectName={projectName}
             latestStatus={null} />
 
           <IconButton variant={'circular'} onClick={handleClose}>
@@ -150,7 +134,7 @@ function ProjectStatusesDialog() {
 
         <Stack direction={'row'} flexGrow={1} sx={{ overflowY: 'hidden' }}>
           <Stack minWidth={280} sx={{ overflowY: 'auto' }}>
-            {data.statuses.map((status) => (
+            {statuses?.map((status) => (
               <div key={status.id}>
                 <ProjectStatusButton
                   isSelected={status.id === projectStatusSelected.id}
@@ -187,8 +171,6 @@ function ProjectStatusesDialog() {
                   <ProjectStatusActionsMenu
                     anchorEl={actionsMenuAnchorEl}
                     setAnchorEl={setActionsMenuAnchorEl}
-                    projectId={projectId}
-                    projectName={projectName}
                     projectStatus={projectStatusSelected} />
                 </Stack>
               </Stack>
@@ -203,16 +185,16 @@ function ProjectStatusesDialog() {
                   <UserLabel user={{ ...projectStatusSelected.createdBy }} />
                   <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
                   <Typography variant={'body2'}>
-                    {projectStatusSelected.createdDateTime.format('DD/MM/YYYY')}
+                    {projectStatusSelected.createdDateTime.format('DD MMMM YYYY')}
                   </Typography>
                 </Stack>
-                {projectStatusSelected.createdDateTime !== projectStatusSelected.updatedDateTime && (
+                {!projectStatusSelected.createdDateTime.isSame(projectStatusSelected.updatedDateTime) && (
                   <Stack direction={'row'} alignItems={'center'}>
                     <Typography variant={'body2'} mr={6} color={'text.secondary'}>Updated By</Typography>
                     <UserLabel user={{ ...projectStatusSelected.updatedBy }} />
                     <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
                     <Typography variant={'body2'}>
-                      {projectStatusSelected.updatedDateTime.format('DD/MM/YYYY')}
+                      {projectStatusSelected.updatedDateTime.format('DD MMMM YYYY')}
                     </Typography>
                   </Stack>
                 )}
