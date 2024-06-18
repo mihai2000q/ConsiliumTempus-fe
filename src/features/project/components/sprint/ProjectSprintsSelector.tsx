@@ -1,12 +1,13 @@
 import { Button, CircularProgress, Menu, MenuItem, useTheme } from "@mui/material";
-import ProjectSprint from "../../../types/ProjectSprint.model.ts";
-import { useGetProjectSprintsQuery } from "../../../state/projectApi.ts";
+import ProjectSprint from "../../types/ProjectSprint.model.ts";
+import { useGetProjectSprintsQuery } from "../../state/projectApi.ts";
 import { useEffect, useState } from "react";
 import { ArrowDropDown } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../../state/store.ts";
-import { setProjectSprintId } from "../../../../../state/project/projectSlice.ts";
-import useUpdateEffect from "../../../../../hooks/useUpdateEffect.ts";
+import { AppDispatch, RootState } from "../../../../state/store.ts";
+import { setProjectSprintId } from "../../../../state/project/projectSlice.ts";
+import useAdapterState from "../../../../hooks/useAdapterState.ts";
+import ProjectSprintAdapter from "../../adapters/ProjectSprint.adapter.ts";
 
 interface ProjectSprintsSelectorProps {
   projectId: string
@@ -18,13 +19,15 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
   const sprintId = useSelector((state: RootState) => state.project.sprintId)
   const dispatch = useDispatch<AppDispatch>()
 
-  const sprints: ProjectSprint[] | undefined = useGetProjectSprintsQuery({ projectId: projectId }).data?.sprints
+  const { data } = useGetProjectSprintsQuery({ projectId: projectId })
+  const sprints = useAdapterState(data?.sprints, ProjectSprintAdapter.adapt)
   const [currentSprint, setCurrentSprint] = useState<ProjectSprint>()
   useEffect(() => {
-    setCurrentSprint(sprints && sprints[sprints.length - 1])
+    if (sprints)
+      setCurrentSprint(sprints[0])
   }, [sprints])
 
-  useUpdateEffect(() => {
+  useEffect(() => {
     dispatch(setProjectSprintId(currentSprint?.id))
   }, [currentSprint]) // TODO: Reference equality
 

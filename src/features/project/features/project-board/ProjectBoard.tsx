@@ -13,12 +13,17 @@ import ProjectSprint from "./types/ProjectSprint.model.ts";
 import { useGetProjectSprintQuery } from "./state/projectBoardApi.ts";
 import ProjectStagePanel from "./components/stage/ProjectStagePanel.tsx";
 import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../../../state/store.ts";
+import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
 
 interface ProjectBoardProps {
   sprintId: string
 }
 
 function ProjectBoard({ sprintId }: ProjectBoardProps) {
+  const dispatch = useDispatch<AppDispatch>()
+
   const sprint: ProjectSprint | undefined = useGetProjectSprintQuery({ id: sprintId }).data
 
   const [showAddTaskCard, setShowAddTaskCard] = useState(false)
@@ -32,6 +37,9 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
     setShowLeftAddStagePanel(s => !s)
   }
   const handleAddSprint = () => {
+    dispatch(openAddProjectSprintDialog({
+      isOpen: true
+    }))
   }
 
   type Option = { option: string, action: () => void }

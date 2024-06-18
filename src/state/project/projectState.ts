@@ -5,12 +5,17 @@ interface ProjectState {
   projectName: string,
   sprintId: string | undefined,
   breadcrumbs: Breadcrumb[],
-  projectStatusesDialog: ProjectStatusesDialogState
+  projectStatusesDialog: ProjectStatusesDialogState,
+  addProjectSprintDialog: AddProjectSprintDialogState,
 }
 
 export interface ProjectStatusesDialogState {
   isOpen: boolean,
   statusIdSelected: string | undefined,
+}
+
+export interface AddProjectSprintDialogState {
+  isOpen: boolean
 }
 
 export const initialState: ProjectState = {
@@ -21,5 +26,8 @@ export const initialState: ProjectState = {
   projectStatusesDialog: {
     isOpen: false,
     statusIdSelected: undefined,
+  },
+  addProjectSprintDialog: {
+    isOpen: false
   }
 }

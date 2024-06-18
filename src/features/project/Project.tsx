@@ -24,7 +24,7 @@ import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
-import ProjectSprintsSelector from "./features/project-board/components/ProjectSprintsSelector.tsx";
+import ProjectSprintsSelector from "./components/sprint/ProjectSprintsSelector.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store.ts";
 import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
@@ -40,6 +40,7 @@ import ProjectStatusesDialog from "./components/status/ProjectStatusesDialog.tsx
 import ProjectAdapter from "./adapters/Project.adapter.ts";
 import { setBreadcrumbs, setProjectId, setProjectName } from "../../state/project/projectSlice.ts";
 import Paths from "../../utils/Paths.ts";
+import AddProjectSprintDialog from "./components/sprint/AddProjectSprintDialog.tsx";
 import useAdapterState from "../../hooks/useAdapterState.ts";
 
 function Project() {
@@ -202,6 +203,7 @@ function Project() {
       </TabPanel>
 
       <ProjectStatusesDialog />
+      <AddProjectSprintDialog />
     </Stack>
   );
 }
