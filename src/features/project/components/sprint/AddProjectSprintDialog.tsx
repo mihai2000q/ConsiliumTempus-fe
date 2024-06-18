@@ -48,8 +48,8 @@ function AddProjectSprintDialog() {
   const onClose = () => dispatch(closeAddProjectSprintDialog())
 
   const [addProjectSprint, {
-    isLoading: addIsLoading,
-    isError: addIsError
+    isLoading,
+    isError
   }] = useAddProjectSprintMutation()
 
   const {
@@ -91,7 +91,7 @@ function AddProjectSprintDialog() {
           description: values.projectStatusDescription
         }
     })
-    if (addIsError) return
+    if (isError) return
     resetForm()
     onClose()
   }
@@ -116,7 +116,7 @@ function AddProjectSprintDialog() {
               ))}
               <Typography>Add Sprint</Typography>
             </Breadcrumbs>
-            <Button variant="contained" type={'submit'} disabled={addIsLoading}>
+            <Button variant="contained" type={'submit'} disabled={isLoading}>
               Submit
             </Button>
           </Toolbar>
@@ -142,7 +142,7 @@ function AddProjectSprintDialog() {
             </FormControl>
 
             <Grid container rowSpacing={1} width={500}>
-              <FormGridItem label={'Start Date'}>
+              <FormGridItem label={'Start Date'} justifyContent={'center'}>
                 <DatePicker
                   format={'DD/MM/YYYY'}
                   name={'startDate'}
@@ -150,7 +150,7 @@ function AddProjectSprintDialog() {
                   onChange={(v) => setStartDate(v)} />
               </FormGridItem>
 
-              <FormGridItem label={'End Date'}>
+              <FormGridItem label={'End Date'} justifyContent={'center'}>
                 <FormControl sx={{ display: 'flex', alignItems: 'center' }}>
                   <DatePicker
                     format={'DD/MM/YYYY'}
@@ -167,6 +167,7 @@ function AddProjectSprintDialog() {
               </FormGridItem>
 
               <FormGridItem
+                justifyContent={'center'}
                 label={
                   <Stack direction={'row'} spacing={'2px'}>
                     <FormLabel>Keep Previous Stages</FormLabel>

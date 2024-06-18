@@ -4,7 +4,7 @@ import {
   BoxProps,
   Button,
   Dialog,
-  Divider,
+  Divider, Grid,
   IconButton,
   Stack,
   styled,
@@ -25,6 +25,7 @@ import ProjectStatusMenu from "./ProjectStatusMenu.tsx";
 import ProjectStatusesDialogLoader from "./ProjectStatusesDialogLoader.tsx";
 import ProjectStatusAdapter from "../../adapters/ProjectStatus.adapter.ts";
 import useAdapterState from "../../../../hooks/useAdapterState.ts";
+import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 
 interface ProjectStatusButtonProps extends BoxProps {
   isSelected: boolean
@@ -175,30 +176,29 @@ function ProjectStatusesDialog() {
                 </Stack>
               </Stack>
 
-              <Stack spacing={1}>
-                <Stack direction={'row'} alignItems={'center'}>
-                  <Typography variant={'body2'} mr={10} color={'text.secondary'}>Status</Typography>
+              <Grid container rowSpacing={1} width={500}>
+                <FormGridItem label={'Status'} labelSize={2}>
                   <ProjectStatusLabel status={projectStatusSelected.status} />
-                </Stack>
-                <Stack direction={'row'} alignItems={'center'}>
-                  <Typography variant={'body2'} mr={5} color={'text.secondary'}>Published By</Typography>
+                </FormGridItem>
+
+                <FormGridItem label={'Publisher'} labelSize={2}>
                   <UserLabel user={{ ...projectStatusSelected.createdBy }} />
                   <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
                   <Typography variant={'body2'}>
                     {projectStatusSelected.createdDateTime.format('DD MMMM YYYY')}
                   </Typography>
-                </Stack>
+                </FormGridItem>
+
                 {!projectStatusSelected.createdDateTime.isSame(projectStatusSelected.updatedDateTime) && (
-                  <Stack direction={'row'} alignItems={'center'}>
-                    <Typography variant={'body2'} mr={6} color={'text.secondary'}>Updated By</Typography>
+                  <FormGridItem label={'Updated By'} labelSize={2}>
                     <UserLabel user={{ ...projectStatusSelected.updatedBy }} />
                     <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
                     <Typography variant={'body2'}>
                       {projectStatusSelected.updatedDateTime.format('DD MMMM YYYY')}
                     </Typography>
-                  </Stack>
+                  </FormGridItem>
                 )}
-              </Stack>
+              </Grid>
 
               <Stack>
                 <Typography variant={'h6'} mb={0.5}>Description</Typography>

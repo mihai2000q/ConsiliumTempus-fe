@@ -6,54 +6,47 @@ import {
   Dialog,
   DialogContent,
   FormControl,
-  FormHelperText,
+  FormHelperText, Grid,
   IconButton,
   InputBase,
   Link,
-  Menu,
-  MenuItem,
   Stack,
   Toolbar,
   Typography
 } from "@mui/material";
-import { useAddStatusToProjectMutation, useUpdateStatusFromProjectMutation } from "../../state/projectApi.ts";
+import { useUpdateStatusFromProjectMutation } from "../../state/projectApi.ts";
 import { Close } from "@mui/icons-material";
 import { useFormik } from "formik";
-import { projectStatusDialogSchema } from "../../state/projectValidation.ts";
-import { projectStatusDialogFormInitialValues } from "../../state/projectState.ts";
-import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
+import { updateProjectStatusDialogSchema } from "../../state/projectValidation.ts";
+import { updateProjectStatusDialogFormInitialValues } from "../../state/projectState.ts";
 import { useEffect, useState } from "react";
 import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
 import ProjectStatus from "../../types/ProjectStatus.model.ts";
 import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
 import { RootState } from "../../../../state/store.ts";
 import { useSelector } from "react-redux";
+import FormGridItem from "../../../../components/form/FormGridItem.tsx";
+import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
 
-interface AddProjectStatusDialogProps {
+interface UpdateProjectStatusDialogProps {
   open: boolean,
   onClose: () => void,
-  initialStatus?: ProjectStatusType | undefined,
-  initialProjectStatus?: ProjectStatus | undefined
+  initialProjectStatus: ProjectStatus
 }
 
-function ProjectStatusDialog({
+function UpdateProjectStatusDialog({
   open,
   onClose,
-  initialStatus,
   initialProjectStatus
-}: AddProjectStatusDialogProps) {
+}: UpdateProjectStatusDialogProps) {
   const titlePlaceholder = "Status Update"
 
   const projectId = useSelector((state: RootState) => state.project.projectId)
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
-  const [addStatusToProject, {
-    isLoading: addIsLoading,
-    isError: addIsError
-  }] = useAddStatusToProjectMutation()
   const [updateStatusFromProject, {
-    isLoading: updateIsLoading,
-    isError: updateIsError
+    isLoading,
+    isError
   }] = useUpdateStatusFromProjectMutation()
 
   const [statusType, setStatusType] = useState(ProjectStatusType.OnTrack)
@@ -64,48 +57,19 @@ function ProjectStatusDialog({
     touched,
     handleBlur,
     handleChange,
-    handleSubmit,
-    resetForm
+    handleSubmit
   } = useFormik({
-    initialValues: projectStatusDialogFormInitialValues,
-    validationSchema: projectStatusDialogSchema,
+    initialValues: updateProjectStatusDialogFormInitialValues,
+    validationSchema: updateProjectStatusDialogSchema,
     onSubmit: handleSubmitForm
   })
   useEffect(() => {
-    if (initialStatus) setStatusType(initialStatus)
-  }, [initialStatus]);
-  useEffect(() => {
-    if (!initialProjectStatus) return
-
     values.projectStatusTitle = initialProjectStatus.title
     setStatusType(initialProjectStatus.status)
     values.projectStatusDescription = initialProjectStatus.description
-  }, [initialProjectStatus]);
-
-  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
-  const handleCloseMenu = () => setMenuAnchorEl(null)
-  const handleMenuItemClick = (status: ProjectStatusType) => {
-    setStatusType(status)
-    handleCloseMenu()
-  }
+  }, [initialProjectStatus])
 
   async function handleSubmitForm() {
-    const res = initialProjectStatus ? await updateStatus() : await addStatus()
-    if (res === null) return
-    onClose()
-  }
-  async function addStatus() {
-    await addStatusToProject({
-      id: projectId,
-      title: values.projectStatusTitle === '' ? titlePlaceholder : values.projectStatusTitle,
-      status: statusType,
-      description: values.projectStatusDescription
-    })
-    if (addIsError) return null
-    resetForm()
-    return ''
-  }
-  async function updateStatus() {
     await updateStatusFromProject({
       id: projectId,
       statusId: initialProjectStatus!.id,
@@ -113,8 +77,8 @@ function ProjectStatusDialog({
       status: statusType,
       description: values.projectStatusDescription
     })
-    if (updateIsError) return null
-    return ''
+    if (isError) return
+    onClose()
   }
 
   return (
@@ -135,51 +99,34 @@ function ProjectStatusDialog({
                   {breadcrumb.name}
                 </Link>
               ))}
-              <Typography>
-                {initialProjectStatus !== undefined ? 'Update Status' : 'Add Status'}
-              </Typography>
+              <Typography>Update Status</Typography>
             </Breadcrumbs>
-            <Button variant="contained" type={'submit'} disabled={addIsLoading || updateIsLoading}>
-              {initialProjectStatus ? 'Update' : 'Submit'}
+            <Button variant="contained" type={'submit'} disabled={isLoading}>
+              Update
             </Button>
           </Toolbar>
         </AppBar>
 
         <DialogContent sx={{ display: 'flex', justifyContent: 'center' }}>
           <Stack spacing={2}>
-            <FormControl>
-              <InputBase
-                fullWidth
-                name={'projectStatusTitle'}
-                placeholder={titlePlaceholder}
-                value={values.projectStatusTitle}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                sx={{ fontSize: 24 }} />
-            </FormControl>
+            <InputBase
+              fullWidth
+              name={'projectStatusTitle'}
+              placeholder={titlePlaceholder}
+              value={values.projectStatusTitle}
+              onChange={handleChange}
+              onBlur={handleBlur}
+              sx={{ fontSize: 24 }} />
 
-            <Stack direction={'row'} alignItems={'center'} spacing={10}>
-              <Typography>Status</Typography>
-              <Button
-                onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-                sx={{ borderRadius: 2 }}>
-                <ProjectStatusLabel status={statusType} />
-              </Button>
-              <Menu open={Boolean(menuAnchorEl)} anchorEl={menuAnchorEl} onClose={handleCloseMenu}>
-                {Object.values(ProjectStatusType).map((s) => (
-                  <MenuItem value={s} key={s} onClick={() => handleMenuItemClick(s)}>
-                    <ProjectStatusLabel status={s} />
-                  </MenuItem>
-                ))}
-              </Menu>
-            </Stack>
+            <Grid container rowSpacing={1} width={500}>
+              <FormGridItem label={'Status'} labelSize={3}>
+                <ProjectStatusSelector value={statusType} onChange={setStatusType} />
+              </FormGridItem>
 
-            {initialProjectStatus && (
-              <Stack direction={'row'} alignItems={'end'} spacing={9}>
-                <Typography>Publisher</Typography>
-                <Link variant={'h6'}>{initialProjectStatus.createdBy.name}</Link>
-              </Stack>
-            )}
+              <FormGridItem label={'Publisher'} labelSize={3}>
+                <Link variant={'h6'} ml={1.5}>{initialProjectStatus.createdBy.name}</Link>
+              </FormGridItem>
+            </Grid>
 
             <Stack width={'100%'}>
               <Typography variant={'h5'} mt={2} mb={1}>Description</Typography>
@@ -208,4 +155,4 @@ function ProjectStatusDialog({
   );
 }
 
-export default ProjectStatusDialog;
+export default UpdateProjectStatusDialog

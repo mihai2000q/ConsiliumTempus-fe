@@ -2,12 +2,12 @@ import { ProjectStatus } from "../../types/Project.model.ts";
 import { Divider, Menu, MenuItem, Stack, Typography } from "@mui/material";
 import { Dispatch, SetStateAction, useState } from "react";
 import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
-import ProjectStatusDialog from "./ProjectStatusDialog.tsx";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../state/store.ts";
 import { openProjectStatusesDialog } from "../../../../state/project/projectSlice.ts";
 import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
+import AddProjectStatusDialog from "./AddProjectStatusDialog.tsx";
 
 interface ProjectStatusMenuProps {
   anchorEl: HTMLElement | null,
@@ -78,7 +78,7 @@ function ProjectStatusMenu({
         ))}
       </Menu>
 
-      <ProjectStatusDialog
+      <AddProjectStatusDialog
         open={addStatusDialogOpen}
         onClose={handleCloseAddStatusDialog}
         initialStatus={status} />

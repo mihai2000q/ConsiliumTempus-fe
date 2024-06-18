@@ -1,7 +1,7 @@
 import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState } from 'react';
 import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
-import ProjectStatusDialog from "./ProjectStatusDialog.tsx";
+import UpdateProjectStatusDialog from "./UpdateProjectStatusDialog.tsx";
 import ProjectStatus from "../../types/ProjectStatus.model.ts";
 import { useRemoveStatusFromProjectMutation } from "../../state/projectApi.ts";
 import { useSelector } from "react-redux";
@@ -77,7 +77,7 @@ function ProjectStatusActionsMenu({
           Delete Status
         </ProjectStatusActionsMenuItem>
       </Menu>
-      <ProjectStatusDialog
+      <UpdateProjectStatusDialog
         open={isUpdateProjectStatusDialogOpen}
         onClose={handleCloseUpdateProjectStatusDialog}
         initialProjectStatus={projectStatus} />

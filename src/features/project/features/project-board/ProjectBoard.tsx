@@ -1,12 +1,12 @@
-import { useState } from "react";
-import { Button, ButtonGroup, Menu, MenuItem, Stack } from "@mui/material";
+import { ReactNode, useState } from "react";
+import { Button, ButtonGroup, ListItemIcon, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
 import ProjectStagesLoader from "./components/stage/ProjectStagesLoader.tsx";
 import {
   Add,
-  ArrowDropDownOutlined,
+  ArrowDropDownOutlined, AssignmentOutlined, ChargingStationOutlined,
   FilterList,
   GroupWorkOutlined,
-  Sort,
+  Sort, ViewTimelineOutlined, ViewWeekOutlined,
   VisibilityOffOutlined
 } from "@mui/icons-material";
 import ProjectSprint from "./types/ProjectSprint.model.ts";
@@ -16,6 +16,7 @@ import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../state/store.ts";
 import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
+import AddProjectStatusDialog from "../../components/status/AddProjectStatusDialog.tsx";
 
 interface ProjectBoardProps {
   sprintId: string
@@ -29,6 +30,7 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
   const [showAddTaskCard, setShowAddTaskCard] = useState(false)
   const [showLeftAddStagePanel, setShowLeftAddStagePanel] = useState(false)
   const [showRightAddStagePanel, setShowRightAddStagePanel] = useState(false)
+  const [isAddProjectStatusDialogOpen, setIsAddProjectStatusDialogOpen] = useState(false)
 
   const handleAddTask = () => {
     setShowAddTaskCard(s => !s)
@@ -41,12 +43,16 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
       isOpen: true
     }))
   }
+  const handleAddStatus = () => {
+    setIsAddProjectStatusDialogOpen(true)
+  }
 
-  type Option = { option: string, action: () => void }
+  type Option = { icon: ReactNode, option: string, action: () => void }
   const addOptions: Option[] = [
-    { option: 'Add Task', action: handleAddTask },
-    { option: 'Add Stage', action: handleAddStage },
-    { option: 'Add Sprint', action: handleAddSprint },
+    { icon: <AssignmentOutlined />, option: 'Task', action: handleAddTask },
+    { icon: <ViewWeekOutlined />, option: 'Stage', action: handleAddStage },
+    { icon: <ViewTimelineOutlined />, option: 'Sprint', action: handleAddSprint },
+    { icon: <ChargingStationOutlined />, option: 'Status', action: handleAddStatus },
   ]
   const [addOption, setAddOption] = useState(addOptions[0])
 
@@ -62,7 +68,7 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
             startIcon={<Add />}
             sx={{ borderRadius: 1.5 }}
             onClick={addOption.action}>
-            {addOption.option}
+            Add {addOption.option}
           </Button>
           <Button
             size={'small'}
@@ -81,8 +87,16 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
               onClick={() => {
                 setAddOption(a)
                 handleCloseAddOptionsMenu()
+              }}
+              sx={{
+                py: 0.5,
+                '& .MuiListItemIcon-root': {
+                  minWidth: 0,
+                  mr: 1
+                }
               }}>
-              {a.option}
+              <ListItemIcon>{a.icon}</ListItemIcon>
+              <ListItemText sx={{ pt: 0.5 }}>{a.option}</ListItemText>
             </MenuItem>
           ))}
         </Menu>
@@ -151,6 +165,10 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
             </>
         }
       </Stack>
+
+      <AddProjectStatusDialog
+        open={isAddProjectStatusDialogOpen}
+        onClose={() => setIsAddProjectStatusDialogOpen(false)} />
     </Stack>
   );
 }

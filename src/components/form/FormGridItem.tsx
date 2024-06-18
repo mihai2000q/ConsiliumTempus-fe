@@ -3,16 +3,33 @@ import { ReactNode } from "react";
 
 interface FormGridItemProps {
   children: ReactNode,
-  label: string | ReactNode
+  label: string | ReactNode,
+  labelSize?: number | undefined,
+  justifyContent?: string | undefined,
+
 }
 
-function FormGridItem({ label, children }: FormGridItemProps) {
+function FormGridItem({
+  children,
+  label,
+  labelSize,
+  justifyContent
+}: FormGridItemProps) {
+  labelSize ??= 4
+  justifyContent ??= 'start'
+
   return (
     <>
-      <Grid item xs={4} display={'flex'} alignItems={'center'}>
+      <Grid item xs={labelSize} display={'flex'} alignItems={'center'}>
         {typeof label === 'string' ? <FormLabel>{label}</FormLabel> : label}
       </Grid>
-      <Grid item xs={8} display={'flex'} justifyContent={'center'}>
+      <Grid
+        item
+        xs={12 - labelSize}
+        display={'flex'}
+        justifyContent={justifyContent}
+        alignItems={'center'}
+      >
         {children}
       </Grid>
     </>
