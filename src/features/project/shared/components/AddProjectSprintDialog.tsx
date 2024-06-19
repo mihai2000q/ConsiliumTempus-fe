@@ -1,9 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../state/store.ts";
-import { useAddProjectSprintMutation, } from "../../state/projectApi.ts";
 import { useFormik } from "formik";
-import { addProjectSprintDialogInitialValues, } from "../../state/projectState.ts";
-import { addProjectSprintDialogValidationSchema } from "../../state/projectValidation.ts";
 import {
   Accordion,
   AccordionDetails,
@@ -32,8 +29,11 @@ import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
 import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
-import ProjectStatusSelector from "../status/ProjectStatusSelector.tsx";
+import ProjectStatusSelector from "../../components/status/ProjectStatusSelector.tsx";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
+import { addProjectSprintDialogValidationSchema } from "../state/sharedProjectValidation.ts";
+import { useAddProjectSprintMutation } from "../state/sharedProjectApi.ts";
+import { addProjectSprintDialogInitialValues } from "../state/sharedProjectState.ts";
 
 function AddProjectSprintDialog() {
   const projectStatusTitlePlaceholder = 'Status Update'
@@ -80,8 +80,8 @@ function AddProjectSprintDialog() {
     await addProjectSprint({
       projectId: projectId,
       name: values.projectSprintName,
-      startDate: startDate?.toJSON().split('T')[0],
-      endDate: endDate?.toJSON().split('T')[0],
+      startDate: startDate?.toJSON()?.split('T')[0],
+      endDate: endDate?.toJSON()?.split('T')[0],
       keepPreviousStages: values.keepPreviousStages,
       projectStatus: !values.isProjectStatusAccordionOpen
         ? undefined
