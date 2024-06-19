@@ -1,13 +1,9 @@
 import {
-  alpha,
-  Box,
-  BoxProps,
   Button,
   Dialog,
   Divider, Grid,
   IconButton,
   Stack,
-  styled,
   Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
@@ -26,38 +22,7 @@ import ProjectStatusesDialogLoader from "./ProjectStatusesDialogLoader.tsx";
 import ProjectStatusAdapter from "../../adapters/ProjectStatus.adapter.ts";
 import useAdapterState from "../../../../hooks/useAdapterState.ts";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
-
-interface ProjectStatusButtonProps extends BoxProps {
-  isSelected: boolean
-}
-
-const ProjectStatusButton = styled(Box, {
-  shouldForwardProp: (props) => props !== 'isSelected'
-})<ProjectStatusButtonProps>(({ theme, isSelected }) => ({
-  padding: '20px 24px',
-  cursor: 'pointer',
-  display: 'flex',
-  justifyContent: 'start',
-  borderRadius: 0,
-  fontWeight: 600,
-  transition: theme.transitions.create(['background-color', 'color'], {
-    duration: theme.transitions.duration.short,
-  }),
-  backgroundColor: 'transparent',
-  color: theme.palette.text.secondary,
-  '&: hover': {
-    backgroundColor: alpha(theme.palette.background[100], 0.08),
-    color: theme.palette.background[200],
-  },
-  ...(isSelected && {
-    backgroundColor: alpha(theme.palette.background[100], 0.08),
-    color: theme.palette.background[200],
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.background[100], 0.13),
-      color: theme.palette.background[50],
-    }
-  })
-}))
+import VerticalLargeRadioButton from "../../../../components/button/radio/VerticalLargeRadioButton.tsx";
 
 function ProjectStatusesDialog() {
   const {
@@ -86,14 +51,14 @@ function ProjectStatusesDialog() {
     } else {
       setProjectStatusSelected(statuses && statuses[0])
     }
-  }, [data, statusIdSelected]);
+  }, [statuses, statusIdSelected]);
 
   const [actionsMenuAnchorEl, setActionsMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const handleClose = () => dispatch(closeProjectStatusesDialog())
 
-  function handleStatusTabClick(status: ProjectStatus) {
+  function handleStatusClick(status: ProjectStatus) {
     setProjectStatusSelected(status)
   }
 
@@ -137,9 +102,9 @@ function ProjectStatusesDialog() {
           <Stack minWidth={280} sx={{ overflowY: 'auto' }}>
             {statuses?.map((status) => (
               <div key={status.id}>
-                <ProjectStatusButton
+                <VerticalLargeRadioButton
                   isSelected={status.id === projectStatusSelected.id}
-                  onClick={() => handleStatusTabClick(status)}>
+                  onClick={() => handleStatusClick(status)}>
                   <Stack alignItems="start" spacing={0.5}>
                     <Stack
                       direction={'row'}
@@ -152,7 +117,7 @@ function ProjectStatusesDialog() {
                     </Stack>
                     <ProjectStatusLabel status={status.status} />
                   </Stack>
-                </ProjectStatusButton>
+                </VerticalLargeRadioButton>
                 <Divider />
               </div>
             ))}

@@ -24,7 +24,7 @@ import TabPanel from "../../components/tab/TabPanel.tsx";
 import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
-import ProjectSprintsSelector from "./components/sprint/ProjectSprintsSelector.tsx";
+import ProjectSprintsSelector from "./components/ProjectSprintsSelector.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../state/store.ts";
 import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
@@ -165,9 +165,9 @@ function Project() {
         <Tab icon={<SubjectRounded />} label={'Overview'} />
         <Tab icon={<ListRounded />} label={'List'} />
         <Tab icon={<SpaceDashboardRounded />} label={'Board'} />
+        <Tab icon={<CalendarTodayRounded />} label={'Calendar'} />
         <Tab icon={<TimelineRounded />} label={'Dashboards'} />
         <Tab icon={<AccessTimeRounded />} label={'Timeline'} />
-        <Tab icon={<CalendarTodayRounded />} label={'Calendar'} />
         <Tab icon={<CycloneRounded />} label={'Event Storming'} />
         <Tab icon={<AttachFileRounded />} label={'Files'} />
         <Tab icon={<CampaignRounded />} label={'Announcements'} />
@@ -183,14 +183,14 @@ function Project() {
       <TabPanel value={tab} index={ProjectTabs.Board}>
         {sprintId && <ProjectBoard sprintId={sprintId} />}
       </TabPanel>
+      <TabPanel value={tab} index={ProjectTabs.Calendar}>
+        THis is the calendar
+      </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Dashboard}>
         THis is the dashboard
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Timeline}>
         THis is the timeline
-      </TabPanel>
-      <TabPanel value={tab} index={ProjectTabs.Calendar}>
-        THis is the calendar
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.EventStorming}>
         THis is the event storming tool

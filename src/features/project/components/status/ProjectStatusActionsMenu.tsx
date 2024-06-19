@@ -7,7 +7,7 @@ import { useRemoveStatusFromProjectMutation } from "../../state/projectApi.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../state/store.ts";
 
-interface ProjectStageActionsMenuItemProps {
+interface ProjectStatusActionsMenuItemProps {
   children: ReactNode,
   icon?: ReactNode | undefined,
   color?: string | undefined,
@@ -21,7 +21,7 @@ const ProjectStatusActionsMenuItem = ({
   children,
   disabled,
   color
-} : ProjectStageActionsMenuItemProps) => (
+} : ProjectStatusActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     {icon && <ListItemIcon>{icon}</ListItemIcon>}
     <Typography pt={icon ? 0.5 : 0} color={color}>{children}</Typography>
@@ -31,7 +31,6 @@ const ProjectStatusActionsMenuItem = ({
 interface ProjectStatusActionsMenuProps {
   anchorEl: HTMLElement | null,
   setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
-
   projectStatus: ProjectStatus
 }
 

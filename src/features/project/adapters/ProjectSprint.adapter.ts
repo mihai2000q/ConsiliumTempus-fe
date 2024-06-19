@@ -12,8 +12,8 @@ export default class ProjectSprintAdapter {
   private static adaptSprint(sprint: ProjectSprintResponse) : ProjectSprint {
     return {
       ...sprint,
-      startDate: dayjs(sprint.startDate),
-      endDate: dayjs(sprint.endDate),
+      startDate: sprint.startDate ? dayjs(sprint.startDate) : null,
+      endDate: sprint.endDate ? dayjs(sprint.endDate) : null,
     }
   }
 }

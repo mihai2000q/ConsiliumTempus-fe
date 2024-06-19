@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AddProjectSprintDialogState, initialState, ProjectStatusesDialogState } from "./projectState.ts";
+import {
+  AddProjectSprintDialogState,
+  initialState,
+  ProjectSprintsDialogState,
+  ProjectStatusesDialogState
+} from "./projectState.ts";
 import Breadcrumb from "../../types/Breadcrumb.ts";
 
 export const projectSlice = createSlice({
@@ -24,6 +29,12 @@ export const projectSlice = createSlice({
     closeProjectStatusesDialog: (state) => {
       state.projectStatusesDialog.isOpen = false
     },
+    openProjectSprintsDialog: (state, action: PayloadAction<ProjectSprintsDialogState>) => {
+      state.projectSprintsDialog = action.payload
+    },
+    closeProjectSprintsDialog: (state) => {
+      state.projectSprintsDialog.isOpen = false
+    },
     openAddProjectSprintDialog: (state, action: PayloadAction<AddProjectSprintDialogState>) => {
       state.addProjectSprintDialog = action.payload
     },
@@ -40,6 +51,8 @@ export const {
   setProjectSprintId,
   openProjectStatusesDialog,
   closeProjectStatusesDialog,
+  openProjectSprintsDialog,
+  closeProjectSprintsDialog,
   openAddProjectSprintDialog,
   closeAddProjectSprintDialog
 } = projectSlice.actions
