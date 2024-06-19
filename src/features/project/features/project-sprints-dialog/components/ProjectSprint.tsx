@@ -27,7 +27,7 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
   }
 
   return (
-    <Stack flexGrow={1} py={3} px={2} spacing={2}>
+    <Stack flexGrow={1} py={3} px={2} spacing={1}>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Typography variant={'h5'}>{sprint.name}</Typography>
 
@@ -38,11 +38,12 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
           <ProjectSprintActionsMenu
             anchorEl={actionsMenuAnchorEl}
             onClose={() => setActionsMenuAnchorEl(null)}
+            sprintId={sprintId}
             projectSprint={sprint} />
         </Stack>
       </Stack>
 
-      <Grid container rowSpacing={1} width={500}>
+      <Grid container rowSpacing={1.5} width={500}>
         <FormGridItem label={'Start Date'} labelSize={2}>
           <Typography>{sprint.startDate?.format('DD MMMM YYYY') ?? '?'}</Typography>
         </FormGridItem>

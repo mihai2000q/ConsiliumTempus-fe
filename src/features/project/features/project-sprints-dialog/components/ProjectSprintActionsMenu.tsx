@@ -27,12 +27,14 @@ const ProjectSprintActionsMenuItem = ({
 interface ProjectSprintActionsMenuProps {
   anchorEl: HTMLElement | null,
   onClose: () => void,
+  sprintId: string,
   projectSprint: ProjectSprint
 }
 
 function ProjectSprintActionsMenu({
   anchorEl,
   onClose,
+  sprintId,
   projectSprint
 }: ProjectSprintActionsMenuProps) {
   const [isUpdateProjectSprintDialogOpen, setIsUpdateProjectSprintDialogOpen] = useState(false)
@@ -46,9 +48,7 @@ function ProjectSprintActionsMenu({
   }
   async function handleDelete() {
     onClose()
-    deleteProjectSprint({
-      id: projectSprint.id
-    })
+    deleteProjectSprint({ id: sprintId })
   }
 
   return (
@@ -70,6 +70,7 @@ function ProjectSprintActionsMenu({
       <UpdateProjectSprintDialog
         open={isUpdateProjectSprintDialogOpen}
         onClose={handleCloseUpdateProjectStatusDialog}
+        sprintId={sprintId}
         initialProjectSprint={projectSprint} />
     </>
   );

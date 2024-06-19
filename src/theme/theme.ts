@@ -70,7 +70,7 @@ export const themeSettings = (mode: ThemeMode) => {
 
 declare module '@mui/material/styles' {
   interface Palette {
-    triadic: PaletteColor
+    triadic: PaletteColor,
   }
 
   interface PaletteColor {
@@ -97,5 +97,9 @@ declare module '@mui/material/styles' {
     700: string,
     800: string,
     900: string,
+  }
+
+  interface TypeText {
+    triadic: string
   }
 }

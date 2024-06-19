@@ -18,9 +18,18 @@ const VerticalLargeRadioButton = styled(Box, {
   }),
   backgroundColor: 'transparent',
   color: theme.palette.text.secondary,
+  '& .MuiTypography-body2': {
+    transition: theme.transitions.create(['color'], {
+      duration: theme.transitions.duration.short,
+    }),
+    color: isSelected ? theme.palette.text.secondary : theme.palette.text.triadic,
+  },
   '&: hover': {
     backgroundColor: alpha(theme.palette.background[100], 0.08),
     color: theme.palette.background[200],
+    '& .MuiTypography-body2': {
+      color: isSelected ? theme.palette.background[200] : theme.palette.text.secondary
+    }
   },
   ...(isSelected && {
     backgroundColor: alpha(theme.palette.background[100], 0.08),

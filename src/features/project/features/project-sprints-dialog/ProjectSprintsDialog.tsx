@@ -55,11 +55,11 @@ function ProjectSprintsDialog() {
         <Stack direction={'row'} alignItems={'center'} px={3} py={2} spacing={2}>
           <Stack flexGrow={1}>
             <Stack direction={'row'} alignItems={'center'} spacing={0.5}>
-              <Typography variant={'h5'} fontSize={20} fontWeight={500}>Statuses of</Typography>
+              <Typography variant={'h5'} fontSize={20} fontWeight={500}>Sprints of</Typography>
               <Typography variant={'h5'} fontSize={20} fontWeight={600}>{projectName}</Typography>
             </Stack>
             <Typography variant={'subtitle2'} fontWeight={400} color={'text.secondary'}>
-              {data.totalCount} status update{data.totalCount > 1 ? 's' : ''}
+              {data.totalCount} sprint{data.totalCount > 1 ? 's' : ''}
             </Typography>
           </Stack>
 
@@ -91,9 +91,9 @@ function ProjectSprintsDialog() {
                       <Typography>{sprint.createdDateTime.format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <Stack direction={'row'} spacing={'4px'}>
-                      <Typography color={'text.secondary'}>{sprint.startDate?.format('DD/MM/YYYY') ?? '?'}</Typography>
-                      <Typography color={'text.secondary'}>-</Typography>
-                      <Typography color={'text.secondary'}>{sprint.endDate?.format('DD/MM/YYYY') ?? '?'}</Typography>
+                      <Typography variant={'body2'}>{sprint.startDate?.format('DD/MM/YYYY') ?? '?'}</Typography>
+                      <Typography variant={'body2'}>-</Typography>
+                      <Typography variant={'body2'}>{sprint.endDate?.format('DD/MM/YYYY') ?? '?'}</Typography>
                     </Stack>
                   </Stack>
                 </VerticalLargeRadioButton>
