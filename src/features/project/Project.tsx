@@ -42,6 +42,7 @@ import { setBreadcrumbs, setProjectId, setProjectName } from "../../state/projec
 import Paths from "../../utils/Paths.ts";
 import AddProjectSprintDialog from "./components/sprint/AddProjectSprintDialog.tsx";
 import useAdapterState from "../../hooks/useAdapterState.ts";
+import ProjectSprintsDialog from "./features/project-sprints-dialog/ProjectSprintsDialog.tsx";
 
 function Project() {
   const theme = useTheme()
@@ -203,6 +204,7 @@ function Project() {
       </TabPanel>
 
       <ProjectStatusesDialog />
+      <ProjectSprintsDialog />
       <AddProjectSprintDialog />
     </Stack>
   );
