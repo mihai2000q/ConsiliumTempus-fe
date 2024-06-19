@@ -7,7 +7,13 @@ import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useDispatch } from "react-redux";
 import { openDrawer } from "../../../../../../state/project-task-drawer/projectTaskDrawerSlice.ts";
 
-export const StyledProjectTaskCard = styled(Button)<ButtonProps>(({ theme }) => ({
+interface StyledProjectTaskCardProps extends ButtonProps {
+  isCompleted?: boolean | undefined
+}
+
+export const StyledProjectTaskCard = styled(Button, {
+  shouldForwardProp: (props) => props !== 'isCompleted'
+})<StyledProjectTaskCardProps>(({ theme, isCompleted }) => ({
   borderRadius: '16px',
   justifyContent: 'start',
   width: '100%',
@@ -21,7 +27,17 @@ export const StyledProjectTaskCard = styled(Button)<ButtonProps>(({ theme }) => 
   '&:hover': {
     borderColor: alpha(theme.palette.background[50], 0.5),
     color: theme.palette.background[50]
-  }
+  },
+  ...(isCompleted === true && {
+    backgroundColor: alpha(theme.palette.grey[100], 0.05),
+    color: alpha(theme.palette.text.triadic, 0.5),
+    borderColor: alpha(theme.palette.grey[100], 0.1),
+    '&:hover': {
+      backgroundColor: alpha(theme.palette.grey[100], 0.1),
+      borderColor: alpha(theme.palette.grey[100], 0.2),
+      color: alpha(theme.palette.text.triadic, 0.7)
+    },
+  })
 }))
 
 interface ProjectTaskCardProps {
@@ -62,6 +78,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
     <Box position={'relative'} my={0.5}>
       <StyledProjectTaskCard
         component={'div'}
+        isCompleted={isCompleted}
         onClick={handleClick}
         onContextMenu={handleRightClick}
         sx={{ boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
@@ -85,6 +102,9 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           left: 0,
           mt: 1.5,
           ml: 2,
+          transition: theme.transitions.create(['color', 'background-color'], {
+            duration: theme.transitions.duration.short,
+          }),
           color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
           mb: '1px',
           '&:hover': {
@@ -96,15 +116,25 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           : <CheckCircleOutlineRounded fontSize={'small'} />}
       </IconButton>
       <Stack direction={'row'} position={'absolute'} bottom={0} padding={2}>
-        <IconButton variant={'dashed'}>
+        <IconButton
+          variant={'dashed'}
+          sx={{
+            transition: theme.transitions.create(['color', 'background-color'], {
+              duration: theme.transitions.duration.shortest,
+            }),
+            color: isCompleted ? alpha(theme.palette.text.triadic, 0.5) : theme.palette.text.primary,
+            '&:hover': {
+              color: isCompleted ? alpha(theme.palette.text.triadic, 0.7) : theme.palette.text.primary,
+            }
+          }}>
           <Person fontSize={'inherit'} />
         </IconButton>
       </Stack>
       {task &&
         <ProjectTaskCardActionsMenu
           anchorEl={taskMenuAnchorEl}
-          setAnchorEl={setTaskMenuAnchorEl}
-          taskId={task.id} />
+          onClose={() => setTaskMenuAnchorEl(null)}
+          taskId={task} />
       }
     </Box>
   );

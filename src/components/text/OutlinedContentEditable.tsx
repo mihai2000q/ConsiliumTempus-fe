@@ -1,15 +1,38 @@
-import { alpha, Box, SxProps, Theme, Typography, useTheme } from "@mui/material";
+import { alpha, Box, BoxProps, styled, SxProps, Theme, Typography } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import { OverridableStringUnion } from "@mui/types";
 import { Variant } from "@mui/material/styles/createTypography";
 import { TypographyPropsVariantOverrides } from "@mui/material/Typography/Typography";
+
+interface OutlinedBorderProps extends BoxProps {
+  isFocused: boolean
+}
+
+const OutlinedBorder = styled(Box, {
+  shouldForwardProp: (props) => props !== 'isFocused'
+})<OutlinedBorderProps>(({ theme, isFocused }) => ({
+  boxSizing: 'border-box',
+  border: 'solid 2px transparent',
+  borderRadius: '6px',
+  ...(isFocused
+    ? {
+      borderColor: alpha(theme.palette.background[100], 0.7),
+    }
+    : {
+      '&:hover': {
+        padding: '1px',
+        border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`,
+      },
+    })
+}))
 
 interface OutlinedInputTextFieldProps {
   value: string,
   handleChange: (change: string) => void,
   typographyVariant?: OverridableStringUnion<Variant | 'inherit', TypographyPropsVariantOverrides>,
   sx?: SxProps<Theme> | undefined,
-  noWrap?: boolean | undefined
+  noWrap?: boolean | undefined,
+  maxLength?: number | undefined,
 }
 
 function OutlinedContentEditable({
@@ -17,17 +40,14 @@ function OutlinedContentEditable({
   handleChange,
   typographyVariant,
   sx,
-  noWrap
+  noWrap,
+  maxLength
 }: OutlinedInputTextFieldProps) {
-  const theme = useTheme()
-
   const [isFocused, setIsFocused] = useState(false)
   const [localNoWrap, setLocalNoWrap] = useState(noWrap)
   useEffect(() => {
     if (noWrap !== undefined) setLocalNoWrap(!isFocused)
   }, [isFocused]);
-
-  const borderColor = alpha(theme.palette.background[100], 0.7)
 
   const contentEditableRef = useRef(null)
 
@@ -42,22 +62,7 @@ function OutlinedContentEditable({
   }, [contentEditableRef, value]) // TODO: CHECK THIS
 
   return (
-    <Box sx={{
-      ...sx,
-      boxSizing: 'border-box',
-      border: 'solid 2px transparent',
-      borderRadius: 1.5,
-      ...(isFocused
-        ? {
-          borderColor: borderColor,
-        }
-        : {
-          '&:hover': {
-            padding: '1px',
-            border: `solid 1px ${borderColor}`,
-          },
-        })
-    }}>
+    <OutlinedBorder isFocused={isFocused} sx={{ ...sx }}>
       <Typography
         ref={contentEditableRef}
         variant={typographyVariant}
@@ -71,6 +76,10 @@ function OutlinedContentEditable({
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
         onKeyDown={(e) => {
+          if (maxLength && value.length === maxLength) {
+            e.preventDefault()
+          }
+
           if (e.key === 'Enter') {
             e.preventDefault()
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -82,7 +91,7 @@ function OutlinedContentEditable({
           px: '4px',
           outline: 0
         }} />
-    </Box>
+    </OutlinedBorder>
   );
 }
 

@@ -1,4 +1,4 @@
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction, useState } from 'react';
+import { MouseEventHandler, ReactNode, useState } from 'react';
 import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
 import UpdateProjectStatusDialog from "./UpdateProjectStatusDialog.tsx";
@@ -30,17 +30,15 @@ const ProjectStatusActionsMenuItem = ({
 
 interface ProjectStatusActionsMenuProps {
   anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  onClose: () => void,
   projectStatus: ProjectStatus
 }
 
 function ProjectStatusActionsMenu({
   anchorEl,
-  setAnchorEl,
+  onClose,
   projectStatus
 }: ProjectStatusActionsMenuProps) {
-  const handleClose = () => setAnchorEl(null)
-
   const projectId = useSelector((state: RootState) => state.project.projectId)
 
   const [isUpdateProjectStatusDialogOpen, setIsUpdateProjectStatusDialogOpen] = useState(false)
@@ -49,11 +47,11 @@ function ProjectStatusActionsMenu({
   const [removeStatusFromProject] = useRemoveStatusFromProjectMutation()
 
   function handleUpdate() {
-    handleClose()
+    onClose()
     setIsUpdateProjectStatusDialogOpen(true)
   }
   async function handleDelete() {
-    handleClose()
+    onClose()
     removeStatusFromProject({
       id: projectId,
       statusId: projectStatus.id
@@ -65,7 +63,7 @@ function ProjectStatusActionsMenu({
       <Menu
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onClose={handleClose}>
+        onClose={onClose}>
         <ProjectStatusActionsMenuItem icon={<EditOutlined />} onClick={handleUpdate}>
           Update Status
         </ProjectStatusActionsMenuItem>

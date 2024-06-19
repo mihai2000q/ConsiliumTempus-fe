@@ -40,7 +40,7 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
   }
   const handleAddSprint = () => {
     dispatch(openAddProjectSprintDialog({
-      isOpen: true
+      open: true
     }))
   }
   const handleAddStatus = () => {

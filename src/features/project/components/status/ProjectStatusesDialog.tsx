@@ -26,7 +26,7 @@ import VerticalLargeRadioButton from "../../../../components/button/radio/Vertic
 
 function ProjectStatusesDialog() {
   const {
-    isOpen,
+    open,
     statusIdSelected
   } = useSelector((state: RootState) => state.project.projectStatusesDialog)
   const projectId = useSelector((state: RootState) => state.project.projectId)
@@ -63,12 +63,12 @@ function ProjectStatusesDialog() {
   }
 
   if (!data || !projectStatusSelected) {
-    return <ProjectStatusesDialogLoader isOpen={isOpen} onClose={handleClose} />
+    return <ProjectStatusesDialogLoader open={open} onClose={handleClose} />
   }
 
   return (
     <Dialog
-      open={isOpen}
+      open={open}
       onClose={handleClose}
       fullWidth
       maxWidth={'lg'}>
@@ -89,7 +89,7 @@ function ProjectStatusesDialog() {
           </Button>
           <ProjectStatusMenu
             anchorEl={menuAnchorEl}
-            setAnchorEl={setMenuAnchorEl}
+            onClose={() => setMenuAnchorEl(null)}
             latestStatus={null} />
 
           <IconButton variant={'circular'} onClick={handleClose}>
@@ -136,7 +136,7 @@ function ProjectStatusesDialog() {
                   </IconButton>
                   <ProjectStatusActionsMenu
                     anchorEl={actionsMenuAnchorEl}
-                    setAnchorEl={setActionsMenuAnchorEl}
+                    onClose={() => setActionsMenuAnchorEl(null)}
                     projectStatus={projectStatusSelected} />
                 </Stack>
               </Stack>

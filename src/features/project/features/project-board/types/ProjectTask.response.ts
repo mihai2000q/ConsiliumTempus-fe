@@ -5,5 +5,9 @@ export interface ProjectTaskResponse {
 
 export interface ProjectTask {
   id: string,
-  name: string
+  name: string,
+  isCompleted: boolean,
+  assignee: {
+    id: string
+  }
 }

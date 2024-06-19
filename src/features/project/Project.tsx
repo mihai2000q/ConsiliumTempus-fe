@@ -116,6 +116,7 @@ function Project() {
             sx={{ borderRadius: 2 }} />
           <OutlinedContentEditable
             typographyVariant={'h6'}
+            maxLength={100}
             value={facadeName}
             handleChange={(n) => setFacadeName(n, true)}
             sx={{ ml: 1 }} />
@@ -124,7 +125,7 @@ function Project() {
           </IconButton>
           <ProjectActionsMenu
             anchorEl={menuAnchorEl}
-            setAnchorEl={setMenuAnchorEl}
+            onClose={() => setMenuAnchorEl(null)}
             projectId={projectId}
             project={project} />
         </Stack>
@@ -156,7 +157,7 @@ function Project() {
         </Button>
         <ProjectStatusMenu
           anchorEl={statusMenuAnchorEl}
-          setAnchorEl={setStatusMenuAnchorEl}
+          onClose={() => setStatusMenuAnchorEl(null)}
           latestStatus={project.latestStatus} />
 
         <ProjectSprintsSelector projectId={projectId} />

@@ -125,6 +125,7 @@ function ProjectTaskDrawer() {
               fullWidth
               multiline
               isTitle
+              maxLength={256}
               error={facadeName === ''}
               placeholder={'Enter a name'}
               value={facadeName}
@@ -143,7 +144,10 @@ function ProjectTaskDrawer() {
           </Stack>
         </Stack>
       }
-      <ProjectTaskDrawerActionsMenu taskId={taskId} anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} />
+      <ProjectTaskDrawerActionsMenu
+        taskId={taskId}
+        anchorEl={menuAnchorEl}
+        onClose={() => setMenuAnchorEl(null)} />
     </Drawer>
   );
 }

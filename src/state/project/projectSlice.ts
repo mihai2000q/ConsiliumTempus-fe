@@ -27,19 +27,19 @@ export const projectSlice = createSlice({
       state.projectStatusesDialog = action.payload
     },
     closeProjectStatusesDialog: (state) => {
-      state.projectStatusesDialog.isOpen = false
+      state.projectStatusesDialog.open = false
     },
     openProjectSprintsDialog: (state, action: PayloadAction<ProjectSprintsDialogState>) => {
       state.projectSprintsDialog = action.payload
     },
     closeProjectSprintsDialog: (state) => {
-      state.projectSprintsDialog.isOpen = false
+      state.projectSprintsDialog.open = false
     },
     openAddProjectSprintDialog: (state, action: PayloadAction<AddProjectSprintDialogState>) => {
       state.addProjectSprintDialog = action.payload
     },
     closeAddProjectSprintDialog: (state) => {
-      state.addProjectSprintDialog.isOpen = false
+      state.addProjectSprintDialog.open = false
     }
   }
 })

@@ -42,13 +42,14 @@ interface OutlinedInputTextFieldProps {
   value: string,
   onChange: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,
   name?: string | undefined,
-  placeholder?: string | undefined,
-  autoFocus?: boolean | undefined,
-  fullWidth?: boolean | undefined,
-  multiline?: boolean | undefined,
-  isTitle?: boolean | undefined,
-  error?: boolean | undefined,
-  minRows?: number | undefined,
+  placeholder?: string,
+  autoFocus?: boolean,
+  fullWidth?: boolean,
+  multiline?: boolean,
+  isTitle?: boolean,
+  error?: boolean,
+  minRows?: number,
+  maxLength?: number,
   sx?: SxProps<Theme> | undefined,
   onBlur?: ((e: unknown) => unknown),
   onBlurEvent?: (() => void) | undefined,
@@ -67,6 +68,7 @@ function OutlinedInputTextField({
   onBlur,
   onBlurEvent,
   minRows,
+  maxLength,
   sx,
 }: OutlinedInputTextFieldProps) {
   const inputRef = useRef(null)
@@ -75,10 +77,11 @@ function OutlinedInputTextField({
 
   return (
     <OutlinedInput
-      minRows={minRows}
       autoFocus={autoFocus}
       fullWidth={fullWidth}
       multiline={multiline}
+      minRows={minRows}
+      inputProps={{ maxLength: maxLength }}
       error={error}
       inputRef={inputRef}
       placeholder={placeholder}

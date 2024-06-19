@@ -2,15 +2,15 @@ import { Dialog, Divider, Skeleton, Stack } from "@mui/material";
 import ProjectSprintLoader from "./ProjectSprintLoader.tsx";
 
 interface ProjectSprintsDialogLoaderProps {
-  isOpen: boolean,
+  open: boolean,
   onClose: () => void
 }
 
-function ProjectSprintsDialogLoader({ isOpen, onClose }: ProjectSprintsDialogLoaderProps) {
+function ProjectSprintsDialogLoader({ open, onClose }: ProjectSprintsDialogLoaderProps) {
   return (
     <Dialog
       fullWidth
-      open={isOpen}
+      open={open}
       onClose={onClose}
       maxWidth={'lg'}>
       <Stack height={720}>

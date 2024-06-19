@@ -1,15 +1,15 @@
 import { Dialog, Divider, Skeleton, Stack } from "@mui/material";
 
 interface ProjectStatusesDialogLoaderProps {
-  isOpen: boolean,
+  open: boolean,
   onClose: () => void
 }
 
-function ProjectStatusesDialogLoader({ isOpen, onClose }: ProjectStatusesDialogLoaderProps) {
+function ProjectStatusesDialogLoader({ open, onClose }: ProjectStatusesDialogLoaderProps) {
   return (
     <Dialog
       fullWidth
-      open={isOpen}
+      open={open}
       onClose={onClose}
       maxWidth={'lg'}>
       <Stack height={720}>

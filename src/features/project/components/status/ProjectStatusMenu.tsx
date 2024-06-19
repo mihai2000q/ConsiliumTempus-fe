@@ -1,6 +1,6 @@
 import { ProjectStatus } from "../../types/Project.model.ts";
 import { Divider, Menu, MenuItem, Stack, Typography } from "@mui/material";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useState } from "react";
 import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
 import { useDispatch } from "react-redux";
@@ -11,13 +11,13 @@ import AddProjectStatusDialog from "./AddProjectStatusDialog.tsx";
 
 interface ProjectStatusMenuProps {
   anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  onClose: () => void,
   latestStatus: ProjectStatus | null
 }
 
 function ProjectStatusMenu({
   anchorEl,
-  setAnchorEl,
+  onClose,
   latestStatus
 }: ProjectStatusMenuProps) {
   const dispatch = useDispatch<AppDispatch>()
@@ -27,19 +27,17 @@ function ProjectStatusMenu({
 
   const [status, setStatus] = useState(ProjectStatusType.OnTrack)
 
-  const handleCloseMenu = () => setAnchorEl(null)
-
   function handleLatestStatusClick() {
-    handleCloseMenu()
+    onClose()
     dispatch(openProjectStatusesDialog({
-      isOpen: true,
+      open: true,
       statusIdSelected: latestStatus!.id
     }))
   }
 
   function handleStatusClick(status: ProjectStatusType) {
     setStatus(status)
-    handleCloseMenu()
+    onClose()
     setAddStatusDialogOpen(true)
   }
 
@@ -48,7 +46,7 @@ function ProjectStatusMenu({
       <Menu
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
-        onClose={handleCloseMenu}
+        onClose={onClose}
         sx={{
           ...(latestStatus && {
             '& .MuiList-root': {

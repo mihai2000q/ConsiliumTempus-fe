@@ -38,7 +38,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
 
   function handleViewAllClick() {
     dispatch(openProjectSprintsDialog({
-      isOpen: true
+      open: true
     }))
     handleCloseMenu()
   }

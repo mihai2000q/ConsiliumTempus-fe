@@ -14,7 +14,7 @@ import {
 } from "@mui/icons-material";
 import Paths from "../../../utils/Paths.ts";
 import { useNavigate } from "react-router-dom";
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import Project from "../types/Project.model.ts";
 import { useUpdateProjectMutation, useDeleteProjectMutation } from "../state/projectApi.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
@@ -36,14 +36,14 @@ const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color } : P
 
 interface ProjectActionsMenuProps {
   anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  onClose: () => void,
   projectId: string,
   project: Project
 }
 
 function ProjectActionsMenu({
   anchorEl,
-  setAnchorEl,
+  onClose,
   projectId,
   project
 } : ProjectActionsMenuProps ) {
@@ -51,26 +51,24 @@ function ProjectActionsMenu({
 
   const navigate = useNavigate()
 
-  const handleCloseMenu = () => setAnchorEl(null)
-
   const [updateProject] = useUpdateProjectMutation()
   const [deleteProject] = useDeleteProjectMutation()
 
   const handleEditProject = () => {
-    handleCloseMenu()
+    onClose()
   }
 
   const handleDuplicateProject = () => {
-    handleCloseMenu()
+    onClose()
   }
   const handleAddProjectToPortfolio = () => {
-    handleCloseMenu()
+    onClose()
   }
   const handleSaveProjectTemplate = () => {
-    handleCloseMenu()
+    onClose()
   }
   const handleMoveToNextSprint = () => {
-    handleCloseMenu()
+    onClose()
   }
 
   const handleUnarchiveProject = () => {
@@ -80,7 +78,7 @@ function ProjectActionsMenu({
       lifecycle: ProjectLifecycle.Active,
       isFavorite: project.isFavorite
     }).unwrap()
-    handleCloseMenu()
+    onClose()
   }
   const handleArchiveProject = () => {
     updateProject({
@@ -89,7 +87,7 @@ function ProjectActionsMenu({
       lifecycle: ProjectLifecycle.Archived,
       isFavorite: project.isFavorite
     }).unwrap()
-    handleCloseMenu()
+    onClose()
   }
 
   const handleUnsetUpcomingProject = () => {
@@ -99,7 +97,7 @@ function ProjectActionsMenu({
       lifecycle: ProjectLifecycle.Active,
       isFavorite: project.isFavorite
     }).unwrap()
-    handleCloseMenu()
+    onClose()
   }
   const handleSetUpcomingProject = () => {
     updateProject({
@@ -108,17 +106,17 @@ function ProjectActionsMenu({
       lifecycle: ProjectLifecycle.Upcoming,
       isFavorite: project.isFavorite
     }).unwrap()
-    handleCloseMenu()
+    onClose()
   }
 
   const handleDeleteProject = async () => {
-    handleCloseMenu()
+    onClose()
     await deleteProject({ id: projectId })
     navigate(Paths.Projects)
   }
 
   return (
-    <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleCloseMenu}>
+    <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
       <ProjectActionsMenuItem icon={<Edit />} onClick={handleEditProject}>
         Edit Project Details
       </ProjectActionsMenuItem>

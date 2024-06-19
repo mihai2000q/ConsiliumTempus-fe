@@ -11,7 +11,7 @@ const drawerWidth = 250
 
 function Layout() {
   const location = useLocation()
-  const isDisplayable = isLayoutDisplayable(location.pathname)
+  const isLayoutHidden = handleIsLayoutHidden(location.pathname)
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
@@ -23,17 +23,17 @@ function Layout() {
       height={'100%'}>
       <Sidebar
         width={drawerWidth}
-        isDisplayable={isDisplayable}
-        isOpen={isSidebarOpen} />
+        hidden={isLayoutHidden}
+        open={isSidebarOpen} />
       <Stack width={'100%'}>
         <Topbar
           drawerWidth={drawerWidth}
-          isDisplayable={isDisplayable}
+          hidden={isLayoutHidden}
           isSidebarOpen={isSidebarOpen}
           setIsSidebarOpen={setIsSidebarOpen} />
         <Main
           isSidebarOpen={isSidebarOpen}
-          isLayoutDisplayable={isDisplayable}
+          isLayoutHidden={isLayoutHidden}
           drawerWidth={drawerWidth}>
           <Outlet />
         </Main>
@@ -43,8 +43,8 @@ function Layout() {
   );
 }
 
-function isLayoutDisplayable(path: string): boolean {
-  return path !== Paths.Login && path !== Paths.Signup
+function handleIsLayoutHidden(path: string): boolean {
+  return path === Paths.Login || path === Paths.Signup
 }
 
 export default Layout;

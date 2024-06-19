@@ -6,14 +6,14 @@ import { AppToolbar } from "./components/AppToolbar.tsx";
 import TopbarSearchBar from "./components/TopbarSearchBar.tsx";
 
 interface TopbarProps {
-  isDisplayable: boolean,
+  hidden: boolean,
   isSidebarOpen: boolean,
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>,
   drawerWidth: number
 }
 
-function Topbar({ isDisplayable, isSidebarOpen, setIsSidebarOpen, drawerWidth }: TopbarProps) {
-  if (!isDisplayable)
+function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: TopbarProps) {
+  if (hidden)
     return <></>
 
   function handleMenu() {

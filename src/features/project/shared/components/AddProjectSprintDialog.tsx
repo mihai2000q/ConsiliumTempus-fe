@@ -41,7 +41,7 @@ function AddProjectSprintDialog() {
   const theme = useTheme()
   const dispatch = useDispatch<AppDispatch>()
 
-  const { isOpen } = useSelector((state: RootState) => state.project.addProjectSprintDialog)
+  const { open } = useSelector((state: RootState) => state.project.addProjectSprintDialog)
   const projectId = useSelector((state: RootState) => state.project.projectId)
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
@@ -99,7 +99,7 @@ function AddProjectSprintDialog() {
   return (
     <Dialog
       fullScreen
-      open={isOpen}
+      open={open}
       onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <AppBar position={'relative'}>

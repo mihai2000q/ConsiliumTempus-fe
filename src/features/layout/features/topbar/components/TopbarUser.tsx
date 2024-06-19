@@ -51,7 +51,10 @@ function TopbarUser() {
           <ArrowDropDownOutlined sx={{ mx: '2px' }} />
         </Stack>
       </StyledButton>
-      <TopbarUserMenu anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} user={user} />
+      <TopbarUserMenu
+        anchorEl={menuAnchorEl}
+        onClose={() => setMenuAnchorEl(null)}
+        user={user} />
     </>
   )
 }

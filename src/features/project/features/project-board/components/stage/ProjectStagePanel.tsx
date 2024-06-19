@@ -70,6 +70,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
             value={stageName}
             handleChange={setStageName}
             noWrap
+            maxLength={50}
             sx={{
               color: theme.palette.background[200],
               maxWidth: 180,
@@ -101,7 +102,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           </IconButton>
           <ProjectStageActionsMenu
             anchorEl={menuAnchorEl}
-            setAnchorEl={setMenuAnchorEl}
+            onClose={() => setMenuAnchorEl(null)}
             stageId={stage.id} />
         </Stack>
       </Stack>

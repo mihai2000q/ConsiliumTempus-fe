@@ -12,7 +12,7 @@ import ProjectSprintsAdapter from "./adapters/ProjectSprints.adapter.ts";
 import ProjectSprint from "./components/ProjectSprint.tsx";
 
 function ProjectSprintsDialog() {
-  const { isOpen } = useSelector((state: RootState) => state.project.projectSprintsDialog)
+  const { open } = useSelector((state: RootState) => state.project.projectSprintsDialog)
 
   const projectId = useSelector((state: RootState) => state.project.projectId)
   const projectName = useSelector((state: RootState) => state.project.projectName)
@@ -33,7 +33,7 @@ function ProjectSprintsDialog() {
   const handleClose = () => dispatch(closeProjectSprintsDialog())
   const handleAddNewSprint = () => {
     dispatch(openAddProjectSprintDialog({
-      isOpen: true
+      open: true
     }))
   }
 
@@ -42,13 +42,13 @@ function ProjectSprintsDialog() {
   }
 
   if (!data) {
-    return <ProjectSprintsDialogLoader isOpen={isOpen} onClose={handleClose} />
+    return <ProjectSprintsDialogLoader open={open} onClose={handleClose} />
   }
 
   return (
     <Dialog
       fullWidth
-      open={isOpen}
+      open={open}
       onClose={handleClose}
       maxWidth={'md'}>
       <Stack height={720} sx={{ overflowY: 'hidden' }}>
