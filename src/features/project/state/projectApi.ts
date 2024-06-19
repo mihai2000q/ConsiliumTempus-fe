@@ -2,7 +2,6 @@ import { api } from "../../../state/api.ts";
 import TagTypes from "../../../utils/TagTypes.ts";
 import Urls from "../../../utils/Urls.ts";
 import {
-  AddStatusToProjectRequest,
   DeleteProjectRequest,
   GetProjectRequest,
   UpdateProjectRequest,
@@ -41,22 +40,12 @@ export const projectApiSlice = api.injectEndpoints({
       }),
       providesTags: [TagTypes.ProjectSprints]
     }),
-
-    addStatusToProject: builder.mutation<HttpMessageResponse, AddStatusToProjectRequest>({
-      query: body => ({
-        url: `${Urls.Projects}/add-status`,
-        method: 'POST',
-        body: body
-      }),
-      invalidatesTags: [TagTypes.Projects, TagTypes.ProjectStatuses]
-    }),
   })
 })
 
 export const {
   useGetProjectQuery,
   useGetProjectSprintsQuery,
-  useAddStatusToProjectMutation,
   useUpdateProjectMutation,
   useDeleteProjectMutation,
 } = projectApiSlice

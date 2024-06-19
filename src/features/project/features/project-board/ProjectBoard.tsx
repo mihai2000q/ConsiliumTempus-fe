@@ -16,7 +16,7 @@ import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../state/store.ts";
 import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
-import AddProjectStatusDialog from "../../components/status/AddProjectStatusDialog.tsx";
+import AddProjectStatusDialog from "../../shared/components/AddProjectStatusDialog.tsx";
 
 interface ProjectBoardProps {
   sprintId: string

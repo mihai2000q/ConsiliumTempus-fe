@@ -22,3 +22,12 @@ export const addProjectSprintDialogValidationSchema = yup.object().shape({
       otherwise: (schema) => schema
     })
 })
+
+export const addProjectStatusDialogSchema = yup.object().shape({
+  projectStatusTitle: yup
+    .string()
+    .max(50, "Title must be at most 50 characters"),
+  projectStatusDescription: yup
+    .string()
+    .required("Description is required"),
+})

@@ -12,11 +12,11 @@ import { closeProjectStatusesDialog } from "../../../../state/project/projectSli
 import ProjectStatus from "./types/ProjectStatus.model.ts";
 import { useEffect, useState } from "react";
 import { Close, MoreHoriz } from "@mui/icons-material";
-import ProjectStatusLabel from "../../components/status/ProjectStatusLabel.tsx";
+import ProjectStatusLabel from "../../shared/components/ProjectStatusLabel.tsx";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
 import ProjectStatusActionsMenu from "./components/ProjectStatusActionsMenu.tsx";
 import UserLabel from "../../../../components/label/UserLabel.tsx";
-import ProjectStatusMenu from "../../components/status/ProjectStatusMenu.tsx";
+import ProjectStatusMenu from "../../shared/components/ProjectStatusMenu.tsx";
 import ProjectStatusesDialogLoader from "./components/ProjectStatusesDialogLoader.tsx";
 import ProjectStatusAdapter from "./adapters/ProjectStatus.adapter.ts";
 import useAdapterState from "../../../../hooks/useAdapterState.ts";

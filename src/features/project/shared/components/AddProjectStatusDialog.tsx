@@ -13,11 +13,8 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import { useAddStatusToProjectMutation } from "../../state/projectApi.ts";
 import { Close } from "@mui/icons-material";
 import { useFormik } from "formik";
-import { addProjectStatusDialogSchema } from "../../state/projectValidation.ts";
-import { addProjectStatusDialogFormInitialValues} from "../../state/projectState.ts";
 import { useEffect, useState } from "react";
 import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
 import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
@@ -26,6 +23,9 @@ import { useSelector } from "react-redux";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
 import LoadingButton from "../../../../components/button/LoadingButton.tsx";
+import { addProjectStatusDialogSchema } from "../state/sharedProjectValidation.ts";
+import { addProjectStatusDialogFormInitialValues } from "../state/sharedProjectState.ts";
+import { useAddStatusToProjectMutation } from "../state/sharedProjectApi.ts";
 
 interface AddProjectStatusDialogProps {
   open: boolean,

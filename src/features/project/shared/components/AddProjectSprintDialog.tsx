@@ -28,7 +28,7 @@ import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
 import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
-import ProjectStatusSelector from "../../components/status/ProjectStatusSelector.tsx";
+import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 import { addProjectSprintDialogValidationSchema } from "../state/sharedProjectValidation.ts";
 import { useAddProjectSprintMutation } from "../state/sharedProjectApi.ts";
