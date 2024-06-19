@@ -1,6 +1,6 @@
 export interface GetWorkspacesRequest {
   isPersonalWorkspaceFirst: boolean,
-  order?: string
+  orderBy?: string[] | undefined
 }
 
 export interface CreateWorkspaceRequest {

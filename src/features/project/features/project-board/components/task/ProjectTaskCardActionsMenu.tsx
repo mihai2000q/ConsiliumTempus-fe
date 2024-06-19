@@ -1,9 +1,10 @@
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
-import { useDeleteProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
+import { useDeleteProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useNavigate } from "react-router-dom";
 import Paths from "../../../../../../utils/Paths.ts";
+import { ProjectTask } from "../../types/ProjectTask.response.ts";
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
@@ -28,34 +29,50 @@ const ProjectTaskActionsMenuItem = ({
 
 interface ProjectTaskCardActionsMenuProps {
   anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
-  taskId: string
+  onClose: () => void,
+  task: ProjectTask
 }
 
-function ProjectTaskCardActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskCardActionsMenuProps) {
+function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCardActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
 
-  const handleCloseMenu = () => setAnchorEl(null)
+  const [updateProjectTask] = useUpdateProjectTaskMutation()
+  const [deleteProjectTask] = useDeleteProjectTaskMutation()
 
   const handleViewDetails = () => {
-    handleCloseMenu()
-    navigate(`${Paths.ProjectTask}/${taskId}`)
+    onClose()
+    navigate(`${Paths.ProjectTask}/${task.id}`)
   }
   const handleCopyTaskLink = () => {
-    handleCloseMenu()
-    navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
+    onClose()
+    navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${task.id}`).then()
   }
   const handleDuplicateTask = () => {
-    console.log('Task duplicated!')
-    handleCloseMenu()
+    onClose()
   }
-
-  const [deleteProjectTask] = useDeleteProjectTaskMutation()
+  const handleMarkCompleteTask = () => {
+    updateProjectTask({
+      id: task.id,
+      name: task.name,
+      isCompleted: true,
+      assigneeId: task.assignee.id
+    })
+    onClose()
+  }
+  const handleMarkIncompleteTask = () => {
+    updateProjectTask({
+      id: task.id,
+      name: task.name,
+      isCompleted: false,
+      assigneeId: task.assignee.id
+    })
+    onClose()
+  }
   const handleDeleteTask = () => {
-    deleteProjectTask({ id: taskId }).unwrap()
-    handleCloseMenu()
+    deleteProjectTask({ id: task.id }).unwrap()
+    onClose()
   }
 
   return (
@@ -63,7 +80,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTa
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom'}}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
-      onClose={handleCloseMenu}>
+      onClose={onClose}>
       <ProjectTaskActionsMenuItem icon={<Visibility />} onClick={handleViewDetails}>
         View Details
       </ProjectTaskActionsMenuItem>
@@ -73,6 +90,19 @@ function ProjectTaskCardActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTa
       <ProjectTaskActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateTask}>
         Duplicate Task
       </ProjectTaskActionsMenuItem>
+      {
+        task.isCompleted
+          ? (
+            <ProjectTaskActionsMenuItem icon={<CheckCircleOutlineRounded />} onClick={handleMarkIncompleteTask}>
+              Mark Incomplete
+            </ProjectTaskActionsMenuItem>
+          )
+          : (
+            <ProjectTaskActionsMenuItem icon={<CheckCircleOutlineRounded />} onClick={handleMarkCompleteTask}>
+              Mark Complete
+            </ProjectTaskActionsMenuItem>
+          )
+      }
       <ProjectTaskActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}

@@ -6,7 +6,13 @@ import { alpha, Button, Divider, Drawer, IconButton, Stack, TextField, Typograph
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store.ts";
 import { closeDrawer } from "../../state/project-task-drawer/projectTaskDrawerSlice.ts";
-import { CheckRounded, LinkOutlined, MoreHoriz, SkipNextRounded } from "@mui/icons-material";
+import {
+  CheckRounded,
+  LinkOutlined,
+  MoreHoriz,
+  SkipNextRounded,
+  VisibilityOutlined
+} from "@mui/icons-material";
 import { useState } from "react";
 import Paths from "../../utils/Paths.ts";
 import ProjectTaskDrawerActionsMenu from "./components/ProjectTaskDrawerActionsMenu.tsx";
@@ -16,10 +22,12 @@ import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
 import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
+import { useNavigate } from "react-router-dom";
 
 function ProjectTaskDrawer() {
   const theme = useTheme()
   const dispatch = useDispatch()
+  const navigate = useNavigate()
 
   const isDrawerOpen = useSelector((state: RootState) => state.projectTaskDrawer.isDrawerOpen)
   const handleCloseDrawer = () => dispatch(closeDrawer())
@@ -40,7 +48,7 @@ function ProjectTaskDrawer() {
     setFacadeName(task?.name ?? '')
     setFacadeDescription(task?.description ?? '')
     setIsCompleted(task?.isCompleted ?? false)
-  }, [task])
+  }, [task]) // TODO: Referential Equality
   
   const [updateProjectTask] = useUpdateProjectTaskMutation()
   useUpdateEffect(() => {
@@ -58,6 +66,10 @@ function ProjectTaskDrawer() {
     refreshIsCompleted()
   }, [name, description, isCompleted]);
 
+  function handleViewDetails() {
+    handleCloseDrawer()
+    navigate(`${Paths.ProjectTask}/${taskId}`)
+  }
   function handleCopyTaskLink() {
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
   }
@@ -92,6 +104,9 @@ function ProjectTaskDrawer() {
             </Button>
 
             <Stack direction={'row'} spacing={1}>
+              <IconButton onClick={handleViewDetails}>
+                <VisibilityOutlined />
+              </IconButton>
               <IconButton onClick={handleCopyTaskLink}>
                 <LinkOutlined />
               </IconButton>
@@ -110,10 +125,11 @@ function ProjectTaskDrawer() {
               fullWidth
               multiline
               isTitle
+              maxLength={256}
               error={facadeName === ''}
               placeholder={'Enter a name'}
               value={facadeName}
-              onChange={(e) => setFacadeName(e, true)} />
+              onChange={(e) => setFacadeName(e.target.value, true)} />
 
             <Stack spacing={1}>
               <Typography>Description</Typography>
@@ -128,7 +144,10 @@ function ProjectTaskDrawer() {
           </Stack>
         </Stack>
       }
-      <ProjectTaskDrawerActionsMenu taskId={taskId} anchorEl={menuAnchorEl} setAnchorEl={setMenuAnchorEl} />
+      <ProjectTaskDrawerActionsMenu
+        taskId={taskId}
+        anchorEl={menuAnchorEl}
+        onClose={() => setMenuAnchorEl(null)} />
     </Drawer>
   );
 }

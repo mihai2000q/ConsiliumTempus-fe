@@ -1,18 +1,18 @@
 import { Button, IconButton, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
 import { ArrowDownward, ArrowUpward, KeyboardArrowDown, KeyboardArrowUp, Sort } from "@mui/icons-material";
-import OrderType from "../../../types/OrderType.ts";
+import OrderType from "../../../utils/OrderType.ts";
 import { projectOrderProperties } from "../data/ProjectOrderPropertiesData.tsx";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 
 interface ProjectSortButtonProps {
-  setOrder: Dispatch<SetStateAction<string>>
+  setOrder: Dispatch<SetStateAction<string[]>>
 }
 
 function ProjectSortButton({ setOrder }: ProjectSortButtonProps) {
   const [orderProperty, setOrderProperty] = useState(projectOrderProperties[0])
   const [orderType, setOrderType] = useState(OrderType.Descending)
   useEffect(() => {
-    setOrder(`${orderProperty.value}.${orderType}`)
+    setOrder([`${orderProperty.value}.${orderType}`])
   }, [orderType, orderProperty, setOrder]);
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)

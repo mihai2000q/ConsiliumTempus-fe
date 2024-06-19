@@ -7,9 +7,10 @@ interface TabPanelProps {
 }
 
 function TabPanel({ value, index, children }: TabPanelProps) {
+  if (value !== index) return <></>
+
   return (
     <div
-      hidden={value !== index}
       role={'tabpanel'}
       style={{ height: 'inherit' }}>
       {children}

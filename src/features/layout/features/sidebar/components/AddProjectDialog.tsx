@@ -1,7 +1,4 @@
 import {
-  Box,
-  Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -22,6 +19,7 @@ import { addProjectDialogFormInitialValues } from "../state/sidebarState.ts";
 import { useAddProjectMutation } from "../state/sidebarApi.ts";
 import { People } from "@mui/icons-material";
 import { useEffect } from "react";
+import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
 
 interface AddProjectDialogProps {
   workspaces: Workspace[] | undefined,
@@ -47,8 +45,8 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   })
 
   useEffect(() => {
-    values.workspaceId = workspaces && workspaces[0].id
-  }, [workspaces])
+    if (values.workspaceId === undefined) values.workspaceId = workspaces && workspaces[0].id
+  }, [values, workspaces])
 
   async function handleSubmitForm() {
     await addProject({
@@ -83,10 +81,10 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
               <Select
                 variant="filled"
                 name={'workspaceId'}
-                value={values.workspaceId}
+                value={values.workspaceId ?? ''}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                sx={{ '& .MuiListItemIcon-root': { minWidth: 0, mr: 1 } }}
+                sx={{ '& .MuiListItemIcon-root': { mr: 1 } }}
                 SelectDisplayProps={{
                   style: { display: 'flex', alignItems: 'center' },
                 }}>
@@ -103,18 +101,9 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Box position={'relative'}>
-            <Button disabled={isLoading} variant={'contained'} type={"submit"}>
-              Add
-            </Button>
-            {isLoading &&
-              <CircularProgress
-                color={"secondary"}
-                thickness={7}
-                size={24}
-                sx={{ position: 'absolute', top: '50%', left: '50%', mt: '-12px', ml: '-12px' }} />
-            }
-          </Box>
+          <LoadingButton isLoading={isLoading} variant={'contained'} type={"submit"}>
+            Add
+          </LoadingButton>
         </DialogActions>
       </form>
     </Dialog>

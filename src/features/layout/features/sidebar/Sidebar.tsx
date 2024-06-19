@@ -3,18 +3,18 @@ import SidebarContent from "./components/SidebarContent.tsx";
 
 interface SidebarProps {
   width: number,
-  isDisplayable: boolean,
-  isOpen: boolean,
+  hidden: boolean,
+  open: boolean,
 }
 
-function Sidebar({ width, isDisplayable, isOpen }: SidebarProps) {
-  if (!isDisplayable)
+function Sidebar({ width, hidden, open }: SidebarProps) {
+  if (hidden)
     return <></>
 
   return (
     <Drawer
       variant={"persistent"}
-      open={isOpen}
+      open={open}
       sx={{
         width: width,
         '& .MuiDrawer-paper': { width: width },

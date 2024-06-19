@@ -2,7 +2,7 @@ import { styled } from "@mui/material";
 
 interface MainProps {
   isSidebarOpen: boolean,
-  isLayoutDisplayable: boolean,
+  isLayoutHidden: boolean,
   drawerWidth: number
 }
 
@@ -12,12 +12,12 @@ export const Main = styled(
     shouldForwardProp: (prop) =>
       prop !== 'isSidebarOpen' &&
       prop !== 'drawerWidth' &&
-      prop !== 'isLayoutDisplayable'
+      prop !== 'isLayoutHidden'
   }
-)<MainProps>(({ theme, isSidebarOpen, isLayoutDisplayable, drawerWidth }) => ({
+)<MainProps>(({ theme, isSidebarOpen, isLayoutHidden, drawerWidth }) => ({
   padding: '76px 30px 12px 30px',
   flexGrow: 1,
-  marginLeft: `-${isLayoutDisplayable ? drawerWidth : 0}px`,
+  marginLeft: `-${isLayoutHidden ? 0 : drawerWidth}px`,
   background: `linear-gradient(
     to right bottom, 
     ${theme.palette.secondary[900]}, 

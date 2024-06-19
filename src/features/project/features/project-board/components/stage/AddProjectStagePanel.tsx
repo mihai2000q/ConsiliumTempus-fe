@@ -27,10 +27,11 @@ function AddProjectStagePanel({ sprintId, closeCard, onTop }: AddProjectStagePan
     <StyledProjectStagePanel boxShadow={4}>
       <OutlinedInputTextField
         autoFocus
+        maxLength={50}
         placeholder={'Enter stage name'}
         value={newStageName}
-        onChange={setNewStageName}
-        onBlur={handleAddStageToProjectSprint} />
+        onChange={(e) => setNewStageName(e.target.value)}
+        onBlurEvent={handleAddStageToProjectSprint} />
     </StyledProjectStagePanel>
   );
 }

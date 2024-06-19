@@ -1,6 +1,7 @@
 import { darkThemeColors, lightThemeColors } from "./colors.ts";
 import { typographies } from "./typography.ts";
 import { components } from "./components.ts";
+import { alpha } from "@mui/material";
 
 export type ThemeMode = 'dark' | 'light';
 
@@ -20,6 +21,11 @@ const darkThemePalette = {
   background: {
     ...darkThemeColors.background,
     default: darkThemeColors.background[900],
+  },
+  text: {
+    primary: darkThemeColors.background[100],
+    secondary: alpha(darkThemeColors.background[100], 0.7),
+    triadic: alpha(darkThemeColors.background[100], 0.5),
   }
 }
 
@@ -39,6 +45,11 @@ const lightThemePalette = {
   background: {
     ...lightThemeColors.background,
     default: lightThemeColors.background[900],
+  },
+  text: {
+    primary: lightThemeColors.background[100],
+    secondary: alpha(lightThemeColors.background[100], 0.7),
+    triadic: alpha(lightThemeColors.background[100], 0.6),
   }
 }
 
@@ -59,7 +70,7 @@ export const themeSettings = (mode: ThemeMode) => {
 
 declare module '@mui/material/styles' {
   interface Palette {
-    triadic: PaletteColor
+    triadic: PaletteColor,
   }
 
   interface PaletteColor {
@@ -86,5 +97,9 @@ declare module '@mui/material/styles' {
     700: string,
     800: string,
     900: string,
+  }
+
+  interface TypeText {
+    triadic: string
   }
 }

@@ -11,7 +11,7 @@ import {
   Typography
 } from "@mui/material";
 import { logout } from "../../../../../state/auth/authSlice.ts";
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../state/store.ts";
 import {
@@ -86,22 +86,19 @@ const MultipleAccountMenuItem = ({
 
 interface TopbarUserMenuProps {
   anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  onClose: () => void,
   user: User
 }
 
-function TopbarUserMenu({ anchorEl, setAnchorEl, user }: TopbarUserMenuProps) {
+function TopbarUserMenu({ anchorEl, onClose, user }: TopbarUserMenuProps) {
   const dispatch = useDispatch<AppDispatch>()
   const isDarkMode = useIsDarkMode()
 
-  const handleCloseMenu = () => setAnchorEl(null)
-
   function handleMultipleAccount() {
-    handleCloseMenu()
-    console.log('multiple accounts')
+    onClose()
   }
   function handleLogOut() {
-    handleCloseMenu()
+    onClose()
     dispatch(logout())
   }
 
@@ -109,23 +106,20 @@ function TopbarUserMenu({ anchorEl, setAnchorEl, user }: TopbarUserMenuProps) {
     dispatch(setMode())
   }
   function handleInvite() {
-    handleCloseMenu()
-    console.log('invitation')
+    onClose()
   }
   function handleProfile() {
-    handleCloseMenu()
-    console.log('profile')
+    onClose()
   }
   function handleSettings() {
-    handleCloseMenu()
-    console.log('settings')
+    onClose()
   }
 
   return (
     <Menu
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
-      onClose={handleCloseMenu}>
+      onClose={onClose}>
       <Stack direction={'row'}>
         <Stack justifyContent={'space-between'} width={230} sx={{ overflowY: 'auto' }}>
           <Stack>

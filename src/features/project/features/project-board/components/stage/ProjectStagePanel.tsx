@@ -25,7 +25,12 @@ export const StyledProjectStagePanel = styled(Stack)<StackProps>(({ theme }) => 
   width: 335,
   borderRadius: '16px',
   padding: '12px 12px 0px 12px',
-  background: alpha(theme.palette.primary[800], 0.25)
+  transition: theme.transitions.create(['box-shadow'], {
+    duration: theme.transitions.duration.complex,
+  }),
+  background: theme.palette.mode === 'dark'
+    ? alpha(theme.palette.primary[800], 0.25)
+    : alpha(theme.palette.background[800], 0.25)
 }))
 
 interface ProjectStagePanelProps {
@@ -45,9 +50,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
       id: sprintId!,
       stageId: stage.id,
       name: stageName
-    }),
-    [stageName]
-  )
+    }), [stageName])
 
   const getProjectTasksQuery = useGetProjectTasksQuery({ projectStageId: stage.id }).data
   const tasks = getProjectTasksQuery?.tasks
@@ -59,7 +62,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
   const [showBottomAddTaskCard, setShowBottomAddTaskCard] = useState(false)
 
   return (
-    <StyledProjectStagePanel boxShadow={4}>
+    <StyledProjectStagePanel boxShadow={4} sx={{ '&:hover': { boxShadow: 8 } }}>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Stack direction={'row'} alignItems={'center'}>
           <OutlinedContentEditable
@@ -67,6 +70,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
             value={stageName}
             handleChange={setStageName}
             noWrap
+            maxLength={50}
             sx={{
               color: theme.palette.background[200],
               maxWidth: 180,
@@ -77,8 +81,9 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
               ? <CircularProgress size={16} />
               :
               <Tooltip
-                sx={{ cursor: 'default' }}
+                arrow
                 placement={'top'}
+                sx={{ cursor: 'default' }}
                 title={`There are ${totalTasksCount} task${totalTasksCount === 1 ? '' : 's'} in this stage`}>
                 <Typography fontWeight={300}>{totalTasksCount}</Typography>
               </Tooltip>
@@ -89,7 +94,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           <IconButton>
             <SearchRounded />
           </IconButton>
-          <IconButton onClick={() => setShowTopAddTaskCard(true)}>
+          <IconButton onClick={() => setShowTopAddTaskCard(!showTopAddTaskCard)}>
             <AddRounded />
           </IconButton>
           <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
@@ -97,7 +102,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           </IconButton>
           <ProjectStageActionsMenu
             anchorEl={menuAnchorEl}
-            setAnchorEl={setMenuAnchorEl}
+            onClose={() => setMenuAnchorEl(null)}
             stageId={stage.id} />
         </Stack>
       </Stack>

@@ -16,12 +16,18 @@ import { GridViewRounded, Search, ViewStreamRounded } from "@mui/icons-material"
 import ProjectSortButton from "./components/ProjectSortButton.tsx";
 import ProjectFilterButton from "./components/ProjectFilterButton.tsx";
 import usePageSize from "./hooks/usePageSize.ts";
-import ProjectsButtonGroup from "./components/ProjectsButtonGroup.tsx";
-import useProjectsPageCount from "./hooks/useProjectsPageCount.ts";
+import ProjectsLifecycleButtons from "./components/ProjectsLifecycleButtons.tsx";
+import useProjectsPages from "./hooks/useProjectsPages.ts";
 import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import useFacadeState from "../../hooks/useFacadeState.ts";
 import projectsSearchParamsState from "./state/ProjectsSearchParamsState.ts";
+import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
+import FilterOperator from "../../utils/FilterOperator.ts";
+import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
+import ProjectAdapter from "./adapters/Project.adapter.ts";
+import ProjectLifecycle from "../../utils/project/ProjectLifecycle.ts";
+import useAdapterState from "../../hooks/useAdapterState.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -34,8 +40,24 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
-  const [order, setOrder] = useState('')
+  const [orderBy, setOrderBy] = useState<string[]>([])
+  const [
+    searchQueryParam,
+    addToSearchQueryParam,
+    removeFromSearchQueryParam
+  ] = useSearchQueryParam();
+
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
+  useUpdateEffect(() => {
+    addToSearchQueryParam({
+      property: ProjectsSearchQueryParams.Name,
+      operator: FilterOperator.Contains,
+      value: searchName.trim() === '' ? null : searchName
+    })
+  }, [searchName])
+
+  const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
+  const [active, setActive] = useState(true)
 
   const pageSize = usePageSize()
 
@@ -44,23 +66,27 @@ function Projects() {
     isLoading,
     isFetching
   } = useGetProjectsQuery({
-    order: order,
+    orderBy: orderBy,
     pageSize: pageSize,
     currentPage: searchParams.currentPage,
-    name: searchName.trim()
+    search: searchQueryParam
   })
-  const projects = data?.projects
+  const projects = useAdapterState(data?.projects, ProjectAdapter.adapt)
+
+  const [startPageCount, endPageCount, totalPages] = useProjectsPages(
+    data,
+    pageSize,
+    searchParams.currentPage
+  )
 
   useUpdateEffect(() => {
     setSearchParams({ ...searchParams, currentPage: 1 })
-  }, [searchName]);
+  }, [searchName])
 
   useUpdateEffect(() => {
-    if (data && data.projects.length === 0 && data.totalPages)
-      setSearchParams({ ...searchParams, currentPage: data.totalPages })
-  }, [data, pageSize]);
-
-  const [startPageCount, endPageCount] = useProjectsPageCount(data, pageSize, searchParams.currentPage)
+    if (data?.projects.length === 0 && data?.totalCount != 0)
+      setSearchParams({ ...searchParams, currentPage: totalPages})
+  }, [data, pageSize])
 
   const handleSearchNameChangeField = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFacadeName(e.target.value)
@@ -93,11 +119,17 @@ function Projects() {
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />}
         </Stack>
 
-        <ProjectsButtonGroup />
+        <ProjectsLifecycleButtons
+          lifecycle={lifecycle}
+          setLifecycle={setLifecycle}
+          active={active}
+          setActive={setActive}
+          addToSearchQueryParam={addToSearchQueryParam} />
 
         <Stack direction={'row'} spacing={2}>
-          <ProjectSortButton setOrder={setOrder} />
-          <ProjectFilterButton />
+          <ProjectSortButton setOrder={setOrderBy} />
+          <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
+                               removeFromSearchQueryParam={removeFromSearchQueryParam} />
         </Stack>
       </Stack>
 
@@ -162,10 +194,9 @@ function Projects() {
       {
         !data
           ? <CircularProgress color={'secondary'} size={27} thickness={7} />
-          : data?.totalPages !== null &&
-          <Pagination
+          : <Pagination
             disabled={isFetching}
-            count={data.totalPages}
+            count={totalPages}
             page={searchParams.currentPage}
             onChange={handleCurrentPageChange}
             color="primary"

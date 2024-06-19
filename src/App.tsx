@@ -16,6 +16,8 @@ import Project from "./features/project/Project.tsx";
 import ProjectTask from "./features/project-task/ProjectTask.tsx";
 import ProjectTaskParams from "./features/project-task/utils/ProjectTaskParams.ts";
 import ProjectParams from "./features/project/utils/ProjectParams.ts";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -26,23 +28,25 @@ function App() {
   return (
     <div className={'app'}>
       <BrowserRouter>
-        <ThemeProvider theme={theme}>
-          <CssBaseline enableColorScheme />
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path={'/'} element={<Navigate to={'/login'} replace />} />
-              <Route path={Paths.Login} element={<Login />} />
-              <Route path={Paths.Signup} element={<Signup />} />
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline enableColorScheme />
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path={'/'} element={<Navigate to={'/login'} replace />} />
+                <Route path={Paths.Login} element={<Login />} />
+                <Route path={Paths.Signup} element={<Signup />} />
 
-              <Route path={Paths.Home} element={<Home />} />
-              <Route path={Paths.Tasks} element={<MyTasks />} />
-              <Route path={Paths.Calendar} element={<Calendar />} />
-              <Route path={Paths.Projects} element={<Projects />} />
-              <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
-              <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
-            </Route>
-          </Routes>
-        </ThemeProvider>
+                <Route path={Paths.Home} element={<Home />} />
+                <Route path={Paths.Tasks} element={<MyTasks />} />
+                <Route path={Paths.Calendar} element={<Calendar />} />
+                <Route path={Paths.Projects} element={<Projects />} />
+                <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
+                <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
+              </Route>
+            </Routes>
+          </ThemeProvider>
+        </LocalizationProvider>
       </BrowserRouter>
     </div>
   )

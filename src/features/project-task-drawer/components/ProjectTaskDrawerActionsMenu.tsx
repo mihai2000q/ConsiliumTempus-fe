@@ -1,4 +1,4 @@
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
 import { ContentCopy, DeleteOutlined } from "@mui/icons-material";
 import { useDeleteProjectTaskMutation } from "../state/projectTaskDrawerApi.ts";
@@ -26,24 +26,21 @@ const ProjectTaskActionsMenuItem = ({
 
 interface ProjectTaskDrawerActionsMenuProps {
   anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  onClose: () => void,
   taskId: string
 }
 
-function ProjectTaskDrawerActionsMenu({ anchorEl, setAnchorEl, taskId }: ProjectTaskDrawerActionsMenuProps) {
+function ProjectTaskDrawerActionsMenu({ anchorEl, onClose, taskId }: ProjectTaskDrawerActionsMenuProps) {
   const theme = useTheme()
 
-  const handleCloseMenu = () => setAnchorEl(null)
-
   const handleDuplicateTask = () => {
-    console.log('Task duplicated!')
-    handleCloseMenu()
+    onClose()
   }
 
   const [deleteProjectTask] = useDeleteProjectTaskMutation()
   const handleDeleteTask = () => {
     deleteProjectTask({ id: taskId }).unwrap()
-    handleCloseMenu()
+    onClose()
   }
 
   return (
@@ -51,7 +48,7 @@ function ProjectTaskDrawerActionsMenu({ anchorEl, setAnchorEl, taskId }: Project
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom'}}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
-      onClose={handleCloseMenu}>
+      onClose={onClose}>
       <ProjectTaskActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateTask}>
         Duplicate Task
       </ProjectTaskActionsMenuItem>

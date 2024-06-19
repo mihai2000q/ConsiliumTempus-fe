@@ -32,7 +32,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   function handleOnKeyUp(e) {
-    if ((e.key === 'Enter')) handleBlur()
+    if ((e.key === 'Enter')) addNewTask()
   }
 
   return (
@@ -51,6 +51,9 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
         <InputBase
           autoFocus
           fullWidth
+          multiline
+          maxRows={3}
+          inputProps={{ maxLength: 256 }}
           placeholder={'Enter new task name'}
           value={name}
           onChange={(e) => setName(e.target.value)} />

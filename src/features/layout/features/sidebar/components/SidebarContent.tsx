@@ -18,9 +18,12 @@ function SidebarContent() {
 
   const workspaces: Workspace[] | undefined = useGetWorkspacesQuery({
     isPersonalWorkspaceFirst: true,
-    order: 'last_activity.desc'
+    orderBy: ['last_activity.desc']
   }).data?.workspaces
-  const projects: Project[] | undefined = useGetProjectsQuery({ order: 'last_activity.desc' }).data?.projects
+  const projects: Project[] | undefined = useGetProjectsQuery({
+    orderBy: ['last_activity.desc'],
+    search: ['lifecycle eq active']
+  }).data?.projects
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
   const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)
@@ -87,7 +90,7 @@ function SidebarContent() {
       <Stack>
         <Divider />
         <Button
-          variant={'outlined'}
+          variant={'alt-outlined'}
           startIcon={<MailOutlined sx={{ mr: '3px' }} />}
           sx={{ marginX: 2, marginTop: 3, marginBottom: 2 }}>
           Invite teammates

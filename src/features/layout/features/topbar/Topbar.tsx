@@ -1,19 +1,19 @@
 import { IconButton, Stack } from "@mui/material";
-import { Menu, NotificationsOutlined, NotificationsRounded } from "@mui/icons-material";
+import { Menu, NotificationsOutlined } from "@mui/icons-material";
 import TopbarUser from "./components/TopbarUser.tsx";
 import { Dispatch, SetStateAction } from "react";
 import { AppToolbar } from "./components/AppToolbar.tsx";
 import TopbarSearchBar from "./components/TopbarSearchBar.tsx";
 
 interface TopbarProps {
-  isDisplayable: boolean,
+  hidden: boolean,
   isSidebarOpen: boolean,
   setIsSidebarOpen: Dispatch<SetStateAction<boolean>>,
   drawerWidth: number
 }
 
-function Topbar({ isDisplayable, isSidebarOpen, setIsSidebarOpen, drawerWidth }: TopbarProps) {
-  if (!isDisplayable)
+function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: TopbarProps) {
+  if (hidden)
     return <></>
 
   function handleMenu() {

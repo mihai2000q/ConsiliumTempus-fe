@@ -82,12 +82,14 @@ function Login() {
                   name={'email'}
                   label={'Email'}
                   placeholder={'Enter your email'}
+                  inputProps={{ maxLength: 256 }}
                   error={touched.email && !!errors.email || isError}
                   helperText={touched.email && errors.email || isError && loginError?.title} />
 
                 <PasswordTextField
                   value={values.password}
                   onChange={handleChange}
+                  maxLength={100}
                   onBlur={handleBlur}
                   error={touched.password && !!errors.password || isError}
                   helperText={touched.password && errors.password || isError && loginError?.title} />

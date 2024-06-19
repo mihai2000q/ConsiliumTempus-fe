@@ -42,7 +42,7 @@ export const typographies = {
   },
   subtitle2: {
     fontFamily: fonts('"Source Sans 3"'),
-    fontSize: 12
+    fontSize: 11
   },
   caption: {
     fontFamily: fonts('"Source Sans 3"'),

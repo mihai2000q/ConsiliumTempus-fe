@@ -1,5 +1,5 @@
 import {
-  Box, Button, CircularProgress, Dialog,
+  Dialog,
   DialogActions,
   DialogContent,
   DialogTitle,
@@ -10,6 +10,7 @@ import { useAddWorkspaceMutation } from "../state/sidebarApi.ts";
 import { useFormik } from "formik";
 import { addWorkspaceDialogFormInitialValues } from "../state/sidebarState.ts";
 import { addWorkspaceDialogSchema } from "../state/sidebarValidation.ts";
+import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
 
 interface AddWorkspaceDialogProps {
   open: boolean,
@@ -63,18 +64,9 @@ function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Box position={'relative'}>
-            <Button disabled={isLoading} variant={'contained'} type={"submit"}>
-              Add
-            </Button>
-            {isLoading &&
-              <CircularProgress
-                color={"secondary"}
-                thickness={7}
-                size={24}
-                sx={{ position: 'absolute', top: '50%', left: '50%', mt: '-12px', ml: '-12px' }} />
-            }
-          </Box>
+          <LoadingButton isLoading={isLoading} variant={'contained'} type={"submit"}>
+            Add
+          </LoadingButton>
         </DialogActions>
       </form>
     </Dialog>

@@ -1,5 +1,5 @@
 import { alpha, InputBase, InputBaseProps, styled, SxProps, Theme } from "@mui/material";
-import { useRef, useState } from "react";
+import { ChangeEventHandler, useRef, useState } from "react";
 
 interface OutlinedInputProps extends InputBaseProps {
   isFocused: boolean,
@@ -32,25 +32,33 @@ const OutlinedInput = styled(
         border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`,
       },
     }),
-  ...(error === true && { borderColor: theme.palette.error.main })
+  ...(error === true && {
+    borderColor: theme.palette.error.main,
+    '&:hover': { borderColor: theme.palette.error.main }
+  })
 }))
 
 interface OutlinedInputTextFieldProps {
   value: string,
-  onChange: (change: string) => void,
-  placeholder?: string | undefined,
-  autoFocus?: boolean | undefined,
-  fullWidth?: boolean | undefined,
-  multiline?: boolean | undefined,
-  isTitle?: boolean | undefined,
-  error?: boolean | undefined,
+  onChange: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,
+  name?: string | undefined,
+  placeholder?: string,
+  autoFocus?: boolean,
+  fullWidth?: boolean,
+  multiline?: boolean,
+  isTitle?: boolean,
+  error?: boolean,
+  minRows?: number,
+  maxLength?: number,
   sx?: SxProps<Theme> | undefined,
-  onBlur?: (() => void) | undefined,
+  onBlur?: ((e: unknown) => unknown),
+  onBlurEvent?: (() => void) | undefined,
 }
 
 function OutlinedInputTextField({
   value,
   onChange,
+  name,
   placeholder,
   autoFocus,
   fullWidth,
@@ -58,6 +66,9 @@ function OutlinedInputTextField({
   isTitle,
   error,
   onBlur,
+  onBlurEvent,
+  minRows,
+  maxLength,
   sx,
 }: OutlinedInputTextFieldProps) {
   const inputRef = useRef(null)
@@ -69,17 +80,21 @@ function OutlinedInputTextField({
       autoFocus={autoFocus}
       fullWidth={fullWidth}
       multiline={multiline}
+      minRows={minRows}
+      inputProps={{ maxLength: maxLength }}
       error={error}
       inputRef={inputRef}
       placeholder={placeholder}
+      name={name}
       value={value}
-      onChange={(e) => onChange(e.target.value)}
+      onChange={onChange}
       isFocused={isFocused}
       isTitle={isTitle ?? false}
       onFocus={() => setIsFocused(true)}
-      onBlur={() => {
+      onBlur={(e) => {
         setIsFocused(false)
-        if (onBlur) onBlur()
+        if (onBlurEvent) onBlurEvent()
+        if (onBlur) onBlur(e)
       }}
       onKeyDown={(e) => {
         if (e.key === 'Enter') {

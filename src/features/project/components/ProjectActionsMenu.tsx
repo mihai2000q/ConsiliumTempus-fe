@@ -5,18 +5,19 @@ import {
   CreateNewFolder,
   DeleteOutlined,
   Edit,
+  HourglassEmpty,
+  HourglassFull,
   ManageAccounts,
   MoveDown,
-  Save
+  Save,
+  UnarchiveOutlined
 } from "@mui/icons-material";
 import Paths from "../../../utils/Paths.ts";
 import { useNavigate } from "react-router-dom";
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
-
-interface ProjectActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>
-}
+import { MouseEventHandler, ReactNode } from "react";
+import Project from "../types/Project.model.ts";
+import { useUpdateProjectMutation, useDeleteProjectMutation } from "../state/projectApi.ts";
+import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -33,47 +34,89 @@ const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color } : P
   </MenuItem>
 )
 
-function ProjectActionsMenu({ anchorEl, setAnchorEl } : ProjectActionsMenuProps ) {
+interface ProjectActionsMenuProps {
+  anchorEl: HTMLElement | null,
+  onClose: () => void,
+  projectId: string,
+  project: Project
+}
+
+function ProjectActionsMenu({
+  anchorEl,
+  onClose,
+  projectId,
+  project
+} : ProjectActionsMenuProps ) {
   const theme = useTheme()
 
   const navigate = useNavigate()
 
-  const handleCloseMenu = () => setAnchorEl(null)
+  const [updateProject] = useUpdateProjectMutation()
+  const [deleteProject] = useDeleteProjectMutation()
 
   const handleEditProject = () => {
-    console.log("Go to edit project")
-    handleCloseMenu()
+    onClose()
   }
 
   const handleDuplicateProject = () => {
-    console.log("Project duplicated")
-    handleCloseMenu()
+    onClose()
   }
   const handleAddProjectToPortfolio = () => {
-    console.log("Project added to portfolio")
-    handleCloseMenu()
+    onClose()
   }
   const handleSaveProjectTemplate = () => {
-    console.log("Project saved as template")
-    handleCloseMenu()
+    onClose()
   }
   const handleMoveToNextSprint = () => {
-    console.log("Project moved to next sprint")
-    handleCloseMenu()
+    onClose()
   }
 
-  const handleArchiveProject = () => {
-    console.log("Project archived")
-    handleCloseMenu()
+  const handleUnarchiveProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Active,
+      isFavorite: project.isFavorite
+    }).unwrap()
+    onClose()
   }
-  const handleDeleteProject = () => {
-    console.log("Project deleted")
+  const handleArchiveProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Archived,
+      isFavorite: project.isFavorite
+    }).unwrap()
+    onClose()
+  }
+
+  const handleUnsetUpcomingProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Active,
+      isFavorite: project.isFavorite
+    }).unwrap()
+    onClose()
+  }
+  const handleSetUpcomingProject = () => {
+    updateProject({
+      id: projectId,
+      name: project.name,
+      lifecycle: ProjectLifecycle.Upcoming,
+      isFavorite: project.isFavorite
+    }).unwrap()
+    onClose()
+  }
+
+  const handleDeleteProject = async () => {
+    onClose()
+    await deleteProject({ id: projectId })
     navigate(Paths.Projects)
-    handleCloseMenu()
   }
 
   return (
-    <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={handleCloseMenu}>
+    <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
       <ProjectActionsMenuItem icon={<Edit />} onClick={handleEditProject}>
         Edit Project Details
       </ProjectActionsMenuItem>
@@ -96,9 +139,28 @@ function ProjectActionsMenu({ anchorEl, setAnchorEl } : ProjectActionsMenuProps 
       </ProjectActionsMenuItem>
 
       <Divider variant={'middle'}/>
-      <ProjectActionsMenuItem icon={<Archive />} onClick={handleArchiveProject}>
-        Archive
-      </ProjectActionsMenuItem>
+      {
+        project.lifecycle === 'Archived'
+          ?
+          <ProjectActionsMenuItem icon={<UnarchiveOutlined />} onClick={handleUnarchiveProject}>
+            Unarchive
+          </ProjectActionsMenuItem>
+          :
+          <ProjectActionsMenuItem icon={<Archive />} onClick={handleArchiveProject}>
+            Archive
+          </ProjectActionsMenuItem>
+      }
+      {
+        project.lifecycle === 'Upcoming'
+          ?
+          <ProjectActionsMenuItem icon={<HourglassEmpty />} onClick={handleUnsetUpcomingProject}>
+            Unset Upcoming
+          </ProjectActionsMenuItem>
+          :
+          <ProjectActionsMenuItem icon={<HourglassFull />} onClick={handleSetUpcomingProject}>
+            Set Upcoming
+          </ProjectActionsMenuItem>
+      }
       <ProjectActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}

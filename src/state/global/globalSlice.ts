@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { initialState } from "./globalState.ts";
 
 export const globalSlice = createSlice({
@@ -7,10 +7,13 @@ export const globalSlice = createSlice({
   reducers: {
     setMode: state => {
       state.mode = state.mode === 'light' ? 'dark' : 'light'
+    },
+    setUserId: (state, action: PayloadAction<string | undefined>) => {
+      state.userId = action.payload
     }
   }
 })
 
-export const { setMode } = globalSlice.actions
+export const { setMode, setUserId } = globalSlice.actions
 
 export default globalSlice.reducer

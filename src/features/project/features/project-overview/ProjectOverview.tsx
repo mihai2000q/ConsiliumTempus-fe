@@ -15,7 +15,7 @@ function ProjectOverview({ projectId }: ProjectOverviewProps) {
   const [description, refreshDescription, facadeDescription, setFacadeDescription] = useDependencyFacadeState('')
   useEffect(() => {
     setFacadeDescription(projectOverview?.description ?? '')
-  }, [projectOverview])
+  }, [projectOverview]) // TODO: Referential Equality
 
   const [updateProjectOverview] = useUpdateProjectOverviewMutation()
   useUpdateEffect(() => {

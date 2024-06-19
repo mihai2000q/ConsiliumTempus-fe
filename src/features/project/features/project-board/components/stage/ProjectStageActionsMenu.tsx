@@ -1,4 +1,4 @@
-import { Dispatch, MouseEventHandler, ReactNode, SetStateAction } from "react";
+import { MouseEventHandler, ReactNode } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
 import {
   DeleteOutlined,
@@ -35,40 +35,36 @@ const ProjectStageActionsMenuItem = ({
 
 interface ProjectStageActionsMenuProps {
   anchorEl: HTMLElement | null,
-  setAnchorEl: Dispatch<SetStateAction<HTMLElement | null>>,
+  onClose: () => void,
   stageId: string
 }
 
-function ProjectStageActionsMenu({ anchorEl, setAnchorEl, stageId }: ProjectStageActionsMenuProps) {
+function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageActionsMenuProps) {
   const theme = useTheme()
 
   const sprintId = useSelector((state: RootState) => state.project.sprintId)
 
-  const handleCloseMenu = () => setAnchorEl(null)
-
   const handleAddRuleToStage = () => {
-    console.log('Rule Added to stage!')
-    handleCloseMenu()
+    onClose()
   }
   const handleRenameStage = () => {
-    console.log('Stage Renamed!')
-    handleCloseMenu()
+    onClose()
   }
 
   enum Placement { Left = 'left', Right = 'right' }
   const handleAddNewStage = (placement: Placement) => {
-    console.log(`Added new stage to ${placement}!`)
-    handleCloseMenu()
+    console.log(placement)
+    onClose()
   }
 
   const [removeStageFromProjectSprint] = useRemoveStageFromProjectSprintMutation()
   const handleDeleteStage = () => {
     removeStageFromProjectSprint({ id: sprintId!, stageId })
-    handleCloseMenu()
+    onClose()
   }
 
   return (
-    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
+    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={onClose}>
       <ProjectStageActionsMenuItem icon={<ElectricBolt />} onClick={handleAddRuleToStage}>
         Add Rule to Stage
       </ProjectStageActionsMenuItem>
