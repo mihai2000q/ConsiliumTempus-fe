@@ -1,7 +1,4 @@
 import {
-  Box,
-  Button,
-  CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
@@ -22,6 +19,7 @@ import { addProjectDialogFormInitialValues } from "../state/sidebarState.ts";
 import { useAddProjectMutation } from "../state/sidebarApi.ts";
 import { People } from "@mui/icons-material";
 import { useEffect } from "react";
+import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
 
 interface AddProjectDialogProps {
   workspaces: Workspace[] | undefined,
@@ -51,10 +49,8 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   }, [values, workspaces])
 
   async function handleSubmitForm() {
-    if (values.workspaceId === undefined) return
-
     await addProject({
-      workspaceId: values.workspaceId,
+      workspaceId: values.workspaceId!,
       name: values.projectName
     }).unwrap()
     if (isError) return
@@ -105,18 +101,9 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Box position={'relative'}>
-            <Button disabled={isLoading} variant={'contained'} type={"submit"}>
-              Add
-            </Button>
-            {isLoading &&
-              <CircularProgress
-                color={"secondary"}
-                thickness={7}
-                size={24}
-                sx={{ position: 'absolute', top: '50%', left: '50%', mt: '-12px', ml: '-12px' }} />
-            }
-          </Box>
+          <LoadingButton isLoading={isLoading} variant={'contained'} type={"submit"}>
+            Add
+          </LoadingButton>
         </DialogActions>
       </form>
     </Dialog>

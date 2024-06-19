@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import {
   AppBar,
   Breadcrumbs,
-  Button,
   Collapse,
   Dialog,
   DialogContent,
@@ -27,6 +26,7 @@ import FormGridItem from "../../../../../components/form/FormGridItem.tsx";
 import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../state/store.ts";
+import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
 
 interface UpdateProjectSprintDialogProps {
   open: boolean,
@@ -102,9 +102,9 @@ function UpdateProjectSprintDialog({
               ))}
               <Typography>Update Sprint</Typography>
             </Breadcrumbs>
-            <Button variant="contained" type={'submit'} disabled={isLoading}>
+            <LoadingButton variant="contained" type={'submit'} isLoading={isLoading}>
               Update
-            </Button>
+            </LoadingButton>
           </Toolbar>
         </AppBar>
 

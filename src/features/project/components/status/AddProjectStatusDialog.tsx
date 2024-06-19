@@ -1,7 +1,6 @@
 import {
   AppBar,
   Breadcrumbs,
-  Button,
   Collapse,
   Dialog,
   DialogContent,
@@ -26,6 +25,7 @@ import { RootState } from "../../../../state/store.ts";
 import { useSelector } from "react-redux";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
+import LoadingButton from "../../../../components/button/LoadingButton.tsx";
 
 interface AddProjectStatusDialogProps {
   open: boolean,
@@ -99,9 +99,9 @@ function AddProjectStatusDialog({
               ))}
               <Typography>Add Status</Typography>
             </Breadcrumbs>
-            <Button variant="contained" type={'submit'} disabled={isLoading}>
+            <LoadingButton isLoading={isLoading} variant="contained" type={'submit'}>
               Submit
-            </Button>
+            </LoadingButton>
           </Toolbar>
         </AppBar>
 

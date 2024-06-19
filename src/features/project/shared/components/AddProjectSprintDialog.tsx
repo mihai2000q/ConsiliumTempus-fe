@@ -7,7 +7,6 @@ import {
   AccordionSummary,
   AppBar,
   Breadcrumbs,
-  Button,
   Checkbox,
   Collapse,
   Dialog,
@@ -34,6 +33,7 @@ import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 import { addProjectSprintDialogValidationSchema } from "../state/sharedProjectValidation.ts";
 import { useAddProjectSprintMutation } from "../state/sharedProjectApi.ts";
 import { addProjectSprintDialogInitialValues } from "../state/sharedProjectState.ts";
+import LoadingButton from "../../../../components/button/LoadingButton.tsx";
 
 function AddProjectSprintDialog() {
   const projectStatusTitlePlaceholder = 'Status Update'
@@ -116,9 +116,9 @@ function AddProjectSprintDialog() {
               ))}
               <Typography>Add Sprint</Typography>
             </Breadcrumbs>
-            <Button variant="contained" type={'submit'} disabled={isLoading}>
+            <LoadingButton isLoading={isLoading} variant="contained" type={'submit'}>
               Submit
-            </Button>
+            </LoadingButton>
           </Toolbar>
         </AppBar>
 

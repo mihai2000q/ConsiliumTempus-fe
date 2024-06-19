@@ -1,7 +1,6 @@
 import {
   AppBar,
   Breadcrumbs,
-  Button,
   Collapse,
   Dialog,
   DialogContent,
@@ -27,6 +26,7 @@ import { RootState } from "../../../../state/store.ts";
 import { useSelector } from "react-redux";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
+import LoadingButton from "../../../../components/button/LoadingButton.tsx";
 
 interface UpdateProjectStatusDialogProps {
   open: boolean,
@@ -101,9 +101,9 @@ function UpdateProjectStatusDialog({
               ))}
               <Typography>Update Status</Typography>
             </Breadcrumbs>
-            <Button variant="contained" type={'submit'} disabled={isLoading}>
+            <LoadingButton variant="contained" type={'submit'} isLoading={isLoading}>
               Update
-            </Button>
+            </LoadingButton>
           </Toolbar>
         </AppBar>
 
