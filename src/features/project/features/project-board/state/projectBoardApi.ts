@@ -17,7 +17,7 @@ import {
 } from "../types/ProjectTask.request.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
 
-export const projectSprintApiSlice = api.injectEndpoints({
+export const projectBoardApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjectSprint: builder.query<ProjectSprint, GetProjectSprintRequest>({
       query: arg => `${Urls.ProjectSprints}/${arg.id}`,
@@ -90,4 +90,4 @@ export const {
   useAddProjectTaskMutation,
   useUpdateProjectTaskMutation,
   useDeleteProjectTaskMutation,
-} = projectSprintApiSlice
+} = projectBoardApiSlice

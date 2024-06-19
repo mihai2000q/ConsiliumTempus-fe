@@ -10,7 +10,7 @@ import {
 import { GetProjectSprintsResponse } from "../types/ProjectSprints.response.ts";
 import ProjectSprintResponse from "../types/ProjectSprint.response.ts";
 
-export const projectSprintDialogApiSlice = api.injectEndpoints({
+export const projectSprintsDialogApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjectSprint: builder.query<ProjectSprintResponse, GetProjectSprintRequest>({
       query: arg => `${Urls.ProjectSprints}/${arg.id}`,
@@ -46,4 +46,4 @@ export const {
   useGetProjectSprintsQuery,
   useUpdateProjectSprintMutation,
   useDeleteProjectSprintMutation
-} = projectSprintDialogApiSlice
+} = projectSprintsDialogApiSlice

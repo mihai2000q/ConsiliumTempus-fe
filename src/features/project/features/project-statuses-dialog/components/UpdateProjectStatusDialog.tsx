@@ -13,20 +13,20 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import { useUpdateStatusFromProjectMutation } from "../../state/projectApi.ts";
 import { Close } from "@mui/icons-material";
 import { useFormik } from "formik";
-import { updateProjectStatusDialogSchema } from "../../state/projectValidation.ts";
-import { updateProjectStatusDialogFormInitialValues } from "../../state/projectState.ts";
+import { updateProjectStatusDialogSchema } from "../../../state/projectValidation.ts";
+import { updateProjectStatusDialogFormInitialValues } from "../../../state/projectState.ts";
 import { useEffect, useState } from "react";
-import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
-import ProjectStatus from "../../types/ProjectStatus.model.ts";
-import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
-import { RootState } from "../../../../state/store.ts";
+import OutlinedInputTextField from "../../../../../components/textfield/OutlinedInputTextField.tsx";
+import ProjectStatus from "../types/ProjectStatus.model.ts";
+import ProjectStatusType from "../../../../../utils/project/ProjectStatusType.ts";
+import { RootState } from "../../../../../state/store.ts";
 import { useSelector } from "react-redux";
-import FormGridItem from "../../../../components/form/FormGridItem.tsx";
-import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
-import LoadingButton from "../../../../components/button/LoadingButton.tsx";
+import FormGridItem from "../../../../../components/form/FormGridItem.tsx";
+import ProjectStatusSelector from "../../../components/status/ProjectStatusSelector.tsx";
+import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
+import { useUpdateStatusFromProjectMutation } from "../state/projectStatusesDialogApi.ts";
 
 interface UpdateProjectStatusDialogProps {
   open: boolean,

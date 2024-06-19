@@ -3,7 +3,7 @@ import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
 import UpdateProjectSprintDialog from "./UpdateProjectSprintDialog.tsx";
 import ProjectSprint from "../types/ProjectSprint.model.ts";
-import { useDeleteProjectSprintMutation } from "../state/projectSprintDialogApi.ts";
+import { useDeleteProjectSprintMutation } from "../state/projectSprintsDialogApi.ts";
 
 interface ProjectSprintActionsMenuItemProps {
   children: ReactNode,

@@ -36,7 +36,7 @@ import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 import ProjectLoader from "./components/ProjectLoader.tsx";
 import ProjectStatusMenu from "./components/status/ProjectStatusMenu.tsx";
 import ProjectStatusLabel from "./components/status/ProjectStatusLabel.tsx";
-import ProjectStatusesDialog from "./components/status/ProjectStatusesDialog.tsx";
+import ProjectStatusesDialog from "./features/project-statuses-dialog/ProjectStatusesDialog.tsx";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
 import { setBreadcrumbs, setProjectId, setProjectName } from "../../state/project/projectSlice.ts";
 import Paths from "../../utils/Paths.ts";

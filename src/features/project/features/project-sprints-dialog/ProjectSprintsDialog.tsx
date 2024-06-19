@@ -7,7 +7,7 @@ import useAdapterState from "../../../../hooks/useAdapterState.ts";
 import { useEffect, useState } from "react";
 import { closeProjectSprintsDialog, openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
 import ProjectSprintsDialogLoader from "./components/ProjectSprintsDialogLoader.tsx";
-import { useGetProjectSprintsQuery } from "./state/projectSprintDialogApi.ts";
+import { useGetProjectSprintsQuery } from "./state/projectSprintsDialogApi.ts";
 import ProjectSprintsAdapter from "./adapters/ProjectSprints.adapter.ts";
 import ProjectSprint from "./components/ProjectSprint.tsx";
 
