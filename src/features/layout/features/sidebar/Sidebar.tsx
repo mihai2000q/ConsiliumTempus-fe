@@ -7,11 +7,11 @@ import { Add, MailOutlined, Person } from "@mui/icons-material";
 import AddProjectDialog from "./components/AddProjectDialog.tsx";
 import AddWorkspaceDialog from "./components/AddWorkspaceDialog.tsx";
 import Workspace from "./types/Workspace.model.ts";
-import { useGetProjectsQuery, useGetWorkspacesQuery } from "./state/sidebarApi.ts";
-import Project from "./types/Project.model.ts";
+import { useGetWorkspacesQuery } from "./state/sidebarApi.ts";
 import { useState } from "react";
 import randomWorkspaceIcons from "./data/RandomWorkspaceIcons.tsx";
 import randomProjectIcons from "./data/RandomProjectIcons.tsx";
+import useProjects from "./hooks/useProjects.ts";
 
 interface SidebarProps {
   width: number,
@@ -29,13 +29,12 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
     },
     { skip: hidden }
   ).data?.workspaces
-  const projects: Project[] | undefined = useGetProjectsQuery(
-    {
-      orderBy: ['last_activity.desc'],
-      search: ['lifecycle eq active']
-    },
-    { skip: hidden }
-  ).data?.projects
+
+  const [
+    projects,
+    projectIsFetching,
+    projectIncreaseCurrentPage
+  ] = useProjects(hidden)
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
   const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)
@@ -101,6 +100,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
                 <Add sx={{ color: 'darkgrey' }}/>
               </IconButton>
             }
+            isFetching={projectIsFetching}
+            increaseCurrentPage={projectIncreaseCurrentPage}
             drawerItems={projects?.map((p) => ({
               text: p.name,
               link: `${Paths.Project}/${p.id}`,

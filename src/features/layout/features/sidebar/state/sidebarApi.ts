@@ -41,6 +41,7 @@ export const sidebarApiSlice = api.injectEndpoints({
 export const {
   useGetWorkspacesQuery,
   useGetProjectsQuery,
+  useLazyGetProjectsQuery,
   useAddProjectMutation,
   useAddWorkspaceMutation,
 } = sidebarApiSlice

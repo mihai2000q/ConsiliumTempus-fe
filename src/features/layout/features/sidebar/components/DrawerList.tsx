@@ -49,13 +49,17 @@ interface DrawerListProps {
   subheader?: string | undefined,
   subheaderDestination?: string | undefined,
   subheaderAction?: ReactElement | undefined,
+  increaseCurrentPage?: (() => void) | undefined,
+  isFetching?: boolean | undefined,
 }
 
 function DrawerList({
   subheader,
   subheaderDestination,
   subheaderAction,
-  drawerItems
+  drawerItems,
+  increaseCurrentPage,
+  isFetching
 }: DrawerListProps) {
   const navigate = useNavigate()
   const location = useLocation()
@@ -113,6 +117,19 @@ function DrawerList({
                 {drawerItems.map((item) =>
                   <DrawerListItem key={item.link} drawerItem={item} />
                 )}
+                {increaseCurrentPage &&
+                  <Stack direction={'row'} alignItems={'center'} spacing={1} ml={2}>
+                    <Button
+                      variant={'alt-text'}
+                      size={'small'}
+                      disabled={isFetching}
+                      onClick={increaseCurrentPage}
+                      sx={{ px: 1.5 }}>
+                      Show More
+                    </Button>
+                    {isFetching === true && <CircularProgress thickness={8} color={'secondary'} size={18} />}
+                  </Stack>
+                }
               </Collapse>
           )
           : <DrawerListLoader />
