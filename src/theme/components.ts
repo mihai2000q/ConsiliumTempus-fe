@@ -214,6 +214,14 @@ export const components = {
       })
     }
   },
+  MuiListSubheader: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        padding: 0,
+        backgroundColor: theme.palette.background[800]
+      })
+    }
+  },
   MuiDrawer: {
     styleOverrides: {
       root: ({ ownerState, theme } : { ownerState: DrawerProps, theme: Theme }) => ({
