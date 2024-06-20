@@ -1,8 +1,15 @@
+import { useGetProjectTaskQuery, useUpdateProjectTaskMutation } from "./state/projectTaskDrawerApi.ts";
 import {
-  useLazyGetProjectTaskQuery,
-  useUpdateProjectTaskMutation
-} from "./state/projectTaskDrawerApi.ts";
-import { alpha, Button, Divider, Drawer, IconButton, Stack, TextField, Typography, useTheme } from "@mui/material";
+  alpha,
+  Button, ButtonProps,
+  Divider,
+  Drawer, Grid,
+  IconButton,
+  Stack, styled,
+  TextField,
+  Tooltip,
+  Typography
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store.ts";
 import { closeDrawer } from "../../state/project-task-drawer/projectTaskDrawerSlice.ts";
@@ -10,22 +17,56 @@ import {
   CheckRounded,
   LinkOutlined,
   MoreHoriz,
+  PersonOutlineRounded,
   SkipNextRounded,
   VisibilityOutlined
 } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Paths from "../../utils/Paths.ts";
 import ProjectTaskDrawerActionsMenu from "./components/ProjectTaskDrawerActionsMenu.tsx";
-import ProjectTask from "./types/ProjectTask.model.ts";
 import useDependencyState from "../../hooks/useDependencyState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
 import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
 import { useNavigate } from "react-router-dom";
+import ProjectTaskDrawerLoader from "./components/ProjectTaskDrawerLoader.tsx";
+import FormGridItem from "../../components/form/FormGridItem.tsx";
+
+interface CompletedButtonProps extends ButtonProps {
+  isCompleted: boolean
+}
+
+const CompletedButton = styled(Button, {
+  shouldForwardProp: (props) => props !== 'isCompleted'
+})<CompletedButtonProps>(({ theme, isCompleted }) => ({
+  color: theme.palette.background[100],
+  borderColor: alpha(theme.palette.background[100], 0.25),
+  '&:hover' : {
+    borderColor: alpha(theme.palette.success.main, 0.75),
+    color: theme.palette.success.main,
+    backgroundColor: alpha(theme.palette.success.main, 0.1)
+  },
+  ...(isCompleted && {
+    color: theme.palette.success.main,
+    borderColor: theme.palette.success.main,
+    backgroundColor: alpha(theme.palette.success.main, 0.1),
+    '&:hover' : {
+      borderColor: theme.palette.success.main,
+      color: theme.palette.success.main,
+      backgroundColor: alpha(theme.palette.success.main, 0.3)
+    },
+    ...(theme.palette.mode === 'light' && {
+      '&:hover' : {
+        borderColor: theme.palette.success.light,
+        color: theme.palette.background[900],
+        backgroundColor: alpha(theme.palette.success.main, 0.75)
+      },
+    })
+  })
+}))
 
 function ProjectTaskDrawer() {
-  const theme = useTheme()
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -35,19 +76,21 @@ function ProjectTaskDrawer() {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const taskId = useSelector((state: RootState) => state.projectTaskDrawer.taskId)
-  const [task, setTask] = useState<ProjectTask | undefined>(undefined)
-  const [getProjectTask] = useLazyGetProjectTaskQuery()
-  useUpdateEffect(() => {
-    if (taskId !== '') getProjectTask({ id: taskId }).unwrap().then(setTask)
-  }, [taskId]);
+
+  const task = useGetProjectTaskQuery(
+    { id: taskId },
+    { skip: taskId === '' }
+  )?.data
 
   const [name, refreshName,  facadeName, setFacadeName] = useDependencyFacadeState('')
   const [description, refreshDescription, facadeDescription, setFacadeDescription] = useDependencyFacadeState('')
   const [isCompleted, setIsCompleted, refreshIsCompleted] = useDependencyState(false)
-  useUpdateEffect(() => {
-    setFacadeName(task?.name ?? '')
-    setFacadeDescription(task?.description ?? '')
-    setIsCompleted(task?.isCompleted ?? false)
+  useEffect(() => {
+    if (!task) return
+
+    setFacadeName(task.name)
+    setFacadeDescription(task.description)
+    setIsCompleted(task.isCompleted)
   }, [task]) // TODO: Referential Equality
   
   const [updateProjectTask] = useUpdateProjectTaskMutation()
@@ -58,6 +101,7 @@ function ProjectTaskDrawer() {
       id: taskId,
       name: name.value,
       description: description.value,
+      isCompleted: isCompleted.value,
       assigneeId: null
     }).unwrap()
 
@@ -74,6 +118,9 @@ function ProjectTaskDrawer() {
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
   }
 
+  if (!task)
+    return <ProjectTaskDrawerLoader open={isDrawerOpen} onClose={handleCloseDrawer} width={600} />
+
   return (
     <Drawer
       anchor={'right'}
@@ -81,69 +128,80 @@ function ProjectTaskDrawer() {
       onClose={handleCloseDrawer}
       sx={{
         width: 600,
-        '& .MuiDrawer-paper': {
-          width: 600,
-          boxSizing: 'border-box',
-        },
+        '& .MuiDrawer-paper': { width: 600, },
       }}>
-      {
-        task &&
-        <Stack mt={1}>
-          <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mx={2} mb={0.5}>
-            <Button
-              startIcon={<CheckRounded />}
-              onClick={() => setIsCompleted(!isCompleted.value, true)}
-              sx={{
-                color: isCompleted.value ? theme.palette.success.light : theme.palette.background[100],
-                '&:hover' : {
-                  color: isCompleted.value ? theme.palette.success.main : theme.palette.success.light,
-                  background: alpha(theme.palette.success.main, 0.1)
-                }
-              }}>
-              {isCompleted.value ? 'Completed' : 'Mark Complete'}
-            </Button>
+      <Stack mt={1}>
+        <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mx={2} mb={1}>
+          <CompletedButton
+            variant={'alt-outlined'}
+            startIcon={<CheckRounded />}
+            isCompleted={isCompleted.value}
+            onClick={() => setIsCompleted(!isCompleted.value, true)}>
+            {isCompleted.value ? 'Completed' : 'Mark Complete'}
+          </CompletedButton>
 
-            <Stack direction={'row'} spacing={1}>
+          <Stack direction={'row'} spacing={1}>
+            <Tooltip title={'View More Details'} arrow placement={'bottom'} enterDelay={400}>
               <IconButton onClick={handleViewDetails}>
                 <VisibilityOutlined />
               </IconButton>
+            </Tooltip>
+            <Tooltip title={'Copy task Link'} arrow placement={'bottom'} enterDelay={400}>
               <IconButton onClick={handleCopyTaskLink}>
                 <LinkOutlined />
               </IconButton>
+            </Tooltip>
+            <Tooltip title={'More'} arrow placement={'bottom'} enterDelay={400}>
               <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
                 <MoreHoriz />
               </IconButton>
+            </Tooltip>
+            <Tooltip title={'Close Drawer'} arrow placement={'bottom'} enterDelay={400}>
               <IconButton onClick={handleCloseDrawer}>
                 <SkipNextRounded />
               </IconButton>
-            </Stack>
-          </Stack>
-          <Divider sx={{ mb: 1 }}/>
-
-          <Stack mx={2} spacing={2}>
-            <OutlinedInputTextField
-              fullWidth
-              multiline
-              isTitle
-              maxLength={256}
-              error={facadeName === ''}
-              placeholder={'Enter a name'}
-              value={facadeName}
-              onChange={(e) => setFacadeName(e.target.value, true)} />
-
-            <Stack spacing={1}>
-              <Typography>Description</Typography>
-              <TextField
-                fullWidth
-                multiline
-                placeholder={'Enter a description'}
-                value={facadeDescription}
-                onChange={(e) => setFacadeDescription(e.target.value, true)}
-                minRows={5} />
-            </Stack>
+            </Tooltip>
           </Stack>
         </Stack>
-      }
+        <Divider sx={{ mb: 1 }}/>
+
+        <Stack mx={2} spacing={0.5}>
+          <OutlinedInputTextField
+            fullWidth
+            multiline
+            isTitle
+            maxLength={256}
+            error={facadeName === ''}
+            placeholder={'Enter a name'}
+            value={facadeName}
+            onChange={(e) => setFacadeName(e.target.value, true)} />
+
+          <Grid container rowSpacing={1}>
+            <FormGridItem
+              labelSize={2.5}
+              label={<Typography>Assignee</Typography>}>
+              <Button
+                variant={'alt-text'}
+                size={'small'}
+                startIcon={<PersonOutlineRounded sx={{ mr: '2px' }} />}>
+                Set Assignee
+              </Button>
+            </FormGridItem>
+          </Grid>
+
+          <Stack spacing={1} pt={1.5}>
+            <Typography>Description</Typography>
+            <TextField
+              fullWidth
+              multiline
+              placeholder={'Enter a description'}
+              value={facadeDescription}
+              onChange={(e) => setFacadeDescription(e.target.value, true)}
+              minRows={5} />
+          </Stack>
+        </Stack>
+      </Stack>
+
       <ProjectTaskDrawerActionsMenu
         taskId={taskId}
         anchorEl={menuAnchorEl}

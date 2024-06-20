@@ -34,7 +34,7 @@ export const projectTaskDrawerApi = api.injectEndpoints({
 })
 
 export const {
-  useLazyGetProjectTaskQuery,
+  useGetProjectTaskQuery,
   useUpdateProjectTaskMutation,
   useDeleteProjectTaskMutation
 } = projectTaskDrawerApi
