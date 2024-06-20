@@ -1,19 +1,21 @@
 import { ProjectTask } from "../../types/ProjectTask.response.ts";
 import { alpha, Box, Button, ButtonProps, IconButton, Stack, styled, Typography, useTheme } from "@mui/material";
 import { CheckCircleOutlineRounded, CheckCircleRounded, Person } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
-import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { openDrawer } from "../../../../../../state/project-task-drawer/projectTaskDrawerSlice.ts";
+import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { RootState } from "../../../../../../state/store.ts";
 
 interface StyledProjectTaskCardProps extends ButtonProps {
-  isCompleted?: boolean | undefined
+  isCompleted: boolean,
+  isDrawerOpen: boolean
 }
 
 export const StyledProjectTaskCard = styled(Button, {
-  shouldForwardProp: (props) => props !== 'isCompleted'
-})<StyledProjectTaskCardProps>(({ theme, isCompleted }) => ({
+  shouldForwardProp: (props) => props !== 'isCompleted' && props !== 'isDrawerOpen',
+})<StyledProjectTaskCardProps>(({ theme, isCompleted, isDrawerOpen }) => ({
   borderRadius: '16px',
   justifyContent: 'start',
   width: '100%',
@@ -28,7 +30,7 @@ export const StyledProjectTaskCard = styled(Button, {
     borderColor: alpha(theme.palette.background[50], 0.5),
     color: theme.palette.background[50]
   },
-  ...(isCompleted === true && {
+  ...(isCompleted && {
     backgroundColor: alpha(theme.palette.grey[100], 0.05),
     color: alpha(theme.palette.text.triadic, 0.5),
     borderColor: alpha(theme.palette.grey[100], 0.1),
@@ -37,6 +39,10 @@ export const StyledProjectTaskCard = styled(Button, {
       borderColor: alpha(theme.palette.grey[100], 0.2),
       color: alpha(theme.palette.text.triadic, 0.7)
     },
+  }),
+  ...(isDrawerOpen && {
+    backgroundColor: alpha(theme.palette.background[900], 0.5),
+    borderColor: alpha(theme.palette.background[100], 0.8)
   })
 }))
 
@@ -48,9 +54,14 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
   const theme = useTheme()
   const dispatch = useDispatch()
 
+  const drawerTaskId = useSelector((state: RootState) => state.projectTaskDrawer.taskId)
+
   const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const [isCompleted, setIsCompleted] = useState(false)
+  useEffect(() => {
+    setIsCompleted(task.isCompleted)
+  }, [task])
 
   function handleClick() {
     dispatch(openDrawer(task.id))
@@ -70,15 +81,16 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
       id: task.id,
       name: task.name,
       isCompleted: newIsCompleted,
-      assigneeId: null
+      assigneeId: task.assignee?.id ?? null
     }).unwrap()
   }
 
   return (
     <Box position={'relative'} my={0.5}>
       <StyledProjectTaskCard
-        component={'div'}
+        isDrawerOpen={drawerTaskId === task.id}
         isCompleted={isCompleted}
+        component={'div'}
         onClick={handleClick}
         onContextMenu={handleRightClick}
         sx={{ boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
@@ -134,7 +146,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         <ProjectTaskCardActionsMenu
           anchorEl={taskMenuAnchorEl}
           onClose={() => setTaskMenuAnchorEl(null)}
-          taskId={task} />
+          task={task} />
       }
     </Box>
   );

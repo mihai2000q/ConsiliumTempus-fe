@@ -7,7 +7,11 @@ export interface ProjectTask {
   id: string,
   name: string,
   isCompleted: boolean,
-  assignee: {
-    id: string
-  }
+  assignee: UserResponse | null
+}
+
+interface UserResponse {
+  id: string,
+  name: string,
+  email: string,
 }
