@@ -29,7 +29,7 @@ const Searchbar = styled(Box, {
   marginTop: '4px',
   marginLeft: 50,
   transition: theme.transitions.create(['background-color', 'border-radius'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.standard,
   }),
   '&:hover': {
     backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.15) : lighten(theme.palette.background[900], 0.5),
