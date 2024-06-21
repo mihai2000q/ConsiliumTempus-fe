@@ -14,7 +14,7 @@ export default function useProjects(
   order: ProjectsOrderQueryParams,
   lifecycle: ProjectLifecycle | null
 ): [
-  projects: Project[],
+  projects: Project[] | undefined,
   isFetching: boolean,
   increaseCurrentPage: (() => void) | undefined
 ] {
@@ -22,7 +22,7 @@ export default function useProjects(
 
   const [getProjects, { isFetching }] = useLazyGetProjectsQuery()
 
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<Project[] | undefined>(undefined)
   const [totalCount, setTotalCount] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
 
@@ -79,7 +79,7 @@ export default function useProjects(
       },
       true
     ).then(res => {
-      setProjects([...projects, ...res.data?.projects ?? []])
+      setProjects([...projects ?? [], ...res.data?.projects ?? []])
       setTotalCount(res.data?.totalCount ?? 0)
     })
   }, [currentPage, getProjects, hidden]);
@@ -87,7 +87,7 @@ export default function useProjects(
   return [
     projects,
     isFetching || isInitialFetching,
-    totalCount > projects.length
+    totalCount > (projects?.length ?? 0)
       ? () => setCurrentPage((prev) => prev + 1)
       : undefined // return undefined to stop displaying the Show More button
   ]
