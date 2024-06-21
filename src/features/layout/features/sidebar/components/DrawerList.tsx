@@ -16,7 +16,7 @@ import {
 import DrawerItem from "../types/DrawerItem.ts";
 import DrawerListItem from "./DrawerListItem.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ReactElement, useState } from "react";
+import React, { ReactElement, ReactNode, useState } from "react";
 import { ArrowDropDownRounded } from "@mui/icons-material";
 import DrawerListLoader from "./DrawerListLoader.tsx";
 
@@ -51,6 +51,7 @@ interface DrawerListProps {
   subheaderAction?: ReactElement | undefined,
   increaseCurrentPage?: (() => void) | undefined,
   isFetching?: boolean | undefined,
+  menu?: ((anchorEl: HTMLElement | null, onClose: () => void) => ReactNode) | undefined
 }
 
 function DrawerList({
@@ -59,16 +60,23 @@ function DrawerList({
   subheaderAction,
   drawerItems,
   increaseCurrentPage,
-  isFetching
+  isFetching,
+  menu
 }: DrawerListProps) {
   const navigate = useNavigate()
   const location = useLocation()
 
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [hideItems, setHideItems] = useState(false)
 
   const handleSubheaderClick = () => {
     if (subheaderDestination && location.pathname !== subheaderDestination)
       navigate(subheaderDestination)
+  }
+
+  function handleSubheaderRightClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e.preventDefault()
+    setMenuAnchorEl(e.currentTarget)
   }
 
   return (
@@ -84,10 +92,12 @@ function DrawerList({
                 ? (
                   <Box>
                     <StyledListItemButton
+                      onContextMenu={handleSubheaderRightClick}
                       selected={location.pathname === subheaderDestination}
                       onClick={handleSubheaderClick}>
                       <Typography fontWeight={500}>{subheader}</Typography>
                     </StyledListItemButton>
+                    {menu && menu(menuAnchorEl, () => setMenuAnchorEl(null))}
 
                     <Box position={'absolute'} bottom={0} top={'-5px'} left={'5px'}>
                       <CollapseButton isCollapsed={hideItems} onClick={() => setHideItems(!hideItems)}>

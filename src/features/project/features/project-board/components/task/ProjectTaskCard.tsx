@@ -1,7 +1,7 @@
 import { ProjectTask } from "../../types/ProjectTask.response.ts";
 import { alpha, Box, Button, ButtonProps, IconButton, Stack, styled, Typography, useTheme } from "@mui/material";
 import { CheckCircleOutlineRounded, CheckCircleRounded, Person } from "@mui/icons-material";
-import { useState } from "react";
+import React, { useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
 import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useDispatch } from "react-redux";
@@ -56,9 +56,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
     dispatch(openDrawer(task.id))
   }
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  function handleRightClick(e) {
+  function handleRightClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault()
     setTaskMenuAnchorEl(e.currentTarget)
   }

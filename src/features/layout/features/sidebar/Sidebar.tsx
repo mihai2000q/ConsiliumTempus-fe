@@ -12,6 +12,9 @@ import { useState } from "react";
 import randomWorkspaceIcons from "./data/RandomWorkspaceIcons.tsx";
 import randomProjectIcons from "./data/RandomProjectIcons.tsx";
 import useProjects from "./hooks/useProjects.ts";
+import ProjectsOrderQueryParams from "./utils/ProjectsOrderQueryParams.ts";
+import SidebarProjectsMenu from "./components/SidebarProjectsMenu.tsx";
+import ProjectLifecycle from "../../../../utils/project/ProjectLifecycle.ts";
 
 interface SidebarProps {
   width: number,
@@ -30,11 +33,14 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
     { skip: hidden }
   ).data?.workspaces
 
+  const [order, setOrder] = useState(ProjectsOrderQueryParams.LastActivity)
+  const [lifecycle, setLifecycle] = useState<ProjectLifecycle | null>(ProjectLifecycle.Active)
+
   const [
     projects,
     projectIsFetching,
     projectIncreaseCurrentPage
-  ] = useProjects(hidden)
+  ] = useProjects(hidden, order, lifecycle)
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
   const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)
@@ -91,7 +97,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
               text: w.name,
               link: `${Paths.Workspace}/${w.id}`,
               icon: getWorkspaceIcon(i, w.name)
-            }))}/>
+            }))}
+          />
           <DrawerList
             subheader={"Projects"}
             subheaderDestination={Paths.Projects}
@@ -100,13 +107,23 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
                 <Add sx={{ color: 'darkgrey' }}/>
               </IconButton>
             }
-            isFetching={projectIsFetching}
-            increaseCurrentPage={projectIncreaseCurrentPage}
             drawerItems={projects?.map((p) => ({
               text: p.name,
               link: `${Paths.Project}/${p.id}`,
               icon: getProjectIcon(p.name)
-            }))}/>
+            }))}
+            isFetching={projectIsFetching}
+            increaseCurrentPage={projectIncreaseCurrentPage}
+            menu={(anchorEl, onClose) => (
+              <SidebarProjectsMenu
+                anchorEl={anchorEl}
+                onClose={onClose}
+                order={order}
+                setOrder={setOrder}
+                lifecycle={lifecycle}
+                setLifecycle={setLifecycle} />
+            )}
+          />
         </Stack>
 
         <Stack>

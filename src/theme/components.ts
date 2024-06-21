@@ -216,9 +216,9 @@ export const components = {
   },
   MuiListSubheader: {
     styleOverrides: {
-      root: ({ theme } : { theme: Theme }) => ({
+      root: () => ({
         padding: 0,
-        backgroundColor: theme.palette.background[800]
+        backgroundColor: 'transparent',
       })
     }
   },
@@ -232,6 +232,9 @@ export const components = {
             backgroundColor: theme.palette.background[800],
             ...(theme.palette.mode === 'dark' && { border: 0 })
           },
+          '& .MuiListSubheader': {
+            backgroundColor: theme.palette.background[800]
+          }
         })
       })
     }
