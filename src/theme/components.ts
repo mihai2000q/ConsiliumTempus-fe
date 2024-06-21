@@ -214,6 +214,14 @@ export const components = {
       })
     }
   },
+  MuiListSubheader: {
+    styleOverrides: {
+      root: () => ({
+        padding: 0,
+        backgroundColor: 'transparent',
+      })
+    }
+  },
   MuiDrawer: {
     styleOverrides: {
       root: ({ ownerState, theme } : { ownerState: DrawerProps, theme: Theme }) => ({
@@ -223,6 +231,9 @@ export const components = {
             boxSizing: 'border-box',
             backgroundColor: theme.palette.background[800],
             ...(theme.palette.mode === 'dark' && { border: 0 })
+          },
+          '& .MuiListSubheader': {
+            backgroundColor: theme.palette.background[800]
           },
         }),
         ...(ownerState.variant === 'temporary' && {

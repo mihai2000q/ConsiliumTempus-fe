@@ -1,45 +1,82 @@
 import {
   Box,
+  Button,
+  CircularProgress,
   Collapse,
   IconButton,
+  IconButtonProps,
   List,
   ListItemButton,
+  ListItemButtonProps,
   ListSubheader,
-  Skeleton,
   Stack,
-  Typography,
-  useTheme
+  styled,
+  Typography
 } from "@mui/material";
 import DrawerItem from "../types/DrawerItem.ts";
 import DrawerListItem from "./DrawerListItem.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ReactElement, useState } from "react";
-import useIsDarkMode from "../../../../../hooks/useIsDarkMode.ts";
+import React, { ReactElement, ReactNode, useState } from "react";
 import { ArrowDropDownRounded } from "@mui/icons-material";
+import DrawerListLoader from "./DrawerListLoader.tsx";
+
+interface CollapseButtonProps extends IconButtonProps {
+  isCollapsed: boolean
+}
+
+const CollapseButton = styled(IconButton, {
+  shouldForwardProp: (props) => props !== 'isCollapsed'
+})<CollapseButtonProps>(({ theme, isCollapsed }) => ({
+  width: 20,
+  height: 20,
+  transition: theme.transitions.create(['transform'], {
+    duration: theme.transitions.duration.short,
+  }),
+  transform: isCollapsed ? 'rotate(-90deg)' : undefined
+}))
+
+const StyledListItemButton = styled(ListItemButton)<ListItemButtonProps>(({ theme }) => ({
+  margin: '0 2px',
+  padding: '10px 26px 10px 26px',
+  color: theme.palette.mode === 'dark' ? theme.palette.grey[300] : theme.palette.grey[600],
+  '&:hover': {
+    color: theme.palette.background[100]
+  }
+}))
 
 interface DrawerListProps {
   drawerItems: DrawerItem[] | undefined,
   subheader?: string | undefined,
   subheaderDestination?: string | undefined,
   subheaderAction?: ReactElement | undefined,
+  increaseCurrentPage?: (() => void) | undefined,
+  isFetching?: boolean | undefined,
+  menu?: ((anchorEl: HTMLElement | null, onClose: () => void) => ReactNode) | undefined
 }
 
 function DrawerList({
   subheader,
   subheaderDestination,
   subheaderAction,
-  drawerItems
+  drawerItems,
+  increaseCurrentPage,
+  isFetching,
+  menu
 }: DrawerListProps) {
-  const theme = useTheme()
-  const isDarkMode = useIsDarkMode()
   const navigate = useNavigate()
   const location = useLocation()
 
-  const [hideItems, setHideItems  ] = useState(false)
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
+  const [hideItems, setHideItems] = useState(false)
 
   const handleSubheaderClick = () => {
     if (subheaderDestination && location.pathname !== subheaderDestination)
       navigate(subheaderDestination)
+  }
+
+  function handleSubheaderRightClick(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    e.preventDefault()
+    setMenuAnchorEl(e.currentTarget)
   }
 
   return (
@@ -49,36 +86,23 @@ function DrawerList({
       subheader={
         (
           subheader &&
-          <ListSubheader component={'div'} sx={{ padding: 0, backgroundColor: theme.palette.background[800] }}>
+          <ListSubheader component={'div'}>
             {
               subheaderDestination
                 ? (
                   <Box>
-                    <ListItemButton
+                    <StyledListItemButton
+                      onContextMenu={handleSubheaderRightClick}
                       selected={location.pathname === subheaderDestination}
-                      onClick={handleSubheaderClick}
-                      sx={{
-                        margin: '0 2px',
-                        padding: '10px 26px 10px 26px',
-                        color: isDarkMode ? theme.palette.grey[300] : theme.palette.grey[600],
-                        '&:hover': { color: theme.palette.background[100] },
-                      }}>
+                      onClick={handleSubheaderClick}>
                       <Typography fontWeight={500}>{subheader}</Typography>
-                    </ListItemButton>
+                    </StyledListItemButton>
+                    {menu && menu(menuAnchorEl, () => setMenuAnchorEl(null))}
 
                     <Box position={'absolute'} bottom={0} top={'-5px'} left={'5px'}>
-                      <IconButton
-                        sx={{
-                          width: 20,
-                          height: 20,
-                          transition: theme.transitions.create(['transform'], {
-                            duration: theme.transitions.duration.short,
-                          }),
-                          transform: hideItems ? 'rotate(-90deg)' : undefined
-                        }}
-                        onClick={() => setHideItems(!hideItems)}>
+                      <CollapseButton isCollapsed={hideItems} onClick={() => setHideItems(!hideItems)}>
                         <ArrowDropDownRounded />
-                      </IconButton>
+                      </CollapseButton>
                     </Box>
 
                     <Box display={'flex'} position={'absolute'} bottom={'13%'} right={'0'} pr={'8px'}>
@@ -103,22 +127,22 @@ function DrawerList({
                 {drawerItems.map((item) =>
                   <DrawerListItem key={item.link} drawerItem={item} />
                 )}
+                {increaseCurrentPage &&
+                  <Stack direction={'row'} alignItems={'center'} spacing={1} ml={2}>
+                    <Button
+                      variant={'alt-text'}
+                      size={'small'}
+                      disabled={isFetching}
+                      onClick={increaseCurrentPage}
+                      sx={{ px: 1.5 }}>
+                      Show More
+                    </Button>
+                    {isFetching === true && <CircularProgress thickness={8} color={'secondary'} size={18} />}
+                  </Stack>
+                }
               </Collapse>
           )
-          : (
-            <Stack>
-              {Array.from(Array(5)).map((_, i) => (
-                <Skeleton
-                  key={i}
-                  variant={'rectangular'}
-                  height={35}
-                  sx={{
-                    borderRadius: '10px',
-                    margin: '1px 16px',
-                  }} />
-              ))}
-            </Stack>
-          )
+          : <DrawerListLoader />
       }
     </List>
   );

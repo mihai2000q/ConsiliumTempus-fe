@@ -13,9 +13,9 @@ export type addToSearchQueryParamType = (filter: FilterSearchQueryParam | Filter
 export type removeFromSearchQueryParamType = (filter: FilterSearchQueryParam | Filter) => void
 
 export default function useSearchQueryParam(): [
-  string[],
-  addToSearchQueryParamType,
-  removeFromSearchQueryParamType
+  searchQueryParam: string[],
+  addToSearchQueryParam:  addToSearchQueryParamType,
+  removeFromSearchQueryParam: removeFromSearchQueryParamType
 ] {
   const propertyOperators = useRef(new Map<string, SearchQueryParamValue>())
 
