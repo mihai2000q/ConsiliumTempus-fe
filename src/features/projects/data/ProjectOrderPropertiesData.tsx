@@ -1,8 +1,9 @@
 import OrderProperty from "../../../types/OrderProperty.ts";
+import ProjectOrderQueryParams from "../utils/ProjectOrderQueryParams.ts";
 
 export const projectOrderProperties: OrderProperty[] = [
-  { value: 'last_activity', displayName: 'Activity' },
-  { value: 'name', displayName: 'Alphabetically' },
-  { value: 'created_date_time', displayName: 'Newest' },
-  { value: 'updated_date_time', displayName: 'Modified' },
+  { value: ProjectOrderQueryParams.LastActivity, displayName: 'Activity' },
+  { value: ProjectOrderQueryParams.Name, displayName: 'Alphabetically' },
+  { value: ProjectOrderQueryParams.CreatedDateTime, displayName: 'Newest' },
+  { value: ProjectOrderQueryParams.UpdatedDateTime, displayName: 'Modified' },
 ]

@@ -10,10 +10,6 @@ import createQueryParams from "../../../../../utils/createQueryParams.ts";
 
 export const sidebarApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getWorkspaces: builder.query<GetWorkspacesResponse, GetWorkspacesRequest>({
-      query: arg => Urls.Workspaces + createQueryParams(arg),
-      providesTags: [TagTypes.Workspaces]
-    }),
     getProjects: builder.query<GetProjectsResponse, GetProjectsRequest>({
       query: arg => Urls.Projects + createQueryParams(arg),
       providesTags: [TagTypes.Projects]
@@ -25,6 +21,11 @@ export const sidebarApiSlice = api.injectEndpoints({
         body: body
       }),
       invalidatesTags: [TagTypes.Projects]
+    }),
+
+    getWorkspaces: builder.query<GetWorkspacesResponse, GetWorkspacesRequest>({
+      query: arg => Urls.Workspaces + createQueryParams(arg),
+      providesTags: [TagTypes.Workspaces]
     }),
     addWorkspace: builder.mutation<HttpMessageResponse, CreateWorkspaceRequest>({
       query: body => ({
@@ -40,6 +41,7 @@ export const sidebarApiSlice = api.injectEndpoints({
 export const {
   useGetWorkspacesQuery,
   useGetProjectsQuery,
+  useLazyGetProjectsQuery,
   useAddProjectMutation,
   useAddWorkspaceMutation,
 } = sidebarApiSlice
