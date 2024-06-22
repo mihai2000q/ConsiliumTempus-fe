@@ -2,14 +2,14 @@ export default interface ProjectTask {
   name: string,
   description: string,
   isCompleted: boolean,
-  assignee: UserResponse | null,
+  assignee: Assignee | null,
   projectStage: ProjectStage,
   projectSprint: ProjectSprint,
   project: Project,
   workspace: Workspace,
 }
 
-interface UserResponse {
+export interface Assignee {
   id: string,
   name: string,
   email: string,

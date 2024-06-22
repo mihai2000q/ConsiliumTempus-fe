@@ -21,10 +21,9 @@ function ProjectTaskDrawerLoader({ open, onClose, width }: ProjectTaskDrawerLoad
           <Skeleton variant={'rectangular'} width={150} height={30} sx={{ borderRadius: 1 }} />
 
           <Stack direction={'row'} spacing={1}>
-            <Skeleton variant={'circular'} width={25} height={25} sx={{ borderRadius: 1.5 }} />
-            <Skeleton variant={'circular'} width={25} height={25} sx={{ borderRadius: 1.5 }} />
-            <Skeleton variant={'circular'} width={25} height={25} sx={{ borderRadius: 1.5 }} />
-            <Skeleton variant={'circular'} width={25} height={25} sx={{ borderRadius: 1.5 }} />
+            {Array.from(Array(4)).map((_, i) => (
+              <Skeleton key={i} variant={'circular'} width={25} height={25} sx={{ borderRadius: 1.5 }} />
+            ))}
           </Stack>
         </Stack>
         <Divider sx={{ mb: 1 }} />
