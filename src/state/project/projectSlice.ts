@@ -17,6 +17,9 @@ export const projectSlice = createSlice({
     setProjectName: (state, action: PayloadAction<string>) => {
       state.projectName = action.payload
     },
+    setWorkspaceId: (state, action: PayloadAction<string>) => {
+      state.workspaceId = action.payload
+    },
     setBreadcrumbs: (state, action: PayloadAction<Breadcrumb[]>) => {
       state.breadcrumbs = action.payload
     },
@@ -47,6 +50,7 @@ export const projectSlice = createSlice({
 export const {
   setProjectId,
   setProjectName,
+  setWorkspaceId,
   setBreadcrumbs,
   setProjectSprintId,
   openProjectStatusesDialog,

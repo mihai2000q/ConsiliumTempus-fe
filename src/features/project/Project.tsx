@@ -38,7 +38,7 @@ import ProjectStatusMenu from "./shared/components/ProjectStatusMenu.tsx";
 import ProjectStatusLabel from "./shared/components/ProjectStatusLabel.tsx";
 import ProjectStatusesDialog from "./features/project-statuses-dialog/ProjectStatusesDialog.tsx";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
-import { setBreadcrumbs, setProjectId, setProjectName } from "../../state/project/projectSlice.ts";
+import { setBreadcrumbs, setProjectId, setProjectName, setWorkspaceId } from "../../state/project/projectSlice.ts";
 import Paths from "../../utils/Paths.ts";
 import AddProjectSprintDialog from "./shared/components/AddProjectSprintDialog.tsx";
 import useAdapterState from "../../hooks/useAdapterState.ts";
@@ -52,6 +52,7 @@ function Project() {
   const projectId = params[ProjectParams.Id] ?? ''
   useEffect(() => {
     dispatch(setProjectId(projectId))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -74,6 +75,7 @@ function Project() {
       setIsFavorite(project.isFavorite)
 
       dispatch(setProjectName(project.name))
+      dispatch(setWorkspaceId(project.workspace.id))
       dispatch(setBreadcrumbs([
         { path: `${Paths.Workspace}/${project.workspace.id}`, name: project.workspace.name },
         { path: `${Paths.Project}/${projectId}`, name: project.name },

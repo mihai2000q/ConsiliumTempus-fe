@@ -3,6 +3,7 @@ import Breadcrumb from "../../types/Breadcrumb.ts";
 interface ProjectState {
   projectId: string,
   projectName: string,
+  workspaceId: string,
   sprintId: string | undefined,
   breadcrumbs: Breadcrumb[],
   projectStatusesDialog: ProjectStatusesDialogState,
@@ -26,6 +27,7 @@ export interface AddProjectSprintDialogState {
 export const initialState: ProjectState = {
   projectId: '',
   projectName: '',
+  workspaceId: '',
   sprintId: undefined,
   breadcrumbs: [],
   projectStatusesDialog: {
