@@ -1,4 +1,5 @@
 enum TagTypes {
+  Collaborators = "Collaborators",
   Projects = "Projects",
   ProjectOverview = "ProjectOverview",
   ProjectSprints = "ProjectSprints",
