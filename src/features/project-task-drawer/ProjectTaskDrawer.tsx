@@ -74,7 +74,7 @@ function ProjectTaskDrawer() {
 
   const taskId = useSelector((state: RootState) => state.projectTaskDrawer.taskId)
 
-  const { data: task, isFetching } = useGetProjectTaskQuery(
+  const { data: task, isFetching, isLoading } = useGetProjectTaskQuery(
     { id: taskId },
     { skip: taskId === '' }
   )
@@ -124,9 +124,6 @@ function ProjectTaskDrawer() {
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
   }
 
-  if (!task)
-    return <ProjectTaskDrawerLoader open={isDrawerOpen} onClose={handleCloseDrawer} width={600} />
-
   return (
     <Drawer
       anchor={'right'}
@@ -136,77 +133,83 @@ function ProjectTaskDrawer() {
         width: 600,
         '& .MuiDrawer-paper': { width: 600, },
       }}>
-      <Stack mt={1}>
-        <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mx={2} mb={1}>
-          <CompletedButton
-            variant={'alt-outlined'}
-            startIcon={<CheckRounded />}
-            isCompleted={isCompleted.value}
-            onClick={() => setIsCompleted(!isCompleted.value, true)}>
-            {isCompleted.value ? 'Completed' : 'Mark Complete'}
-          </CompletedButton>
+      {
+        !task || isLoading
+          ? <ProjectTaskDrawerLoader />
+          : (
+            <Stack mt={1}>
+              <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mx={2} mb={1}>
+                <CompletedButton
+                  variant={'alt-outlined'}
+                  startIcon={<CheckRounded />}
+                  isCompleted={isCompleted.value}
+                  onClick={() => setIsCompleted(!isCompleted.value, true)}>
+                  {isCompleted.value ? 'Completed' : 'Mark Complete'}
+                </CompletedButton>
 
-          <Stack direction={'row'} spacing={1}>
-            <Tooltip title={'View More Details'} arrow placement={'bottom'} enterDelay={400}>
-              <IconButton onClick={handleViewDetails}>
-                <VisibilityOutlined />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={'Copy task Link'} arrow placement={'bottom'} enterDelay={400}>
-              <IconButton onClick={handleCopyTaskLink}>
-                <LinkOutlined />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={'More'} arrow placement={'bottom'} enterDelay={400}>
-              <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
-                <MoreHoriz />
-              </IconButton>
-            </Tooltip>
-            <Tooltip title={'Close Drawer'} arrow placement={'bottom'} enterDelay={400}>
-              <IconButton onClick={handleCloseDrawer}>
-                <SkipNextRounded />
-              </IconButton>
-            </Tooltip>
-          </Stack>
-        </Stack>
-        <Divider sx={{ mb: 1 }}/>
+                <Stack direction={'row'} spacing={1}>
+                  <Tooltip title={'View More Details'} arrow placement={'bottom'} enterDelay={400}>
+                    <IconButton onClick={handleViewDetails}>
+                      <VisibilityOutlined />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title={'Copy task Link'} arrow placement={'bottom'} enterDelay={400}>
+                    <IconButton onClick={handleCopyTaskLink}>
+                      <LinkOutlined />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title={'More'} arrow placement={'bottom'} enterDelay={400}>
+                    <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
+                      <MoreHoriz />
+                    </IconButton>
+                  </Tooltip>
+                  <Tooltip title={'Close Drawer'} arrow placement={'bottom'} enterDelay={400}>
+                    <IconButton onClick={handleCloseDrawer}>
+                      <SkipNextRounded />
+                    </IconButton>
+                  </Tooltip>
+                </Stack>
+              </Stack>
+              <Divider sx={{ mb: 1 }}/>
 
-        <Stack mx={2} spacing={0.5}>
-          <OutlinedInputTextField
-            fullWidth
-            multiline
-            isTitle
-            maxLength={256}
-            error={facadeName === ''}
-            placeholder={'Enter a name'}
-            value={facadeName}
-            onChange={(e) => setFacadeName(e.target.value, true)} />
+              <Stack mx={2} spacing={0.5}>
+                <OutlinedInputTextField
+                  fullWidth
+                  multiline
+                  isTitle
+                  maxLength={256}
+                  error={facadeName === '' && name.isUser}
+                  placeholder={'Enter a name'}
+                  value={facadeName}
+                  onChange={(e) => setFacadeName(e.target.value, true)} />
 
-          <Grid container rowSpacing={1}>
-            <FormGridItem
-              labelSize={2.5}
-              label={<Typography>Assignee</Typography>}>
-              <AssigneeButton
-                isFetching={isFetching}
-                workspaceId={task.workspace.id}
-                assignee={task.assignee}
-                assigneeId={assigneeId}
-                setAssigneeId={setAssigneeId} />
-            </FormGridItem>
-          </Grid>
+                <Grid container rowSpacing={1}>
+                  <FormGridItem
+                    labelSize={3}
+                    label={<Typography>Assignee</Typography>}>
+                    <AssigneeButton
+                      isFetching={isFetching}
+                      workspaceId={task.workspace.id}
+                      assignee={task.assignee}
+                      assigneeId={assigneeId}
+                      setAssigneeId={setAssigneeId} />
+                  </FormGridItem>
+                </Grid>
 
-          <Stack spacing={1} pt={1.5}>
-            <Typography>Description</Typography>
-            <TextField
-              fullWidth
-              multiline
-              placeholder={'Enter a description'}
-              value={facadeDescription}
-              onChange={(e) => setFacadeDescription(e.target.value, true)}
-              minRows={5} />
-          </Stack>
-        </Stack>
-      </Stack>
+                <Stack spacing={1} pt={1.5}>
+                  <Typography>Description</Typography>
+                  <TextField
+                    fullWidth
+                    multiline
+                    placeholder={'Enter a description'}
+                    value={facadeDescription}
+                    onChange={(e) => setFacadeDescription(e.target.value, true)}
+                    minRows={5} />
+                </Stack>
+              </Stack>
+            </Stack>
+          )
+      }
 
       <ProjectTaskDrawerActionsMenu
         taskId={taskId}
