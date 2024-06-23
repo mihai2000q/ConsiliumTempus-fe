@@ -1,13 +1,4 @@
-import {
-  alpha,
-  Box,
-  Button,
-  ButtonProps,
-  IconButton, IconButtonProps,
-  Stack,
-  styled,
-  Typography
-} from "@mui/material";
+import { alpha, Box, Button, ButtonProps, IconButton, IconButtonProps, Stack, styled, Typography } from "@mui/material";
 import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";

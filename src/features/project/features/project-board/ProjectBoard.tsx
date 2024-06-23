@@ -3,10 +3,14 @@ import { Button, ButtonGroup, ListItemIcon, ListItemText, Menu, MenuItem, Stack 
 import ProjectStagesLoader from "./components/stage/ProjectStagesLoader.tsx";
 import {
   Add,
-  ArrowDropDownOutlined, AssignmentOutlined, ChargingStationOutlined,
+  ArrowDropDownOutlined,
+  AssignmentOutlined,
+  ChargingStationOutlined,
   FilterList,
   GroupWorkOutlined,
-  Sort, ViewTimelineOutlined, ViewWeekOutlined,
+  Sort,
+  ViewTimelineOutlined,
+  ViewWeekOutlined,
   VisibilityOffOutlined
 } from "@mui/icons-material";
 import ProjectSprint from "./types/ProjectSprint.model.ts";

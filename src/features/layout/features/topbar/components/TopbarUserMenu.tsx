@@ -1,15 +1,4 @@
-import {
-  Avatar,
-  Box,
-  Button,
-  Divider,
-  ListItemIcon,
-  Menu,
-  MenuItem,
-  Stack,
-  Switch,
-  Typography
-} from "@mui/material";
+import { Avatar, Box, Button, Divider, ListItemIcon, Menu, MenuItem, Stack, Switch, Typography } from "@mui/material";
 import { logout } from "../../../../../state/auth/authSlice.ts";
 import { MouseEventHandler, ReactNode } from "react";
 import { useDispatch } from "react-redux";

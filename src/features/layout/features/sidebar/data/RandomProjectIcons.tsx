@@ -3,9 +3,11 @@ import {
   DashboardCustomizeRounded,
   DashboardRounded,
   GridViewRounded,
-  SpaceDashboardRounded, ViewCarouselRounded,
+  SpaceDashboardRounded,
+  ViewCarouselRounded,
   ViewComfyRounded,
-  ViewKanbanRounded, ViewModuleRounded,
+  ViewKanbanRounded,
+  ViewModuleRounded,
   ViewQuiltRounded,
   ViewWeekRounded
 } from "@mui/icons-material";

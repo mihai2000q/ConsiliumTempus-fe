@@ -69,6 +69,7 @@ function UpdateProjectSprintDialog({
     values.projectSprintName = initialProjectSprint.name
     setStartDate(initialProjectSprint.startDate)
     setEndDate(initialProjectSprint.endDate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialProjectSprint]);
 
   async function handleSubmitForm() {

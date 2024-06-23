@@ -47,6 +47,7 @@ function OutlinedContentEditable({
   const [localNoWrap, setLocalNoWrap] = useState(noWrap)
   useEffect(() => {
     if (noWrap !== undefined) setLocalNoWrap(!isFocused)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
   const contentEditableRef = useRef(null)

@@ -105,6 +105,7 @@ function ProjectsLifecycleButtons({
       operator: FilterOperator.Equal,
       value: active ? lifecycle : null
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, lifecycle]);
 
   return (

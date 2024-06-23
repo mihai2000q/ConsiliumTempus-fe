@@ -16,7 +16,7 @@ import Paths from "../../../utils/Paths.ts";
 import { useNavigate } from "react-router-dom";
 import { MouseEventHandler, ReactNode } from "react";
 import Project from "../types/Project.model.ts";
-import { useUpdateProjectMutation, useDeleteProjectMutation } from "../state/projectApi.ts";
+import { useDeleteProjectMutation, useUpdateProjectMutation } from "../state/projectApi.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
 
 interface ProjectActionsMenuItemProps {

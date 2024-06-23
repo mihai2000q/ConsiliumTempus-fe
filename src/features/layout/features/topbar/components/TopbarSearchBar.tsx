@@ -1,14 +1,4 @@
-import {
-  alpha,
-  Box,
-  BoxProps,
-  darken,
-  InputBase,
-  InputBaseProps,
-  lighten,
-  Stack,
-  styled
-} from "@mui/material";
+import { alpha, Box, BoxProps, darken, InputBase, InputBaseProps, lighten, Stack, styled } from "@mui/material";
 import { useState } from "react";
 import { Search } from "@mui/icons-material";
 

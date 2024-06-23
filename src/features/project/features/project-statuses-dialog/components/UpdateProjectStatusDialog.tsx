@@ -5,7 +5,8 @@ import {
   Dialog,
   DialogContent,
   FormControl,
-  FormHelperText, Grid,
+  FormHelperText,
+  Grid,
   IconButton,
   InputBase,
   Link,
@@ -67,6 +68,7 @@ function UpdateProjectStatusDialog({
     values.projectStatusTitle = initialProjectStatus.title
     setStatusType(initialProjectStatus.status)
     values.projectStatusDescription = initialProjectStatus.description
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialProjectStatus])
 
   async function handleSubmitForm() {

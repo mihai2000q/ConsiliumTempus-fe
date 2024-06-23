@@ -3,7 +3,8 @@ import Urls from "../../../../../utils/Urls.ts";
 import TagTypes from "../../../../../utils/TagTypes.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
 import {
-  DeleteProjectSprintRequest, GetProjectSprintRequest,
+  DeleteProjectSprintRequest,
+  GetProjectSprintRequest,
   GetProjectSprintsRequest,
   UpdateProjectSprintRequest
 } from "../types/ProjectSprint.request.ts";

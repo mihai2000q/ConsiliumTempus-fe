@@ -55,6 +55,7 @@ function FilterChip({
     const selected = isSelected(filters)
     setSelected(selected)
     setDisabled(isDisabled(selected, filters))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allFilters, filters]) // TODO: check for filters (Reference Equality)
 
   function handleClick() {

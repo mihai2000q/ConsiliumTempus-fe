@@ -7,7 +7,7 @@ import FilterValueSelector from "./FilterValueSelector.tsx";
 import { Close } from "@mui/icons-material";
 import { Filter } from "../../types/Filter.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import {default as FilterPropertyType} from "../../types/FilterProperty.ts";
+import { default as FilterPropertyType } from "../../types/FilterProperty.ts";
 
 interface FilterPropertyProps {
   filterProperties: FilterPropertyType[],

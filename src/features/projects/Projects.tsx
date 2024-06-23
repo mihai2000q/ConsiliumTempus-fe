@@ -177,7 +177,7 @@ function Projects() {
               <>
                 {Array.from(Array(pageSize)).map((_, i) => (
                   <GridItem key={i}>
-                    <Skeleton variant={'rectangular'} sx={{ height: 300 }} />
+                    <Skeleton variant={'rectangular'} sx={{ height: 300, borderRadius: 2 }} />
                   </GridItem>
                 ))}
               </>
