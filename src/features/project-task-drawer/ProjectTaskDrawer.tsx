@@ -1,11 +1,14 @@
 import { useGetProjectTaskQuery, useUpdateProjectTaskMutation } from "./state/projectTaskDrawerApi.ts";
 import {
   alpha,
-  Button, ButtonProps,
+  Button,
+  ButtonProps,
   Divider,
-  Drawer, Grid,
+  Drawer,
+  Grid,
   IconButton,
-  Stack, styled,
+  Stack,
+  styled,
   TextField,
   Tooltip,
   Typography
@@ -13,14 +16,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../state/store.ts";
 import { closeDrawer } from "../../state/project-task-drawer/projectTaskDrawerSlice.ts";
-import {
-  CheckRounded,
-  LinkOutlined,
-  MoreHoriz,
-  PersonOutlineRounded,
-  SkipNextRounded,
-  VisibilityOutlined
-} from "@mui/icons-material";
+import { CheckRounded, LinkOutlined, MoreHoriz, SkipNextRounded, VisibilityOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import Paths from "../../utils/Paths.ts";
 import ProjectTaskDrawerActionsMenu from "./components/ProjectTaskDrawerActionsMenu.tsx";
@@ -32,6 +28,7 @@ import OutlinedInputTextField from "../../components/textfield/OutlinedInputText
 import { useNavigate } from "react-router-dom";
 import ProjectTaskDrawerLoader from "./components/ProjectTaskDrawerLoader.tsx";
 import FormGridItem from "../../components/form/FormGridItem.tsx";
+import AssigneeButton from "./components/AssigneeButton.tsx";
 
 interface CompletedButtonProps extends ButtonProps {
   isCompleted: boolean
@@ -77,38 +74,47 @@ function ProjectTaskDrawer() {
 
   const taskId = useSelector((state: RootState) => state.projectTaskDrawer.taskId)
 
-  const task = useGetProjectTaskQuery(
+  const { data: task, isFetching } = useGetProjectTaskQuery(
     { id: taskId },
     { skip: taskId === '' }
-  )?.data
+  )
 
-  const [name, refreshName,  facadeName, setFacadeName] = useDependencyFacadeState('')
-  const [description, refreshDescription, facadeDescription, setFacadeDescription] = useDependencyFacadeState('')
-  const [isCompleted, setIsCompleted, refreshIsCompleted] = useDependencyState(false)
+  const [name, refreshName,  facadeName, setFacadeName] =
+    useDependencyFacadeState(task?.name ?? '')
+  const [description, refreshDescription, facadeDescription, setFacadeDescription] =
+    useDependencyFacadeState(task?.description ?? '')
+  const [isCompleted, setIsCompleted, refreshIsCompleted] =
+    useDependencyState(task?.isCompleted ?? false)
+  const [assigneeId, setAssigneeId, refreshAssignee] =
+    useDependencyState<string | null>(task?.assignee?.id ?? null)
+
   useEffect(() => {
     if (!task) return
 
     setFacadeName(task.name)
     setFacadeDescription(task.description)
     setIsCompleted(task.isCompleted)
+    setAssigneeId(task.assignee?.id ?? null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [task]) // TODO: Referential Equality
   
   const [updateProjectTask] = useUpdateProjectTaskMutation()
   useUpdateEffect(() => {
-    if (name.value === '' || isNoneUserDependencyState([name, description, isCompleted])) return
+    if (name.value === '' || isNoneUserDependencyState([name, description, isCompleted, assigneeId])) return
 
     updateProjectTask({
       id: taskId,
       name: name.value,
       description: description.value,
       isCompleted: isCompleted.value,
-      assigneeId: null
+      assigneeId: assigneeId.value
     }).unwrap()
 
     refreshName()
     refreshDescription()
     refreshIsCompleted()
-  }, [name, description, isCompleted]);
+    refreshAssignee()
+  }, [name, description, isCompleted, assigneeId]);
 
   function handleViewDetails() {
     handleCloseDrawer()
@@ -180,12 +186,12 @@ function ProjectTaskDrawer() {
             <FormGridItem
               labelSize={2.5}
               label={<Typography>Assignee</Typography>}>
-              <Button
-                variant={'alt-text'}
-                size={'small'}
-                startIcon={<PersonOutlineRounded sx={{ mr: '2px' }} />}>
-                Set Assignee
-              </Button>
+              <AssigneeButton
+                isFetching={isFetching}
+                workspaceId={task.workspace.id}
+                assignee={task.assignee}
+                assigneeId={assigneeId}
+                setAssigneeId={setAssigneeId} />
             </FormGridItem>
           </Grid>
 
