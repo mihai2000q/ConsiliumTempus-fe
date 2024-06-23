@@ -2,12 +2,12 @@ import { alpha, Button, ButtonProps, styled } from "@mui/material";
 
 interface StyledProjectTaskCardProps extends ButtonProps {
   isCompleted?: boolean,
-  isDrawerOpen?: boolean
+  isSelected?: boolean
 }
 
 const StyledProjectTaskCard = styled(Button, {
-  shouldForwardProp: (props) => props !== 'isCompleted' && props !== 'isDrawerOpen',
-})<StyledProjectTaskCardProps>(({ theme, isCompleted, isDrawerOpen }) => ({
+  shouldForwardProp: (props) => props !== 'isCompleted' && props !== 'isSelected',
+})<StyledProjectTaskCardProps>(({ theme, isCompleted, isSelected }) => ({
   borderRadius: '16px',
   justifyContent: 'start',
   width: '100%',
@@ -32,7 +32,7 @@ const StyledProjectTaskCard = styled(Button, {
       color: alpha(theme.palette.text.triadic, 0.7)
     },
   }),
-  ...(isDrawerOpen === true && {
+  ...(isSelected === true && {
     backgroundColor: alpha(theme.palette.background[900], 0.5),
     borderColor: alpha(theme.palette.background[100], 0.8)
   })

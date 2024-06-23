@@ -2,13 +2,11 @@ import { Box, IconButton, IconButtonProps, Stack, styled, Typography } from "@mu
 import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
-import { useDispatch, useSelector } from "react-redux";
-import { openDrawer } from "../../../../../../state/project-task-drawer/projectTaskDrawerSlice.ts";
 import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
-import { RootState } from "../../../../../../state/store.ts";
 import AssigneeIconButton from "./AssigneeIconButton.tsx";
 import ProjectTask from "../../types/ProjectTask.model.ts";
 import StyledProjectTaskCard from "../../../../../../components/project-task/StyledProjectTaskCard.tsx";
+import ProjectTaskDrawer from "../../../../../project-task-drawer/ProjectTaskDrawer.tsx";
 
 interface CompletedButtonProps extends IconButtonProps {
   isCompleted: boolean
@@ -35,10 +33,8 @@ interface ProjectTaskCardProps {
 }
 
 function ProjectTaskCard({ task }: ProjectTaskCardProps) {
-  const dispatch = useDispatch()
-
-  const drawerTaskId = useSelector((state: RootState) => state.projectTaskDrawer.taskId)
-
+  const [selected, setSelected] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const [isCompleted, setIsCompleted] = useState(false)
@@ -47,7 +43,8 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
   }, [task])
 
   function handleClick() {
-    dispatch(openDrawer(task.id))
+    setIsDrawerOpen(true)
+    setSelected(true)
   }
 
   function handleRightClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -73,7 +70,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
     <Box position={'relative'} my={0.5}>
       <StyledProjectTaskCard
         component={'div'}
-        isDrawerOpen={drawerTaskId === task.id}
+        isSelected={selected}
         isCompleted={isCompleted}
         onClick={handleClick}
         onContextMenu={handleRightClick}
@@ -106,11 +103,19 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           setAssigneeId={(newAssigneeId) => updateTask({ assigneeId: newAssigneeId })} />
       </Stack>
 
-      {task &&
+      {task && <>
         <ProjectTaskCardActionsMenu
           anchorEl={taskMenuAnchorEl}
           onClose={() => setTaskMenuAnchorEl(null)}
-          task={task} />}
+          task={task} />
+        <ProjectTaskDrawer
+          isDrawerOpen={isDrawerOpen}
+          onClose={() => {
+            setIsDrawerOpen(false)
+            setSelected(false)
+          }}
+          taskId={task.id} />
+        </>}
     </Box>
   );
 }

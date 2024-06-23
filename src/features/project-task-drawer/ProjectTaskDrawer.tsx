@@ -13,9 +13,6 @@ import {
   Tooltip,
   Typography
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../state/store.ts";
-import { closeDrawer } from "../../state/project-task-drawer/projectTaskDrawerSlice.ts";
 import { CheckRounded, LinkOutlined, MoreHoriz, SkipNextRounded, VisibilityOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import Paths from "../../utils/Paths.ts";
@@ -63,20 +60,20 @@ const CompletedButton = styled(Button, {
   })
 }))
 
-function ProjectTaskDrawer() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+interface ProjectTaskDrawerProps {
+  isDrawerOpen: boolean,
+  onClose: () => void,
+  taskId: string
+}
 
-  const isDrawerOpen = useSelector((state: RootState) => state.projectTaskDrawer.isDrawerOpen)
-  const handleCloseDrawer = () => dispatch(closeDrawer())
+function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerProps) {
+  const navigate = useNavigate()
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const taskId = useSelector((state: RootState) => state.projectTaskDrawer.taskId)
-
-  const { data: task, isFetching, isLoading } = useGetProjectTaskQuery(
+  const { data: task, isFetching } = useGetProjectTaskQuery(
     { id: taskId },
-    { skip: taskId === '' }
+    { skip: !isDrawerOpen }
   )
 
   const [name, refreshName,  facadeName, setFacadeName] =
@@ -117,7 +114,7 @@ function ProjectTaskDrawer() {
   }, [name, description, isCompleted, assigneeId]);
 
   function handleViewDetails() {
-    handleCloseDrawer()
+    onClose()
     navigate(`${Paths.ProjectTask}/${taskId}`)
   }
   function handleCopyTaskLink() {
@@ -128,13 +125,13 @@ function ProjectTaskDrawer() {
     <Drawer
       anchor={'right'}
       open={isDrawerOpen}
-      onClose={handleCloseDrawer}
+      onClose={onClose}
       sx={{
         width: 600,
         '& .MuiDrawer-paper': { width: 600, },
       }}>
       {
-        !task || isLoading
+        !task
           ? <ProjectTaskDrawerLoader />
           : (
             <Stack mt={1}>
@@ -164,7 +161,7 @@ function ProjectTaskDrawer() {
                     </IconButton>
                   </Tooltip>
                   <Tooltip title={'Close Drawer'} arrow placement={'bottom'} enterDelay={400}>
-                    <IconButton onClick={handleCloseDrawer}>
+                    <IconButton onClick={onClose}>
                       <SkipNextRounded />
                     </IconButton>
                   </Tooltip>
