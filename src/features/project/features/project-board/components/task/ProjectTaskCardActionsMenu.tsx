@@ -4,7 +4,7 @@ import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, V
 import { useDeleteProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useNavigate } from "react-router-dom";
 import Paths from "../../../../../../utils/Paths.ts";
-import { ProjectTask } from "../../types/ProjectTask.response.ts";
+import ProjectTask from "../../types/ProjectTask.model.ts";
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
