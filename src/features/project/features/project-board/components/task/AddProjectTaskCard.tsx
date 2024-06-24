@@ -29,8 +29,11 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
   function handleBlur() {
     addNewTask()
   }
-  function handleOnKeyUp(e: React.KeyboardEvent<HTMLButtonElement>) {
-    if ((e.key === 'Enter')) addNewTask()
+  function handleOnKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
+    if ((e.key === 'Enter')) {
+      e.preventDefault()
+      addNewTask()
+    }
   }
 
   return (
@@ -38,7 +41,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
       component={'div'}
       disableRipple
       onBlur={handleBlur}
-      onKeyUp={handleOnKeyUp}
+      onKeyDown={handleOnKeyDown}
       sx={{
         padding: 2,
         boxShadow: 2,
