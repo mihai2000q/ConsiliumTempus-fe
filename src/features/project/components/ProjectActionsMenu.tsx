@@ -12,7 +12,7 @@ import {
   Save,
   UnarchiveOutlined
 } from "@mui/icons-material";
-import Paths from "../../../utils/Paths.ts";
+import Paths from "../../../utils/enums/Paths.ts";
 import { useNavigate } from "react-router-dom";
 import { MouseEventHandler, ReactNode } from "react";
 import Project from "../types/Project.model.ts";

@@ -23,7 +23,7 @@ import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import useFacadeState from "../../hooks/useFacadeState.ts";
 import projectsSearchParamsState from "./state/ProjectsSearchParamsState.ts";
 import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
-import FilterOperator from "../../utils/FilterOperator.ts";
+import FilterOperator from "../../utils/enums/FilterOperator.ts";
 import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
 import ProjectLifecycle from "../../utils/project/ProjectLifecycle.ts";

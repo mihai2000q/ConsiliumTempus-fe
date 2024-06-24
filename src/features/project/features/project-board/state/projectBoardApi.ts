@@ -1,6 +1,6 @@
 import { api } from "../../../../../state/api.ts";
-import Urls from "../../../../../utils/Urls.ts";
-import TagTypes from "../../../../../utils/TagTypes.ts";
+import Urls from "../../../../../utils/enums/Urls.ts";
+import TagTypes from "../../../../../utils/enums/TagTypes.ts";
 import {
   AddStageToProjectSprintRequest,
   GetProjectSprintRequest,

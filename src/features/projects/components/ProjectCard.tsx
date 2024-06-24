@@ -2,7 +2,7 @@ import Project from "../types/Project.model.ts";
 import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography, } from "@mui/material";
 import Paragraph from "../../../components/text/Paragraph.tsx";
 import { useNavigate } from "react-router-dom";
-import Paths from "../../../utils/Paths.ts";
+import Paths from "../../../utils/enums/Paths.ts";
 import useProjectStatusHeader from "../hooks/useProjectStatusHeader.ts";
 
 const StyledProjectCard = styled(Box)<BoxProps>(({ theme }) => ({

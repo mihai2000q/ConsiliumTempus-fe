@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import FilterPropertySelector from "./FilterPropertySelector.tsx";
-import FilterOperator from "../../utils/FilterOperator.ts";
+import FilterOperator from "../../utils/enums/FilterOperator.ts";
 import { IconButton, Stack, Tooltip } from "@mui/material";
 import FilterOperatorSelector from "./FilterOperatorSelector.tsx";
 import FilterValueSelector from "./FilterValueSelector.tsx";

@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { CheckRounded, LinkOutlined, MoreHoriz, SkipNextRounded, VisibilityOutlined } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import Paths from "../../utils/Paths.ts";
+import Paths from "../../utils/enums/Paths.ts";
 import ProjectTaskDrawerActionsMenu from "./components/ProjectTaskDrawerActionsMenu.tsx";
 import useDependencyState from "../../hooks/useDependencyState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";

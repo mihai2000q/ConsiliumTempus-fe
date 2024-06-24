@@ -1,6 +1,6 @@
 import { api } from "../../../state/api.ts";
-import TagTypes from "../../../utils/TagTypes.ts";
-import Urls from "../../../utils/Urls.ts";
+import TagTypes from "../../../utils/enums/TagTypes.ts";
+import Urls from "../../../utils/enums/Urls.ts";
 import { DeleteProjectRequest, GetProjectRequest, UpdateProjectRequest, } from "../types/Project.request.ts";
 import HttpMessageResponse from "../../../types/HttpMessage.response.ts";
 import { GetProjectSprintsRequest } from "../types/ProjectSprint.request.ts";

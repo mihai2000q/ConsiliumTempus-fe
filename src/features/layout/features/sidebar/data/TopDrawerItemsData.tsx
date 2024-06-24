@@ -1,6 +1,6 @@
 import DrawerItem from "../types/DrawerItem.ts";
 import { CalendarMonth, ChecklistRounded, HomeRounded } from "@mui/icons-material";
-import Paths from "../../../../../utils/Paths.ts";
+import Paths from "../../../../../utils/enums/Paths.ts";
 
 const topDrawerItems: DrawerItem[] = [
   {

@@ -1,5 +1,5 @@
 import { api } from "../../../state/api.ts";
-import Urls from "../../../utils/Urls.ts";
+import Urls from "../../../utils/enums/Urls.ts";
 import AuthResponse from "../../../types/Auth.response.ts";
 import LoginRequest from "../types/Login.request.ts";
 

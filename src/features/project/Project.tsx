@@ -39,7 +39,7 @@ import ProjectStatusLabel from "./shared/components/ProjectStatusLabel.tsx";
 import ProjectStatusesDialog from "./features/project-statuses-dialog/ProjectStatusesDialog.tsx";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
 import { setBreadcrumbs, setProjectId, setProjectName, setWorkspaceId } from "../../state/project/projectSlice.ts";
-import Paths from "../../utils/Paths.ts";
+import Paths from "../../utils/enums/Paths.ts";
 import AddProjectSprintDialog from "./shared/components/AddProjectSprintDialog.tsx";
 import useAdapterState from "../../hooks/useAdapterState.ts";
 import ProjectSprintsDialog from "./features/project-sprints-dialog/ProjectSprintsDialog.tsx";

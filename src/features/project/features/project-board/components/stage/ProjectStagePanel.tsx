@@ -22,6 +22,7 @@ import OutlinedContentEditable from "../../../../../../components/text/OutlinedC
 import useTimeoutCallback from "../../../../../../hooks/useTimeoutCallback.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../state/store.ts";
+import plural from "../../../../../../utils/plural.ts";
 
 export const StyledProjectStagePanel = styled(Stack)<StackProps>(({ theme }) => ({
   height: '100%',
@@ -55,9 +56,9 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
       name: stageName
     }), [stageName])
 
-  const getProjectTasksQuery = useGetProjectTasksQuery({ projectStageId: stage.id }).data
-  const tasks = getProjectTasksQuery?.tasks
-  const totalTasksCount = getProjectTasksQuery?.totalCount
+  const { data } = useGetProjectTasksQuery({ projectStageId: stage.id })
+  const tasks = data?.tasks
+  const totalTasksCount = data?.totalCount
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
@@ -87,7 +88,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
                 arrow
                 placement={'top'}
                 sx={{ cursor: 'default' }}
-                title={`There are ${totalTasksCount} task${totalTasksCount === 1 ? '' : 's'} in this stage`}>
+                title={`There are ${totalTasksCount} task${plural(totalTasksCount)} in this stage`}>
                 <Typography fontWeight={300}>{totalTasksCount}</Typography>
               </Tooltip>
           }

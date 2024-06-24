@@ -1,6 +1,6 @@
 import { Button, IconButton, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
 import { ArrowDownward, ArrowUpward, KeyboardArrowDown, KeyboardArrowUp, Sort } from "@mui/icons-material";
-import OrderType from "../../../utils/OrderType.ts";
+import OrderType from "../../../utils/enums/OrderType.ts";
 import { projectOrderProperties } from "../data/ProjectOrderPropertiesData.tsx";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 

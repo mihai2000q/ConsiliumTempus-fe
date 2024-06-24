@@ -3,11 +3,11 @@ import Project from "../types/Project.model.ts";
 import { useGetProjectsQuery, useLazyGetProjectsQuery } from "../state/sidebarApi.ts";
 import useUpdateEffect from "../../../../../hooks/useUpdateEffect.ts";
 import ProjectsOrderQueryParams from "../utils/ProjectsOrderQueryParams.ts";
-import OrderType from "../../../../../utils/OrderType.ts";
+import OrderType from "../../../../../utils/enums/OrderType.ts";
 import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
 import useSearchQueryParam from "../../../../../hooks/useSearchQueryParam.ts";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
-import FilterOperator from "../../../../../utils/FilterOperator.ts";
+import FilterOperator from "../../../../../utils/enums/FilterOperator.ts";
 
 export default function useProjects(
   hidden: boolean,

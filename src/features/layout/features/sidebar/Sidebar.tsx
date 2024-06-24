@@ -2,7 +2,7 @@ import { Button, Divider, Drawer, IconButton, Stack, Typography, useTheme } from
 import demoLogo from "../../../../assets/demo-logo.png";
 import DrawerList from "./components/DrawerList.tsx";
 import topDrawerItems from "./data/TopDrawerItemsData.tsx";
-import Paths from "../../../../utils/Paths.ts";
+import Paths from "../../../../utils/enums/Paths.ts";
 import { Add, MailOutlined, Person } from "@mui/icons-material";
 import AddProjectDialog from "./components/AddProjectDialog.tsx";
 import AddWorkspaceDialog from "./components/AddWorkspaceDialog.tsx";

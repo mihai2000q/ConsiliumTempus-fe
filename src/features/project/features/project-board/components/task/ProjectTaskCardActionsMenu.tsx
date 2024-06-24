@@ -3,7 +3,7 @@ import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/materia
 import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
 import { useDeleteProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useNavigate } from "react-router-dom";
-import Paths from "../../../../../../utils/Paths.ts";
+import Paths from "../../../../../../utils/enums/Paths.ts";
 import ProjectTask from "../../types/ProjectTask.model.ts";
 
 interface ProjectTaskActionsMenuItemProps {
