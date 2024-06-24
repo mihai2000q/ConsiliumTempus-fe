@@ -1,4 +1,4 @@
-import FilterOperator from "../../../utils/FilterOperator.ts";
+import FilterOperator from "../../../utils/enums/FilterOperator.ts";
 import ProjectsSearchQueryParams from "./ProjectsSearchQueryParams.ts";
 
 export const projectsSearchQueryParamsFilterOperators =

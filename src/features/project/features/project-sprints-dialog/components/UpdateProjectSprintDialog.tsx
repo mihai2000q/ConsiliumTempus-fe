@@ -16,10 +16,10 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import { updateProjectSprintDialogInitialValues } from "../state/projectSprintDialogState.ts";
-import { updateProjectSprintDialogValidationSchema } from "../state/projectSprintDialogValidation.ts";
+import { updateProjectSprintDialogInitialValues } from "../state/projectSprintsDialogState.ts";
+import { updateProjectSprintDialogValidationSchema } from "../state/projectSprintsDialogValidation.ts";
 import dayjs, { Dayjs } from "dayjs";
-import { useUpdateProjectSprintMutation } from "../state/projectSprintDialogApi.ts";
+import { useUpdateProjectSprintMutation } from "../state/projectSprintsDialogApi.ts";
 import ProjectSprint from "../types/ProjectSprint.model.ts";
 import { Close } from "@mui/icons-material";
 import FormGridItem from "../../../../../components/form/FormGridItem.tsx";
@@ -69,6 +69,7 @@ function UpdateProjectSprintDialog({
     values.projectSprintName = initialProjectSprint.name
     setStartDate(initialProjectSprint.startDate)
     setEndDate(initialProjectSprint.endDate)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialProjectSprint]);
 
   async function handleSubmitForm() {

@@ -6,7 +6,7 @@ interface MainProps {
   drawerWidth: number
 }
 
-export const Main = styled(
+const Main = styled(
   'main',
   {
     shouldForwardProp: (prop) =>
@@ -37,3 +37,5 @@ export const Main = styled(
     }),
   }),
 }));
+
+export default Main

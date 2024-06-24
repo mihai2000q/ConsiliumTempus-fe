@@ -2,7 +2,7 @@ import { Button, ButtonProps, Stack, StackProps, styled } from "@mui/material";
 import { ArchiveOutlined, HourglassEmptyOutlined, SkipNextOutlined } from "@mui/icons-material";
 import { Dispatch, SetStateAction, useEffect } from "react";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
-import FilterOperator from "../../../utils/FilterOperator.ts";
+import FilterOperator from "../../../utils/enums/FilterOperator.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
 import { addToSearchQueryParamType } from "../../../hooks/useSearchQueryParam.ts";
 
@@ -105,6 +105,7 @@ function ProjectsLifecycleButtons({
       operator: FilterOperator.Equal,
       value: active ? lifecycle : null
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, lifecycle]);
 
   return (

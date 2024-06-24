@@ -13,3 +13,13 @@ export const addProjectSprintDialogInitialValues: AddProjectSprintDialogForm = {
   projectStatusTitle: '',
   projectStatusDescription: ''
 }
+
+export interface AddProjectStatusDialogForm {
+  projectStatusTitle: string,
+  projectStatusDescription: string
+}
+
+export const addProjectStatusDialogFormInitialValues: AddProjectStatusDialogForm = {
+  projectStatusTitle: "",
+  projectStatusDescription: ""
+}

@@ -3,10 +3,14 @@ import { Button, ButtonGroup, ListItemIcon, ListItemText, Menu, MenuItem, Stack 
 import ProjectStagesLoader from "./components/stage/ProjectStagesLoader.tsx";
 import {
   Add,
-  ArrowDropDownOutlined, AssignmentOutlined, ChargingStationOutlined,
+  ArrowDropDownOutlined,
+  AssignmentOutlined,
+  ChargingStationOutlined,
   FilterList,
   GroupWorkOutlined,
-  Sort, ViewTimelineOutlined, ViewWeekOutlined,
+  Sort,
+  ViewTimelineOutlined,
+  ViewWeekOutlined,
   VisibilityOffOutlined
 } from "@mui/icons-material";
 import ProjectSprint from "./types/ProjectSprint.model.ts";
@@ -16,7 +20,7 @@ import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../state/store.ts";
 import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
-import AddProjectStatusDialog from "../../components/status/AddProjectStatusDialog.tsx";
+import AddProjectStatusDialog from "../../shared/components/AddProjectStatusDialog.tsx";
 
 interface ProjectBoardProps {
   sprintId: string

@@ -3,12 +3,15 @@ import {
   Button,
   CircularProgress,
   IconButton,
-  Stack, StackProps, styled, Tooltip,
+  Stack,
+  StackProps,
+  styled,
+  Tooltip,
   Typography,
   useTheme
 } from "@mui/material";
 import ProjectStage from "../../types/ProjectStage.model.ts";
-import { useGetProjectTasksQuery, useUpdateStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
+import { useUpdateStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
 import ProjectTaskCard from "../task/ProjectTaskCard.tsx";
 import { Add, AddRounded, MoreHorizRounded, SearchRounded } from "@mui/icons-material";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -19,6 +22,8 @@ import OutlinedContentEditable from "../../../../../../components/text/OutlinedC
 import useTimeoutCallback from "../../../../../../hooks/useTimeoutCallback.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../state/store.ts";
+import plural from "../../../../../../utils/plural.ts";
+import useProjectTasks from "../../hooks/useProjectTasks.ts";
 
 export const StyledProjectStagePanel = styled(Stack)<StackProps>(({ theme }) => ({
   height: '100%',
@@ -45,21 +50,34 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
   const sprintId = useSelector((state: RootState) => state.project.sprintId)
   const [stageName, setStageName] = useState(stage.name)
   const [updateStageFromProjectSprint] = useUpdateStageFromProjectSprintMutation()
-  useTimeoutCallback(
-    () => updateStageFromProjectSprint({
+  useTimeoutCallback(() =>
+    updateStageFromProjectSprint({
       id: sprintId!,
       stageId: stage.id,
       name: stageName
-    }), [stageName])
+  }), [stageName])
 
-  const getProjectTasksQuery = useGetProjectTasksQuery({ projectStageId: stage.id }).data
-  const tasks = getProjectTasksQuery?.tasks
-  const totalTasksCount = getProjectTasksQuery?.totalCount
+  const {
+    tasks,
+    totalTasksCount,
+    isFetching,
+    isLoading,
+    fetchMoreTasks
+  } = useProjectTasks(stage.id, undefined, undefined)
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const [showTopAddTaskCard, setShowTopAddTaskCard] = useState(false)
   const [showBottomAddTaskCard, setShowBottomAddTaskCard] = useState(false)
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleScroll = (e: any) => {
+    const { scrollTop, scrollHeight, clientHeight } = e.target;
+
+    if (scrollTop + clientHeight > scrollHeight - 25) {
+      fetchMoreTasks()
+    }
+  };
 
   return (
     <StyledProjectStagePanel boxShadow={4} sx={{ '&:hover': { boxShadow: 8 } }}>
@@ -84,7 +102,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
                 arrow
                 placement={'top'}
                 sx={{ cursor: 'default' }}
-                title={`There are ${totalTasksCount} task${totalTasksCount === 1 ? '' : 's'} in this stage`}>
+                title={`There are ${totalTasksCount} task${plural(totalTasksCount)} in this stage`}>
                 <Typography fontWeight={300}>{totalTasksCount}</Typography>
               </Tooltip>
           }
@@ -107,7 +125,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
         </Stack>
       </Stack>
 
-      <Stack px={0.75} pt={1} sx={{ overflow: 'auto', maxHeight: '100%' }}>
+      <Stack px={0.75} pt={1} sx={{ overflow: 'auto', maxHeight: '100%' }} onScroll={handleScroll}>
         {
           showTopAddTaskCard &&
             <AddProjectTaskCard
@@ -144,6 +162,8 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
           sx={{ mb: 1.5, mt: 0.5 }}>
           Add Task
         </Button>
+        {isFetching && !isLoading &&
+          <CircularProgress thickness={6} size={35} sx={{ mb: 4, mt: 2, alignSelf: 'center' }} />}
       </Stack>
     </StyledProjectStagePanel>
   );

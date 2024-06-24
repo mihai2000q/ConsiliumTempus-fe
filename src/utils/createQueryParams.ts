@@ -10,7 +10,9 @@ export default function createQueryParams(obj: object): string {
     }
   })
 
-  return result === '?' ? '' : result
+  return result === '?'
+    ? ''
+    : result.slice(0, result.length - 1) // remove last '&'
 }
 
 function createQueryParam(key: string, value: string) {

@@ -2,7 +2,7 @@ import { Button, Divider, Drawer, IconButton, Stack, Typography, useTheme } from
 import demoLogo from "../../../../assets/demo-logo.png";
 import DrawerList from "./components/DrawerList.tsx";
 import topDrawerItems from "./data/TopDrawerItemsData.tsx";
-import Paths from "../../../../utils/Paths.ts";
+import Paths from "../../../../utils/enums/Paths.ts";
 import { Add, MailOutlined, Person } from "@mui/icons-material";
 import AddProjectDialog from "./components/AddProjectDialog.tsx";
 import AddWorkspaceDialog from "./components/AddWorkspaceDialog.tsx";
@@ -36,11 +36,11 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
   const [order, setOrder] = useState(ProjectsOrderQueryParams.LastActivity)
   const [lifecycle, setLifecycle] = useState<ProjectLifecycle | null>(ProjectLifecycle.Active)
 
-  const [
+  const {
     projects,
-    projectIsFetching,
-    projectIncreaseCurrentPage
-  ] = useProjects(hidden, order, lifecycle)
+    projectsIsFetching,
+    projectsFetchMoreProjects
+  } = useProjects(hidden, order, lifecycle)
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
   const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)
@@ -112,8 +112,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
               link: `${Paths.Project}/${p.id}`,
               icon: getProjectIcon(p.name)
             }))}
-            isFetching={projectIsFetching}
-            increaseCurrentPage={projectIncreaseCurrentPage}
+            isFetching={projectsIsFetching}
+            fetchMore={projectsFetchMoreProjects}
             menu={(anchorEl, onClose) => (
               <SidebarProjectsMenu
                 anchorEl={anchorEl}

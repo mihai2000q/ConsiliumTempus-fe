@@ -1,11 +1,4 @@
-import {
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  TextField
-} from "@mui/material";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from "@mui/material";
 import { useAddWorkspaceMutation } from "../state/sidebarApi.ts";
 import { useFormik } from "formik";
 import { addWorkspaceDialogFormInitialValues } from "../state/sidebarState.ts";

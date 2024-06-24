@@ -1,8 +1,8 @@
 import { api } from "../../../../../state/api.ts";
-import TagTypes from "../../../../../utils/TagTypes.ts";
+import TagTypes from "../../../../../utils/enums/TagTypes.ts";
 import GetWorkspacesResponse from "../types/Workspace.response.ts";
 import GetProjectsResponse from "../types/Project.response.ts";
-import Urls from "../../../../../utils/Urls.ts";
+import Urls from "../../../../../utils/enums/Urls.ts";
 import { CreateWorkspaceRequest, GetWorkspacesRequest } from "../types/Workspace.request.ts";
 import { CreateProjectRequest, GetProjectsRequest } from "../types/Project.request.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";

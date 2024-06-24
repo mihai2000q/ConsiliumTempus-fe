@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import SearchQueryParamValue from "../types/SearchQueryParamValue.ts";
-import FilterOperator from "../utils/FilterOperator.ts";
+import FilterOperator from "../utils/enums/FilterOperator.ts";
 import { Filter } from "../types/Filter.ts";
 
 interface FilterSearchQueryParam {

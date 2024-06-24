@@ -3,8 +3,8 @@ import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/materia
 import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
 import { useDeleteProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useNavigate } from "react-router-dom";
-import Paths from "../../../../../../utils/Paths.ts";
-import { ProjectTask } from "../../types/ProjectTask.response.ts";
+import Paths from "../../../../../../utils/enums/Paths.ts";
+import ProjectTask from "../../types/ProjectTask.model.ts";
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
@@ -57,8 +57,8 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCard
       id: task.id,
       name: task.name,
       isCompleted: true,
-      assigneeId: task.assignee.id
-    })
+      assigneeId: task.assignee?.id ?? null
+    }).unwrap()
     onClose()
   }
   const handleMarkIncompleteTask = () => {
@@ -66,8 +66,8 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCard
       id: task.id,
       name: task.name,
       isCompleted: false,
-      assigneeId: task.assignee.id
-    })
+      assigneeId: task.assignee?.id ?? null
+    }).unwrap()
     onClose()
   }
   const handleDeleteTask = () => {

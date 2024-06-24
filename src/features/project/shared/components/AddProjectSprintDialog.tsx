@@ -12,14 +12,17 @@ import {
   Dialog,
   DialogContent,
   FormControl,
-  FormHelperText, FormLabel,
+  FormHelperText,
+  FormLabel,
   Grid,
   IconButton,
   InputBase,
   Link,
   Stack,
-  Toolbar, Tooltip,
-  Typography, useTheme
+  Toolbar,
+  Tooltip,
+  Typography,
+  useTheme
 } from "@mui/material";
 import { Close, ExpandMore, InfoOutlined } from "@mui/icons-material";
 import { closeAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
@@ -28,7 +31,7 @@ import { useEffect, useState } from "react";
 import dayjs, { Dayjs } from "dayjs";
 import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
 import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
-import ProjectStatusSelector from "../../components/status/ProjectStatusSelector.tsx";
+import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 import { addProjectSprintDialogValidationSchema } from "../state/sharedProjectValidation.ts";
 import { useAddProjectSprintMutation } from "../state/sharedProjectApi.ts";
@@ -74,6 +77,7 @@ function AddProjectSprintDialog() {
   const [isAccordionExpanded, setIsAccordionExpanded] = useState(false)
   useEffect(() => {
     values.isProjectStatusAccordionOpen = isAccordionExpanded
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAccordionExpanded]);
 
   async function handleSubmitForm() {

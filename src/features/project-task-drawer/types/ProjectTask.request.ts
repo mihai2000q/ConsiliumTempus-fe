@@ -6,6 +6,7 @@ export interface UpdateProjectTaskRequest {
   id: string,
   name: string,
   description: string,
+  isCompleted: boolean,
   assigneeId: string | null
 }
 

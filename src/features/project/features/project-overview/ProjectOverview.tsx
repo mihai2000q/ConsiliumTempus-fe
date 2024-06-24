@@ -15,6 +15,7 @@ function ProjectOverview({ projectId }: ProjectOverviewProps) {
   const [description, refreshDescription, facadeDescription, setFacadeDescription] = useDependencyFacadeState('')
   useEffect(() => {
     setFacadeDescription(projectOverview?.description ?? '')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectOverview]) // TODO: Referential Equality
 
   const [updateProjectOverview] = useUpdateProjectOverviewMutation()

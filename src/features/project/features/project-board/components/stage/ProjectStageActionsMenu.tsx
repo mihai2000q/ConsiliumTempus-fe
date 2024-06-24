@@ -1,13 +1,6 @@
 import { MouseEventHandler, ReactNode } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import {
-  DeleteOutlined,
-  East,
-  Edit,
-  ElectricBolt,
-  PlaylistAdd,
-  West
-} from "@mui/icons-material";
+import { DeleteOutlined, East, Edit, ElectricBolt, PlaylistAdd, West } from "@mui/icons-material";
 import { useRemoveStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../state/store.ts";

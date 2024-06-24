@@ -234,7 +234,15 @@ export const components = {
           },
           '& .MuiListSubheader': {
             backgroundColor: theme.palette.background[800]
-          }
+          },
+        }),
+        ...(ownerState.variant === 'temporary' && {
+          '& .MuiDrawer-paper': {
+            boxSizing: 'border-box',
+            backgroundColor: theme.palette.background[900],
+            backgroundImage: 'unset',
+            ...(theme.palette.mode === 'dark' && { border: 0 })
+          },
         })
       })
     }
@@ -253,9 +261,21 @@ export const components = {
   MuiPopper: {
     styleOverrides: {
       root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiTooltip-arrow': {
+          color: theme.palette.mode === 'dark' ? darken(theme.palette.background[700], 0.35) : theme.palette.primary[600],
+        },
         '& .MuiTooltip-tooltip': {
-          backgroundColor: theme.palette.mode === 'dark' ? theme.palette.background[700] : theme.palette.primary[600],
+          backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[700], 0.35) : theme.palette.primary[600],
           color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.background[900]
+        },
+      })
+    }
+  },
+  MuiPopover: {
+    styleOverrides: {
+      root: ({ theme } : { theme: Theme }) => ({
+        '& .MuiPaper-root': {
+          backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.3) : theme.palette.primary[600],
         }
       })
     }

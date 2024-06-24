@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import FilterPropertySelector from "./FilterPropertySelector.tsx";
-import FilterOperator from "../../utils/FilterOperator.ts";
+import FilterOperator from "../../utils/enums/FilterOperator.ts";
 import { IconButton, Stack, Tooltip } from "@mui/material";
 import FilterOperatorSelector from "./FilterOperatorSelector.tsx";
 import FilterValueSelector from "./FilterValueSelector.tsx";
 import { Close } from "@mui/icons-material";
 import { Filter } from "../../types/Filter.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import {default as FilterPropertyType} from "../../types/FilterProperty.ts";
+import { default as FilterPropertyType } from "../../types/FilterProperty.ts";
 
 interface FilterPropertyProps {
   filterProperties: FilterPropertyType[],

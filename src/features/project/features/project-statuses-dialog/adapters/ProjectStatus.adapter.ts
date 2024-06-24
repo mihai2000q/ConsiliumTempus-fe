@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import ProjectStatus from "../types/ProjectStatus.model.ts";
 import { ProjectStatusResponse } from "../types/ProjectStatus.response.ts";
-import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
+import ProjectStatusType from "../../../../../utils/project/ProjectStatusType.ts";
 
 export default class ProjectStatusAdapter {
   static adapt(statuses: ProjectStatusResponse[] | undefined) : ProjectStatus[] | undefined {

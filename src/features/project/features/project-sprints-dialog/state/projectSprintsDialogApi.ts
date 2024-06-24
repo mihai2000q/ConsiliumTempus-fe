@@ -1,16 +1,17 @@
 import { api } from "../../../../../state/api.ts";
-import Urls from "../../../../../utils/Urls.ts";
-import TagTypes from "../../../../../utils/TagTypes.ts";
+import Urls from "../../../../../utils/enums/Urls.ts";
+import TagTypes from "../../../../../utils/enums/TagTypes.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
 import {
-  DeleteProjectSprintRequest, GetProjectSprintRequest,
+  DeleteProjectSprintRequest,
+  GetProjectSprintRequest,
   GetProjectSprintsRequest,
   UpdateProjectSprintRequest
 } from "../types/ProjectSprint.request.ts";
 import { GetProjectSprintsResponse } from "../types/ProjectSprints.response.ts";
 import ProjectSprintResponse from "../types/ProjectSprint.response.ts";
 
-export const projectSprintDialogApiSlice = api.injectEndpoints({
+export const projectSprintsDialogApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjectSprint: builder.query<ProjectSprintResponse, GetProjectSprintRequest>({
       query: arg => `${Urls.ProjectSprints}/${arg.id}`,
@@ -46,4 +47,4 @@ export const {
   useGetProjectSprintsQuery,
   useUpdateProjectSprintMutation,
   useDeleteProjectSprintMutation
-} = projectSprintDialogApiSlice
+} = projectSprintsDialogApiSlice

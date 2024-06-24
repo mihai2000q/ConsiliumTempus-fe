@@ -7,7 +7,7 @@ import UserLabel from "../../../../../components/label/UserLabel.tsx";
 import ProjectSprintLoader from "./ProjectSprintLoader.tsx";
 import useAdapterState from "../../../../../hooks/useAdapterState.ts";
 import ProjectSprintAdapter from "../adapters/ProjectSprint.adapter.ts";
-import { useGetProjectSprintQuery } from "../state/projectSprintDialogApi.ts";
+import { useGetProjectSprintQuery } from "../state/projectSprintsDialogApi.ts";
 
 interface ProjectSprintProps {
   sprintId: string

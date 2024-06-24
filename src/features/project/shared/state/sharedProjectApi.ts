@@ -1,8 +1,9 @@
 import { api } from "../../../../state/api.ts";
-import Urls from "../../../../utils/Urls.ts";
-import TagTypes from "../../../../utils/TagTypes.ts";
+import Urls from "../../../../utils/enums/Urls.ts";
+import TagTypes from "../../../../utils/enums/TagTypes.ts";
 import HttpMessageResponse from "../../../../types/HttpMessage.response.ts";
 import { AddProjectSprintRequest } from "../types/ProjectSprint.request.ts";
+import { AddStatusToProjectRequest } from "../types/ProjectStatus.request.ts";
 
 export const sharedProjectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -14,9 +15,19 @@ export const sharedProjectApiSlice = api.injectEndpoints({
       }),
       invalidatesTags: [TagTypes.ProjectSprints, TagTypes.Projects, TagTypes.ProjectStatuses] // TODO: Invalidate projects only if the status changed
     }),
+
+    addStatusToProject: builder.mutation<HttpMessageResponse, AddStatusToProjectRequest>({
+      query: body => ({
+        url: `${Urls.Projects}/add-status`,
+        method: 'POST',
+        body: body
+      }),
+      invalidatesTags: [TagTypes.Projects, TagTypes.ProjectStatuses]
+    }),
   })
 })
 
 export const {
-  useAddProjectSprintMutation
+  useAddProjectSprintMutation,
+  useAddStatusToProjectMutation
 } = sharedProjectApiSlice

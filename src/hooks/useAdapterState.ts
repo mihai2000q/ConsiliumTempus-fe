@@ -7,6 +7,7 @@ export default function useAdapterState<TResponse, TModel>(
   const [project, setProject] = useState<TModel | undefined>(undefined)
   useEffect(() => {
     setProject(adapt(response))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response])
 
   return project

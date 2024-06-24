@@ -1,28 +1,21 @@
-import {
-  Button,
-  Dialog,
-  Divider, Grid,
-  IconButton,
-  Stack,
-  Typography,
-} from "@mui/material";
+import { Button, Dialog, Divider, Grid, IconButton, Stack, Typography, } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../state/store.ts";
 import { closeProjectStatusesDialog } from "../../../../state/project/projectSlice.ts";
-import { useGetStatusesFromProjectQuery } from "../../state/projectApi.ts";
-import ProjectStatus from "../../types/ProjectStatus.model.ts";
+import ProjectStatus from "./types/ProjectStatus.model.ts";
 import { useEffect, useState } from "react";
 import { Close, MoreHoriz } from "@mui/icons-material";
-import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
+import ProjectStatusLabel from "../../shared/components/ProjectStatusLabel.tsx";
 import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
-import ProjectStatusActionsMenu from "./ProjectStatusActionsMenu.tsx";
+import ProjectStatusActionsMenu from "./components/ProjectStatusActionsMenu.tsx";
 import UserLabel from "../../../../components/label/UserLabel.tsx";
-import ProjectStatusMenu from "./ProjectStatusMenu.tsx";
-import ProjectStatusesDialogLoader from "./ProjectStatusesDialogLoader.tsx";
-import ProjectStatusAdapter from "../../adapters/ProjectStatus.adapter.ts";
+import ProjectStatusMenu from "../../shared/components/ProjectStatusMenu.tsx";
+import ProjectStatusesDialogLoader from "./components/ProjectStatusesDialogLoader.tsx";
+import ProjectStatusAdapter from "./adapters/ProjectStatus.adapter.ts";
 import useAdapterState from "../../../../hooks/useAdapterState.ts";
 import FormGridItem from "../../../../components/form/FormGridItem.tsx";
 import VerticalLargeRadioButton from "../../../../components/button/radio/VerticalLargeRadioButton.tsx";
+import { useGetStatusesFromProjectQuery } from "./state/projectStatusesDialogApi.ts";
 
 function ProjectStatusesDialog() {
   const {

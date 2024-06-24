@@ -2,10 +2,10 @@ import { MouseEventHandler, ReactNode, useState } from 'react';
 import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
 import UpdateProjectStatusDialog from "./UpdateProjectStatusDialog.tsx";
-import ProjectStatus from "../../types/ProjectStatus.model.ts";
-import { useRemoveStatusFromProjectMutation } from "../../state/projectApi.ts";
+import ProjectStatus from "../types/ProjectStatus.model.ts";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../../state/store.ts";
+import { RootState } from "../../../../../state/store.ts";
+import { useRemoveStatusFromProjectMutation } from "../state/projectStatusesDialogApi.ts";
 
 interface ProjectStatusActionsMenuItemProps {
   children: ReactNode,

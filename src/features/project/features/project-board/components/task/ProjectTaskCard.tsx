@@ -1,43 +1,31 @@
-import { ProjectTask } from "../../types/ProjectTask.response.ts";
-import { alpha, Box, Button, ButtonProps, IconButton, Stack, styled, Typography, useTheme } from "@mui/material";
-import { CheckCircleOutlineRounded, CheckCircleRounded, Person } from "@mui/icons-material";
-import React, { useState } from "react";
+import { Box, IconButton, IconButtonProps, Stack, styled, Typography } from "@mui/material";
+import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
+import React, { useEffect, useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
 import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
-import { useDispatch } from "react-redux";
-import { openDrawer } from "../../../../../../state/project-task-drawer/projectTaskDrawerSlice.ts";
+import AssigneeIconButton from "./AssigneeIconButton.tsx";
+import ProjectTask from "../../types/ProjectTask.model.ts";
+import StyledProjectTaskCard from "../../../../../../components/project-task/StyledProjectTaskCard.tsx";
+import ProjectTaskDrawer from "../../../../../project-task-drawer/ProjectTaskDrawer.tsx";
 
-interface StyledProjectTaskCardProps extends ButtonProps {
-  isCompleted?: boolean | undefined
+interface CompletedButtonProps extends IconButtonProps {
+  isCompleted: boolean
 }
 
-export const StyledProjectTaskCard = styled(Button, {
+const CompletedButton = styled(IconButton, {
   shouldForwardProp: (props) => props !== 'isCompleted'
-})<StyledProjectTaskCardProps>(({ theme, isCompleted }) => ({
-  borderRadius: '16px',
-  justifyContent: 'start',
-  width: '100%',
-  padding: '16px 16px 60px 16px',
-  backgroundColor: theme.palette.mode === 'dark'
-    ? alpha(theme.palette.primary[900], 0.5)
-    : alpha(theme.palette.background[900], 0.5),
-  color: theme.palette.text.primary,
-  border: 'solid 1px',
-  borderColor: alpha(theme.palette.background[50], 0.25),
+})<CompletedButtonProps>(({ theme, isCompleted }) => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  margin: '12px 16px 1px 16px',
+  transition: theme.transitions.create(['color', 'background-color'], {
+    duration: theme.transitions.duration.short,
+  }),
+  color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
   '&:hover': {
-    borderColor: alpha(theme.palette.background[50], 0.5),
-    color: theme.palette.background[50]
-  },
-  ...(isCompleted === true && {
-    backgroundColor: alpha(theme.palette.grey[100], 0.05),
-    color: alpha(theme.palette.text.triadic, 0.5),
-    borderColor: alpha(theme.palette.grey[100], 0.1),
-    '&:hover': {
-      backgroundColor: alpha(theme.palette.grey[100], 0.1),
-      borderColor: alpha(theme.palette.grey[100], 0.2),
-      color: alpha(theme.palette.text.triadic, 0.7)
-    },
-  })
+    color: isCompleted ? theme.palette.success.dark : theme.palette.success.light,
+  }
 }))
 
 interface ProjectTaskCardProps {
@@ -45,15 +33,18 @@ interface ProjectTaskCardProps {
 }
 
 function ProjectTaskCard({ task }: ProjectTaskCardProps) {
-  const theme = useTheme()
-  const dispatch = useDispatch()
-
+  const [selected, setSelected] = useState(false)
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   const [isCompleted, setIsCompleted] = useState(false)
+  useEffect(() => {
+    setIsCompleted(task.isCompleted)
+  }, [task])
 
   function handleClick() {
-    dispatch(openDrawer(task.id))
+    setIsDrawerOpen(true)
+    setSelected(true)
   }
 
   function handleRightClick(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
@@ -63,12 +54,15 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
 
   const [updateProjectTask] = useUpdateProjectTaskMutation()
 
-  function updateTask({ newIsCompleted = isCompleted }) {
+  function updateTask({
+    newIsCompleted = isCompleted,
+    assigneeId = task.assignee?.id ?? null
+  }) {
     updateProjectTask({
       id: task.id,
       name: task.name,
       isCompleted: newIsCompleted,
-      assigneeId: null
+      assigneeId: assigneeId
     }).unwrap()
   }
 
@@ -76,64 +70,52 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
     <Box position={'relative'} my={0.5}>
       <StyledProjectTaskCard
         component={'div'}
+        isSelected={selected}
         isCompleted={isCompleted}
         onClick={handleClick}
         onContextMenu={handleRightClick}
         sx={{ boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
         <Stack width={'100%'}>
           <Typography>
-            <IconButton hidden={true} sx={{ height: 15 }}></IconButton>
+            <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
           </Typography>
         </Stack>
       </StyledProjectTaskCard>
-      <IconButton
+
+      <CompletedButton
+        isCompleted={isCompleted}
         variant={'circular'}
         size={'small'}
         onClick={() => {
           setIsCompleted(!isCompleted)
           updateTask({ newIsCompleted: !isCompleted })
-        }}
-        sx={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          mt: 1.5,
-          ml: 2,
-          transition: theme.transitions.create(['color', 'background-color'], {
-            duration: theme.transitions.duration.short,
-          }),
-          color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
-          mb: '1px',
-          '&:hover': {
-            color: isCompleted ? theme.palette.success.dark : theme.palette.success.light,
-          }
         }}>
         {isCompleted
           ? <CheckCircleRounded fontSize={'small'} />
           : <CheckCircleOutlineRounded fontSize={'small'} />}
-      </IconButton>
-      <Stack direction={'row'} position={'absolute'} bottom={0} padding={2}>
-        <IconButton
-          variant={'dashed'}
-          sx={{
-            transition: theme.transitions.create(['color', 'background-color'], {
-              duration: theme.transitions.duration.shortest,
-            }),
-            color: isCompleted ? alpha(theme.palette.text.triadic, 0.5) : theme.palette.text.primary,
-            '&:hover': {
-              color: isCompleted ? alpha(theme.palette.text.triadic, 0.7) : theme.palette.text.primary,
-            }
-          }}>
-          <Person fontSize={'inherit'} />
-        </IconButton>
+      </CompletedButton>
+
+      <Stack direction={'row'} position={'absolute'} bottom={0} margin={2}>
+        <AssigneeIconButton
+          isCompleted={isCompleted}
+          assignee={task.assignee}
+          setAssigneeId={(newAssigneeId) => updateTask({ assigneeId: newAssigneeId })} />
       </Stack>
-      {task &&
+
+      {task && <>
         <ProjectTaskCardActionsMenu
           anchorEl={taskMenuAnchorEl}
           onClose={() => setTaskMenuAnchorEl(null)}
-          taskId={task} />
-      }
+          task={task} />
+        <ProjectTaskDrawer
+          isDrawerOpen={isDrawerOpen}
+          onClose={() => {
+            setIsDrawerOpen(false)
+            setSelected(false)
+          }}
+          taskId={task.id} />
+        </>}
     </Box>
   );
 }

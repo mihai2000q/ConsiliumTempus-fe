@@ -2,8 +2,8 @@ import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError 
 import { logout, setToken } from "./auth/authSlice.ts";
 import RefreshResponse from "../types/Refresh.response.ts";
 import { RootState } from "./store.ts";
-import TagTypes from "../utils/TagTypes.ts";
-import Urls from "../utils/Urls.ts";
+import TagTypes from "../utils/enums/TagTypes.ts";
+import Urls from "../utils/enums/Urls.ts";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_URL,

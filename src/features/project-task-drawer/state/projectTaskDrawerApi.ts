@@ -5,12 +5,23 @@ import {
   GetProjectTaskRequest,
   UpdateProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
-import Urls from "../../../utils/Urls.ts";
-import TagTypes from "../../../utils/TagTypes.ts";
+import Urls from "../../../utils/enums/Urls.ts";
+import TagTypes from "../../../utils/enums/TagTypes.ts";
 import HttpMessageResponse from "../../../types/HttpMessage.response.ts";
+import { GetCollaboratorsResponse } from "../types/Collaborator.response.ts";
+import { GetCollaboratorsRequest } from "../types/Collaborator.request.ts";
 
 export const projectTaskDrawerApi = api.injectEndpoints({
   endpoints: builder => ({
+    getCollaborators: builder.query<GetCollaboratorsResponse, GetCollaboratorsRequest>({
+      query: arg => ({
+        url: `${Urls.Workspaces}/${arg.workspaceId}/collaborators`,
+        method: 'GET',
+        params: arg
+      }),
+      providesTags: [TagTypes.Collaborators]
+    }),
+
     getProjectTask: builder.query<ProjectTask, GetProjectTaskRequest>({
       query: arg => `${Urls.ProjectTasks}/${arg.id}`,
       providesTags: [TagTypes.ProjectTasks]
@@ -34,7 +45,8 @@ export const projectTaskDrawerApi = api.injectEndpoints({
 })
 
 export const {
-  useLazyGetProjectTaskQuery,
+  useGetCollaboratorsQuery,
+  useGetProjectTaskQuery,
   useUpdateProjectTaskMutation,
   useDeleteProjectTaskMutation
 } = projectTaskDrawerApi

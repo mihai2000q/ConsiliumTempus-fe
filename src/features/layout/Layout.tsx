@@ -2,10 +2,9 @@ import { Stack } from "@mui/material";
 import Topbar from "./features/topbar/Topbar.tsx";
 import Sidebar from "./features/sidebar/Sidebar.tsx";
 import { Outlet, useLocation } from "react-router-dom";
-import Paths from "../../utils/Paths.ts";
+import Paths from "../../utils/enums/Paths.ts";
 import { useState } from "react";
-import { Main } from "./components/Main.tsx";
-import ProjectTaskDrawer from "../project-task-drawer/ProjectTaskDrawer.tsx";
+import Main from "./components/Main.tsx";
 
 const drawerWidth = 250
 
@@ -38,7 +37,6 @@ function Layout() {
           <Outlet />
         </Main>
       </Stack>
-      <ProjectTaskDrawer />
     </Stack>
   );
 }

@@ -5,7 +5,8 @@ import {
   Dialog,
   DialogContent,
   FormControl,
-  FormHelperText, Grid,
+  FormHelperText,
+  Grid,
   IconButton,
   InputBase,
   Link,
@@ -13,20 +14,20 @@ import {
   Toolbar,
   Typography
 } from "@mui/material";
-import { useUpdateStatusFromProjectMutation } from "../../state/projectApi.ts";
 import { Close } from "@mui/icons-material";
 import { useFormik } from "formik";
-import { updateProjectStatusDialogSchema } from "../../state/projectValidation.ts";
-import { updateProjectStatusDialogFormInitialValues } from "../../state/projectState.ts";
 import { useEffect, useState } from "react";
-import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
-import ProjectStatus from "../../types/ProjectStatus.model.ts";
-import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
-import { RootState } from "../../../../state/store.ts";
+import OutlinedInputTextField from "../../../../../components/textfield/OutlinedInputTextField.tsx";
+import ProjectStatus from "../types/ProjectStatus.model.ts";
+import ProjectStatusType from "../../../../../utils/project/ProjectStatusType.ts";
+import { RootState } from "../../../../../state/store.ts";
 import { useSelector } from "react-redux";
-import FormGridItem from "../../../../components/form/FormGridItem.tsx";
-import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
-import LoadingButton from "../../../../components/button/LoadingButton.tsx";
+import FormGridItem from "../../../../../components/form/FormGridItem.tsx";
+import ProjectStatusSelector from "../../../shared/components/ProjectStatusSelector.tsx";
+import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
+import { useUpdateStatusFromProjectMutation } from "../state/projectStatusesDialogApi.ts";
+import { updateProjectStatusDialogSchema } from "../state/projectStatusesDialogValidation.ts";
+import { updateProjectStatusDialogFormInitialValues } from "../state/projectStatusesDialogState.ts";
 
 interface UpdateProjectStatusDialogProps {
   open: boolean,
@@ -67,6 +68,7 @@ function UpdateProjectStatusDialog({
     values.projectStatusTitle = initialProjectStatus.title
     setStatusType(initialProjectStatus.status)
     values.projectStatusDescription = initialProjectStatus.description
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialProjectStatus])
 
   async function handleSubmitForm() {

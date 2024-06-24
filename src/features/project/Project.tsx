@@ -34,12 +34,12 @@ import useDependencyState from "../../hooks/useDependencyState.ts";
 import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
 import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 import ProjectLoader from "./components/ProjectLoader.tsx";
-import ProjectStatusMenu from "./components/status/ProjectStatusMenu.tsx";
-import ProjectStatusLabel from "./components/status/ProjectStatusLabel.tsx";
-import ProjectStatusesDialog from "./components/status/ProjectStatusesDialog.tsx";
+import ProjectStatusMenu from "./shared/components/ProjectStatusMenu.tsx";
+import ProjectStatusLabel from "./shared/components/ProjectStatusLabel.tsx";
+import ProjectStatusesDialog from "./features/project-statuses-dialog/ProjectStatusesDialog.tsx";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
-import { setBreadcrumbs, setProjectId, setProjectName } from "../../state/project/projectSlice.ts";
-import Paths from "../../utils/Paths.ts";
+import { setBreadcrumbs, setProjectId, setProjectName, setWorkspaceId } from "../../state/project/projectSlice.ts";
+import Paths from "../../utils/enums/Paths.ts";
 import AddProjectSprintDialog from "./shared/components/AddProjectSprintDialog.tsx";
 import useAdapterState from "../../hooks/useAdapterState.ts";
 import ProjectSprintsDialog from "./features/project-sprints-dialog/ProjectSprintsDialog.tsx";
@@ -52,6 +52,7 @@ function Project() {
   const projectId = params[ProjectParams.Id] ?? ''
   useEffect(() => {
     dispatch(setProjectId(projectId))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [projectId]);
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -74,6 +75,7 @@ function Project() {
       setIsFavorite(project.isFavorite)
 
       dispatch(setProjectName(project.name))
+      dispatch(setWorkspaceId(project.workspace.id))
       dispatch(setBreadcrumbs([
         { path: `${Paths.Workspace}/${project.workspace.id}`, name: project.workspace.name },
         { path: `${Paths.Project}/${projectId}`, name: project.name },

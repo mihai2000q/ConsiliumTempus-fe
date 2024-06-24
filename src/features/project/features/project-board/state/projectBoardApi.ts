@@ -1,6 +1,6 @@
 import { api } from "../../../../../state/api.ts";
-import Urls from "../../../../../utils/Urls.ts";
-import TagTypes from "../../../../../utils/TagTypes.ts";
+import Urls from "../../../../../utils/enums/Urls.ts";
+import TagTypes from "../../../../../utils/enums/TagTypes.ts";
 import {
   AddStageToProjectSprintRequest,
   GetProjectSprintRequest,
@@ -16,8 +16,9 @@ import {
   UpdateProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import createQueryParams from "../../../../../utils/createQueryParams.ts";
 
-export const projectSprintApiSlice = api.injectEndpoints({
+export const projectBoardApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjectSprint: builder.query<ProjectSprint, GetProjectSprintRequest>({
       query: arg => `${Urls.ProjectSprints}/${arg.id}`,
@@ -49,10 +50,7 @@ export const projectSprintApiSlice = api.injectEndpoints({
     }),
 
     getProjectTasks: builder.query<ProjectTaskResponse, GetProjectTasksQueryParameters>({
-      query: arg => ({
-        url: Urls.ProjectTasks,
-        params: arg
-      }),
+      query: arg => Urls.ProjectTasks + createQueryParams(arg),
       providesTags: [TagTypes.ProjectTasks]
     }),
     addProjectTask: builder.mutation<HttpMessageResponse, AddProjectTaskRequest>({
@@ -87,7 +85,8 @@ export const {
   useUpdateStageFromProjectSprintMutation,
   useRemoveStageFromProjectSprintMutation,
   useGetProjectTasksQuery,
+  useLazyGetProjectTasksQuery,
   useAddProjectTaskMutation,
   useUpdateProjectTaskMutation,
   useDeleteProjectTaskMutation,
-} = projectSprintApiSlice
+} = projectBoardApiSlice

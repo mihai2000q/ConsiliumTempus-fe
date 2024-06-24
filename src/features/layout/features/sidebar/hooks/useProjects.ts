@@ -1,33 +1,31 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Project from "../types/Project.model.ts";
 import { useGetProjectsQuery, useLazyGetProjectsQuery } from "../state/sidebarApi.ts";
-import useUpdateEffect from "../../../../../hooks/useUpdateEffect.ts";
 import ProjectsOrderQueryParams from "../utils/ProjectsOrderQueryParams.ts";
-import OrderType from "../../../../../utils/OrderType.ts";
+import OrderType from "../../../../../utils/enums/OrderType.ts";
 import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
 import useSearchQueryParam from "../../../../../hooks/useSearchQueryParam.ts";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
-import FilterOperator from "../../../../../utils/FilterOperator.ts";
+import FilterOperator from "../../../../../utils/enums/FilterOperator.ts";
 
 export default function useProjects(
   hidden: boolean,
   order: ProjectsOrderQueryParams,
   lifecycle: ProjectLifecycle | null
-): [
-  projects: Project[],
-  isFetching: boolean,
-  increaseCurrentPage: (() => void) | undefined
-] {
+): {
+  projects: Project[] | undefined,
+  projectsIsFetching: boolean,
+  projectsFetchMoreProjects: (() => void) | undefined
+} {
   const pageSize = 5
 
-  const [getProjects, { isFetching }] = useLazyGetProjectsQuery()
+  const [getProjects, { isFetching: isLazyFetching }] = useLazyGetProjectsQuery()
 
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<Project[] | undefined>(undefined)
   const [totalCount, setTotalCount] = useState(0)
-  const [currentPage, setCurrentPage] = useState(1)
 
   const orderType = order === ProjectsOrderQueryParams.Name ? OrderType.Ascending : OrderType.Descending
-  const orderBy = [order + '.' + orderType]
+  const orderSearchQueryParam = useMemo(() => [order + '.' + orderType], [order, orderType])
 
   const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam()
   useEffect(() => {
@@ -39,56 +37,53 @@ export default function useProjects(
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lifecycle]);
 
-  // meant to be triggered only on cache invalidation and on startup to replace the data
-  const currentPageInner = useRef(1)
-  useEffect(() => {
-    currentPageInner.current = currentPage
-  }, [currentPage]);
-  const { data: initialData, isFetching: isInitialFetching } = useGetProjectsQuery(
+  const currentPage = useRef(1)
+
+  const { data, isFetching } = useGetProjectsQuery(
     {
-      orderBy: orderBy,
+      orderBy: orderSearchQueryParam,
       search: searchQueryParam,
       currentPage: 1,
-      pageSize: currentPageInner.current * pageSize
+      pageSize: currentPage.current * pageSize
     },
     { skip: hidden }
   )
   useEffect(() => {
-    if (initialData) {
-      setProjects([...initialData.projects])
-      setTotalCount(initialData.totalCount)
+    if(data) {
+      setProjects([...data.projects])
+      setTotalCount(data.totalCount)
     }
-  }, [initialData])
+  }, [data]);
 
-  // meant to be triggered only when the current page changes to add more to the data
-  useUpdateEffect(() => {
+  useEffect(() => {
     if (hidden) {
       setTotalCount(0)
       setProjects([])
-      return
     }
+  }, [hidden]);
 
-    if (currentPage === 1) return
+  const fetchMoreProjects = () => {
+    currentPage.current++
 
     getProjects(
       {
-        orderBy: orderBy,
+        orderBy: orderSearchQueryParam,
         search: searchQueryParam,
-        currentPage: currentPage,
+        currentPage: currentPage.current,
         pageSize: pageSize
       },
       true
     ).then(res => {
-      setProjects([...projects, ...res.data?.projects ?? []])
+      setProjects([...projects ?? [], ...res.data?.projects ?? []])
       setTotalCount(res.data?.totalCount ?? 0)
     })
-  }, [currentPage, getProjects, hidden]);
+  }
 
-  return [
+  return {
     projects,
-    isFetching || isInitialFetching,
-    totalCount > projects.length
-      ? () => setCurrentPage((prev) => prev + 1)
+    projectsIsFetching: isLazyFetching || isFetching,
+    projectsFetchMoreProjects: totalCount > (projects?.length ?? 0)
+      ? fetchMoreProjects
       : undefined // return undefined to stop displaying the Show More button
-  ]
+  }
 }

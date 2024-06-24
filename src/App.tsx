@@ -7,7 +7,7 @@ import { RootState } from "./state/store.ts";
 import Signup from "./features/signup/Signup.tsx";
 import { useMemo } from "react";
 import { themeSettings } from "./theme/theme.ts";
-import Paths from "./utils/Paths.ts";
+import Paths from "./utils/enums/Paths.ts";
 import Home from "./features/home/Home.tsx";
 import Calendar from "./features/calendar/Calendar.tsx";
 import MyTasks from "./features/my-tasks/MyTasks.tsx";

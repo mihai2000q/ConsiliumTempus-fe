@@ -1,5 +1,5 @@
 import { alpha, InputBase, InputBaseProps, styled, SxProps, Theme } from "@mui/material";
-import { ChangeEventHandler, useRef, useState } from "react";
+import { ChangeEventHandler, useEffect, useRef, useState } from "react";
 
 interface OutlinedInputProps extends InputBaseProps {
   isFocused: boolean,
@@ -71,9 +71,13 @@ function OutlinedInputTextField({
   maxLength,
   sx,
 }: OutlinedInputTextFieldProps) {
-  const inputRef = useRef(null)
+  const inputRef = useRef<HTMLElement>(null)
 
   const [isFocused, setIsFocused] = useState(false)
+
+  useEffect(() => {
+    if (autoFocus) inputRef.current?.focus()
+  }, [autoFocus, inputRef]);
 
   return (
     <OutlinedInput
@@ -99,9 +103,7 @@ function OutlinedInputTextField({
       onKeyDown={(e) => {
         if (e.key === 'Enter') {
           e.preventDefault()
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          inputRef.current.blur()
+          inputRef.current?.blur()
         }
       }}
       sx={{ ...sx }} />

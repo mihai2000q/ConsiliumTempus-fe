@@ -31,6 +31,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
 
   useEffect(() => {
     dispatch(setProjectSprintId(currentSprint?.id))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSprint]) // TODO: Reference equality
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)

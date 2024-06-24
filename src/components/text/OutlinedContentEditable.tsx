@@ -47,16 +47,13 @@ function OutlinedContentEditable({
   const [localNoWrap, setLocalNoWrap] = useState(noWrap)
   useEffect(() => {
     if (noWrap !== undefined) setLocalNoWrap(!isFocused)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFocused]);
 
-  const contentEditableRef = useRef(null)
+  const contentEditableRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     if (contentEditableRef.current && contentEditableRef.current.textContent !== value) {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       contentEditableRef.current.textContent = value;
     }
   }, [contentEditableRef, value]) // TODO: CHECK THIS
@@ -82,9 +79,7 @@ function OutlinedContentEditable({
 
           if (e.key === 'Enter') {
             e.preventDefault()
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
-            contentEditableRef.current.blur()
+            contentEditableRef.current?.blur()
           }
         }}
         sx={{
