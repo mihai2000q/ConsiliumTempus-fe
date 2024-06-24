@@ -1,5 +1,9 @@
 export interface GetProjectTasksQueryParameters {
-  projectStageId: string
+  projectStageId: string,
+  orderBy?: string[],
+  search?: string[],
+  currentPage?: number,
+  pageSize?: number
 }
 
 export interface AddProjectTaskRequest {

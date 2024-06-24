@@ -16,6 +16,7 @@ import {
   UpdateProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import createQueryParams from "../../../../../utils/createQueryParams.ts";
 
 export const projectBoardApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -49,10 +50,7 @@ export const projectBoardApiSlice = api.injectEndpoints({
     }),
 
     getProjectTasks: builder.query<ProjectTaskResponse, GetProjectTasksQueryParameters>({
-      query: arg => ({
-        url: Urls.ProjectTasks,
-        params: arg
-      }),
+      query: arg => Urls.ProjectTasks + createQueryParams(arg),
       providesTags: [TagTypes.ProjectTasks]
     }),
     addProjectTask: builder.mutation<HttpMessageResponse, AddProjectTaskRequest>({
@@ -87,6 +85,7 @@ export const {
   useUpdateStageFromProjectSprintMutation,
   useRemoveStageFromProjectSprintMutation,
   useGetProjectTasksQuery,
+  useLazyGetProjectTasksQuery,
   useAddProjectTaskMutation,
   useUpdateProjectTaskMutation,
   useDeleteProjectTaskMutation,

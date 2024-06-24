@@ -36,11 +36,11 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
   const [order, setOrder] = useState(ProjectsOrderQueryParams.LastActivity)
   const [lifecycle, setLifecycle] = useState<ProjectLifecycle | null>(ProjectLifecycle.Active)
 
-  const [
+  const {
     projects,
-    projectIsFetching,
-    projectIncreaseCurrentPage
-  ] = useProjects(hidden, order, lifecycle)
+    projectsIsFetching,
+    projectsFetchMoreProjects
+  } = useProjects(hidden, order, lifecycle)
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
   const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)
@@ -112,8 +112,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
               link: `${Paths.Project}/${p.id}`,
               icon: getProjectIcon(p.name)
             }))}
-            isFetching={projectIsFetching}
-            increaseCurrentPage={projectIncreaseCurrentPage}
+            isFetching={projectsIsFetching}
+            fetchMore={projectsFetchMoreProjects}
             menu={(anchorEl, onClose) => (
               <SidebarProjectsMenu
                 anchorEl={anchorEl}

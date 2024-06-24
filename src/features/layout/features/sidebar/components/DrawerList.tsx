@@ -49,7 +49,7 @@ interface DrawerListProps {
   subheader?: string | undefined,
   subheaderDestination?: string | undefined,
   subheaderAction?: ReactElement | undefined,
-  increaseCurrentPage?: (() => void) | undefined,
+  fetchMore?: (() => void) | undefined,
   isFetching?: boolean | undefined,
   menu?: ((anchorEl: HTMLElement | null, onClose: () => void) => ReactNode) | undefined
 }
@@ -59,7 +59,7 @@ function DrawerList({
   subheaderDestination,
   subheaderAction,
   drawerItems,
-  increaseCurrentPage,
+  fetchMore,
   isFetching,
   menu
 }: DrawerListProps) {
@@ -127,13 +127,13 @@ function DrawerList({
                 {drawerItems.map((item) =>
                   <DrawerListItem key={item.link} drawerItem={item} />
                 )}
-                {increaseCurrentPage &&
+                {fetchMore &&
                   <Stack direction={'row'} alignItems={'center'} spacing={1} ml={2}>
                     <Button
                       variant={'alt-text'}
                       size={'small'}
                       disabled={isFetching}
-                      onClick={increaseCurrentPage}
+                      onClick={fetchMore}
                       sx={{ px: 1.5 }}>
                       Show More
                     </Button>
