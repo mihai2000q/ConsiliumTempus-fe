@@ -35,6 +35,13 @@ interface CompletedButtonProps extends ButtonProps {
 const CompletedButton = styled(Button, {
   shouldForwardProp: (props) => props !== 'isCompleted'
 })<CompletedButtonProps>(({ theme, isCompleted }) => ({
+  padding: '6px 9px 6px 9px',
+  '& .MuiTypography-root': {
+    fontWeight: 400,
+    fontSize: 12,
+    paddingTop: '2px',
+    fontFamily: '"Roboto", sans-serif',
+  },
   color: theme.palette.background[100],
   borderColor: alpha(theme.palette.background[100], 0.25),
   '&:hover' : {
@@ -139,10 +146,11 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
               <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mx={2} mb={1}>
                 <CompletedButton
                   variant={'alt-outlined'}
+                  size={'small'}
                   startIcon={<CheckRounded />}
                   isCompleted={isCompleted.value}
                   onClick={() => setIsCompleted(!isCompleted.value, true)}>
-                  {isCompleted.value ? 'Completed' : 'Mark Complete'}
+                  <Typography>{isCompleted.value ? 'Completed' : 'Mark Complete'}</Typography>
                 </CompletedButton>
 
                 <Stack direction={'row'} spacing={1}>
