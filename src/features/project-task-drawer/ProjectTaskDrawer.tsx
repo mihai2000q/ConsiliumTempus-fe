@@ -26,6 +26,7 @@ import { useNavigate } from "react-router-dom";
 import ProjectTaskDrawerLoader from "./components/ProjectTaskDrawerLoader.tsx";
 import FormGridItem from "../../components/form/FormGridItem.tsx";
 import AssigneeButton from "./components/AssigneeButton.tsx";
+import RichTooltip from "../../components/tooltip/RichTooltip.tsx";
 
 interface CompletedButtonProps extends ButtonProps {
   isCompleted: boolean
@@ -183,7 +184,11 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
                 <Grid container rowSpacing={1}>
                   <FormGridItem
                     labelSize={3}
-                    label={<Typography>Assignee</Typography>}>
+                    label={
+                      <RichTooltip title={'Assignee'} description={'Add the person who should complete the task.'}>
+                        <Typography>Assignee</Typography>
+                      </RichTooltip>
+                    }>
                     <AssigneeButton
                       isFetching={isFetching}
                       workspaceId={task.workspace.id}
@@ -193,8 +198,10 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
                   </FormGridItem>
                 </Grid>
 
-                <Stack spacing={1} pt={1.5}>
-                  <Typography>Description</Typography>
+                <Stack spacing={1} pt={1.5} alignItems={'start'}>
+                  <RichTooltip title={'Description'} description={'Write a few things about the task.'}>
+                    <Typography>Description</Typography>
+                  </RichTooltip>
                   <TextField
                     fullWidth
                     multiline
