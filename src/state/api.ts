@@ -4,7 +4,9 @@ import RefreshResponse from "../types/Refresh.response.ts";
 import { RootState } from "./store.ts";
 import TagTypes from "../utils/enums/TagTypes.ts";
 import Urls from "../utils/enums/Urls.ts";
+import { Mutex } from 'async-mutex'
 
+const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_URL,
   prepareHeaders: (headers, { getState }) => {
@@ -21,37 +23,41 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   unknown,
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
+  await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
-
-  if (result?.error?.status === 401 && !isAuthRequest(args)) {
-    const authState = (api.getState() as RootState).auth
-    const refreshResult = await baseQuery(
-      {
-        url: `${Urls.Auth}/refresh`,
-        method: 'PUT',
-        body: {
-          token: authState.token,
-          refreshToken: authState.refreshToken,
-        },
-      },
-      api,
-      extraOptions
-    )
-    const data = refreshResult?.data as RefreshResponse | undefined
-    if (data) {
-      api.dispatch(setToken(data.token))
-      result = await baseQuery(args, api, extraOptions)
+  if (result?.error?.status === 401) {
+    if (!mutex.isLocked()) {
+      const release = await mutex.acquire()
+      try {
+        const authState = (api.getState() as RootState).auth
+        const refreshResult = await baseQuery(
+          {
+            url: `${Urls.Auth}/refresh`,
+            method: 'PUT',
+            body: {
+              token: authState.token,
+              refreshToken: authState.refreshToken,
+            },
+          },
+          api,
+          extraOptions
+        )
+        const data = refreshResult?.data as RefreshResponse | undefined
+        if (data) {
+          api.dispatch(setToken(data.token))
+          result = await baseQuery(args, api, extraOptions)
+        } else {
+          api.dispatch(logout())
+        }
+      } finally {
+        release()
+      }
     } else {
-      api.dispatch(logout())
+      await mutex.waitForUnlock()
+      result = await baseQuery(args, api, extraOptions)
     }
   }
-
   return result
-}
-
-function isAuthRequest(args: string | FetchArgs) {
-  return typeof args === "string" && args.includes(Urls.Auth) ||
-    typeof args === 'object' && args.url.includes(Urls.Auth)
 }
 
 export const api = createApi({
