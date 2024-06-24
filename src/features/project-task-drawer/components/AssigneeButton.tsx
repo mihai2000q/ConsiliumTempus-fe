@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Close, PersonOutlineRounded } from "@mui/icons-material";
-import { Avatar, Button, CircularProgress, IconButton, Stack, Tooltip, Typography } from "@mui/material";
+import { Avatar, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
 import SetAssigneeMenu from "../../../components/project-task/menu/SetAssigneeMenu.tsx";
 import { Assignee } from "../types/ProjectTask.model.ts";
 import DependencyState from "../../../types/DependencyState.ts";
@@ -24,13 +24,6 @@ function AssigneeButton({
 }: SetAssigneeButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  if (isFetching)
-    return (
-      <Button sx={{ borderRadius: 2 }}>
-        <CircularProgress size={20} thickness={8} />
-      </Button>
-    )
-
   return (
     <>
       {
@@ -40,6 +33,7 @@ function AssigneeButton({
               variant={'alt-text'}
               size={'small'}
               startIcon={<PersonOutlineRounded sx={{ mr: '2px' }} />}
+              disabled={isFetching}
               onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
               Set Assignee
             </Button>
@@ -47,7 +41,10 @@ function AssigneeButton({
           : (
             <Stack direction={'row'} alignItems={'center'} spacing={0.5}>
               <UserPopper user={{ ...assignee }} placement={'bottom'}>
-                <Button onClick={(e) => setMenuAnchorEl(e.currentTarget)} sx={{ borderRadius: 2 }}>
+                <Button
+                  disabled={isFetching}
+                  onClick={(e) => setMenuAnchorEl(e.currentTarget)}
+                  sx={{ borderRadius: 2 }}>
                   <Stack direction={'row'} alignItems={'center'} spacing={1}>
                     <Avatar src={demoUsePic} sx={{ width: 30, height: 30 }} />
                     <Typography color={'text.primary'}>{assignee.name}</Typography>
