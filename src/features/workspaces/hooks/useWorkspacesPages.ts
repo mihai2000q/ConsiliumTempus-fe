@@ -1,7 +1,7 @@
-import GetProjectsResponse from "../types/Project.response.ts";
+import GetWorkspacesResponse from "../types/Workspace.response.ts";
 
-export default function useProjectsPages(
-  data: GetProjectsResponse | undefined,
+export default function useWorkspacesPage(
+  data: GetWorkspacesResponse | undefined,
   pageSize: number,
   currentPage: number
 ): [number, number, number] {

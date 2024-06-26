@@ -33,11 +33,11 @@ const ProjectStatusHeader = styled(Box, {
   backdropFilter: 'blur(2px)'
 }))
 
-interface ProjectItemProps {
+interface ProjectCardProps {
   project: Project
 }
 
-function ProjectCard({ project }: ProjectItemProps) {
+function ProjectCard({ project }: ProjectCardProps) {
   const navigate = useNavigate()
 
   const [projectStatusHeader, projectStatusHeaderColor] =
