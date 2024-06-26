@@ -19,6 +19,8 @@ import ProjectParams from "./features/project/utils/ProjectParams.ts";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Workspaces from "./features/workspaces/Workspaces.tsx";
+import WorkspaceParams from "./features/workspace/utils/WorkspaceParams.ts";
+import Workspace from "./features/workspace/Workspace.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -45,6 +47,7 @@ function App() {
                 <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
                 <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
                 <Route path={Paths.Workspaces} element={<Workspaces />} />
+                <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
               </Route>
             </Routes>
           </ThemeProvider>

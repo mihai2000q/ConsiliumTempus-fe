@@ -12,7 +12,7 @@ export const workspaceFilterPropertiesData: FilterProperty[] = [
     defaultOperator: FilterOperator.Equal,
     defaultValue: true,
     valueType: FilterPropertyValueType.Boolean,
-    title: 'Private'
+    title: 'Personal'
   },
   {
     icon: <CalendarTodayRounded />,
