@@ -1,21 +1,21 @@
 import { FilterAlt } from "@mui/icons-material";
 import { Badge, Button } from "@mui/material";
-import { useState } from "react";
 import { addToSearchQueryParamType, removeFromSearchQueryParamType } from "../../../hooks/useSearchQueryParam.ts";
+import { useState } from "react";
 import FilterMenu from "../../../components/filter/FilterMenu.tsx";
-import { projectsSearchQueryParamsFilterOperators } from "../utils/ProjectsSearchQueryParamsFilterOperators.ts";
-import { projectFilterPropertiesData } from "../data/ProjectFilterPropertiesData.tsx";
-import { projectFilterChipsData } from "../data/ProjectFilterChipsData.tsx";
+import { workspaceFilterChipsData } from "../data/WorkspaceFilterChipsData.tsx";
+import { workspaceFilterPropertiesData } from "../data/WorkspaceFilterPropertiesData.tsx";
+import { workspacesSearchQueryParamsFilterOperators } from "../utils/WorkspacesSearchQueryParamsFilterOperators.ts";
 
-interface ProjectFilterButtonProps {
+interface WorkspaceFilterButtonProps {
   addToSearchQueryParam: addToSearchQueryParamType
   removeFromSearchQueryParam: removeFromSearchQueryParamType
 }
 
-function ProjectFilterButton({
+function WorkspaceFilterButton({
   addToSearchQueryParam,
   removeFromSearchQueryParam
-} : ProjectFilterButtonProps) {
+} : WorkspaceFilterButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [filtersSize, setFiltersSize] = useState(0)
 
@@ -36,13 +36,13 @@ function ProjectFilterButton({
         onClose={() => setMenuAnchorEl(null)}
         addToSearchQueryParam={addToSearchQueryParam}
         removeFromSearchQueryParam={removeFromSearchQueryParam}
-        filterChips={projectFilterChipsData}
-        filterProperties={projectFilterPropertiesData}
-        operatorsMap={projectsSearchQueryParamsFilterOperators}
+        filterChips={workspaceFilterChipsData}
+        filterProperties={workspaceFilterPropertiesData}
+        operatorsMap={workspacesSearchQueryParamsFilterOperators}
         onSizeChange={setFiltersSize}
       />
     </>
   );
 }
 
-export default ProjectFilterButton;
+export default WorkspaceFilterButton;

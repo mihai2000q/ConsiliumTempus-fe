@@ -1,11 +1,11 @@
 import { MenuItem } from "@mui/material";
-import SearchQueryParamValue from "../../types/SearchQueryParamValue.ts";
+import SearchQueryParamValue from "../../../types/SearchQueryParamValue.ts";
 import { Dispatch, SetStateAction } from "react";
-import ProjectStatusType from "../../utils/project/ProjectStatusType.ts";
-import normalize from "../../utils/normalize.ts";
-import FilterSelector from "./FilterSelector.tsx";
+import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
+import normalize from "../../../utils/normalize.ts";
+import FilterSelector from "../FilterSelector.tsx";
 import { DatePicker } from "@mui/x-date-pickers";
-import FilterPropertyValueType from "../../utils/enums/FilterPropertyValueType.ts";
+import FilterPropertyValueType from "../../../utils/enums/FilterPropertyValueType.ts";
 import { Dayjs } from "dayjs";
 
 interface FilterValueSelectorProps {

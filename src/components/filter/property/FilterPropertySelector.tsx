@@ -1,8 +1,8 @@
 import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
-import FilterProperty from "../../types/FilterProperty.ts";
-import FilterOperator from "../../utils/enums/FilterOperator.ts";
-import { Filter } from "../../types/Filter.ts";
-import FilterSelector from "./FilterSelector.tsx";
+import FilterProperty from "../../../types/FilterProperty.ts";
+import FilterOperator from "../../../utils/enums/FilterOperator.ts";
+import { Filter } from "../../../types/Filter.ts";
+import FilterSelector from "../FilterSelector.tsx";
 
 interface PropertySelectorProps {
   filterProperties: FilterProperty[],

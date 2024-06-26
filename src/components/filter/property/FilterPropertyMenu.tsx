@@ -1,8 +1,8 @@
 import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
-import FilterProperty from "../../types/FilterProperty.ts";
+import FilterProperty from "../../../types/FilterProperty.ts";
 import { MouseEventHandler, ReactNode } from "react";
-import { Filter } from "../../types/Filter.ts";
-import FilterOperator from "../../utils/enums/FilterOperator.ts";
+import { Filter } from "../../../types/Filter.ts";
+import FilterOperator from "../../../utils/enums/FilterOperator.ts";
 
 interface FiltersActionsMenuItemProps {
   icon: ReactNode,
