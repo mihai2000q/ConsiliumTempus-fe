@@ -73,8 +73,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         isSelected={selected}
         isCompleted={isCompleted}
         onClick={handleClick}
-        onContextMenu={handleRightClick}
-        sx={{ boxShadow: 2, '&:hover': { boxShadow: 4 } }}>
+        onContextMenu={handleRightClick}>
         <Stack width={'100%'}>
           <Typography>
             <IconButton hidden={true} sx={{ height: 15 }} />

@@ -10,12 +10,14 @@ const StyledProjectCard = styled(Box)<BoxProps>(({ theme }) => ({
   cursor: 'pointer',
   borderRadius: '6px',
   backgroundColor: alpha(theme.palette.background[900], 0.6),
+  boxShadow: theme.shadows[10],
   transition: theme.transitions.create(['transform', 'box-shadow', 'background-color'], {
     duration: theme.transitions.duration.short,
   }),
   '&:hover': {
     transform: 'scale(1.05)',
-    backgroundColor: theme.palette.background[900]
+    backgroundColor: theme.palette.background[900],
+    boxShadow: theme.shadows[20],
   }
 }))
 
@@ -48,9 +50,7 @@ function ProjectCard({ project }: ProjectCardProps) {
   }
 
   return (
-    <StyledProjectCard
-      onClick={handleClick}
-      sx={{ boxShadow: 10, '&:hover': { boxShadow: 20 }, }}>
+    <StyledProjectCard onClick={handleClick}>
       <Box position="relative">
         <CardMedia
           image={'src/assets/demo-projects.jpg'}

@@ -33,9 +33,13 @@ export const StyledProjectStagePanel = styled(Stack)<StackProps>(({ theme }) => 
   transition: theme.transitions.create(['box-shadow'], {
     duration: theme.transitions.duration.complex,
   }),
+  boxShadow: theme.shadows[4],
   background: theme.palette.mode === 'dark'
     ? alpha(theme.palette.primary[800], 0.25)
-    : alpha(theme.palette.background[800], 0.25)
+    : alpha(theme.palette.background[800], 0.25),
+  '&:hover': {
+    boxShadow: theme.shadows[12],
+  }
 }))
 
 interface ProjectStagePanelProps {
@@ -80,7 +84,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
   };
 
   return (
-    <StyledProjectStagePanel boxShadow={4} sx={{ '&:hover': { boxShadow: 8 } }}>
+    <StyledProjectStagePanel>
       <Stack direction={'row'} justifyContent={'space-between'}>
         <Stack direction={'row'} alignItems={'center'}>
           <OutlinedContentEditable

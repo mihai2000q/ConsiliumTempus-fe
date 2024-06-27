@@ -7,12 +7,13 @@ const StyledUserLabel = styled(Box)<BoxProps>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   maxWidth: 200,
+  padding: '5px 10px',
+  borderRadius: '16px',
   backgroundColor: theme.palette.mode === 'dark'
     ? darken(theme.palette.background[900], 0.1)
     : theme.palette.primary[900],
   color: theme.palette.background[100],
-  padding: '5px 10px',
-  borderRadius: '16px',
+  boxShadow: theme.shadows[2],
   transition: theme.transitions.create(['background-color', 'color', 'box-shadow'], {
     duration: theme.transitions.duration.short,
   }),
@@ -21,6 +22,7 @@ const StyledUserLabel = styled(Box)<BoxProps>(({ theme }) => ({
       ? lighten(theme.palette.background[900], 0.02)
       : theme.palette.primary[800],
     color: theme.palette.background[50],
+    boxShadow: theme.shadows[6],
   }
 }))
 
@@ -37,7 +39,7 @@ interface UserLabelProps {
 function UserLabel({ user }: UserLabelProps) {
   return (
     <UserPopper user={user}>
-      <StyledUserLabel sx={{ boxShadow: 2, '&:hover': { boxShadow: 6 } }}>
+      <StyledUserLabel>
         <Avatar src={demoUserPic} alt={'user profile picture'} sx={{ width: 23, height: 23, mr: 0.75 }} />
         <Typography noWrap>{user.name}</Typography>
       </StyledUserLabel>

@@ -9,6 +9,12 @@ interface SearchbarProps extends BoxProps {
 const Searchbar = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isFocused',
 })<SearchbarProps>(({ theme, isFocused }) => ({
+  boxShadow:
+    '0px 10px 15px -6px rgba(0,0,0,0.05),' +
+    '-10px 10px 15px -6px rgba(0,0,0,0.05),' +
+    '10px 10px 15px -6px rgba(0,0,0,0.05),' +
+    '10px -3px 15px -6px rgba(0,0,0,0.05),' +
+    '-10px -3px 15px -6px rgba(0,0,0,0.05)',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -18,12 +24,18 @@ const Searchbar = styled(Box, {
   padding: '4px 8px',
   marginTop: '4px',
   marginLeft: 50,
-  transition: theme.transitions.create(['background-color', 'border-radius'], {
+  transition: theme.transitions.create(['background-color', 'border-radius', 'box-shadow'], {
     duration: theme.transitions.duration.standard,
   }),
   '&:hover': {
     backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.15) : lighten(theme.palette.background[900], 0.5),
     borderRadius: '8px',
+    boxShadow:
+      '0px 10px 15px -4px rgba(0,0,0,0.08),' +
+      '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
+      '10px 10px 15px -4px rgba(0,0,0,0.08),' +
+      '10px -3px 15px -4px rgba(0,0,0,0.08),' +
+      '-10px -3px 15px -3px rgba(0,0,0,0.08)',
   },
   ...(isFocused && {
     backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.15) : lighten(theme.palette.background[900], 0.5),
