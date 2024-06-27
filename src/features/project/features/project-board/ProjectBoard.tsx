@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
 import { Button, ButtonGroup, ListItemIcon, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
-import ProjectStagesLoader from "./components/stage/ProjectStagesLoader.tsx";
+import ProjectBoardLoader from "./components/stage/ProjectBoardLoader.tsx";
 import {
   Add,
   ArrowDropDownOutlined,
@@ -13,8 +13,7 @@ import {
   ViewWeekOutlined,
   VisibilityOffOutlined
 } from "@mui/icons-material";
-import ProjectSprint from "./types/ProjectSprint.model.ts";
-import { useGetProjectSprintQuery } from "./state/projectBoardApi.ts";
+import { useGetStagesFromProjectSprintQuery } from "./state/projectBoardApi.ts";
 import ProjectStagePanel from "./components/stage/ProjectStagePanel.tsx";
 import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,10 +26,11 @@ function ProjectBoard() {
 
   const sprintId = useSelector((state: RootState) => state.project.sprintId)
 
-  const sprint: ProjectSprint | undefined = useGetProjectSprintQuery(
+  const { data } = useGetStagesFromProjectSprintQuery(
     { id: sprintId },
     { skip: sprintId === '' }
-  ).data // TODO: Replace with stages from transformResponse
+  )
+  const stages = data?.stages
 
   const [showAddTaskCard, setShowAddTaskCard] = useState(false)
   const [showLeftAddStagePanel, setShowLeftAddStagePanel] = useState(false)
@@ -65,7 +65,7 @@ function ProjectBoard() {
     useState<HTMLElement | null>(null)
   const handleCloseAddOptionsMenu = () => setAddOptionsMenuAnchorEl(null)
 
-  if (!sprint) return <ProjectStagesLoader />
+  if (!stages) return <ProjectBoardLoader />
 
   return (
     <Stack alignItems="start" height={'100%'} mt={1}>
@@ -132,7 +132,7 @@ function ProjectBoard() {
             closeCard={() => setShowLeftAddStagePanel(false)}
             onTop={true} />
         }
-        {sprint?.stages.map((stage, i) => (
+        {stages.map((stage, i) => (
           <ProjectStagePanel
             key={stage.id}
             stage={stage}

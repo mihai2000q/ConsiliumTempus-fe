@@ -1,4 +1,4 @@
-export interface GetProjectSprintRequest {
+export interface GetStagesFromProjectSprintRequest {
   id: string
 }
 

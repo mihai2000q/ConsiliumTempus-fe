@@ -15,7 +15,7 @@ export const projectSprintsDialogApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjectSprint: builder.query<ProjectSprintResponse, GetProjectSprintRequest>({
       query: arg => `${Urls.ProjectSprints}/${arg.id}`,
-      providesTags: [TagTypes.ProjectSprint]
+      providesTags: [TagTypes.ProjectSprints]
     }),
     getProjectSprints: builder.query<GetProjectSprintsResponse, GetProjectSprintsRequest>({
       query: arg => ({

@@ -10,11 +10,14 @@ const Searchbar = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isFocused',
 })<SearchbarProps>(({ theme, isFocused }) => ({
   boxShadow:
-    '0px 10px 15px -6px rgba(0,0,0,0.05),' +
-    '-10px 10px 15px -6px rgba(0,0,0,0.05),' +
-    '10px 10px 15px -6px rgba(0,0,0,0.05),' +
-    '10px -3px 15px -6px rgba(0,0,0,0.05),' +
-    '-10px -3px 15px -6px rgba(0,0,0,0.05)',
+    theme.palette.mode === 'dark'
+      ? '0px 10px 15px -3px rgba(0, 0, 0, 0.1)'
+      :
+      '0px 10px 15px -6px rgba(0,0,0,0.05),' +
+      '-10px 10px 15px -6px rgba(0,0,0,0.05),' +
+      '10px 10px 15px -6px rgba(0,0,0,0.05),' +
+      '10px -3px 15px -6px rgba(0,0,0,0.05),' +
+      '-10px -3px 15px -6px rgba(0,0,0,0.05)',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
@@ -35,17 +38,29 @@ const Searchbar = styled(Box, {
       : lighten(theme.palette.background[900], 1),
     borderRadius: '8px',
     boxShadow:
-      '0px 10px 15px -4px rgba(0,0,0,0.08),' +
-      '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
-      '10px 10px 15px -4px rgba(0,0,0,0.08),' +
-      '10px -3px 15px -4px rgba(0,0,0,0.08),' +
-      '-10px -3px 15px -3px rgba(0,0,0,0.08)',
+      theme.palette.mode === 'dark'
+        ? '0px 5px 10px -3px rgba(0, 0, 0, 0.3)'
+        :
+        '0px 10px 15px -4px rgba(0,0,0,0.08),' +
+        '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
+        '10px 10px 15px -4px rgba(0,0,0,0.08),' +
+        '10px -3px 15px -4px rgba(0,0,0,0.08),' +
+        '-10px -3px 15px -3px rgba(0,0,0,0.08)',
   },
   ...(isFocused && {
     backgroundColor: theme.palette.mode === 'dark'
       ? darken(theme.palette.background[900], 0.15)
       : lighten(theme.palette.background[900], 1),
     borderRadius: '8px',
+    boxShadow:
+      theme.palette.mode === 'dark'
+        ? '0px 5px 10px -3px rgba(0, 0, 0, 0.3)'
+        :
+        '0px 10px 15px -4px rgba(0,0,0,0.08),' +
+        '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
+        '10px 10px 15px -4px rgba(0,0,0,0.08),' +
+        '10px -3px 15px -4px rgba(0,0,0,0.08),' +
+        '-10px -3px 15px -3px rgba(0,0,0,0.08)',
   })
 }))
 
