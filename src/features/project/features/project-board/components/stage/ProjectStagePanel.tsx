@@ -56,7 +56,7 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
   const [updateStageFromProjectSprint] = useUpdateStageFromProjectSprintMutation()
   useTimeoutCallback(() =>
     updateStageFromProjectSprint({
-      id: sprintId!,
+      id: sprintId,
       stageId: stage.id,
       name: stageName
   }), [stageName])

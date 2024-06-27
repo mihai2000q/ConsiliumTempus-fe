@@ -1,4 +1,4 @@
-import { Lock } from "@mui/icons-material";
+import { Person } from "@mui/icons-material";
 import FilterOperator from "../../../utils/enums/FilterOperator.ts";
 import FilterChipItem from "../../../types/FilterChipItem.ts";
 import FilterPropertyValueType from "../../../utils/enums/FilterPropertyValueType.ts";
@@ -8,7 +8,7 @@ import WorkspacesSearchQueryParams from "../utils/WorkspacesSearchQueryParams.ts
 
 export const workspaceFilterChipsData: FilterChipItem[] = [
   {
-    icon: <Lock />,
+    icon: <Person />,
     title: 'Personal',
     filters: [{
       property: WorkspacesSearchQueryParams.IsPersonal,

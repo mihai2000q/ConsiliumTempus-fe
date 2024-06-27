@@ -82,8 +82,6 @@ export default function useProjects(
   return {
     projects,
     projectsIsFetching: isLazyFetching || isFetching,
-    projectsFetchMoreProjects: totalCount > (projects?.length ?? 0)
-      ? fetchMoreProjects
-      : undefined // return undefined to stop displaying the Show More button
+    projectsFetchMoreProjects: totalCount > (projects?.length ?? 0) ? fetchMoreProjects : undefined
   }
 }

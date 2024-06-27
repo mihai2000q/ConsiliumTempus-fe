@@ -4,7 +4,7 @@ interface ProjectState {
   projectId: string,
   projectName: string,
   workspaceId: string,
-  sprintId: string | undefined,
+  sprintId: string,
   breadcrumbs: Breadcrumb[],
   projectStatusesDialog: ProjectStatusesDialogState,
   projectSprintsDialog: ProjectSprintsDialogState,
@@ -28,7 +28,7 @@ export const initialState: ProjectState = {
   projectId: '',
   projectName: '',
   workspaceId: '',
-  sprintId: undefined,
+  sprintId: '',
   breadcrumbs: [],
   projectStatusesDialog: {
     open: false,

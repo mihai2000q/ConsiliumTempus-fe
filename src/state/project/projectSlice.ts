@@ -23,7 +23,7 @@ export const projectSlice = createSlice({
     setBreadcrumbs: (state, action: PayloadAction<Breadcrumb[]>) => {
       state.breadcrumbs = action.payload
     },
-    setProjectSprintId: (state, action: PayloadAction<string | undefined>) => {
+    setProjectSprintId: (state, action: PayloadAction<string>) => {
       state.sprintId = action.payload
     },
     openProjectStatusesDialog: (state, action: PayloadAction<ProjectStatusesDialogState>) => {

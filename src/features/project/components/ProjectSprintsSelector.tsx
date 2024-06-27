@@ -30,7 +30,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
   }, [sprints])
 
   useEffect(() => {
-    dispatch(setProjectSprintId(currentSprint?.id))
+    dispatch(setProjectSprintId(currentSprint?.id ?? ''))
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentSprint]) // TODO: Reference equality
 

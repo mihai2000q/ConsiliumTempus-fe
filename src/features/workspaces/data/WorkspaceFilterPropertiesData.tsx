@@ -1,5 +1,5 @@
 import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import { CalendarTodayRounded, Lock } from "@mui/icons-material";
+import { CalendarTodayRounded, Person } from "@mui/icons-material";
 import FilterProperty from "../../../types/FilterProperty.ts";
 import FilterPropertyValueType from "../../../utils/enums/FilterPropertyValueType.ts";
 import { Dayjs } from "dayjs";
@@ -7,7 +7,7 @@ import WorkspacesSearchQueryParams from "../utils/WorkspacesSearchQueryParams.ts
 
 export const workspaceFilterPropertiesData: FilterProperty[] = [
   {
-    icon: <Lock />,
+    icon: <Person />,
     property: WorkspacesSearchQueryParams.IsPersonal,
     defaultOperator: FilterOperator.Equal,
     defaultValue: true,

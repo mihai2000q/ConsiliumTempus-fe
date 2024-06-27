@@ -25,8 +25,8 @@ import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
 import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
 import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
 import ProjectSprintsSelector from "./components/ProjectSprintsSelector.tsx";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../state/store.ts";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../state/store.ts";
 import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
 import ProjectParams from "./utils/ProjectParams.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
@@ -98,8 +98,6 @@ function Project() {
     refreshName()
     refreshIsFavorite()
   }, [isFavorite, name])
-
-  const sprintId = useSelector((state: RootState) => state.project.sprintId)
 
   const handleTabChange = (_e: SyntheticEvent<Element, Event>, newTab: number) => {
     searchParams.set(ProjectSearchParams.Tab, newTab.toString())
@@ -179,13 +177,13 @@ function Project() {
       <Divider flexItem />
 
       <TabPanel value={tab} index={ProjectTabs.Overview}>
-        <ProjectOverview projectId={projectId} />
+        <ProjectOverview />
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.List}>
         This is the list
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Board}>
-        {sprintId && <ProjectBoard sprintId={sprintId} />}
+        <ProjectBoard />
       </TabPanel>
       <TabPanel value={tab} index={ProjectTabs.Calendar}>
         THis is the calendar

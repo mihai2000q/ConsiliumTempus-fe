@@ -4,12 +4,12 @@ import useDependencyFacadeState from "../../../../hooks/useDependencyFacadeState
 import useUpdateEffect from "../../../../hooks/useUpdateEffect.ts";
 import { isNoneUserDependencyState } from "../../../../types/DependencyState.ts";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../state/store.ts";
 
-interface ProjectOverviewProps {
-  projectId: string
-}
+function ProjectOverview() {
+  const projectId = useSelector((state: RootState) => state.project.projectId)
 
-function ProjectOverview({ projectId }: ProjectOverviewProps) {
   const projectOverview = useGetProjectOverviewQuery({ id: projectId }).data
 
   const [description, refreshDescription, facadeDescription, setFacadeDescription] = useDependencyFacadeState('')

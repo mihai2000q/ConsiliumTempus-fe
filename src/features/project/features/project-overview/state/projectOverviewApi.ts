@@ -5,7 +5,7 @@ import ProjectOverview from "../types/ProjectOverview.model.ts";
 import { GetProjectOverviewRequest, UpdateProjectOverviewRequest } from "../types/ProjectOverview.request.ts";
 import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
 
-export const projectSprintApiSlice = api.injectEndpoints({
+export const projectOverviewApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjectOverview: builder.query<ProjectOverview, GetProjectOverviewRequest>({
       query: arg => `${Urls.Projects}/overview/${arg.id}`,
@@ -25,4 +25,4 @@ export const projectSprintApiSlice = api.injectEndpoints({
 export const {
   useGetProjectOverviewQuery,
   useUpdateProjectOverviewMutation
-} = projectSprintApiSlice
+} = projectOverviewApiSlice

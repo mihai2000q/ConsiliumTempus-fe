@@ -17,19 +17,20 @@ import ProjectSprint from "./types/ProjectSprint.model.ts";
 import { useGetProjectSprintQuery } from "./state/projectBoardApi.ts";
 import ProjectStagePanel from "./components/stage/ProjectStagePanel.tsx";
 import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../../state/store.ts";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../../state/store.ts";
 import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
 import AddProjectStatusDialog from "../../shared/components/AddProjectStatusDialog.tsx";
 
-interface ProjectBoardProps {
-  sprintId: string
-}
-
-function ProjectBoard({ sprintId }: ProjectBoardProps) {
+function ProjectBoard() {
   const dispatch = useDispatch<AppDispatch>()
 
-  const sprint: ProjectSprint | undefined = useGetProjectSprintQuery({ id: sprintId }).data
+  const sprintId = useSelector((state: RootState) => state.project.sprintId)
+
+  const sprint: ProjectSprint | undefined = useGetProjectSprintQuery(
+    { id: sprintId },
+    { skip: sprintId === '' }
+  ).data // TODO: Replace with stages from transformResponse
 
   const [showAddTaskCard, setShowAddTaskCard] = useState(false)
   const [showLeftAddStagePanel, setShowLeftAddStagePanel] = useState(false)
@@ -63,6 +64,8 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
   const [addOptionsMenuAnchorEl, setAddOptionsMenuAnchorEl] =
     useState<HTMLElement | null>(null)
   const handleCloseAddOptionsMenu = () => setAddOptionsMenuAnchorEl(null)
+
+  if (!sprint) return <ProjectStagesLoader />
 
   return (
     <Stack alignItems="start" height={'100%'} mt={1}>
@@ -123,50 +126,43 @@ function ProjectBoard({ sprintId }: ProjectBoardProps) {
 
       <Stack direction={'row'} spacing={2.25} mt={3} height={800}>
         {
-          !sprint ?
-            <ProjectStagesLoader />
+          showLeftAddStagePanel &&
+          <AddProjectStagePanel
+            sprintId={sprintId}
+            closeCard={() => setShowLeftAddStagePanel(false)}
+            onTop={true} />
+        }
+        {sprint?.stages.map((stage, i) => (
+          <ProjectStagePanel
+            key={stage.id}
+            stage={stage}
+            showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
+            setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined} />
+        ))}
+        {
+          showRightAddStagePanel
+            ?
+            <AddProjectStagePanel
+              sprintId={sprintId}
+              closeCard={() => setShowRightAddStagePanel(false)}
+              onTop={false} />
             :
-            <>
-              {
-                showLeftAddStagePanel &&
-                <AddProjectStagePanel
-                  sprintId={sprintId}
-                  closeCard={() => setShowLeftAddStagePanel(false)}
-                  onTop={true} />
-              }
-              {sprint?.stages.map((stage, i) => (
-                <ProjectStagePanel
-                  key={stage.id}
-                  stage={stage}
-                  showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
-                  setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined} />
-              ))}
-              {
-                showRightAddStagePanel
-                  ?
-                  <AddProjectStagePanel
-                    sprintId={sprintId}
-                    closeCard={() => setShowRightAddStagePanel(false)}
-                    onTop={false} />
-                  :
-                  <Button
-                    size={'large'}
-                    startIcon={<Add />}
-                    onClick={() => setShowRightAddStagePanel(true)}
-                    sx={{
-                      width: 350,
-                      borderRadius: 4,
-                      fontSize: 16,
-                      alignItems: 'start',
-                      pt: 2,
-                      '& .MuiButton-startIcon': {
-                        marginTop: '2px'
-                      }
-                    }}>
-                    Add Stage
-                  </Button>
-              }
-            </>
+            <Button
+              size={'large'}
+              startIcon={<Add />}
+              onClick={() => setShowRightAddStagePanel(true)}
+              sx={{
+                width: 350,
+                borderRadius: 4,
+                fontSize: 16,
+                alignItems: 'start',
+                pt: 2,
+                '& .MuiButton-startIcon': {
+                  marginTop: '2px'
+                }
+              }}>
+              Add Stage
+            </Button>
         }
       </Stack>
 
