@@ -1,6 +1,6 @@
 import { BaseQueryFn, createApi, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
 import { logout, setToken } from "./auth/authSlice.ts";
-import RefreshResponse from "../types/Refresh.response.ts";
+import RefreshResponse from "../types/responses/Refresh.response.ts";
 import { RootState } from "./store.ts";
 import TagTypes from "../utils/enums/TagTypes.ts";
 import Urls from "../utils/enums/Urls.ts";

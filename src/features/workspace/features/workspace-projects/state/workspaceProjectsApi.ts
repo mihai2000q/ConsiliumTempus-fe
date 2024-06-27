@@ -4,7 +4,7 @@ import { DeleteProjectRequest, GetProjectsQueryParameters, UpdateProjectRequest 
 import createQueryParams from "../../../../../utils/createQueryParams.ts";
 import Urls from "../../../../../utils/enums/Urls.ts";
 import TagTypes from "../../../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
 
 export const workspaceProjectsApiSlice = api.injectEndpoints({
   endpoints: builder => ({

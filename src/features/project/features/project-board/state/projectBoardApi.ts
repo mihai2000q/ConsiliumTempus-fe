@@ -14,7 +14,7 @@ import {
   GetProjectTasksQueryParameters,
   UpdateProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
-import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
 import createQueryParams from "../../../../../utils/createQueryParams.ts";
 import { GetProjectStagesResponse } from "../types/ProjectStage.response.ts";
 

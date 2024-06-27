@@ -2,7 +2,7 @@ import { api } from "../../../state/api.ts";
 import TagTypes from "../../../utils/enums/TagTypes.ts";
 import Urls from "../../../utils/enums/Urls.ts";
 import { DeleteWorkspaceRequest, GetWorkspaceRequest, UpdateWorkspaceRequest, } from "../types/Workspace.request.ts";
-import HttpMessageResponse from "../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
 import Workspace from "../types/Workspace.model.ts";
 
 export const workspaceApiSlice = api.injectEndpoints({

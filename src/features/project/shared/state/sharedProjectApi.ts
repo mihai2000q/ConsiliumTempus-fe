@@ -1,7 +1,7 @@
 import { api } from "../../../../state/api.ts";
 import Urls from "../../../../utils/enums/Urls.ts";
 import TagTypes from "../../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../../types/responses/HttpMessage.response.ts";
 import { AddProjectSprintRequest } from "../types/ProjectSprint.request.ts";
 import { AddStatusToProjectRequest } from "../types/ProjectStatus.request.ts";
 

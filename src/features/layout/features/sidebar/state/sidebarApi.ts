@@ -5,7 +5,7 @@ import GetProjectsResponse from "../types/Project.response.ts";
 import Urls from "../../../../../utils/enums/Urls.ts";
 import { CreateWorkspaceRequest, GetWorkspacesRequest } from "../types/Workspace.request.ts";
 import { CreateProjectRequest, GetProjectsRequest } from "../types/Project.request.ts";
-import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
 import createQueryParams from "../../../../../utils/createQueryParams.ts";
 
 export const sidebarApiSlice = api.injectEndpoints({

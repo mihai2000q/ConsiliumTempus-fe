@@ -3,7 +3,7 @@ import Urls from "../../../../../utils/enums/Urls.ts";
 import TagTypes from "../../../../../utils/enums/TagTypes.ts";
 import ProjectOverview from "../types/ProjectOverview.model.ts";
 import { GetProjectOverviewRequest, UpdateProjectOverviewRequest } from "../types/ProjectOverview.request.ts";
-import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
 
 export const projectOverviewApiSlice = api.injectEndpoints({
   endpoints: builder => ({

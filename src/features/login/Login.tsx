@@ -11,7 +11,7 @@ import { LoginForm, loginFormInitialValues } from "./state/loginState.ts";
 import { setRefreshToken, setToken } from "../../state/auth/authSlice.ts";
 import { Link, useNavigate } from "react-router-dom";
 import Paths from "../../utils/enums/Paths.ts";
-import HttpErrorResponse from "../../types/HttpError.response.ts";
+import HttpErrorResponse from "../../types/responses/HttpError.response.ts";
 
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
