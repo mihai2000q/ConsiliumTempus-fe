@@ -9,6 +9,7 @@ import ProjectLifecycle from "../../../../utils/project/ProjectLifecycle.ts";
 import { FilterList, Sort } from "@mui/icons-material";
 import WorkspaceProjectsFilterMenu from "./components/WorkspaceProjectsFilterMenu.tsx";
 import WorkspaceProjectsSortMenu from "./components/WorkspaceProjectsSortMenu.tsx";
+import WorkspaceProjectsLoader from "./components/WorkspaceProjectsLoader.tsx";
 
 function WorkspaceProjects() {
   const workspaceId = useSelector((state: RootState) => state.workspace.workspaceId)
@@ -28,7 +29,7 @@ function WorkspaceProjects() {
     fetchMore
   } = useProjects(workspaceId, orderBy, lifecycle)
 
-  if (!projects) return <>Loading...</>
+  if (!projects) return <WorkspaceProjectsLoader />
 
   return (
     <Stack width={'100%'} height={'100%'} alignItems={'center'} py={2} overflow={"auto"}>
