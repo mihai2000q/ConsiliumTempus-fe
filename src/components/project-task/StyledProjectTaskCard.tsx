@@ -35,8 +35,12 @@ const StyledProjectTaskCard = styled(Button, {
     },
   }),
   ...(isSelected === true && {
-    backgroundColor: alpha(theme.palette.background[900], 0.5),
-    borderColor: alpha(theme.palette.background[100], 0.8)
+    backgroundColor: theme.palette.mode === 'dark'
+      ? alpha(theme.palette.background[900], 0.5)
+      : theme.palette.secondary[900],
+    borderColor: theme.palette.mode === 'dark'
+      ? alpha(theme.palette.background[100], 0.8)
+      : theme.palette.primary[500]
   })
 }))
 

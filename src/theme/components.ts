@@ -43,8 +43,8 @@ export const components = {
           border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
           color: theme.palette.background[300],
           '&:hover': {
-            borderColor: alpha(theme.palette.background[100], 0.5),
-            color: theme.palette.background[50],
+            borderColor: theme.palette.mode === 'dark' ? alpha(theme.palette.background[100], 0.5) : theme.palette.primary.main,
+            color: theme.palette.mode === 'dark' ? theme.palette.background[200] : theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.background[100], 0.1)
           },
         }),
@@ -98,9 +98,9 @@ export const components = {
           },
         }),
         ...(ownerState.variant === 'contained' && {
-          backgroundColor: theme.palette.primary[700],
+          backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[700] : theme.palette.primary.main,
           '&:hover': {
-            backgroundColor: theme.palette.primary[900]
+            backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[900] : theme.palette.primary[700]
           }
         })
       })
@@ -198,10 +198,18 @@ export const components = {
         }),
         color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
         '&:hover': {
-          color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
+          color: ownerState.selected
+            ? theme.palette.primary[50]
+            : theme.palette.mode === 'dark'
+              ? theme.palette.background[50]
+              : theme.palette.primary.main,
           backgroundColor: alpha(theme.palette.primary[100], 0.1),
           '& .MuiListItemIcon-root': {
-            color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
+            color: ownerState.selected
+              ? theme.palette.primary[50]
+              : theme.palette.mode === 'dark'
+                ? theme.palette.background[50]
+                : theme.palette.primary.main
           }
         },
         '& .MuiListItemIcon-root': {
@@ -295,7 +303,9 @@ export const components = {
   MuiAppBar: {
     styleOverrides: {
       root: ({ theme } : { theme: Theme }) => ({
-        backgroundColor: darken(theme.palette.background[900], 0.3),
+        backgroundColor: theme.palette.mode === 'dark'
+          ? darken(theme.palette.background[900], 0.3)
+          : theme.palette.primary[700],
       })
     }
   },

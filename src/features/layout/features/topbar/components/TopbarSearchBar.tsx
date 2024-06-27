@@ -19,7 +19,9 @@ const Searchbar = styled(Box, {
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  backgroundColor: theme.palette.mode === 'dark' ? alpha(theme.palette.background[900], 0.8) : theme.palette.background[900],
+  backgroundColor: theme.palette.mode === 'dark'
+    ? alpha(theme.palette.background[900], 0.8)
+    : lighten(theme.palette.background[900], 0.5),
   borderRadius: '16px',
   padding: '4px 8px',
   marginTop: '4px',
@@ -28,7 +30,9 @@ const Searchbar = styled(Box, {
     duration: theme.transitions.duration.standard,
   }),
   '&:hover': {
-    backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.15) : lighten(theme.palette.background[900], 0.5),
+    backgroundColor: theme.palette.mode === 'dark'
+      ? darken(theme.palette.background[900], 0.15)
+      : lighten(theme.palette.background[900], 1),
     borderRadius: '8px',
     boxShadow:
       '0px 10px 15px -4px rgba(0,0,0,0.08),' +
@@ -38,7 +42,9 @@ const Searchbar = styled(Box, {
       '-10px -3px 15px -3px rgba(0,0,0,0.08)',
   },
   ...(isFocused && {
-    backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.15) : lighten(theme.palette.background[900], 0.5),
+    backgroundColor: theme.palette.mode === 'dark'
+      ? darken(theme.palette.background[900], 0.15)
+      : lighten(theme.palette.background[900], 1),
     borderRadius: '8px',
   })
 }))
