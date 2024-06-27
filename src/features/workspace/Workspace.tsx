@@ -12,7 +12,6 @@ import OutlinedContentEditable from "../../components/text/OutlinedContentEditab
 import {
   ArrowDropDown,
   AssignmentRounded,
-  AttachFileRounded,
   CalendarTodayRounded,
   CampaignRounded,
   Star,
@@ -121,7 +120,6 @@ function Workspace() {
         <Tab icon={<AssignmentRounded />} label={'Projects'} value={WorkspaceTabs.Projects} />
         <Tab icon={<CalendarTodayRounded />} label={'Calendar'} value={WorkspaceTabs.Calendar} />
         <Tab icon={<TimelineRounded />} label={'Dashboards'} value={WorkspaceTabs.Dashboards} />
-        <Tab icon={<AttachFileRounded />} label={'Files'} value={WorkspaceTabs.Files} />
         <Tab icon={<CampaignRounded />} label={'Announcements'} value={WorkspaceTabs.Announcements} />
       </Tabs>
       <Divider flexItem />
