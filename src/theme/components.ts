@@ -355,7 +355,7 @@ export const components = {
   MuiCard: {
     variants: [
       {
-        props: { variant: 'panel' },
+        props: { variant: 'outlined-panel' },
         style: ({ theme } : { theme: Theme }) => ({
           border: '1px solid black',
           borderRadius: '18px',
@@ -426,6 +426,6 @@ declare module '@mui/material/Typography' {
 
 declare module '@mui/material/Paper' {
   interface PaperPropsVariantOverrides {
-    'panel': true
+    'outlined-panel': true
   }
 }

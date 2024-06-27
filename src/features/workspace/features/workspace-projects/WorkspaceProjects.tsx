@@ -32,7 +32,7 @@ function WorkspaceProjects() {
 
   return (
     <Stack width={'100%'} height={'100%'} alignItems={'center'} py={2} overflow={"auto"}>
-      <Card variant={'panel'} sx={{ width: 720 }}>
+      <Card variant={'outlined-panel'} sx={{ width: 720 }}>
         <CardHeader
           title="Projects"
           action={
