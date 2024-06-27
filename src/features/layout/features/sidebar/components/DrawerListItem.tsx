@@ -9,15 +9,16 @@ interface DrawerListItemProps {
 function DrawerListItem({ drawerItem }: DrawerListItemProps) {
   const location = useLocation()
 
+  const isSelected = location.pathname.startsWith(drawerItem.link)
+
   const navigate = useNavigate()
   const handleClick = () => {
-    if (location.pathname !== drawerItem.link)
-      navigate(drawerItem.link)
+    if (!isSelected) navigate(drawerItem.link)
   }
 
   return (
     <ListItem disablePadding>
-      <ListItemButton selected={drawerItem.link === location.pathname} onClick={handleClick}>
+      <ListItemButton selected={isSelected} onClick={handleClick}>
         <ListItemIcon>{drawerItem.icon}</ListItemIcon>
         <ListItemText>
           <Typography fontWeight={600} noWrap>{drawerItem.text}</Typography>

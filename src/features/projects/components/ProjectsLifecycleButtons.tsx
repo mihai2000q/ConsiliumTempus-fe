@@ -7,6 +7,7 @@ import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
 import { addToSearchQueryParamType } from "../../../hooks/useSearchQueryParam.ts";
 
 const StyledButtonGroup = styled(Stack)<StackProps>(({ theme }) => ({
+  boxShadow: '0px 10px 15px -3px rgba(0,0,0,0.11)',
   alignItems: "center",
   flexDirection: 'row',
   backgroundColor: theme.palette.background[900],

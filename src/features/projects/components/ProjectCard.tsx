@@ -10,12 +10,14 @@ const StyledProjectCard = styled(Box)<BoxProps>(({ theme }) => ({
   cursor: 'pointer',
   borderRadius: '6px',
   backgroundColor: alpha(theme.palette.background[900], 0.6),
+  boxShadow: theme.shadows[10],
   transition: theme.transitions.create(['transform', 'box-shadow', 'background-color'], {
     duration: theme.transitions.duration.short,
   }),
   '&:hover': {
     transform: 'scale(1.05)',
-    backgroundColor: theme.palette.background[900]
+    backgroundColor: theme.palette.background[900],
+    boxShadow: theme.shadows[20],
   }
 }))
 
@@ -33,11 +35,11 @@ const ProjectStatusHeader = styled(Box, {
   backdropFilter: 'blur(2px)'
 }))
 
-interface ProjectItemProps {
+interface ProjectCardProps {
   project: Project
 }
 
-function ProjectCard({ project }: ProjectItemProps) {
+function ProjectCard({ project }: ProjectCardProps) {
   const navigate = useNavigate()
 
   const [projectStatusHeader, projectStatusHeaderColor] =
@@ -48,9 +50,7 @@ function ProjectCard({ project }: ProjectItemProps) {
   }
 
   return (
-    <StyledProjectCard
-      onClick={handleClick}
-      sx={{ boxShadow: 10, '&:hover': { boxShadow: 20 }, }}>
+    <StyledProjectCard onClick={handleClick}>
       <Box position="relative">
         <CardMedia
           image={'src/assets/demo-projects.jpg'}

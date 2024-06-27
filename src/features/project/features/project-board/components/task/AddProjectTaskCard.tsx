@@ -44,8 +44,6 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
       onKeyDown={handleOnKeyDown}
       sx={{
         padding: 2,
-        boxShadow: 2,
-        '&:hover': { boxShadow: 4 },
         mt: mt,
         mb: mb
       }}>

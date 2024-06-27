@@ -15,24 +15,33 @@ export const components = {
         props: { variant: 'alt-text' },
         style: ({ theme } : { theme: Theme }) => ({
           borderRadius: '6px',
-          color: theme.palette.background[300],
+          color: theme.palette.background[400],
           '&:hover': {
-            color: theme.palette.background[50],
-            backgroundColor: alpha(theme.palette.background[100], 0.1)
+            color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.primary.main,
+            backgroundColor: alpha(theme.palette.background[100], 0.1),
+          },
+        }),
+      },
+      {
+        props: { variant: 'alt-text', size: 'extra-small' },
+        style: ({ theme }: { theme: Theme }) => ({
+          fontSize: 12,
+          fontWeight: 300,
+          padding: '4px 8px',
+          color: theme.palette.text.triadic,
+          '&:hover': {
+            color: theme.palette.text.secondary
+          },
+          '& .MuiSvgIcon-root': {
+            fontSize: 15,
           },
         }),
       },
       {
         props: { variant: 'alt-text', size: 'small' },
-        style: ({ theme } : { theme: Theme }) => ({
+        style: () => ({
           fontSize: 12,
           fontWeight: 300,
-          borderRadius: '6px',
-          color: theme.palette.background[300],
-          '&:hover': {
-            color: theme.palette.background[50],
-            backgroundColor: alpha(theme.palette.background[100], 0.1)
-          },
         }),
       },
       {
@@ -43,8 +52,8 @@ export const components = {
           border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
           color: theme.palette.background[300],
           '&:hover': {
-            borderColor: alpha(theme.palette.background[100], 0.5),
-            color: theme.palette.background[50],
+            borderColor: theme.palette.mode === 'dark' ? alpha(theme.palette.background[100], 0.5) : theme.palette.primary.main,
+            color: theme.palette.mode === 'dark' ? theme.palette.background[200] : theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.background[100], 0.1)
           },
         }),
@@ -55,13 +64,7 @@ export const components = {
           fontSize: 12,
           fontWeight: 300,
           borderRadius: '6px',
-          border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
           color: theme.palette.background[200],
-          '&:hover': {
-            borderColor: alpha(theme.palette.background[100], 0.7),
-            color: theme.palette.background[50],
-            backgroundColor: alpha(theme.palette.background[100], 0.1)
-          },
         }),
       },
     ],
@@ -98,9 +101,9 @@ export const components = {
           },
         }),
         ...(ownerState.variant === 'contained' && {
-          backgroundColor: theme.palette.primary[700],
+          backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[700] : theme.palette.primary.main,
           '&:hover': {
-            backgroundColor: theme.palette.primary[900]
+            backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[900] : theme.palette.primary[700]
           }
         })
       })
@@ -198,10 +201,18 @@ export const components = {
         }),
         color: ownerState.selected ? theme.palette.primary[200] : theme.palette.background[200],
         '&:hover': {
-          color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
+          color: ownerState.selected
+            ? theme.palette.primary[50]
+            : theme.palette.mode === 'dark'
+              ? theme.palette.background[50]
+              : theme.palette.primary.main,
           backgroundColor: alpha(theme.palette.primary[100], 0.1),
           '& .MuiListItemIcon-root': {
-            color: ownerState.selected ? theme.palette.primary[50] : theme.palette.background[50],
+            color: ownerState.selected
+              ? theme.palette.primary[50]
+              : theme.palette.mode === 'dark'
+                ? theme.palette.background[50]
+                : theme.palette.primary.main
           }
         },
         '& .MuiListItemIcon-root': {
@@ -295,7 +306,9 @@ export const components = {
   MuiAppBar: {
     styleOverrides: {
       root: ({ theme } : { theme: Theme }) => ({
-        backgroundColor: darken(theme.palette.background[900], 0.3),
+        backgroundColor: theme.palette.mode === 'dark'
+          ? darken(theme.palette.background[900], 0.3)
+          : theme.palette.primary[700],
       })
     }
   },
@@ -338,6 +351,48 @@ export const components = {
         },
       })
     }
+  },
+  MuiCard: {
+    variants: [
+      {
+        props: { variant: 'panel' },
+        style: ({ theme } : { theme: Theme }) => ({
+          border: '1px solid black',
+          borderRadius: '18px',
+          backgroundColor: alpha(theme.palette.background[800], 0.25),
+          borderColor: alpha(theme.palette.background[700], 0.5),
+          boxShadow: theme.shadows[10],
+          transition: theme.transitions.create(['box-shadow', 'border-color', 'background-color'], {
+            duration: theme.transitions.duration.complex,
+          }),
+          '&:hover': {
+            backgroundColor: alpha(theme.palette.background[800], 0.6),
+            borderColor: alpha(theme.palette.background[700], 1),
+            boxShadow: theme.shadows[24],
+          },
+          '& .MuiCardContent-root': {
+            padding: '12px'
+          },
+          '& .MuiCardHeader-root': {
+            padding: '24px 24px 16px 24px'
+          }
+        }),
+      },
+    ],
+    styleOverrides: {
+      root: () => ({
+        borderRadius: '8px',
+      })
+    }
+  },
+  MuiAccordion: {
+    styleOverrides: {
+      root: () => ({
+        '&:before': {
+          visibility: 'hidden'
+        }
+      })
+    }
   }
 }
 
@@ -352,6 +407,10 @@ declare module '@mui/material/Button' {
     'alt-outlined': true,
     'alt-text': true
   }
+
+  interface ButtonPropsSizeOverrides {
+    'extra-small': true
+  }
 }
 
 declare module '@mui/material/Typography' {
@@ -362,5 +421,11 @@ declare module '@mui/material/Typography' {
     onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,
     contentEditable?: boolean,
     suppressContentEditableWarning?: boolean,
+  }
+}
+
+declare module '@mui/material/Paper' {
+  interface PaperPropsVariantOverrides {
+    'panel': true
   }
 }

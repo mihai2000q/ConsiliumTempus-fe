@@ -18,9 +18,11 @@ const StyledProjectTaskCard = styled(Button, {
   color: theme.palette.text.primary,
   border: 'solid 1px',
   borderColor: alpha(theme.palette.background[50], 0.25),
+  boxShadow: theme.shadows[2],
   '&:hover': {
     borderColor: alpha(theme.palette.background[50], 0.5),
-    color: theme.palette.background[50]
+    color: theme.palette.background[50],
+    boxShadow: theme.shadows[4],
   },
   ...(isCompleted === true && {
     backgroundColor: alpha(theme.palette.grey[100], 0.05),
@@ -33,8 +35,12 @@ const StyledProjectTaskCard = styled(Button, {
     },
   }),
   ...(isSelected === true && {
-    backgroundColor: alpha(theme.palette.background[900], 0.5),
-    borderColor: alpha(theme.palette.background[100], 0.8)
+    backgroundColor: theme.palette.mode === 'dark'
+      ? alpha(theme.palette.background[900], 0.5)
+      : theme.palette.secondary[900],
+    borderColor: theme.palette.mode === 'dark'
+      ? alpha(theme.palette.background[100], 0.8)
+      : theme.palette.primary[500]
   })
 }))
 

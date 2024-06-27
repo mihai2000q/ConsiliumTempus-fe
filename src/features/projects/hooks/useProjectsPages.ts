@@ -1,7 +1,7 @@
-import ProjectResponse from "../types/Project.response.ts";
+import GetProjectsResponse from "../types/Project.response.ts";
 
 export default function useProjectsPages(
-  data: ProjectResponse | undefined,
+  data: GetProjectsResponse | undefined,
   pageSize: number,
   currentPage: number
 ): [number, number, number] {

@@ -1,7 +1,7 @@
-import FilterOperator from "../../utils/enums/FilterOperator.ts";
+import FilterOperator from "../../../utils/enums/FilterOperator.ts";
 import { MenuItem } from "@mui/material";
 import { Dispatch, SetStateAction } from "react";
-import FilterSelector from "./FilterSelector.tsx";
+import FilterSelector from "../FilterSelector.tsx";
 
 interface FilterOperatorSelectorProps {
   filterOperators: FilterOperator[],

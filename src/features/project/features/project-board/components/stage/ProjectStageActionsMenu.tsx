@@ -52,7 +52,7 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
 
   const [removeStageFromProjectSprint] = useRemoveStageFromProjectSprintMutation()
   const handleDeleteStage = () => {
-    removeStageFromProjectSprint({ id: sprintId!, stageId })
+    removeStageFromProjectSprint({ id: sprintId, stageId })
     onClose()
   }
 
