@@ -41,13 +41,19 @@ function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
   const [orderBy, setOrderBy] = useState<string[]>([])
+  const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
+  const [lifecycleActive, setLifecycleActive] = useState(true)
+  const [searchName, facadeName, setFacadeName] = useFacadeState('')
+
   const [
     searchQueryParam,
     addToSearchQueryParam,
     removeFromSearchQueryParam
-  ] = useSearchQueryParam();
-
-  const [searchName, facadeName, setFacadeName] = useFacadeState('')
+  ] = useSearchQueryParam({
+    property: ProjectsSearchQueryParams.Lifecycle,
+    operator: FilterOperator.Equal,
+    value: lifecycle
+  })
   useUpdateEffect(() => {
     addToSearchQueryParam({
       property: ProjectsSearchQueryParams.Name,
@@ -56,8 +62,6 @@ function Projects() {
     })
   }, [searchName])
 
-  const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
-  const [active, setActive] = useState(true)
 
   const pageSize = usePageSize()
 
@@ -122,8 +126,8 @@ function Projects() {
         <ProjectsLifecycleButtons
           lifecycle={lifecycle}
           setLifecycle={setLifecycle}
-          active={active}
-          setActive={setActive}
+          active={lifecycleActive}
+          setActive={setLifecycleActive}
           addToSearchQueryParam={addToSearchQueryParam} />
 
         <Stack direction={'row'} spacing={2}>

@@ -1,10 +1,11 @@
 import { Button, ButtonProps, Stack, StackProps, styled } from "@mui/material";
 import { ArchiveOutlined, HourglassEmptyOutlined, SkipNextOutlined } from "@mui/icons-material";
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
 import FilterOperator from "../../../utils/enums/FilterOperator.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
 import { addToSearchQueryParamType } from "../../../hooks/useSearchQueryParam.ts";
+import useUpdateEffect from "../../../hooks/useUpdateEffect.ts";
 
 const StyledButtonGroup = styled(Stack)<StackProps>(({ theme }) => ({
   boxShadow: '0px 10px 15px -3px rgba(0,0,0,0.11)',
@@ -100,13 +101,12 @@ function ProjectsLifecycleButtons({
     }
   }
 
-  useEffect(() => {
+  useUpdateEffect(() => {
     addToSearchQueryParam({
       property: ProjectsSearchQueryParams.Lifecycle,
       operator: FilterOperator.Equal,
       value: active ? lifecycle : null
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active, lifecycle]);
 
   return (

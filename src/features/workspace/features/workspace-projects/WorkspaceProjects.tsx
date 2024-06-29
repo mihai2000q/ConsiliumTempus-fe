@@ -71,7 +71,6 @@ function WorkspaceProjects() {
         </CardContent>
       </Card>
 
-
       <WorkspaceProjectsSortMenu
         setOrderByQueryParam={setOrderByQueryParam}
         anchorEl={sortMenuAnchorEl}

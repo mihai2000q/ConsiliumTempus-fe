@@ -16,7 +16,7 @@ interface FilterPropertyProps {
   filters: Filter[],
   index: number,
   handleFilter: (index: number, filter: Filter) => void,
-  removeFilter: (filter: Filter) => void
+  handleRemoveFilter: (filter: Filter) => void
 }
 
 function FilterProperty({
@@ -26,7 +26,7 @@ function FilterProperty({
   filters,
   index,
   handleFilter,
-  removeFilter
+  handleRemoveFilter
 }: FilterPropertyProps) {
   const [property, setProperty] = useState(initialFilter.property)
   const [operator, setOperator] = useState(initialFilter.operator)
@@ -36,8 +36,8 @@ function FilterProperty({
     handleFilter(index, { property, operator, value, valueType })
   }, [property, operator, value, valueType])
 
-  function handleRemoveFilter() {
-    removeFilter({ property, operator, value, valueType })
+  function handleRemoveCurrentFilter() {
+    handleRemoveFilter({ property, operator, value, valueType })
   }
 
   function setPropertyAndReset(newProperty: string) {
@@ -84,13 +84,13 @@ function FilterProperty({
       <FilterValueSelector
         type={valueType}
         value={value}
-        setValue={setValue}  />
+        setValue={setValue} />
       <Tooltip
         arrow
         enterDelay={500}
         placement={'top'}
         title={'Remove Filter'}>
-        <IconButton variant={'circular'} size={'small'} onClick={handleRemoveFilter}>
+        <IconButton variant={'circular'} size={'small'} onClick={handleRemoveCurrentFilter}>
           <Close sx={{ fontSize: 17, m: '1px' }} />
         </IconButton>
       </Tooltip>

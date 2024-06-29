@@ -7,6 +7,7 @@ import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
 import useSearchQueryParam from "../../../../../hooks/useSearchQueryParam.ts";
 import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
 import FilterOperator from "../../../../../utils/enums/FilterOperator.ts";
+import useUpdateEffect from "../../../../../hooks/useUpdateEffect.ts";
 
 export default function useProjects(
   hidden: boolean,
@@ -27,14 +28,17 @@ export default function useProjects(
   const orderType = order === ProjectsOrderQueryParams.Name ? OrderType.Ascending : OrderType.Descending
   const orderSearchQueryParam = useMemo(() => [order + '.' + orderType], [order, orderType])
 
-  const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam()
-  useEffect(() => {
+  const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam({
+    property: ProjectsSearchQueryParams.Lifecycle,
+    operator: FilterOperator.Equal,
+    value: lifecycle
+  })
+  useUpdateEffect(() => {
     addToSearchQueryParam({
       property: ProjectsSearchQueryParams.Lifecycle,
       operator: FilterOperator.Equal,
       value: lifecycle
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lifecycle]);
 
   const currentPage = useRef(1)

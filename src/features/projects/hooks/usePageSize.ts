@@ -2,12 +2,14 @@ import { useMediaQuery, useTheme } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function usePageSize() {
-  const [pageSize, setPageSize] = useState(1)
-
   const theme = useTheme()
   const isSmallSized = useMediaQuery(theme.breakpoints.up('xs'))
   const isMediumSized = useMediaQuery(theme.breakpoints.up('md'))
   const isLargeSized = useMediaQuery(theme.breakpoints.up('xl'))
+
+  const [pageSize, setPageSize] = useState(
+    isLargeSized ? 12 : isMediumSized ? 10 : isSmallSized ? 6 : 1
+  )
 
   useEffect(() => {
     if (isLargeSized) {

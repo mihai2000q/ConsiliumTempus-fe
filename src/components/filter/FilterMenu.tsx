@@ -124,7 +124,7 @@ function FilterMenu({
                     index={index}
                     filters={filters}
                     handleFilter={handleFilter}
-                    removeFilter={handleRemoveFilter} />
+                    handleRemoveFilter={handleRemoveFilter} />
                 </Collapse>
               ))}
             </Stack>
