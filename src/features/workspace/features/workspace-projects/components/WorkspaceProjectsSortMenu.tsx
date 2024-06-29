@@ -61,7 +61,10 @@ function WorkspaceProjectsSortMenu({
         </IconButton>
       </Stack>
       {projectOrderProperties.map(op => (
-        <ProjectsOrderMenuItem key={op.value} selected={op.value === order} onClick={() => setOrder(op.value)}>
+        <ProjectsOrderMenuItem
+          key={op.value}
+          selected={op.value === order}
+          onClick={() => setOrder(op.value as ProjectsOrderQueryParams)}>
           {op.displayName}
         </ProjectsOrderMenuItem>
       ))}

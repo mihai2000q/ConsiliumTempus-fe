@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { GridViewRounded, Search, ViewStreamRounded } from "@mui/icons-material";
 import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
-import { ChangeEvent, ReactNode, useState } from "react";
+import { ChangeEvent, ReactNode } from "react";
 import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
 import useFacadeState from "../../hooks/useFacadeState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
@@ -23,6 +23,9 @@ import WorkspaceFilterButton from "./components/WorkspaceFilterButton.tsx";
 import WorkspaceSortButton from "./components/WorkspaceSortButton.tsx";
 import WorkspaceCard from "./components/WorkspaceCard.tsx";
 import workspacesSearchParamsState from "./state/WorkspacesSearchParamsState.ts";
+import useOrderByQueryParam from "../../hooks/useOrderByQueryParam.ts";
+import WorkspacesOrderQueryParams from "./utils/WorkspacesOrderQueryParams.ts";
+import OrderType from "../../utils/enums/OrderType.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -35,7 +38,11 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Workspaces() {
   const [searchParams, setSearchParams] = useSearchParamsState(workspacesSearchParamsState)
 
-  const [orderBy, setOrderBy] = useState<string[]>([])
+  const initialOrder = {
+    property: WorkspacesOrderQueryParams.LastActivity,
+    type: OrderType.Descending
+  }
+  const [orderBy, setOrderBy] = useOrderByQueryParam(initialOrder)
   const [
     searchQueryParam,
     addToSearchQueryParam,
@@ -112,7 +119,7 @@ function Workspaces() {
         </Stack>
 
         <Stack direction={'row'} spacing={2}>
-          <WorkspaceSortButton setOrder={setOrderBy} />
+          <WorkspaceSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
           <WorkspaceFilterButton addToSearchQueryParam={addToSearchQueryParam}
                                  removeFromSearchQueryParam={removeFromSearchQueryParam} />
         </Stack>
