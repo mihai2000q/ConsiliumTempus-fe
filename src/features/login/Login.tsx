@@ -43,13 +43,13 @@ function Login() {
 
   async function handleSubmitForm(values: LoginForm) {
     const { email, password } = values
-    const res = await login({ email, password }).unwrap()
+    try {
+      const res = await login({ email, password }).unwrap()
 
-    if (isError) return
-
-    dispatch(setToken(res.token))
-    dispatch(setRefreshToken(res.refreshToken))
-    navigate(Paths.Home)
+      dispatch(setToken(res.token))
+      dispatch(setRefreshToken(res.refreshToken))
+      navigate(Paths.Home)
+    } catch (e) { /* empty */ }
   }
 
   return (

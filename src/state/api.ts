@@ -25,7 +25,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 > = async (args, api, extraOptions) => {
   await mutex.waitForUnlock()
   let result = await baseQuery(args, api, extraOptions)
-  if (result?.error?.status === 401) {
+  if (result?.error?.status === 401 && !isAuthRequest(args)) {
     if (!mutex.isLocked()) {
       const release = await mutex.acquire()
       try {
@@ -58,6 +58,11 @@ const baseQueryWithRefreshToken: BaseQueryFn<
     }
   }
   return result
+}
+
+function isAuthRequest(args: string | FetchArgs) {
+  return typeof args === "string" && args.includes(Urls.Auth) ||
+    typeof args === 'object' && args.url.includes(Urls.Auth)
 }
 
 export const api = createApi({
