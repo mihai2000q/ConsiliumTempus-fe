@@ -28,6 +28,10 @@ import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
 import ProjectLifecycle from "../../utils/project/ProjectLifecycle.ts";
 import useAdapterState from "../../hooks/useAdapterState.ts";
+import Order from "../../types/Order.ts";
+import ProjectsOrderQueryParams from "./utils/ProjectsOrderQueryParams.ts";
+import OrderType from "../../utils/enums/OrderType.ts";
+import useOrderByQueryParam from "../../hooks/useOrderByQueryParam.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -40,7 +44,6 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
-  const [orderBy, setOrderBy] = useState<string[]>([])
   const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
   const [lifecycleActive, setLifecycleActive] = useState(true)
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
@@ -62,6 +65,11 @@ function Projects() {
     })
   }, [searchName])
 
+  const initialOrder: Order = {
+    property: ProjectsOrderQueryParams.LastActivity,
+    type: OrderType.Descending
+  }
+  const [orderBy, setOrderBy] = useOrderByQueryParam(initialOrder)
 
   const pageSize = usePageSize()
 
@@ -131,7 +139,7 @@ function Projects() {
           addToSearchQueryParam={addToSearchQueryParam} />
 
         <Stack direction={'row'} spacing={2}>
-          <ProjectSortButton setOrder={setOrderBy} />
+          <ProjectSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
           <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
                                removeFromSearchQueryParam={removeFromSearchQueryParam} />
         </Stack>
