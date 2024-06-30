@@ -58,7 +58,7 @@ function Workspaces() {
     })
   }, [searchName])
 
-  const pageSize = 20
+  const pageSize = 12
 
   const {
     data,

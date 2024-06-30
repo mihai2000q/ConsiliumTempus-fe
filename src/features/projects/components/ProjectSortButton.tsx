@@ -22,7 +22,7 @@ function ProjectSortButton({ initialOrder, setOrderBy }: ProjectSortButtonProps)
           variant={'outlined'}
           startIcon={<Sort />}
           onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-          sx={{ boxShadow: 4 }}>
+          sx={{ boxShadow: 4, paddingX: 2.5 }}>
           Sort
         </Button>
       </Badge>
