@@ -15,8 +15,16 @@ import { useState } from "react";
 import { default as OrderPropertyModel } from './../../types/OrderProperty.ts'
 import OrderType from "../../utils/enums/OrderType.ts";
 import { Close, DragIndicator, NorthOutlined, SouthOutlined } from "@mui/icons-material";
+import { CSS } from "@dnd-kit/utilities";
+import { useSortable } from "@dnd-kit/sortable";
 
-const StyledOrderProperty = styled(Box)<BoxProps>(({ theme }) => ({
+interface StyledOrderPropertyProps extends BoxProps {
+  isDragHandleHovered: boolean
+}
+
+const StyledOrderProperty = styled(Box, {
+  shouldForwardProp: (props) => props !== 'isDragHandleHovered'
+})<StyledOrderPropertyProps>(({ theme, isDragHandleHovered }) => ({
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -27,9 +35,9 @@ const StyledOrderProperty = styled(Box)<BoxProps>(({ theme }) => ({
   transition: theme.transitions.create(['border-color'], {
     duration: theme.transitions.duration.shorter,
   }),
-  '&:hover': {
+  ...(isDragHandleHovered && {
     borderColor: alpha(theme.palette.background[100], 0.2)
-  }
+  })
 }))
 
 interface OrderPropertyProps {
@@ -55,6 +63,8 @@ function OrderProperty({
   const [type, setType] = useState(initialOrder.type)
   const [displayName, setDisplayName] = useState(initialOrder.displayName)
 
+  const [isDragHandleHovered, setIsDragHandleHovered] = useState(false)
+
   function handlePropertyChange(newProperty: string) {
     const newDisplayName = orderProperties
       .find(op => op.value === newProperty)
@@ -72,9 +82,33 @@ function OrderProperty({
     handleRemoveOrder({ property, type, displayName })
   }
 
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    setActivatorNodeRef
+  } = useSortable({ id: property })
+
   return (
-    <StyledOrderProperty>
-      <IconButton disableRipple disabled={disableRemove === true} sx={{ cursor: 'grab' }}>
+    <StyledOrderProperty
+      isDragHandleHovered={isDragHandleHovered}
+      ref={setNodeRef}
+      {...attributes}
+      sx={{
+        transform: CSS.Translate.toString(transform),
+        transition,
+        cursor: transform ? 'grabbing' : 'unset',
+      }}>
+      <IconButton
+        ref={setActivatorNodeRef}
+        {...listeners}
+        onMouseEnter={() => setIsDragHandleHovered(true)}
+        onMouseLeave={() => setIsDragHandleHovered(false)}
+        disableRipple
+        disabled={disableRemove === true}
+        sx={{ cursor: transform ? 'unset' : 'grab' }}>
         <DragIndicator />
       </IconButton>
 
@@ -85,11 +119,12 @@ function OrderProperty({
         onChange={(e) => handlePropertyChange(e.target.value)}
         sx={{
           flexGrow: 1,
+          alignSelf: 'stretch',
           '& .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input': {
             paddingRight: '14px'
           },
           '& .MuiSelect-select': { p: '2px 14px', display: 'flex', alignItems: 'center' },
-          '& .MuiListItemIcon-root': { mr: '6px' }
+          '& .MuiListItemIcon-root': { mr: 1 }
         }}>
         {orderProperties.map((op) => (
           <MenuItem
@@ -115,19 +150,38 @@ function OrderProperty({
         inputProps={{ IconComponent: () => null }}
         sx={{
           minWidth: 200,
+          alignSelf: 'stretch',
           '& .MuiSelect-select.MuiSelect-outlined.MuiInputBase-input.MuiOutlinedInput-input': {
             paddingRight: '14px'
           },
           '& .MuiSelect-select': { p: '2px 14px', display: 'flex', alignItems: 'center' },
-          '& .MuiListItemIcon-root': { mr: '6px' }
+          '& .MuiListItemIcon-root': { mr: 1 }
         }}
         value={type}
         onChange={(e) => handleTypeChange(e.target.value as OrderType)}>
-        <MenuItem value={OrderType.Ascending} selected={type === OrderType.Ascending}>
+        <MenuItem
+          value={OrderType.Ascending}
+          selected={type === OrderType.Ascending}
+          sx={{
+            '& .MuiListItemIcon-root': {
+              minWidth: 0,
+              mr: 0.75,
+              '& .MuiSvgIcon-root': { fontSize: 18 }
+            }
+          }}>
           <ListItemIcon><NorthOutlined /></ListItemIcon>
           <ListItemText>Ascending</ListItemText>
         </MenuItem>
-        <MenuItem value={OrderType.Descending} selected={type === OrderType.Descending}>
+        <MenuItem
+          value={OrderType.Descending}
+          selected={type === OrderType.Descending}
+          sx={{
+            '& .MuiListItemIcon-root': {
+              minWidth: 0,
+              mr: 0.75,
+              '& .MuiSvgIcon-root': { fontSize: 18 }
+            }
+          }}>
           <ListItemIcon><SouthOutlined /></ListItemIcon>
           <ListItemText sx={{ pt: 0.5 }}>Descending</ListItemText>
         </MenuItem>

@@ -21,7 +21,10 @@ function OrderPropertiesMenu({
     <Menu
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
-      onClose={onClose}>
+      onClose={onClose}
+      sx={{
+        '& .MuiListItemIcon-root': { minWidth: 0, mr: 1 }
+      }}>
       {orderProperties.map((op) => (
         <MenuItem
           key={op.value}
@@ -31,7 +34,7 @@ function OrderPropertiesMenu({
             onClose()
           }}>
           {op.icon && <ListItemIcon>{op.icon}</ListItemIcon>}
-          <ListItemText>{op.displayName}</ListItemText>
+          <ListItemText sx={{ pt: 0.5 }}>{op.displayName}</ListItemText>
         </MenuItem>
       ))}
     </Menu>
