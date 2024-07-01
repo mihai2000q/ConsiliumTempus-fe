@@ -12,7 +12,7 @@ interface SimpleOrderMenuProps {
   initialOrder: Order,
   orderProperties: OrderProperty[],
   setOrderBy: (order: Order) => void,
-  onOrderChange: (order: Order) => void
+  onOrderChange?: (order: Order) => void,
 }
 
 function SimpleOrderMenu({
@@ -33,8 +33,8 @@ function SimpleOrderMenu({
       displayName: orderProperty.displayName
     }
     setOrderBy(newOrder)
-    onOrderChange(newOrder)
-  }, [orderType, orderProperty, setOrderBy, onOrderChange]);
+    if (onOrderChange) onOrderChange(newOrder)
+  }, [orderType, orderProperty]);
 
   return (
     <Menu
@@ -66,6 +66,7 @@ function SimpleOrderMenu({
       {orderProperties.map((op) => (
         <MenuItem
           key={op.value}
+          selected={op.value === orderProperty.value}
           onClick={() => {
             setOrderProperty(op)
             onClose()
