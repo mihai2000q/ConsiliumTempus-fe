@@ -1,24 +1,19 @@
-import { Button, IconButton, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
-import { ArrowDownward, ArrowUpward, KeyboardArrowDown, KeyboardArrowUp, Sort } from "@mui/icons-material";
+import { Button } from "@mui/material";
+import { ArrowDownward, ArrowUpward, Sort } from "@mui/icons-material";
 import OrderType from "../../../utils/enums/OrderType.ts";
 import { workspaceOrderProperties } from "../data/WorkspaceOrderPropertiesData.tsx";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
+import SimpleOrderMenu from "../../../components/order/SimpleOrderMenu.tsx";
+import Order from "../../../types/Order.ts";
 
 interface WorkspaceSortButtonProps {
-  setOrder: Dispatch<SetStateAction<string[]>>
+  initialOrder: Order,
+  setOrderBy: (order: Order) => void
 }
 
-function WorkspaceSortButton({ setOrder }: WorkspaceSortButtonProps) {
-  const [orderProperty, setOrderProperty] = useState(workspaceOrderProperties[0])
-  const [orderType, setOrderType] = useState(OrderType.Descending)
-  useEffect(() => {
-    setOrder([`${orderProperty.value}.${orderType}`])
-  }, [orderType, orderProperty, setOrder]);
-
+function WorkspaceSortButton({ initialOrder, setOrderBy }: WorkspaceSortButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
-  const handleCloseMenu = () => {
-    setMenuAnchorEl(null)
-  }
+  const [order, setOrder] = useState<Order>(initialOrder)
 
   return (
     <>
@@ -27,49 +22,19 @@ function WorkspaceSortButton({ setOrder }: WorkspaceSortButtonProps) {
         startIcon={<Sort />}
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
         sx={{ boxShadow: 4 }}>
-        {orderProperty.displayName}
-        {orderType === OrderType.Descending
+        {order.displayName}
+        {order.type === OrderType.Descending
           ? <ArrowDownward sx={{ ml: 0.5 }} />
           : <ArrowUpward sx={{ ml: 0.5 }} />}
       </Button>
 
-      <Menu
-        open={Boolean(menuAnchorEl)}
+      <SimpleOrderMenu
         anchorEl={menuAnchorEl}
-        onClose={handleCloseMenu}>
-        <Stack direction={'row'} justifyContent={'space-evenly'}>
-          <IconButton
-            variant={'circular'}
-            disabled={orderType === OrderType.Ascending}
-            onClick={() => {
-              setOrderType(OrderType.Ascending)
-              handleCloseMenu()
-            }}
-          >
-            <KeyboardArrowUp />
-          </IconButton>
-          <IconButton
-            variant={'circular'}
-            disabled={orderType === OrderType.Descending}
-            onClick={() => {
-              setOrderType(OrderType.Descending)
-              handleCloseMenu()
-            }}
-          >
-            <KeyboardArrowDown />
-          </IconButton>
-        </Stack>
-        {workspaceOrderProperties.map((op) => (
-          <MenuItem
-            key={op.value}
-            onClick={() => {
-              setOrderProperty(op)
-              handleCloseMenu()
-            }}>
-            <ListItemText>{op.displayName}</ListItemText>
-          </MenuItem>
-        ))}
-      </Menu>
+        onClose={() => setMenuAnchorEl(null)}
+        initialOrder={initialOrder}
+        orderProperties={workspaceOrderProperties}
+        setOrderBy={setOrderBy}
+        onOrderChange={setOrder} />
     </>
   );
 }

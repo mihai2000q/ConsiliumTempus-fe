@@ -1,7 +1,7 @@
 import { api } from "../../../../../state/api.ts";
 import Urls from "../../../../../utils/enums/Urls.ts";
 import TagTypes from "../../../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
 import {
   DeleteProjectSprintRequest,
   GetProjectSprintRequest,
@@ -15,7 +15,7 @@ export const projectSprintsDialogApiSlice = api.injectEndpoints({
   endpoints: builder => ({
     getProjectSprint: builder.query<ProjectSprintResponse, GetProjectSprintRequest>({
       query: arg => `${Urls.ProjectSprints}/${arg.id}`,
-      providesTags: [TagTypes.ProjectSprint]
+      providesTags: [TagTypes.ProjectSprints]
     }),
     getProjectSprints: builder.query<GetProjectSprintsResponse, GetProjectSprintsRequest>({
       query: arg => ({

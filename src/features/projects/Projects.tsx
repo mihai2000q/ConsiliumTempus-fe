@@ -15,7 +15,6 @@ import { ChangeEvent, ReactNode, useState } from "react";
 import { GridViewRounded, Search, ViewStreamRounded } from "@mui/icons-material";
 import ProjectSortButton from "./components/ProjectSortButton.tsx";
 import ProjectFilterButton from "./components/ProjectFilterButton.tsx";
-import usePageSize from "./hooks/usePageSize.ts";
 import ProjectsLifecycleButtons from "./components/ProjectsLifecycleButtons.tsx";
 import useProjectsPages from "./hooks/useProjectsPages.ts";
 import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
@@ -28,6 +27,10 @@ import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
 import ProjectAdapter from "./adapters/Project.adapter.ts";
 import ProjectLifecycle from "../../utils/project/ProjectLifecycle.ts";
 import useAdapterState from "../../hooks/useAdapterState.ts";
+import Order from "../../types/Order.ts";
+import ProjectsOrderQueryParams from "./utils/ProjectsOrderQueryParams.ts";
+import OrderType from "../../utils/enums/OrderType.ts";
+import useOrderByQueryParam from "../../hooks/useOrderByQueryParam.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -40,14 +43,19 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Projects() {
   const [searchParams, setSearchParams] = useSearchParamsState(projectsSearchParamsState)
 
-  const [orderBy, setOrderBy] = useState<string[]>([])
+  const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
+  const [lifecycleActive, setLifecycleActive] = useState(true)
+  const [searchName, facadeName, setFacadeName] = useFacadeState('')
+
   const [
     searchQueryParam,
     addToSearchQueryParam,
     removeFromSearchQueryParam
-  ] = useSearchQueryParam();
-
-  const [searchName, facadeName, setFacadeName] = useFacadeState('')
+  ] = useSearchQueryParam({
+    property: ProjectsSearchQueryParams.Lifecycle,
+    operator: FilterOperator.Equal,
+    value: lifecycle
+  })
   useUpdateEffect(() => {
     addToSearchQueryParam({
       property: ProjectsSearchQueryParams.Name,
@@ -56,10 +64,13 @@ function Projects() {
     })
   }, [searchName])
 
-  const [lifecycle, setLifecycle] = useState(ProjectLifecycle.Active)
-  const [active, setActive] = useState(true)
+  const initialOrder: Order = {
+    property: ProjectsOrderQueryParams.LastActivity,
+    type: OrderType.Descending
+  }
+  const [orderBy, setOrderBy] = useOrderByQueryParam(initialOrder)
 
-  const pageSize = usePageSize()
+  const pageSize = 12
 
   const {
     data,
@@ -100,12 +111,9 @@ function Projects() {
       <Typography variant={'h1'} mb={4} align={'center'}>
         Projects
       </Typography>
-      <Stack
-        width={'100%'}
-        direction={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}>
-        <Stack direction={'row'} alignItems={'center'}>
+
+      <Grid container width={'100%'} alignItems={'center'}>
+        <Grid item xs={3} display={'flex'} alignItems={'center'}>
           <TextField
             name={'project-search'}
             label={'Search'}
@@ -116,22 +124,24 @@ function Projects() {
             InputProps={{ endAdornment: <Search /> }}
             sx={{ boxShadow: 8 }}/>
           {isFetching && !isLoading &&
-            <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />}
-        </Stack>
+            <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 2 }} />}
+        </Grid>
 
-        <ProjectsLifecycleButtons
-          lifecycle={lifecycle}
-          setLifecycle={setLifecycle}
-          active={active}
-          setActive={setActive}
-          addToSearchQueryParam={addToSearchQueryParam} />
+        <Grid item xs={6} display={'flex'} justifyContent={'center'}>
+          <ProjectsLifecycleButtons
+            lifecycle={lifecycle}
+            setLifecycle={setLifecycle}
+            active={lifecycleActive}
+            setActive={setLifecycleActive}
+            addToSearchQueryParam={addToSearchQueryParam} />
+        </Grid>
 
-        <Stack direction={'row'} spacing={2}>
-          <ProjectSortButton setOrder={setOrderBy} />
-          <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
-                               removeFromSearchQueryParam={removeFromSearchQueryParam} />
-        </Stack>
-      </Stack>
+        <Grid item xs={3} display={'flex'} justifyContent={'end'} gap={2}>
+            <ProjectSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
+            <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
+                                 removeFromSearchQueryParam={removeFromSearchQueryParam} />
+        </Grid>
+      </Grid>
 
       <Stack
         width={'100%'}
@@ -168,7 +178,7 @@ function Projects() {
 
       <Grid
         container
-        columns={{ xs: 4, md: 8, xl: 16 }}
+        columns={{ xs: 4, md: 8, lg: 12, xl: 16 }}
         flexGrow={1}
         spacing={4}>
         {

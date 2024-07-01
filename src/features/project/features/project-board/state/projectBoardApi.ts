@@ -3,11 +3,10 @@ import Urls from "../../../../../utils/enums/Urls.ts";
 import TagTypes from "../../../../../utils/enums/TagTypes.ts";
 import {
   AddStageToProjectSprintRequest,
-  GetProjectSprintRequest,
+  GetStagesFromProjectSprintRequest,
   RemoveStageFromProjectSprintRequest,
   UpdateStageFromProjectSprintRequest
-} from "../types/ProjectSprint.request.ts";
-import ProjectSprint from "../types/ProjectSprint.model.ts";
+} from "../types/ProjectStage.request.ts";
 import { ProjectTaskResponse } from "../types/ProjectTask.response.ts";
 import {
   AddProjectTaskRequest,
@@ -15,23 +14,23 @@ import {
   GetProjectTasksQueryParameters,
   UpdateProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
-import HttpMessageResponse from "../../../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
 import createQueryParams from "../../../../../utils/createQueryParams.ts";
+import { GetProjectStagesResponse } from "../types/ProjectStage.response.ts";
 
 export const projectBoardApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getProjectSprint: builder.query<ProjectSprint, GetProjectSprintRequest>({
-      query: arg => `${Urls.ProjectSprints}/${arg.id}`,
-      providesTags: [TagTypes.ProjectSprint]
+    getStagesFromProjectSprint: builder.query<GetProjectStagesResponse, GetStagesFromProjectSprintRequest>({
+      query: arg => `${Urls.ProjectSprints}/${arg.id}/stages`,
+      providesTags: [TagTypes.ProjectStages]
     }),
-
     addStageToProjectSprint: builder.mutation<HttpMessageResponse, AddStageToProjectSprintRequest>({
       query: body => ({
         url: `${Urls.ProjectSprints}/add-stage`,
         method: 'POST',
         body: body
       }),
-      invalidatesTags: [TagTypes.ProjectSprint]
+      invalidatesTags: [TagTypes.ProjectStages]
     }),
     updateStageFromProjectSprint: builder.mutation<HttpMessageResponse, UpdateStageFromProjectSprintRequest>({
       query: body => ({
@@ -39,14 +38,14 @@ export const projectBoardApiSlice = api.injectEndpoints({
         method: 'PUT',
         body: body
       }),
-      invalidatesTags: [TagTypes.ProjectSprint]
+      invalidatesTags: [TagTypes.ProjectStages]
     }),
     removeStageFromProjectSprint: builder.mutation<HttpMessageResponse, RemoveStageFromProjectSprintRequest>({
       query: arg => ({
         url: `${Urls.ProjectSprints}/${arg.id}/remove-stage/${arg.stageId}`,
         method: 'DELETE'
       }),
-      invalidatesTags: [TagTypes.ProjectSprint]
+      invalidatesTags: [TagTypes.ProjectStages]
     }),
 
     getProjectTasks: builder.query<ProjectTaskResponse, GetProjectTasksQueryParameters>({
@@ -80,7 +79,7 @@ export const projectBoardApiSlice = api.injectEndpoints({
 })
 
 export const {
-  useGetProjectSprintQuery,
+  useGetStagesFromProjectSprintQuery,
   useAddStageToProjectSprintMutation,
   useUpdateStageFromProjectSprintMutation,
   useRemoveStageFromProjectSprintMutation,

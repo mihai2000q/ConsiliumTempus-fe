@@ -7,7 +7,7 @@ import {
 } from "../types/ProjectTask.request.ts";
 import Urls from "../../../utils/enums/Urls.ts";
 import TagTypes from "../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../types/HttpMessage.response.ts";
+import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
 import { GetCollaboratorsResponse } from "../types/Collaborator.response.ts";
 import { GetCollaboratorsRequest } from "../types/Collaborator.request.ts";
 

@@ -1,75 +1,39 @@
-import { Button, IconButton, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
-import { ArrowDownward, ArrowUpward, KeyboardArrowDown, KeyboardArrowUp, Sort } from "@mui/icons-material";
-import OrderType from "../../../utils/enums/OrderType.ts";
+import { Badge, Button } from "@mui/material";
+import { Sort } from "@mui/icons-material";
 import { projectOrderProperties } from "../data/ProjectOrderPropertiesData.tsx";
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useState } from "react";
+import OrderMenu from "../../../components/order/OrderMenu.tsx";
+import Order from "../../../types/Order.ts";
 
 interface ProjectSortButtonProps {
-  setOrder: Dispatch<SetStateAction<string[]>>
+  initialOrder: Order,
+  setOrderBy: (orders: Order[]) => void
 }
 
-function ProjectSortButton({ setOrder }: ProjectSortButtonProps) {
-  const [orderProperty, setOrderProperty] = useState(projectOrderProperties[0])
-  const [orderType, setOrderType] = useState(OrderType.Descending)
-  useEffect(() => {
-    setOrder([`${orderProperty.value}.${orderType}`])
-  }, [orderType, orderProperty, setOrder]);
-
-  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
-  const handleCloseMenu = () => {
-    setMenuAnchorEl(null)
-  }
+function ProjectSortButton({ initialOrder, setOrderBy }: ProjectSortButtonProps) {
+  const [menuAnchorEl, setMenuAnchorEl] =
+    useState<HTMLElement | null>(null)
+  const [ordersSize, setOrdersSize] = useState(1)
 
   return (
     <>
-      <Button
-        variant={'outlined'}
-        startIcon={<Sort />}
-        onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-        sx={{ boxShadow: 4 }}>
-        {orderProperty.displayName}
-        {orderType === OrderType.Descending
-          ? <ArrowDownward sx={{ ml: 0.5 }} />
-          : <ArrowUpward sx={{ ml: 0.5 }} />}
-      </Button>
+      <Badge badgeContent={ordersSize === 1 ? 0 : ordersSize} color={'primary'}>
+        <Button
+          variant={'outlined'}
+          startIcon={<Sort />}
+          onClick={(e) => setMenuAnchorEl(e.currentTarget)}
+          sx={{ boxShadow: 4, paddingX: 2.5 }}>
+          Sort
+        </Button>
+      </Badge>
 
-      <Menu
-        open={Boolean(menuAnchorEl)}
+      <OrderMenu
         anchorEl={menuAnchorEl}
-        onClose={handleCloseMenu}>
-        <Stack direction={'row'} justifyContent={'space-evenly'}>
-          <IconButton
-            variant={'circular'}
-            disabled={orderType === OrderType.Ascending}
-            onClick={() => {
-              setOrderType(OrderType.Ascending)
-              handleCloseMenu()
-            }}
-          >
-            <KeyboardArrowUp />
-          </IconButton>
-          <IconButton
-            variant={'circular'}
-            disabled={orderType === OrderType.Descending}
-            onClick={() => {
-              setOrderType(OrderType.Descending)
-              handleCloseMenu()
-            }}
-          >
-            <KeyboardArrowDown />
-          </IconButton>
-        </Stack>
-        {projectOrderProperties.map((op) => (
-          <MenuItem
-            key={op.value}
-            onClick={() => {
-              setOrderProperty(op)
-              handleCloseMenu()
-            }}>
-            <ListItemText>{op.displayName}</ListItemText>
-          </MenuItem>
-        ))}
-      </Menu>
+        onClose={() => setMenuAnchorEl(null)}
+        orderProperties={projectOrderProperties}
+        initialOrder={initialOrder}
+        setOrderBy={setOrderBy}
+        onSizeChange={setOrdersSize} />
     </>
   );
 }

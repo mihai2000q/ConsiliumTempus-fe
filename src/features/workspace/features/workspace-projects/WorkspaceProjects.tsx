@@ -8,12 +8,22 @@ import { useState } from "react";
 import ProjectLifecycle from "../../../../utils/project/ProjectLifecycle.ts";
 import { FilterList, Sort } from "@mui/icons-material";
 import WorkspaceProjectsFilterMenu from "./components/WorkspaceProjectsFilterMenu.tsx";
-import WorkspaceProjectsSortMenu from "./components/WorkspaceProjectsSortMenu.tsx";
+import WorkspaceProjectsLoader from "./components/WorkspaceProjectsLoader.tsx";
+import SimpleOrderMenu from "../../../../components/order/SimpleOrderMenu.tsx";
+import ProjectsOrderQueryParams from "./utils/ProjectsOrderQueryParams.ts";
+import OrderType from "../../../../utils/enums/OrderType.ts";
+import { projectOrderProperties } from "./data/ProjectOrderPropertiesData.tsx";
+import useOrderByQueryParam from "../../../../hooks/useOrderByQueryParam.ts";
+import Order from "../../../../types/Order.ts";
 
 function WorkspaceProjects() {
   const workspaceId = useSelector((state: RootState) => state.workspace.workspaceId)
 
-  const [orderBy, setOrderByQueryParam] = useState<string[]>([])
+  const initialOrder: Order = {
+    property: ProjectsOrderQueryParams.Name,
+    type: OrderType.Ascending
+  }
+  const [orderBy, setOrderByQueryParam] = useOrderByQueryParam(initialOrder)
   const [lifecycle, setLifecycle] =
     useState<ProjectLifecycle | null>(ProjectLifecycle.Active)
 
@@ -28,11 +38,11 @@ function WorkspaceProjects() {
     fetchMore
   } = useProjects(workspaceId, orderBy, lifecycle)
 
-  if (!projects) return <>Loading...</>
+  if (!projects) return <WorkspaceProjectsLoader />
 
   return (
     <Stack width={'100%'} height={'100%'} alignItems={'center'} py={2} overflow={"auto"}>
-      <Card variant={'panel'} sx={{ width: 720 }}>
+      <Card variant={'outlined-panel'} sx={{ width: 720 }}>
         <CardHeader
           title="Projects"
           action={
@@ -70,11 +80,12 @@ function WorkspaceProjects() {
         </CardContent>
       </Card>
 
-
-      <WorkspaceProjectsSortMenu
-        setOrderByQueryParam={setOrderByQueryParam}
+      <SimpleOrderMenu
         anchorEl={sortMenuAnchorEl}
-        onClose={() => setSortMenuAnchorEl(null)} />
+        onClose={() => setSortMenuAnchorEl(null)}
+        initialOrder={initialOrder}
+        orderProperties={projectOrderProperties}
+        setOrderBy={setOrderByQueryParam} />
       <WorkspaceProjectsFilterMenu
         lifecycle={lifecycle}
         setLifecycle={setLifecycle}
