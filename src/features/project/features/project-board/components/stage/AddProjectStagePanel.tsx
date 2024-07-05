@@ -1,15 +1,24 @@
 import { useState } from 'react';
 import { useAddStageToProjectSprintMutation } from "../../state/projectBoardApi.ts";
-import { StyledProjectStagePanel } from "./ProjectStagePanel.tsx";
 import OutlinedInputTextField from "../../../../../../components/textfield/OutlinedInputTextField.tsx";
+import StyledProjectStagePanel from "./StyledProjectStagePanel.tsx";
+import { SxProps } from "@mui/material";
 
 interface AddProjectStagePanelProps {
   sprintId: string,
   closeCard: () => void,
-  onTop: boolean
+  onTop: boolean,
+  show: boolean,
+  sx?: SxProps | undefined,
 }
 
-function AddProjectStagePanel({ sprintId, closeCard, onTop }: AddProjectStagePanelProps) {
+function AddProjectStagePanel({
+  sprintId,
+  closeCard,
+  onTop,
+  show,
+  sx,
+}: AddProjectStagePanelProps) {
   const [newStageName, setNewStageName] = useState('')
   const [addStageToProjectSprint] = useAddStageToProjectSprintMutation()
   function handleAddStageToProjectSprint() {
@@ -24,9 +33,10 @@ function AddProjectStagePanel({ sprintId, closeCard, onTop }: AddProjectStagePan
   }
 
   return (
-    <StyledProjectStagePanel boxShadow={4}>
+    <StyledProjectStagePanel sx={sx}>
       <OutlinedInputTextField
         autoFocus
+        refreshFocus={show}
         maxLength={50}
         placeholder={'Enter stage name'}
         value={newStageName}

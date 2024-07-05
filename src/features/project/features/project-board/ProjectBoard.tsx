@@ -1,5 +1,16 @@
 import { ReactNode, useState } from "react";
-import { Button, ButtonGroup, ListItemIcon, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
+import {
+  Box,
+  Button,
+  ButtonGroup,
+  Collapse,
+  Fade,
+  ListItemIcon,
+  ListItemText,
+  Menu,
+  MenuItem,
+  Stack
+} from "@mui/material";
 import ProjectBoardLoader from "./components/stage/ProjectBoardLoader.tsx";
 import {
   Add,
@@ -124,13 +135,11 @@ function ProjectBoard() {
         </Stack>
       </Stack>
 
-      <Stack direction={'row'} spacing={2.25} mt={3} height={800}>
-        {
-          showLeftAddStagePanel &&
+      <Stack direction={'row'} mt={3} height={800}>
+        <Collapse in={showLeftAddStagePanel} orientation={'horizontal'} unmountOnExit>
           <AddProjectStagePanel
             sprintId={sprintId}
             closeCard={() => setShowLeftAddStagePanel(false)}
-            onTop={true} />
         }
         {stages.map((stage, i) => (
           <ProjectStagePanel
@@ -164,6 +173,10 @@ function ProjectBoard() {
               Add Stage
             </Button>
         }
+            onTop={true}
+            show={showLeftAddStagePanel}
+            sx={{ mr: 2.25 }} />
+        </Collapse>
       </Stack>
 
       <AddProjectStatusDialog
