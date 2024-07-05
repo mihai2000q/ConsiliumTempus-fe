@@ -25,12 +25,14 @@ import {
   VisibilityOffOutlined
 } from "@mui/icons-material";
 import { useGetStagesFromProjectSprintQuery } from "./state/projectBoardApi.ts";
-import ProjectStagePanel from "./components/stage/ProjectStagePanel.tsx";
 import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../state/store.ts";
 import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
 import AddProjectStatusDialog from "../../shared/components/AddProjectStatusDialog.tsx";
+import { closestCenter, DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import SortableProjectStagePanel from "./components/stage/SortableProjectStagePanel.tsx";
 
 function ProjectBoard() {
   const dispatch = useDispatch<AppDispatch>()
@@ -75,6 +77,21 @@ function ProjectBoard() {
   const [addOptionsMenuAnchorEl, setAddOptionsMenuAnchorEl] =
     useState<HTMLElement | null>(null)
   const handleCloseAddOptionsMenu = () => setAddOptionsMenuAnchorEl(null)
+
+  const [draggedStageId, setDraggedStageId] = useState<string | null>(null)
+
+  function handleDragStart(event: DragStartEvent) {
+    setDraggedStageId(event.active.id as string)
+  }
+
+  function handleDragEnd(event: DragEndEvent) {
+    const { active, over } = event
+
+    if (over && active.id !== over.id) {
+      console.log('moved on', over.id)
+    }
+    setDraggedStageId(null)
+  }
 
   if (!stages) return <ProjectBoardLoader />
 
@@ -140,18 +157,26 @@ function ProjectBoard() {
           <AddProjectStagePanel
             sprintId={sprintId}
             closeCard={() => setShowLeftAddStagePanel(false)}
-        }
-        {stages.map((stage, i) => (
-          <ProjectStagePanel
-            key={stage.id}
-            stage={stage}
-            showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
-            setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined} />
-        ))}
             onTop={true}
             show={showLeftAddStagePanel}
             sx={{ mr: 2.25 }} />
         </Collapse>
+
+        <Stack direction={'row'} spacing={2.25}>
+          <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <SortableContext strategy={horizontalListSortingStrategy} items={stages.map(stage => stage.id)}>
+              {stages.map((stage, i) => (
+                <SortableProjectStagePanel
+                  key={stage.id}
+                  stage={stage}
+                  showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
+                  setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined}
+                  draggedStageId={draggedStageId} />
+              ))}
+            </SortableContext>
+          </DndContext>
+        </Stack>
+
         <Box display={'grid'} ml={2.25} height={'100%'}>
           <Fade in={showRightAddStagePanel} mountOnEnter unmountOnExit>
             <Box height={'100%'} gridRow={1} gridColumn={1}>
