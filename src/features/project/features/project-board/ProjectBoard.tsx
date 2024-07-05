@@ -148,35 +148,43 @@ function ProjectBoard() {
             showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
             setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined} />
         ))}
-        {
-          showRightAddStagePanel
-            ?
-            <AddProjectStagePanel
-              sprintId={sprintId}
-              closeCard={() => setShowRightAddStagePanel(false)}
-              onTop={false} />
-            :
-            <Button
-              size={'large'}
-              startIcon={<Add />}
-              onClick={() => setShowRightAddStagePanel(true)}
-              sx={{
-                width: 350,
-                borderRadius: 4,
-                fontSize: 16,
-                alignItems: 'start',
-                pt: 2,
-                '& .MuiButton-startIcon': {
-                  marginTop: '2px'
-                }
-              }}>
-              Add Stage
-            </Button>
-        }
             onTop={true}
             show={showLeftAddStagePanel}
             sx={{ mr: 2.25 }} />
         </Collapse>
+        <Box display={'grid'} ml={2.25} height={'100%'}>
+          <Fade in={showRightAddStagePanel} mountOnEnter unmountOnExit>
+            <Box height={'100%'} gridRow={1} gridColumn={1}>
+              <AddProjectStagePanel
+                sprintId={sprintId}
+                closeCard={() => setShowRightAddStagePanel(false)}
+                onTop={false}
+                show={showRightAddStagePanel} />
+            </Box>
+          </Fade>
+
+          <Fade in={!showRightAddStagePanel} mountOnEnter unmountOnExit>
+            <Box height={'100%'} gridRow={1} gridColumn={1}>
+              <Button
+                size={'large'}
+                startIcon={<Add />}
+                onClick={() => setShowRightAddStagePanel(true)}
+                sx={{
+                  height: '100%',
+                  width: 335,
+                  borderRadius: 4,
+                  fontSize: 16,
+                  alignItems: 'start',
+                  pt: 2,
+                  '& .MuiButton-startIcon': {
+                    marginTop: '2px'
+                  }
+                }}>
+                Add Stage
+              </Button>
+            </Box>
+          </Fade>
+        </Box>
       </Stack>
 
       <AddProjectStatusDialog
