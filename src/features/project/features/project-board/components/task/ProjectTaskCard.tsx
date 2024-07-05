@@ -95,7 +95,7 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           : <CheckCircleOutlineRounded fontSize={'small'} />}
       </CompletedButton>
 
-      <Stack direction={'row'} position={'absolute'} bottom={0} margin={2}>
+      <Stack direction={'row'} position={'absolute'} bottom={0} margin={'14px 16px'}>
         <AssigneeIconButton
           isCompleted={isCompleted}
           assignee={task.assignee}

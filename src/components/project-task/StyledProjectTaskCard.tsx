@@ -11,7 +11,7 @@ const StyledProjectTaskCard = styled(Button, {
   borderRadius: '16px',
   justifyContent: 'start',
   width: '100%',
-  padding: '16px 16px 60px 16px',
+  padding: '16px 16px 53px 16px',
   backgroundColor: theme.palette.mode === 'dark'
     ? alpha(theme.palette.primary[900], 0.5)
     : alpha(theme.palette.background[900], 0.5),
