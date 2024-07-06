@@ -63,7 +63,7 @@ function SidebarProjectsMenu({
         Orders
       </ListSubheader>
       {projectOrderProperties.map(op => (
-        <ProjectsMenuItem key={op.value} selected={op.value === order} onClick={() => handleOrderClick(op.value)}>
+        <ProjectsMenuItem key={op.property} selected={op.property === order} onClick={() => handleOrderClick(op.property)}>
           {op.displayName}
         </ProjectsMenuItem>
       ))}

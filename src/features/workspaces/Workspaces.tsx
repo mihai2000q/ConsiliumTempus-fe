@@ -26,6 +26,7 @@ import workspacesSearchParamsState from "./state/WorkspacesSearchParamsState.ts"
 import useOrderByQueryParam from "../../hooks/useOrderByQueryParam.ts";
 import WorkspacesOrderQueryParams from "./utils/WorkspacesOrderQueryParams.ts";
 import OrderType from "../../utils/enums/OrderType.ts";
+import Order from "../../types/Order.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
@@ -38,9 +39,10 @@ const GridItem = ({ children }: { children: ReactNode }) => {
 function Workspaces() {
   const [searchParams, setSearchParams] = useSearchParamsState(workspacesSearchParamsState)
 
-  const initialOrder = {
+  const initialOrder: Order = {
     property: WorkspacesOrderQueryParams.LastActivity,
-    type: OrderType.Descending
+    type: OrderType.Descending,
+    displayName: ''
   }
   const [orderBy, setOrderBy] = useOrderByQueryParam(initialOrder)
   const [

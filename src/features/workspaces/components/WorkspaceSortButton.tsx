@@ -13,7 +13,12 @@ interface WorkspaceSortButtonProps {
 
 function WorkspaceSortButton({ initialOrder, setOrderBy }: WorkspaceSortButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
-  const [order, setOrder] = useState<Order>(initialOrder)
+  const [order, setOrder] = useState<Order>(
+    {
+      ...workspaceOrderProperties.find(op => op.property === initialOrder.property)!,
+      type: initialOrder.type
+    }
+  )
 
   return (
     <>

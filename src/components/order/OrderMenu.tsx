@@ -58,7 +58,7 @@ function OrderMenu({
 
   function handleOrderPropertyClick(orderProperty: OrderPropertyModel) {
     handleAddOrder({
-      property: orderProperty.value,
+      property: orderProperty.property,
       displayName: orderProperty.displayName,
       type: OrderType.Ascending,
     })

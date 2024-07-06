@@ -66,7 +66,8 @@ function Projects() {
 
   const initialOrder: Order = {
     property: ProjectsOrderQueryParams.LastActivity,
-    type: OrderType.Descending
+    type: OrderType.Descending,
+    displayName: ''
   }
   const [orderBy, setOrderBy] = useOrderByQueryParam(initialOrder)
 

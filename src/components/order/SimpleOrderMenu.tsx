@@ -24,11 +24,11 @@ function SimpleOrderMenu({
   onOrderChange
 }: SimpleOrderMenuProps) {
   const [orderProperty, setOrderProperty] =
-    useState(orderProperties.find(op => op.value === initialOrder.property)!)
+    useState(orderProperties.find(op => op.property === initialOrder.property)!)
   const [orderType, setOrderType] = useState(initialOrder.type)
   useUpdateEffect(() => {
     const newOrder = {
-      property: orderProperty.value,
+      property: orderProperty.property,
       type: orderType,
       displayName: orderProperty.displayName
     }
@@ -65,8 +65,8 @@ function SimpleOrderMenu({
       </Stack>
       {orderProperties.map((op) => (
         <MenuItem
-          key={op.value}
-          selected={op.value === orderProperty.value}
+          key={op.property}
+          selected={op.property === orderProperty.property}
           onClick={() => {
             setOrderProperty(op)
             onClose()

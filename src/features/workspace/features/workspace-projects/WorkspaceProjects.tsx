@@ -21,7 +21,8 @@ function WorkspaceProjects() {
 
   const initialOrder: Order = {
     property: ProjectsOrderQueryParams.Name,
-    type: OrderType.Ascending
+    type: OrderType.Ascending,
+    displayName: ''
   }
   const [orderBy, setOrderByQueryParam] = useOrderByQueryParam(initialOrder)
   const [lifecycle, setLifecycle] =

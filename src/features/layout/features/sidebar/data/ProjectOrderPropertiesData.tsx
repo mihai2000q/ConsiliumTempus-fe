@@ -3,15 +3,15 @@ import OrderProperty from "../../../../../types/OrderProperty.ts";
 
 export const projectOrderProperties: OrderProperty[] = [
   {
-    value: ProjectsOrderQueryParams.LastActivity,
+    property: ProjectsOrderQueryParams.LastActivity,
     displayName: 'Activity'
   },
   {
-    value: ProjectsOrderQueryParams.Name,
+    property: ProjectsOrderQueryParams.Name,
     displayName: 'Alphabetically'
   },
   {
-    value: ProjectsOrderQueryParams.CreatedDateTime,
+    property: ProjectsOrderQueryParams.CreatedDateTime,
     displayName: 'Newest'
   }
 ]
