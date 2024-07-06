@@ -33,6 +33,7 @@ import AddProjectStatusDialog from "../../shared/components/AddProjectStatusDial
 import { closestCenter, DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableProjectStagePanel from "./components/stage/SortableProjectStagePanel.tsx";
+import { TransitionGroup } from "react-transition-group";
 
 function ProjectBoard() {
   const dispatch = useDispatch<AppDispatch>()
@@ -159,25 +160,33 @@ function ProjectBoard() {
             closeCard={() => setShowLeftAddStagePanel(false)}
             onTop={true}
             show={showLeftAddStagePanel}
-            sx={{ mr: 2.25 }} />
+            sx={{ mr: '18px' }} />
         </Collapse>
 
-        <Stack direction={'row'} spacing={2.25}>
-          <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-            <SortableContext strategy={horizontalListSortingStrategy} items={stages.map(stage => stage.id)}>
+        <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+          <SortableContext strategy={horizontalListSortingStrategy} items={stages.map(stage => stage.id)}>
+            <TransitionGroup style={{ display: 'flex', gap: '18px' }}>
               {stages.map((stage, i) => (
-                <SortableProjectStagePanel
+                <Collapse
+                  orientation={'horizontal'}
                   key={stage.id}
-                  stage={stage}
-                  showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
-                  setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined}
-                  draggedStageId={draggedStageId} />
+                  sx={{
+                    height: '100%',
+                    '& .MuiCollapse-wrapper': { height: '100%' },
+                    '& .MuiCollapse-wrapperInner': { height: '100%' }
+                  }}>
+                  <SortableProjectStagePanel
+                    stage={stage}
+                    showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
+                    setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined}
+                    draggedStageId={draggedStageId} />
+                </Collapse>
               ))}
-            </SortableContext>
-          </DndContext>
-        </Stack>
+            </TransitionGroup>
+          </SortableContext>
+        </DndContext>
 
-        <Box display={'grid'} ml={2.25} height={'100%'}>
+        <Box display={'grid'} ml={'18px'} height={'100%'}>
           <Fade in={showRightAddStagePanel} mountOnEnter unmountOnExit>
             <Box height={'100%'} gridRow={1} gridColumn={1}>
               <AddProjectStagePanel
@@ -201,9 +210,7 @@ function ProjectBoard() {
                   fontSize: 16,
                   alignItems: 'start',
                   pt: 2,
-                  '& .MuiButton-startIcon': {
-                    marginTop: '2px'
-                  }
+                  '& .MuiButton-startIcon': { marginTop: '2px' }
                 }}>
                 Add Stage
               </Button>
