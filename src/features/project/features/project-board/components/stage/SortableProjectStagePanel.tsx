@@ -47,6 +47,7 @@ function SortableProjectStagePanel({
         transform: CSS.Transform.toString(transform),
         transition,
         height: '100%',
+        position: 'relative',
         zIndex: isDragged ? theme.zIndex.modal : 0
       }}>
       {useMemo(() =>
