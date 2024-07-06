@@ -25,6 +25,7 @@ interface StyledOrderPropertyProps extends BoxProps {
 const StyledOrderProperty = styled(Box, {
   shouldForwardProp: (props) => props !== 'isDragHandleHovered'
 })<StyledOrderPropertyProps>(({ theme, isDragHandleHovered }) => ({
+  height: '55px',
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',

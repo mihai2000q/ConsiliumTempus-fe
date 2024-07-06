@@ -2,14 +2,15 @@ import { useEffect, useState } from "react";
 import OrderType from "../../utils/enums/OrderType.ts";
 import Order from "../../types/Order.ts";
 import OrderPropertiesMenu from "./OrderPropertiesMenu.tsx";
-import { Button, Menu, Stack, Typography } from "@mui/material";
+import { Button, Collapse, Menu, Stack, Typography } from "@mui/material";
 import { default as OrderPropertyModel } from "../../types/OrderProperty.ts";
 import { AddRounded } from "@mui/icons-material";
 import OrderProperty from "./OrderProperty.tsx";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { restrictToParentElement } from "@dnd-kit/modifiers";
+import { restrictToFirstScrollableAncestor } from "@dnd-kit/modifiers";
+import { TransitionGroup } from "react-transition-group";
 
 interface OrderMenuProps {
   anchorEl: HTMLElement | null,
@@ -95,27 +96,27 @@ function OrderMenu({
               </Button>}
             </Stack>
 
-            <Stack px={2} spacing={0.5} width={'100%'}>
-              <DndContext
-                modifiers={[restrictToParentElement]}
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd}>
-                <SortableContext strategy={verticalListSortingStrategy} items={orders.map((o) => o.property)}>
+            <DndContext
+              modifiers={[restrictToFirstScrollableAncestor]}
+              collisionDetection={closestCenter}
+              onDragEnd={handleDragEnd}>
+              <SortableContext strategy={verticalListSortingStrategy} items={orders.map((o) => o.property)}>
+                <TransitionGroup style={{ display: 'block', width: '100%', gap: '4px', padding: '0 16px' }}>
                   {orders.map((order, index) => (
-                    <OrderProperty
-                      key={JSON.stringify(order)}
-                      initialOrder={order}
-                      orders={orders}
-                      index={index}
-                      orderProperties={orderProperties}
-                      handleOrder={handleOrder}
-                      handleRemoveOrder={handleRemoveOrder}
-                      disableRemove={initialOrder && orders.length === 1}
-                    />
+                    <Collapse key={JSON.stringify(order)}>
+                      <OrderProperty
+                        initialOrder={order}
+                        orders={orders}
+                        index={index}
+                        orderProperties={orderProperties}
+                        handleOrder={handleOrder}
+                        handleRemoveOrder={handleRemoveOrder}
+                        disableRemove={initialOrder && orders.length === 1} />
+                    </Collapse>
                   ))}
-                </SortableContext>
-              </DndContext>
-            </Stack>
+                </TransitionGroup>
+              </SortableContext>
+            </DndContext>
 
             <Button
               variant={'alt-text'}
