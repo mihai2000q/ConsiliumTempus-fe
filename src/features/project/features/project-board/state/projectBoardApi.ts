@@ -4,6 +4,7 @@ import TagTypes from "../../../../../utils/enums/TagTypes.ts";
 import {
   AddStageToProjectSprintRequest,
   GetStagesFromProjectSprintRequest,
+  MoveStageFromProjectSprintRequest,
   RemoveStageFromProjectSprintRequest,
   UpdateStageFromProjectSprintRequest
 } from "../types/ProjectStage.request.ts";
@@ -12,6 +13,7 @@ import {
   AddProjectTaskRequest,
   DeleteProjectTaskRequest,
   GetProjectTasksQueryParameters,
+  MoveProjectTaskRequest,
   UpdateProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
 import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
@@ -35,6 +37,14 @@ export const projectBoardApiSlice = api.injectEndpoints({
     updateStageFromProjectSprint: builder.mutation<HttpMessageResponse, UpdateStageFromProjectSprintRequest>({
       query: body => ({
         url: `${Urls.ProjectSprints}/update-stage`,
+        method: 'PUT',
+        body: body
+      }),
+      invalidatesTags: [TagTypes.ProjectStages]
+    }),
+    moveStageFromProjectSprint: builder.mutation<HttpMessageResponse, MoveStageFromProjectSprintRequest>({
+      query: body => ({
+        url: `${Urls.ProjectSprints}/move-stage`,
         method: 'PUT',
         body: body
       }),
@@ -68,6 +78,14 @@ export const projectBoardApiSlice = api.injectEndpoints({
       }),
       invalidatesTags: [TagTypes.ProjectTasks]
     }),
+    moveProjectTask: builder.mutation<HttpMessageResponse, MoveProjectTaskRequest>({
+      query: body => ({
+        url: `${Urls.ProjectTasks}/move`,
+        method: 'PUT',
+        body: body
+      }),
+      invalidatesTags: [TagTypes.ProjectTasks]
+    }),
     deleteProjectTask: builder.mutation<HttpMessageResponse, DeleteProjectTaskRequest>({
       query: arg => ({
         url: `${Urls.ProjectTasks}/${arg.id}`,
@@ -82,10 +100,12 @@ export const {
   useGetStagesFromProjectSprintQuery,
   useAddStageToProjectSprintMutation,
   useUpdateStageFromProjectSprintMutation,
+  useMoveStageFromProjectSprintMutation,
   useRemoveStageFromProjectSprintMutation,
   useGetProjectTasksQuery,
   useLazyGetProjectTasksQuery,
   useAddProjectTaskMutation,
   useUpdateProjectTaskMutation,
+  useMoveProjectTaskMutation,
   useDeleteProjectTaskMutation,
 } = projectBoardApiSlice
