@@ -3,12 +3,14 @@ import {
   BoxProps,
   Button,
   CircularProgress,
+  Grow,
   IconButton,
   Stack,
   styled,
   Tooltip,
   Typography,
-  useTheme
+  useTheme,
+  Zoom
 } from "@mui/material";
 import ProjectStage from "../../types/ProjectStage.model.ts";
 import { useUpdateStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
@@ -27,6 +29,8 @@ import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
 import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableItem from "../../../../../../components/dnd/SortableItem.tsx";
 import { useAppSelector } from "../../../../../../state/store.ts";
+import { TransitionGroup } from "react-transition-group";
+import TransitionComponent from "../../../../../../components/transition/TransitionComponent.tsx";
 
 const StyledDragHandle = styled(Box)<BoxProps>(() => ({
   position: 'absolute',
@@ -150,49 +154,51 @@ function ProjectStagePanel({
         </Stack>
       </Box>
 
-      <Stack px={0.75} pt={1} sx={{ overflow: 'auto', maxHeight: '100%' }} onScroll={handleScroll}>
-        {
-          showTopAddTaskCard &&
-          <AddProjectTaskCard
-            mb={1}
-            closeCard={() => setShowTopAddTaskCard(false)}
-            projectStageId={stage.id}
-            onTop={true} />
-        }
-        {
-          showAddTaskCard && setShowAddTaskCard &&
-          <AddProjectTaskCard
-            mb={1}
-            closeCard={() => setShowAddTaskCard(false)}
-            projectStageId={stage.id}
-            onTop={true} />
-        }
+      <Stack px={0.75} pt={1} sx={{ overflowY: 'auto', maxHeight: '100%' }} onScroll={handleScroll}>
+        <Zoom in={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)} unmountOnExit>
+          <TransitionComponent>
+            <AddProjectTaskCard
+              closeCard={() => showAddTaskCard === true && setShowAddTaskCard !== undefined
+                ? setShowAddTaskCard(false)
+                : setShowTopAddTaskCard(false)}
+              projectStageId={stage.id}
+              onTop={true}
+              show={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)} />
+          </TransitionComponent>
+        </Zoom>
         {
           !tasks
             ? <ProjectTasksLoader />
             : (
               <SortableContext strategy={rectSortingStrategy} items={tasks.map((task) => task.id)}>
-                {tasks.map((task) => (
-                  <SortableItem key={task.id} id={task.id}>
-                    <ProjectTaskCard task={task} />
-                  </SortableItem>
-                ))}
+                <TransitionGroup>
+                  {tasks.map((task) => (
+                    <Grow key={task.id} unmountOnExit>
+                      <TransitionComponent>
+                        <SortableItem id={task.id}>
+                          <ProjectTaskCard task={task} stageId={stage.id} />
+                        </SortableItem>
+                      </TransitionComponent>
+                    </Grow>
+                  ))}
+                </TransitionGroup>
               </SortableContext>
             )
         }
-        {
-          showBottomAddTaskCard &&
-          <AddProjectTaskCard
-            mt={1}
-            mb={1}
-            closeCard={() => setShowBottomAddTaskCard(false)}
-            projectStageId={stage.id}
-            onTop={false} />
-        }
+        <Zoom in={showBottomAddTaskCard} unmountOnExit>
+          <TransitionComponent>
+            <AddProjectTaskCard
+              mb={1}
+              closeCard={() => setShowBottomAddTaskCard(false)}
+              projectStageId={stage.id}
+              onTop={false}
+              show={showBottomAddTaskCard} />
+          </TransitionComponent>
+        </Zoom>
         <Button
           startIcon={<Add />}
           onClick={() => setShowBottomAddTaskCard(!showBottomAddTaskCard)}
-          sx={{ mb: 1.5, mt: 0.5 }}>
+          sx={{ mb: 1.5, mt: 0.25 }}>
           Add Task
         </Button>
         {isFetching && !isLoading &&

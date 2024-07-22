@@ -67,7 +67,7 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
   }
 
   return (
-    <Box position={'relative'} my={0.5}>
+    <Box position={'relative'} my={1}>
       <StyledProjectTaskCard
         component={'div'}
         isSelected={selected}
