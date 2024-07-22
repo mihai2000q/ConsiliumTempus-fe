@@ -2,7 +2,7 @@ export interface GetProjectTaskRequest {
   id: string
 }
 
-export interface UpdateProjectTaskRequest {
+export interface UpdateOverviewProjectTaskRequest {
   id: string,
   name: string,
   description: string,

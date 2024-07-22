@@ -120,10 +120,10 @@ function DrawerList({
           ? (
             drawerItems.length === 0
               ?
-              <Typography ml={5} my={1} variant={'body2'} fontWeight={"lighter"}>
+              <Typography ml={5} my={1} variant={'body2'}>
                 No {subheader ?? "data"}
               </Typography>
-              : <Collapse in={!hideItems}>
+              : <Collapse in={!hideItems} unmountOnExit>
                 {drawerItems.map((item) =>
                   <DrawerListItem key={item.link} drawerItem={item} />
                 )}

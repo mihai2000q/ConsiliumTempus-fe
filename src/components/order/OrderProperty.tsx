@@ -25,6 +25,7 @@ interface StyledOrderPropertyProps extends BoxProps {
 const StyledOrderProperty = styled(Box, {
   shouldForwardProp: (props) => props !== 'isDragHandleHovered'
 })<StyledOrderPropertyProps>(({ theme, isDragHandleHovered }) => ({
+  height: '55px',
   display: 'flex',
   flexDirection: 'row',
   alignItems: 'center',
@@ -67,7 +68,7 @@ function OrderProperty({
 
   function handlePropertyChange(newProperty: string) {
     const newDisplayName = orderProperties
-      .find(op => op.value === newProperty)
+      .find(op => op.property === newProperty)
       ?.displayName ?? ''
 
     setProperty(newProperty)
@@ -128,10 +129,10 @@ function OrderProperty({
         }}>
         {orderProperties.map((op) => (
           <MenuItem
-            key={op.value}
-            value={op.value}
-            selected={property === op.value}
-            disabled={orders.find(o => o.property === op.value) !== undefined}
+            key={op.property}
+            value={op.property}
+            selected={property === op.property}
+            disabled={orders.some(o => o.property === op.property)}
             sx={{
               '& .MuiListItemIcon-root': {
                 minWidth: 0,

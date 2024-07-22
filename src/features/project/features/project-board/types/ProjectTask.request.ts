@@ -19,6 +19,13 @@ export interface UpdateProjectTaskRequest {
   assigneeId: string | null
 }
 
+export interface MoveProjectTaskRequest {
+  sprintId: string,
+  id: string,
+  overId: string
+}
+
 export interface DeleteProjectTaskRequest {
-  id: string
+  id: string,
+  stageId: string
 }

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import ProjectTask from "../types/ProjectTask.model.ts";
 import { useGetProjectTasksQuery, useLazyGetProjectTasksQuery } from "../state/projectBoardApi.ts";
+import { setProjectTasksOnStage } from "../../../../../state/project-board/projectBoardSlice.ts";
+import { useAppDispatch, useAppSelector } from "../../../../../state/store.ts";
 
 export default function useProjectTasks(
   stageId: string,
@@ -13,6 +15,8 @@ export default function useProjectTasks(
   isLoading: boolean,
   fetchMoreTasks: () => void
 } {
+  const dispatch = useAppDispatch()
+
   const pageSize = 10
 
   const [getProjectTasks, { isFetching: isLazyFetching }] = useLazyGetProjectTasksQuery()
@@ -56,8 +60,18 @@ export default function useProjectTasks(
     })
   }
 
+  useEffect(() => {
+    dispatch(setProjectTasksOnStage({
+      id: stageId,
+      tasks: tasks
+    }))
+  }, [dispatch, stageId, tasks]);
+
+  const stateTasks = useAppSelector(state => state.projectBoard.projectStages
+    .find(ps => ps.id === stageId)?.tasks)
+
   return {
-    tasks,
+    tasks: stateTasks,
     totalTasksCount: totalCount,
     isFetching: isLazyFetching || isFetching,
     isLoading,

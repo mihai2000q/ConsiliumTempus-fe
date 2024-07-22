@@ -1,6 +1,6 @@
 import { api } from "../../../state/api.ts";
 import ProjectTask from "../types/ProjectTask.model.ts";
-import { GetProjectTaskRequest, UpdateProjectTaskRequest } from "../types/ProjectTask.request.ts";
+import { GetProjectTaskRequest, UpdateOverviewProjectTaskRequest } from "../types/ProjectTask.request.ts";
 import Urls from "../../../utils/enums/Urls.ts";
 import TagTypes from "../../../utils/enums/TagTypes.ts";
 import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
@@ -11,7 +11,7 @@ export const projectTaskApi = api.injectEndpoints({
       query: arg => `${Urls.ProjectTasks}/${arg.id}`,
       providesTags: [TagTypes.ProjectTasks]
     }),
-    updateProjectTask: builder.mutation<HttpMessageResponse, UpdateProjectTaskRequest>({
+    updateProjectTask: builder.mutation<HttpMessageResponse, UpdateOverviewProjectTaskRequest>({
       query: body => ({
         url: `${Urls.ProjectTasks}/overview`,
         method: 'PUT',

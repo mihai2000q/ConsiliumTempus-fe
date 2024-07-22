@@ -1,17 +1,23 @@
 import { InputBase } from "@mui/material";
 import { useAddProjectTaskMutation } from "../../state/projectBoardApi.ts";
-import React, { useState } from "react";
-import StyledProjectTaskCard from "../../../../../../components/project-task/StyledProjectTaskCard.tsx";
+import React, { useEffect, useRef, useState } from "react";
+import StyledProjectTaskCard from "./StyledProjectTaskCard.tsx";
 
 interface AddProjectTaskCardProps{
   closeCard: (() => void),
   projectStageId: string,
   onTop: boolean,
+  show: boolean,
   mb?: number | undefined,
   mt?: number | undefined,
 }
 
-function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddProjectTaskCardProps) {
+function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: AddProjectTaskCardProps) {
+  const inputRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    if (show) inputRef.current?.focus()
+  }, [show]);
+
   const [name, setName] = useState('')
 
   const [addProjectTask] = useAddProjectTaskMutation()
@@ -21,7 +27,8 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
         projectStageId: projectStageId,
         name: name,
         onTop: onTop
-      }).unwrap()
+      })
+      setName('')
     }
     closeCard()
   }
@@ -32,7 +39,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
     if ((e.key === 'Enter')) {
       e.preventDefault()
-      addNewTask()
+      inputRef.current?.blur()
     }
   }
 
@@ -45,10 +52,10 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
       sx={{
         padding: 2,
         mt: mt,
-        mb: mb
+        mb: mb,
       }}>
         <InputBase
-          autoFocus
+          inputRef={inputRef}
           fullWidth
           multiline
           maxRows={3}

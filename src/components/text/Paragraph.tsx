@@ -4,22 +4,30 @@ import { ReactNode } from "react";
 
 interface ParagraphProps {
   children: ReactNode,
+  paragraph?: boolean | undefined,
   fontWeight?: string | number | undefined,
   color?: string | undefined,
   variant?: Variant | undefined,
   lines?: number | undefined
 }
 
-function Paragraph({ fontWeight, color, variant, lines, children } : ParagraphProps) {
+function Paragraph({
+  children,
+  fontWeight,
+  color,
+  variant,
+  lines = 2,
+  paragraph = true,
+} : ParagraphProps) {
   return (
     <Typography
-      paragraph
+      paragraph={paragraph}
       fontWeight={fontWeight}
       color={color}
-      variant={variant ?? 'body2'}
+      variant={variant}
       sx={{
         display: '-webkit-box',
-        WebkitLineClamp: lines ?? 2,
+        WebkitLineClamp: lines,
         WebkitBoxOrient: 'vertical',
         textOverflow: 'ellipsis',
         overflow: 'hidden',

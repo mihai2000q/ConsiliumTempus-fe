@@ -1,38 +1,25 @@
-import { Box, IconButton, IconButtonProps, Stack, styled, Typography } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
 import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import AssigneeIconButton from "./AssigneeIconButton.tsx";
 import ProjectTask from "../../types/ProjectTask.model.ts";
-import StyledProjectTaskCard from "../../../../../../components/project-task/StyledProjectTaskCard.tsx";
+import StyledProjectTaskCard from "./StyledProjectTaskCard.tsx";
 import ProjectTaskDrawer from "../../../../../project-task-drawer/ProjectTaskDrawer.tsx";
-
-interface CompletedButtonProps extends IconButtonProps {
-  isCompleted: boolean
-}
-
-const CompletedButton = styled(IconButton, {
-  shouldForwardProp: (props) => props !== 'isCompleted'
-})<CompletedButtonProps>(({ theme, isCompleted }) => ({
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  margin: '12px 16px 1px 16px',
-  transition: theme.transitions.create(['color', 'background-color'], {
-    duration: theme.transitions.duration.short,
-  }),
-  color: isCompleted ? theme.palette.success.light : theme.palette.grey[500],
-  '&:hover': {
-    color: isCompleted ? theme.palette.success.dark : theme.palette.success.light,
-  }
-}))
+import StyledCompleteButton from "./StyledCompleteButton.tsx";
+import { useAppSelector } from "../../../../../../state/store.ts";
+import EmptyStyledProjectTaskCard from "./EmptyStyledProjectTaskCard.tsx";
+import Paragraph from "../../../../../../components/text/Paragraph.tsx";
 
 interface ProjectTaskCardProps {
   task: ProjectTask,
+  stageId: string
 }
 
-function ProjectTaskCard({ task }: ProjectTaskCardProps) {
+function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
+  const draggedProjectTask = useAppSelector(state => state.projectBoard.draggedProjectTask)
+
   const [selected, setSelected] = useState(false)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
@@ -66,8 +53,21 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
     }).unwrap()
   }
 
+  if (task.id === draggedProjectTask?.id) {
+    return (
+      <EmptyStyledProjectTaskCard>
+        <Stack width={'100%'} sx={{ visibility: 'hidden' }}>
+          <Paragraph paragraph={false} lines={5}>
+            <IconButton hidden={true} sx={{ height: 15 }} />
+            {task.name}
+          </Paragraph>
+        </Stack>
+      </EmptyStyledProjectTaskCard>
+    )
+  }
+
   return (
-    <Box position={'relative'} my={0.5}>
+    <Box position={'relative'} my={1}>
       <StyledProjectTaskCard
         component={'div'}
         isSelected={selected}
@@ -75,14 +75,14 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         onClick={handleClick}
         onContextMenu={handleRightClick}>
         <Stack width={'100%'}>
-          <Typography>
+          <Paragraph paragraph={false} lines={5}>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
-          </Typography>
+          </Paragraph>
         </Stack>
       </StyledProjectTaskCard>
 
-      <CompletedButton
+      <StyledCompleteButton
         isCompleted={isCompleted}
         variant={'circular'}
         size={'small'}
@@ -93,27 +93,30 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         {isCompleted
           ? <CheckCircleRounded fontSize={'small'} />
           : <CheckCircleOutlineRounded fontSize={'small'} />}
-      </CompletedButton>
+      </StyledCompleteButton>
 
-      <Stack direction={'row'} position={'absolute'} bottom={0} margin={2}>
+      <Stack direction={'row'} position={'absolute'} bottom={0} margin={'14px 16px'}>
         <AssigneeIconButton
           isCompleted={isCompleted}
           assignee={task.assignee}
           setAssigneeId={(newAssigneeId) => updateTask({ assigneeId: newAssigneeId })} />
       </Stack>
 
-      {task && <>
-        <ProjectTaskCardActionsMenu
-          anchorEl={taskMenuAnchorEl}
-          onClose={() => setTaskMenuAnchorEl(null)}
-          task={task} />
-        <ProjectTaskDrawer
-          isDrawerOpen={isDrawerOpen}
-          onClose={() => {
-            setIsDrawerOpen(false)
-            setSelected(false)
-          }}
-          taskId={task.id} />
+      {task &&
+        <>
+          <ProjectTaskCardActionsMenu
+            anchorEl={taskMenuAnchorEl}
+            onClose={() => setTaskMenuAnchorEl(null)}
+            task={task}
+            stageId={stageId} />
+
+          <ProjectTaskDrawer
+            isDrawerOpen={isDrawerOpen}
+            onClose={() => {
+              setIsDrawerOpen(false)
+              setSelected(false)
+            }}
+            taskId={task.id} />
         </>}
     </Box>
   );

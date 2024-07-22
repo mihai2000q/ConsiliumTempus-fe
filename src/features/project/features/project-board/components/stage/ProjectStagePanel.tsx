@@ -1,14 +1,16 @@
 import {
-  alpha,
+  Box,
+  BoxProps,
   Button,
   CircularProgress,
+  Grow,
   IconButton,
   Stack,
-  StackProps,
   styled,
   Tooltip,
   Typography,
-  useTheme
+  useTheme,
+  Zoom
 } from "@mui/material";
 import ProjectStage from "../../types/ProjectStage.model.ts";
 import { useUpdateStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
@@ -20,38 +22,47 @@ import ProjectTasksLoader from "../task/ProjectTasksLoader.tsx";
 import AddProjectTaskCard from "../task/AddProjectTaskCard.tsx";
 import OutlinedContentEditable from "../../../../../../components/text/OutlinedContentEditable.tsx";
 import useTimeoutCallback from "../../../../../../hooks/useTimeoutCallback.ts";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../state/store.ts";
 import plural from "../../../../../../utils/plural.ts";
 import useProjectTasks from "../../hooks/useProjectTasks.ts";
+import StyledProjectStagePanel from "./StyledProjectStagePanel.tsx";
+import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import SortableItem from "../../../../../../components/dnd/SortableItem.tsx";
+import { useAppSelector } from "../../../../../../state/store.ts";
+import { TransitionGroup } from "react-transition-group";
+import TransitionComponent from "../../../../../../components/transition/TransitionComponent.tsx";
 
-export const StyledProjectStagePanel = styled(Stack)<StackProps>(({ theme }) => ({
-  height: '100%',
-  width: 335,
-  borderRadius: '16px',
-  padding: '12px 12px 0px 12px',
-  transition: theme.transitions.create(['box-shadow'], {
-    duration: theme.transitions.duration.complex,
-  }),
-  boxShadow: theme.shadows[4],
-  background: theme.palette.mode === 'dark'
-    ? alpha(theme.palette.primary[800], 0.25)
-    : alpha(theme.palette.background[800], 0.25),
-  '&:hover': {
-    boxShadow: theme.shadows[12],
-  }
+const StyledDragHandle = styled(Box)<BoxProps>(() => ({
+  position: 'absolute',
+  width: "calc(100% + 24px)",
+  left: '-12px',
+  top: '-12px',
+  borderRadius: '16px 16px 0 0',
+  height: 45
 }))
 
 interface ProjectStagePanelProps {
   stage: ProjectStage,
   showAddTaskCard?: boolean | undefined,
-  setShowAddTaskCard?: Dispatch<SetStateAction<boolean>> | undefined
+  setShowAddTaskCard?: Dispatch<SetStateAction<boolean>> | undefined,
+  listeners: SyntheticListenerMap | undefined,
+  setActivatorNodeRef: (element: (HTMLElement | null)) => void,
+  isDragged: boolean,
+  isDragging: boolean,
 }
 
-function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: ProjectStagePanelProps) {
+function ProjectStagePanel({
+  stage,
+  showAddTaskCard,
+  setShowAddTaskCard,
+  listeners,
+  setActivatorNodeRef,
+  isDragged,
+  isDragging
+}: ProjectStagePanelProps) {
   const theme = useTheme()
 
-  const sprintId = useSelector((state: RootState) => state.project.sprintId)
+  const sprintId = useAppSelector((state) => state.project.sprintId)
   const [stageName, setStageName] = useState(stage.name)
   const [updateStageFromProjectSprint] = useUpdateStageFromProjectSprintMutation()
   useTimeoutCallback(() =>
@@ -74,6 +85,8 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
   const [showTopAddTaskCard, setShowTopAddTaskCard] = useState(false)
   const [showBottomAddTaskCard, setShowBottomAddTaskCard] = useState(false)
 
+  const [isDragHandleHovered, setIsDragHandleHovered] = useState(false)
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleScroll = (e: any) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target;
@@ -81,89 +94,111 @@ function ProjectStagePanel({ stage, showAddTaskCard, setShowAddTaskCard }: Proje
     if (scrollTop + clientHeight > scrollHeight - 25) {
       fetchMoreTasks()
     }
-  };
+  }
 
   return (
-    <StyledProjectStagePanel>
-      <Stack direction={'row'} justifyContent={'space-between'}>
-        <Stack direction={'row'} alignItems={'center'}>
-          <OutlinedContentEditable
-            typographyVariant={'h6'}
-            value={stageName}
-            handleChange={setStageName}
-            noWrap
-            maxLength={50}
-            sx={{
-              color: theme.palette.background[200],
-              maxWidth: 180,
-              mr: '1px'
-            }} />
-          {
-            totalTasksCount === undefined
-              ? <CircularProgress size={16} />
-              :
-              <Tooltip
-                arrow
-                placement={'top'}
-                sx={{ cursor: 'default' }}
-                title={`There are ${totalTasksCount} task${plural(totalTasksCount)} in this stage`}>
-                <Typography fontWeight={300}>{totalTasksCount}</Typography>
-              </Tooltip>
-          }
-        </Stack>
+    <StyledProjectStagePanel
+      isDragHandleHovered={isDragHandleHovered}
+      isDragged={isDragged}
+      isDragging={isDragging}>
+      <Box position={'relative'}>
+        <StyledDragHandle
+          ref={setActivatorNodeRef}
+          {...listeners}
+          onMouseEnter={() => setIsDragHandleHovered(true)}
+          onMouseLeave={() => setIsDragHandleHovered(false)}
+          sx={{ cursor: isDragged ? 'unset' : 'grab' }}
+        />
+        <Stack direction={'row'} justifyContent={'space-between'}>
+          <Stack direction={'row'} alignItems={'center'} zIndex={1}>
+            <OutlinedContentEditable
+              typographyVariant={'h6'}
+              value={stageName}
+              handleChange={setStageName}
+              noWrap
+              maxLength={50}
+              sx={{
+                color: theme.palette.background[200],
+                maxWidth: 180,
+                mr: '1px'
+              }} />
+            {
+              totalTasksCount === undefined
+                ? <CircularProgress size={16} />
+                :
+                <Tooltip
+                  arrow
+                  placement={'top'}
+                  sx={{ cursor: 'default' }}
+                  title={`There are ${totalTasksCount} task${plural(totalTasksCount)} in this stage`}>
+                  <Typography fontWeight={300}>{totalTasksCount}</Typography>
+                </Tooltip>
+            }
+          </Stack>
 
-        <Stack direction={'row'}>
-          <IconButton>
-            <SearchRounded />
-          </IconButton>
-          <IconButton onClick={() => setShowTopAddTaskCard(!showTopAddTaskCard)}>
-            <AddRounded />
-          </IconButton>
-          <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
-            <MoreHorizRounded />
-          </IconButton>
-          <ProjectStageActionsMenu
-            anchorEl={menuAnchorEl}
-            onClose={() => setMenuAnchorEl(null)}
-            stageId={stage.id} />
+          <Stack direction={'row'}>
+            <IconButton>
+              <SearchRounded />
+            </IconButton>
+            <IconButton onClick={() => setShowTopAddTaskCard(!showTopAddTaskCard)}>
+              <AddRounded />
+            </IconButton>
+            <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
+              <MoreHorizRounded />
+            </IconButton>
+            <ProjectStageActionsMenu
+              anchorEl={menuAnchorEl}
+              onClose={() => setMenuAnchorEl(null)}
+              stageId={stage.id} />
+          </Stack>
         </Stack>
-      </Stack>
+      </Box>
 
-      <Stack px={0.75} pt={1} sx={{ overflow: 'auto', maxHeight: '100%' }} onScroll={handleScroll}>
-        {
-          showTopAddTaskCard &&
+      <Stack px={0.75} pt={1} sx={{ overflowY: 'auto', maxHeight: '100%' }} onScroll={handleScroll}>
+        <Zoom in={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)} unmountOnExit>
+          <TransitionComponent>
             <AddProjectTaskCard
-              mb={1}
-              closeCard={() => setShowTopAddTaskCard(false)}
+              closeCard={() => showAddTaskCard === true && setShowAddTaskCard !== undefined
+                ? setShowAddTaskCard(false)
+                : setShowTopAddTaskCard(false)}
               projectStageId={stage.id}
-              onTop={true} />
-        }
-        {
-          showAddTaskCard && setShowAddTaskCard &&
-            <AddProjectTaskCard
-              mb={1}
-              closeCard={() => setShowAddTaskCard(false)}
-              projectStageId={stage.id}
-              onTop={true} />
-        }
+              onTop={true}
+              show={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)} />
+          </TransitionComponent>
+        </Zoom>
         {
           !tasks
             ? <ProjectTasksLoader />
-            : tasks.map((task) => (<ProjectTaskCard key={task.id} task={task} />))
+            : (
+              <SortableContext strategy={rectSortingStrategy} items={tasks.map((task) => task.id)}>
+                <TransitionGroup>
+                  {tasks.map((task) => (
+                    <Grow key={task.id} unmountOnExit>
+                      <TransitionComponent>
+                        <SortableItem id={task.id}>
+                          <ProjectTaskCard task={task} stageId={stage.id} />
+                        </SortableItem>
+                      </TransitionComponent>
+                    </Grow>
+                  ))}
+                </TransitionGroup>
+              </SortableContext>
+            )
         }
-        {
-          showBottomAddTaskCard &&
+        <Zoom in={showBottomAddTaskCard} unmountOnExit>
+          <TransitionComponent>
             <AddProjectTaskCard
-                mt={1}
-                mb={1}
-                closeCard={() => setShowBottomAddTaskCard(false)}
-                projectStageId={stage.id}
-                onTop={false} />
-        }
+              mb={1}
+              closeCard={() => setShowBottomAddTaskCard(false)}
+              projectStageId={stage.id}
+              onTop={false}
+              show={showBottomAddTaskCard} />
+          </TransitionComponent>
+        </Zoom>
         <Button
           startIcon={<Add />}
           onClick={() => setShowBottomAddTaskCard(!showBottomAddTaskCard)}
-          sx={{ mb: 1.5, mt: 0.5 }}>
+          sx={{ mb: 1.5, mt: 0.25 }}>
           Add Task
         </Button>
         {isFetching && !isLoading &&

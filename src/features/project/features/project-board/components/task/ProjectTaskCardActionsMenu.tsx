@@ -30,10 +30,11 @@ const ProjectTaskActionsMenuItem = ({
 interface ProjectTaskCardActionsMenuProps {
   anchorEl: HTMLElement | null,
   onClose: () => void,
-  task: ProjectTask
+  task: ProjectTask,
+  stageId: string
 }
 
-function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCardActionsMenuProps) {
+function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: ProjectTaskCardActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -58,7 +59,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCard
       name: task.name,
       isCompleted: true,
       assigneeId: task.assignee?.id ?? null
-    }).unwrap()
+    })
     onClose()
   }
   const handleMarkIncompleteTask = () => {
@@ -67,11 +68,11 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCard
       name: task.name,
       isCompleted: false,
       assigneeId: task.assignee?.id ?? null
-    }).unwrap()
+    })
     onClose()
   }
   const handleDeleteTask = () => {
-    deleteProjectTask({ id: task.id }).unwrap()
+    deleteProjectTask({ id: task.id, stageId: stageId })
     onClose()
   }
 

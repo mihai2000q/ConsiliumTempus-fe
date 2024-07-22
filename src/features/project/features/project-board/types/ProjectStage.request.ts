@@ -14,6 +14,12 @@ export interface UpdateStageFromProjectSprintRequest {
   name: string
 }
 
+export interface MoveStageFromProjectSprintRequest {
+  id: string,
+  stageId: string,
+  overStageId: string
+}
+
 export interface RemoveStageFromProjectSprintRequest {
   id: string,
   stageId: string,

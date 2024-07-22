@@ -5,22 +5,22 @@ import { AbcOutlined } from "@mui/icons-material";
 
 export const projectOrderProperties: OrderProperty[] = [
   {
-    value: ProjectsOrderQueryParams.LastActivity,
+    property: ProjectsOrderQueryParams.LastActivity,
     displayName: 'Activity',
     icon: <CalendarIcon />
   },
   {
-    value: ProjectsOrderQueryParams.Name,
+    property: ProjectsOrderQueryParams.Name,
     displayName: 'Alphabetically',
     icon: <AbcOutlined />
   },
   {
-    value: ProjectsOrderQueryParams.CreatedDateTime,
+    property: ProjectsOrderQueryParams.CreatedDateTime,
     displayName: 'Newest',
     icon: <CalendarIcon />
   },
   {
-    value: ProjectsOrderQueryParams.UpdatedDateTime,
+    property: ProjectsOrderQueryParams.UpdatedDateTime,
     displayName: 'Modified',
     icon: <CalendarIcon />
   },

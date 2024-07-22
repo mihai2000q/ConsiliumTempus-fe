@@ -44,6 +44,7 @@ interface OutlinedInputTextFieldProps {
   name?: string | undefined,
   placeholder?: string,
   autoFocus?: boolean,
+  refreshFocus?: boolean,
   fullWidth?: boolean,
   multiline?: boolean,
   isTitle?: boolean,
@@ -61,6 +62,7 @@ function OutlinedInputTextField({
   name,
   placeholder,
   autoFocus,
+  refreshFocus,
   fullWidth,
   multiline,
   isTitle,
@@ -76,8 +78,8 @@ function OutlinedInputTextField({
   const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
-    if (autoFocus) inputRef.current?.focus()
-  }, [autoFocus, inputRef]);
+    if (autoFocus && refreshFocus) inputRef.current?.focus()
+  }, [autoFocus, inputRef, refreshFocus]);
 
   return (
     <OutlinedInput
