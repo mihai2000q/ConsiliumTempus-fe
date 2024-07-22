@@ -103,7 +103,7 @@ function OrderMenu({
               <SortableContext strategy={verticalListSortingStrategy} items={orders.map((o) => o.property)}>
                 <TransitionGroup style={{ display: 'block', width: '100%', gap: '4px', padding: '0 16px' }}>
                   {orders.map((order, index) => (
-                    <Collapse key={JSON.stringify(order)}>
+                    <Collapse key={JSON.stringify(order)} unmountOnExit>
                       <OrderProperty
                         initialOrder={order}
                         orders={orders}

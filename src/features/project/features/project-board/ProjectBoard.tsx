@@ -272,7 +272,7 @@ function ProjectBoard() {
       </Stack>
 
       <Stack direction={'row'} mt={3} height={800}>
-        <Collapse in={showLeftAddStagePanel} orientation={'horizontal'}>
+        <Collapse in={showLeftAddStagePanel} orientation={'horizontal'} unmountOnExit>
           <AddProjectStagePanel
             sprintId={sprintId}
             closeCard={() => setShowLeftAddStagePanel(false)}
@@ -291,6 +291,7 @@ function ProjectBoard() {
             <TransitionGroup style={{ display: 'flex', gap: '18px' }}>
               {stages.map((stage, i) => (
                 <Collapse
+                  unmountOnExit
                   orientation={'horizontal'}
                   key={stage.id}
                   sx={{

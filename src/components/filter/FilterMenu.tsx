@@ -111,12 +111,12 @@ function FilterMenu({
           </Stack>
         </Stack>
 
-        <Collapse in={filters.length > 0}>
+        <Collapse in={filters.length > 0} unmountOnExit>
           <Stack spacing={1} mb={3}>
             <Typography color={'text.secondary'}>All Filters</Typography>
             <Stack spacing={1}>
               {filters.map((filter, index) => (
-                <Collapse key={JSON.stringify(filter)} in={true}>
+                <Collapse key={JSON.stringify(filter)} in={true} unmountOnExit>
                   <FilterProperty
                     filterProperties={filterProperties}
                     operatorsMap={operatorsMap}
