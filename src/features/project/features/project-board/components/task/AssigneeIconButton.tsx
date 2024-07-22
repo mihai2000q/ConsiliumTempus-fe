@@ -11,7 +11,7 @@ import { RootState } from "../../../../../../state/store.ts";
 interface AssigneeIconButtonProps {
   isCompleted: boolean,
   assignee: Assignee | null,
-  setAssigneeId: (newAssigneeId: string | null) => void
+  setAssigneeId?: ((newAssigneeId: string | null) => void) | undefined
 }
 
 function AssigneeIconButton({
@@ -66,12 +66,12 @@ function AssigneeIconButton({
           )
       }
 
-      <SetAssigneeMenu
+      {setAssigneeId && <SetAssigneeMenu
         anchorEl={menuAnchorEl}
         onClose={() => setMenuAnchorEl(null)}
         workspaceId={workspaceId}
         assigneeId={assignee?.id ?? null}
-        setAssigneeId={setAssigneeId} />
+        setAssigneeId={setAssigneeId} />}
     </>
   );
 }

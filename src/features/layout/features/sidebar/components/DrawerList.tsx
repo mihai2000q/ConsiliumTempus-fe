@@ -120,7 +120,7 @@ function DrawerList({
           ? (
             drawerItems.length === 0
               ?
-              <Typography ml={5} my={1} variant={'body2'} fontWeight={"lighter"}>
+              <Typography ml={5} my={1} variant={'body2'}>
                 No {subheader ?? "data"}
               </Typography>
               : <Collapse in={!hideItems}>

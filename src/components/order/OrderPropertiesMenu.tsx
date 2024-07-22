@@ -28,7 +28,7 @@ function OrderPropertiesMenu({
       {orderProperties.map((op) => (
         <MenuItem
           key={op.property}
-          disabled={orders.find(o => o.property === op.property) !== undefined}
+          disabled={orders.some(o => o.property === op.property)}
           onClick={() => {
             onClick(op)
             onClose()

@@ -21,7 +21,8 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt }: AddPro
         projectStageId: projectStageId,
         name: name,
         onTop: onTop
-      }).unwrap()
+      })
+      setName('')
     }
     closeCard()
   }

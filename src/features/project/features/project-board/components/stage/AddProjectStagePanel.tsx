@@ -28,6 +28,7 @@ function AddProjectStagePanel({
         name: newStageName,
         onTop: onTop
       }).unwrap()
+      setNewStageName('')
     }
     closeCard()
   }

@@ -3,7 +3,7 @@ import ProjectTask from "../types/ProjectTask.model.ts";
 import {
   DeleteProjectTaskRequest,
   GetProjectTaskRequest,
-  UpdateProjectTaskRequest
+  UpdateOverviewProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
 import Urls from "../../../utils/enums/Urls.ts";
 import TagTypes from "../../../utils/enums/TagTypes.ts";
@@ -26,7 +26,7 @@ export const projectTaskDrawerApi = api.injectEndpoints({
       query: arg => `${Urls.ProjectTasks}/${arg.id}`,
       providesTags: [TagTypes.ProjectTasks]
     }),
-    updateProjectTask: builder.mutation<HttpMessageResponse, UpdateProjectTaskRequest>({
+    updateProjectTask: builder.mutation<HttpMessageResponse, UpdateOverviewProjectTaskRequest>({
       query: body => ({
         url: `${Urls.ProjectTasks}/overview`,
         method: 'PUT',

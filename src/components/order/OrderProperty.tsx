@@ -132,7 +132,7 @@ function OrderProperty({
             key={op.property}
             value={op.property}
             selected={property === op.property}
-            disabled={orders.find(o => o.property === op.property) !== undefined}
+            disabled={orders.some(o => o.property === op.property)}
             sx={{
               '& .MuiListItemIcon-root': {
                 minWidth: 0,

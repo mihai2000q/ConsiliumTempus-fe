@@ -58,7 +58,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCard
       name: task.name,
       isCompleted: true,
       assigneeId: task.assignee?.id ?? null
-    }).unwrap()
+    })
     onClose()
   }
   const handleMarkIncompleteTask = () => {
@@ -67,11 +67,11 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCard
       name: task.name,
       isCompleted: false,
       assigneeId: task.assignee?.id ?? null
-    }).unwrap()
+    })
     onClose()
   }
   const handleDeleteTask = () => {
-    deleteProjectTask({ id: task.id }).unwrap()
+    deleteProjectTask({ id: task.id })
     onClose()
   }
 
