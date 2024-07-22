@@ -88,7 +88,7 @@ export const projectBoardApiSlice = api.injectEndpoints({
     }),
     deleteProjectTask: builder.mutation<HttpMessageResponse, DeleteProjectTaskRequest>({
       query: arg => ({
-        url: `${Urls.ProjectTasks}/${arg.id}`,
+        url: `${Urls.ProjectTasks}/${arg.id}/from/${arg.stageId}`,
         method: 'DELETE'
       }),
       invalidatesTags: [TagTypes.ProjectTasks]

@@ -26,5 +26,6 @@ export interface MoveProjectTaskRequest {
 }
 
 export interface DeleteProjectTaskRequest {
-  id: string
+  id: string,
+  stageId: string
 }

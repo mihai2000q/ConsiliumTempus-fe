@@ -14,9 +14,10 @@ import Paragraph from "../../../../../../components/text/Paragraph.tsx";
 
 interface ProjectTaskCardProps {
   task: ProjectTask,
+  stageId: string
 }
 
-function ProjectTaskCard({ task }: ProjectTaskCardProps) {
+function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
   const draggedProjectTask = useAppSelector(state => state.projectBoard.draggedProjectTask)
 
   const [selected, setSelected] = useState(false)
@@ -106,7 +107,8 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
           <ProjectTaskCardActionsMenu
             anchorEl={taskMenuAnchorEl}
             onClose={() => setTaskMenuAnchorEl(null)}
-            task={task} />
+            task={task}
+            stageId={stageId} />
 
           <ProjectTaskDrawer
             isDrawerOpen={isDrawerOpen}

@@ -30,10 +30,11 @@ const ProjectTaskActionsMenuItem = ({
 interface ProjectTaskCardActionsMenuProps {
   anchorEl: HTMLElement | null,
   onClose: () => void,
-  task: ProjectTask
+  task: ProjectTask,
+  stageId: string
 }
 
-function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCardActionsMenuProps) {
+function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: ProjectTaskCardActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -71,7 +72,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task }: ProjectTaskCard
     onClose()
   }
   const handleDeleteTask = () => {
-    deleteProjectTask({ id: task.id })
+    deleteProjectTask({ id: task.id, stageId: stageId })
     onClose()
   }
 
