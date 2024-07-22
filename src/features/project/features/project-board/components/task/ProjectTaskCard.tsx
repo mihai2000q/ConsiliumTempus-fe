@@ -1,4 +1,4 @@
-import { Box, IconButton, Stack, Typography } from "@mui/material";
+import { Box, IconButton, Stack } from "@mui/material";
 import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
@@ -8,12 +8,17 @@ import ProjectTask from "../../types/ProjectTask.model.ts";
 import StyledProjectTaskCard from "./StyledProjectTaskCard.tsx";
 import ProjectTaskDrawer from "../../../../../project-task-drawer/ProjectTaskDrawer.tsx";
 import StyledCompleteButton from "./StyledCompleteButton.tsx";
+import { useAppSelector } from "../../../../../../state/store.ts";
+import EmptyStyledProjectTaskCard from "./EmptyStyledProjectTaskCard.tsx";
+import Paragraph from "../../../../../../components/text/Paragraph.tsx";
 
 interface ProjectTaskCardProps {
   task: ProjectTask,
 }
 
 function ProjectTaskCard({ task }: ProjectTaskCardProps) {
+  const draggedProjectTask = useAppSelector(state => state.projectBoard.draggedProjectTask)
+
   const [selected, setSelected] = useState(false)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
   const [taskMenuAnchorEl, setTaskMenuAnchorEl] = useState<HTMLElement | null>(null)
@@ -47,6 +52,19 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
     }).unwrap()
   }
 
+  if (task.id === draggedProjectTask?.id) {
+    return (
+      <EmptyStyledProjectTaskCard>
+        <Stack width={'100%'} sx={{ visibility: 'hidden' }}>
+          <Paragraph paragraph={false} lines={5}>
+            <IconButton hidden={true} sx={{ height: 15 }} />
+            {task.name}
+          </Paragraph>
+        </Stack>
+      </EmptyStyledProjectTaskCard>
+    )
+  }
+
   return (
     <Box position={'relative'} my={0.5}>
       <StyledProjectTaskCard
@@ -56,10 +74,10 @@ function ProjectTaskCard({ task }: ProjectTaskCardProps) {
         onClick={handleClick}
         onContextMenu={handleRightClick}>
         <Stack width={'100%'}>
-          <Typography>
+          <Paragraph paragraph={false} lines={5}>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
-          </Typography>
+          </Paragraph>
         </Stack>
       </StyledProjectTaskCard>
 

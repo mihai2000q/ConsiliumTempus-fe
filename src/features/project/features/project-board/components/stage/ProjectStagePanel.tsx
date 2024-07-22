@@ -20,12 +20,13 @@ import ProjectTasksLoader from "../task/ProjectTasksLoader.tsx";
 import AddProjectTaskCard from "../task/AddProjectTaskCard.tsx";
 import OutlinedContentEditable from "../../../../../../components/text/OutlinedContentEditable.tsx";
 import useTimeoutCallback from "../../../../../../hooks/useTimeoutCallback.ts";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../state/store.ts";
 import plural from "../../../../../../utils/plural.ts";
 import useProjectTasks from "../../hooks/useProjectTasks.ts";
 import StyledProjectStagePanel from "./StyledProjectStagePanel.tsx";
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
+import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import SortableItem from "../../../../../../components/dnd/SortableItem.tsx";
+import { useAppSelector } from "../../../../../../state/store.ts";
 
 const StyledDragHandle = styled(Box)<BoxProps>(() => ({
   position: 'absolute',
@@ -57,7 +58,7 @@ function ProjectStagePanel({
 }: ProjectStagePanelProps) {
   const theme = useTheme()
 
-  const sprintId = useSelector((state: RootState) => state.project.sprintId)
+  const sprintId = useAppSelector((state) => state.project.sprintId)
   const [stageName, setStageName] = useState(stage.name)
   const [updateStageFromProjectSprint] = useUpdateStageFromProjectSprintMutation()
   useTimeoutCallback(() =>

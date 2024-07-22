@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -24,27 +24,50 @@ import {
   ViewWeekOutlined,
   VisibilityOffOutlined
 } from "@mui/icons-material";
-import { useGetStagesFromProjectSprintQuery } from "./state/projectBoardApi.ts";
+import {
+  useGetStagesFromProjectSprintQuery,
+  useMoveProjectTaskMutation,
+  useMoveStageFromProjectSprintMutation
+} from "./state/projectBoardApi.ts";
 import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../state/store.ts";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch, useAppSelector } from "../../../../state/store.ts";
 import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
 import AddProjectStatusDialog from "../../shared/components/AddProjectStatusDialog.tsx";
-import { closestCenter, DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
-import { horizontalListSortingStrategy, SortableContext } from "@dnd-kit/sortable";
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  DragOverEvent,
+  DragOverlay,
+  DragStartEvent,
+  PointerSensor,
+  useSensor,
+  useSensors
+} from "@dnd-kit/core";
+import { arrayMove, rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
 import SortableProjectStagePanel from "./components/stage/SortableProjectStagePanel.tsx";
 import { TransitionGroup } from "react-transition-group";
+import {
+  setDraggedProjectTask,
+  setDragOverlayProjectTask,
+  setProjectStagesWithEndTasks,
+  setProjectStagesWithOverTasks,
+} from "../../../../state/project-board/projectBoardSlice.ts";
+import DragOverlayProjectTaskCard from "./components/stage/DragOverlayProjectTaskCard.tsx";
+import ProjectStage from "./types/ProjectStage.model.ts";
 
 function ProjectBoard() {
-  const dispatch = useDispatch<AppDispatch>()
+  const dispatch = useAppDispatch()
 
   const sprintId = useSelector((state: RootState) => state.project.sprintId)
 
-  const { data } = useGetStagesFromProjectSprintQuery(
+  const [stages, setStages] = useState<ProjectStage[]>([])
+  const { data, isLoading } = useGetStagesFromProjectSprintQuery(
     { id: sprintId },
     { skip: sprintId === '' }
   )
-  const stages = data?.stages
+  useEffect(() => setStages(data?.stages ?? []), [data])
 
   const [showAddTaskCard, setShowAddTaskCard] = useState(false)
   const [showLeftAddStagePanel, setShowLeftAddStagePanel] = useState(false)
@@ -81,20 +104,115 @@ function ProjectBoard() {
 
   const [draggedStageId, setDraggedStageId] = useState<string | null>(null)
 
+  const stateProjectStages = useAppSelector(state => state.projectBoard.projectStages)
+
+  const [moveStageFromProjectSprint] = useMoveStageFromProjectSprintMutation()
+  const [moveProjectTask] = useMoveProjectTaskMutation()
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        delay: 100,
+        tolerance: 10
+      }
+    })
+  );
+
   function handleDragStart(event: DragStartEvent) {
-    setDraggedStageId(event.active.id as string)
+    const id = event.active.id as string
+
+    if (isProjectStageId(id)) {
+      setDraggedStageId(id)
+    } else {
+      const task = stateProjectStages
+        .flatMap(ps => ps.tasks)
+        .find(task => task?.id === id)
+      dispatch(setDraggedProjectTask(task))
+      dispatch(setDragOverlayProjectTask(task))
+    }
   }
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
+    const activeId = active.id as string
+    const overId = over?.id as string | undefined
 
-    if (over && active.id !== over.id) {
-      console.log('moved on', over.id)
-    }
     setDraggedStageId(null)
+    dispatch(setDraggedProjectTask(undefined))
+
+    if (!overId || overId === activeId) return
+
+    if (isProjectStageId(activeId)) {
+      handleDragEndProjectStage(activeId, overId)
+    } else {
+      handleDragEndProjectTask(activeId, overId)
+    }
   }
 
-  if (!stages) return <ProjectBoardLoader />
+  function handleDragOver(event: DragOverEvent) {
+    const { active, over, delta } = event
+    const activeId = active.id as string
+    const overId = over?.id as string | undefined
+
+    if (!overId || isProjectStageId(activeId)) return
+
+    const activeStage = stateProjectStages.find(ps =>
+      ps.tasks?.some(t => t.id === activeId))!
+    let overStage = stateProjectStages.find(ps => ps.id === overId)
+
+    if (!overStage) {
+      overStage = stateProjectStages.find(ps =>
+        ps.tasks?.some(t => t.id === overId))
+    }
+
+    if (!overId || !overStage || overStage.id === activeStage.id) return
+
+    dispatch(setProjectStagesWithOverTasks({
+      activeId: activeId,
+      overId: overId,
+      activeStage: activeStage,
+      overStage: overStage,
+      delta: delta
+    }))
+
+    moveProjectTask({
+      sprintId: sprintId,
+      id: activeId,
+      overId: overId
+    })
+  }
+
+  function isProjectStageId(id: string) {
+    return stateProjectStages.some((stage) => stage.id === id)
+  }
+
+  function handleDragEndProjectStage(activeId: string, overId: string) {
+    const activeIndex = stages.findIndex(s => s.id === activeId)
+    const overIndex = stages.findIndex(s => s.id === overId)
+
+    setStages(prevStages => arrayMove(prevStages, activeIndex, overIndex))
+
+    moveStageFromProjectSprint({
+      id: sprintId,
+      stageId: activeId,
+      overStageId: overId,
+    })
+  }
+
+  function handleDragEndProjectTask(activeId: string, overId: string) {
+    dispatch(setProjectStagesWithEndTasks({
+      activeId: activeId,
+      overId: overId,
+    }))
+
+    moveProjectTask({
+      sprintId: sprintId,
+      id: activeId,
+      overId: overId
+    })
+  }
+
+  if (isLoading) return <ProjectBoardLoader />
 
   return (
     <Stack alignItems="start" height={'100%'} mt={1}>
@@ -154,7 +272,7 @@ function ProjectBoard() {
       </Stack>
 
       <Stack direction={'row'} mt={3} height={800}>
-        <Collapse in={showLeftAddStagePanel} orientation={'horizontal'} unmountOnExit>
+        <Collapse in={showLeftAddStagePanel} orientation={'horizontal'}>
           <AddProjectStagePanel
             sprintId={sprintId}
             closeCard={() => setShowLeftAddStagePanel(false)}
@@ -163,8 +281,13 @@ function ProjectBoard() {
             sx={{ mr: '18px' }} />
         </Collapse>
 
-        <DndContext collisionDetection={closestCenter} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
-          <SortableContext strategy={horizontalListSortingStrategy} items={stages.map(stage => stage.id)}>
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCorners}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          onDragOver={handleDragOver}>
+          <SortableContext strategy={rectSortingStrategy} items={stages.map(stage => stage.id)}>
             <TransitionGroup style={{ display: 'flex', gap: '18px' }}>
               {stages.map((stage, i) => (
                 <Collapse
@@ -184,6 +307,9 @@ function ProjectBoard() {
               ))}
             </TransitionGroup>
           </SortableContext>
+          {!draggedStageId && <DragOverlay>
+            <DragOverlayProjectTaskCard />
+          </DragOverlay>}
         </DndContext>
 
         <Box display={'grid'} ml={'18px'} height={'100%'}>
