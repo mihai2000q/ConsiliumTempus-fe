@@ -169,7 +169,15 @@ function ProjectStagePanel({
         {
           !tasks
             ? <ProjectTasksLoader />
-            : tasks.map((task) => (<ProjectTaskCard key={task.id} task={task} />))
+            : (
+              <SortableContext strategy={rectSortingStrategy} items={tasks.map((task) => task.id)}>
+                {tasks.map((task) => (
+                  <SortableItem key={task.id} id={task.id}>
+                    <ProjectTaskCard task={task} />
+                  </SortableItem>
+                ))}
+              </SortableContext>
+            )
         }
         {
           showBottomAddTaskCard &&

@@ -4,6 +4,7 @@ import ProjectStage from "../../types/ProjectStage.model.ts";
 import ProjectStagePanel from "./ProjectStagePanel.tsx";
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { useTheme } from "@mui/material";
+import Droppable from "../../../../../../components/dnd/Droppable.tsx";
 
 interface SortableStagePanelProps {
   stage: ProjectStage,
@@ -46,20 +47,23 @@ function SortableProjectStagePanel({
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
-        height: '100%',
+        height: 'inherit',
+        width: 'inherit',
         position: 'relative',
         zIndex: isDragged ? theme.zIndex.modal : 0
       }}>
-      {useMemo(() =>
-          <ProjectStagePanel
-            stage={stage}
-            showAddTaskCard={showAddTaskCard}
-            setShowAddTaskCard={setShowAddTaskCard}
-            listeners={listeners}
-            setActivatorNodeRef={setActivatorNodeRef}
-            isDragged={isDragged}
-            isDragging={isDragging} />
-        , [stage, showAddTaskCard, setShowAddTaskCard, listeners, setActivatorNodeRef, isDragged, isDragging])}
+      <Droppable id={stage.id}>
+        {useMemo(() =>
+            <ProjectStagePanel
+              stage={stage}
+              showAddTaskCard={showAddTaskCard}
+              setShowAddTaskCard={setShowAddTaskCard}
+              listeners={listeners}
+              setActivatorNodeRef={setActivatorNodeRef}
+              isDragged={isDragged}
+              isDragging={isDragging} />
+          , [stage, showAddTaskCard, setShowAddTaskCard, listeners, setActivatorNodeRef, isDragged, isDragging])}
+      </Droppable>
     </div>
   )
 }
