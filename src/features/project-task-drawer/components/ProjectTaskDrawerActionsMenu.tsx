@@ -39,7 +39,7 @@ function ProjectTaskDrawerActionsMenu({ anchorEl, onClose, taskId }: ProjectTask
 
   const [deleteProjectTask] = useDeleteProjectTaskMutation()
   const handleDeleteTask = () => {
-    deleteProjectTask({ id: taskId }).unwrap()
+    deleteProjectTask({ id: taskId })
     onClose()
   }
 

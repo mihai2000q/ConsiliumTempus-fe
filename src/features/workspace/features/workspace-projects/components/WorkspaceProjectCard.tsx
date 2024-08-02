@@ -10,7 +10,8 @@ import {
   Stack,
   StackProps,
   styled,
-  Typography, useTheme
+  Typography,
+  useTheme
 } from "@mui/material";
 import { Link as ReactRouterLink } from 'react-router-dom'
 import demoProjectPic from './../../../../../assets/demo-projects.jpg'
@@ -20,7 +21,7 @@ import { Lock, MoreHoriz, Star, StarOutline } from "@mui/icons-material";
 import UserPopper from "../../../../../components/popper/UserPopper.tsx";
 import { useState } from "react";
 import WorkspaceProjectActionsMenu from "./WorkspaceProjectActionsMenu.tsx";
-import { useUpdateProjectMutation } from "../state/workspaceProjectsApi.ts";
+import { useUpdateFavoritesProjectMutation } from "../state/workspaceProjectsApi.ts";
 
 interface StyledWorkspaceProjectCardProps extends BoxProps {
   isHovering: boolean
@@ -91,7 +92,7 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [isFavorite, setIsFavorite] = useState(project.isFavorite)
 
-  const [updateProject] = useUpdateProjectMutation()
+  const [updateFavoritesProject] = useUpdateFavoritesProjectMutation()
 
   const [isHovering, setIsHovering] = useState(false)
 
@@ -123,12 +124,10 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
                 <IconButton
                   onClick={() => {
                     setIsFavorite(!isFavorite)
-                    updateProject({
+                    updateFavoritesProject({
                       id: project.id,
-                      name: project.name,
-                      lifecycle: project.lifecycle,
                       isFavorite: !isFavorite,
-                    }).unwrap()
+                    })
                   }}
                   sx={{
                     color: theme.palette.primary[100],

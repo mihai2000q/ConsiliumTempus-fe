@@ -1,6 +1,11 @@
 import { api } from "../../../../../state/api.ts";
 import GetProjectsResponse from "../type/Project.response.ts";
-import { DeleteProjectRequest, GetProjectsQueryParameters, UpdateProjectRequest } from "../type/Project.request.ts";
+import {
+  DeleteProjectRequest,
+  GetProjectsQueryParameters,
+  UpdateFavoritesProjectRequest,
+  UpdateProjectRequest
+} from "../type/Project.request.ts";
 import createQueryParams from "../../../../../utils/createQueryParams.ts";
 import Urls from "../../../../../utils/enums/Urls.ts";
 import TagTypes from "../../../../../utils/enums/TagTypes.ts";
@@ -20,6 +25,14 @@ export const workspaceProjectsApiSlice = api.injectEndpoints({
       }),
       invalidatesTags: [TagTypes.Projects]
     }),
+    updateFavoritesProject: builder.mutation<HttpMessageResponse, UpdateFavoritesProjectRequest>({
+      query: body => ({
+        url: `${Urls.Projects}/favorites`,
+        method: 'PUT',
+        body: body
+      }),
+      invalidatesTags: [TagTypes.Projects]
+    }),
     deleteProject: builder.mutation<HttpMessageResponse, DeleteProjectRequest>({
       query: arg => ({
         url: `${Urls.Projects}/${arg.id}`,
@@ -34,5 +47,6 @@ export const {
   useGetProjectsQuery,
   useLazyGetProjectsQuery,
   useUpdateProjectMutation,
+  useUpdateFavoritesProjectMutation,
   useDeleteProjectMutation,
 } = workspaceProjectsApiSlice

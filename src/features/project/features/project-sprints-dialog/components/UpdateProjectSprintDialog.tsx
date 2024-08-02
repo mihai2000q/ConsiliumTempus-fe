@@ -77,7 +77,7 @@ function UpdateProjectSprintDialog({
       name: values.projectSprintName,
       startDate: startDate?.toJSON()?.split('T')[0],
       endDate: endDate?.toJSON()?.split('T')[0],
-    })
+    }).unwrap()
     onClose()
   }
 

@@ -113,7 +113,7 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
       description: description.value,
       isCompleted: isCompleted.value,
       assigneeId: assigneeId.value
-    }).unwrap()
+    })
 
     refreshName()
     refreshDescription()

@@ -4,7 +4,11 @@ export interface GetWorkspaceRequest {
 
 export interface UpdateWorkspaceRequest {
   id: string,
-  name: string,
+  name: string
+}
+
+export interface UpdateFavoritesWorkspaceRequest {
+  id: string,
   isFavorite: boolean
 }
 

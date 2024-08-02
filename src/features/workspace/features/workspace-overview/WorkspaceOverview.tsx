@@ -26,7 +26,7 @@ function WorkspaceOverview() {
     updateWorkspaceOverview({
       id: workspaceId,
       description: description.value
-    }).unwrap()
+    })
 
     refreshDescription()
   }, [description])

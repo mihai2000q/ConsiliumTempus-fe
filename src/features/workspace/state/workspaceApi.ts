@@ -1,7 +1,12 @@
 import { api } from "../../../state/api.ts";
 import TagTypes from "../../../utils/enums/TagTypes.ts";
 import Urls from "../../../utils/enums/Urls.ts";
-import { DeleteWorkspaceRequest, GetWorkspaceRequest, UpdateWorkspaceRequest, } from "../types/Workspace.request.ts";
+import {
+  DeleteWorkspaceRequest,
+  GetWorkspaceRequest,
+  UpdateFavoritesWorkspaceRequest,
+  UpdateWorkspaceRequest,
+} from "../types/Workspace.request.ts";
 import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
 import Workspace from "../types/Workspace.model.ts";
 
@@ -14,6 +19,14 @@ export const workspaceApiSlice = api.injectEndpoints({
     updateWorkspace: builder.mutation<HttpMessageResponse, UpdateWorkspaceRequest>({
       query: body => ({
         url: Urls.Workspaces,
+        method: 'PUT',
+        body: body
+      }),
+      invalidatesTags: [TagTypes.Workspaces]
+    }),
+    updateFavoritesWorkspace: builder.mutation<HttpMessageResponse, UpdateFavoritesWorkspaceRequest>({
+      query: body => ({
+        url: `${Urls.Workspaces}/favorites`,
         method: 'PUT',
         body: body
       }),
@@ -32,5 +45,6 @@ export const workspaceApiSlice = api.injectEndpoints({
 export const {
   useGetWorkspaceQuery,
   useUpdateWorkspaceMutation,
+  useUpdateFavoritesWorkspaceMutation,
   useDeleteWorkspaceMutation,
 } = workspaceApiSlice

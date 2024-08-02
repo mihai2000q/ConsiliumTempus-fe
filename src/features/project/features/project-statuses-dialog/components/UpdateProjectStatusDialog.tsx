@@ -77,7 +77,7 @@ function UpdateProjectStatusDialog({
       title: values.projectStatusTitle === '' ? titlePlaceholder : values.projectStatusTitle,
       status: statusType,
       description: values.projectStatusDescription
-    })
+    }).unwrap()
     onClose()
   }
 

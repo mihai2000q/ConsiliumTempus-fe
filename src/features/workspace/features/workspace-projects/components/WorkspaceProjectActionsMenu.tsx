@@ -56,9 +56,8 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
     updateProject({
       id: project.id,
       name: project.name,
-      lifecycle: ProjectLifecycle.Active,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Active
+    })
     onClose()
   }
   const handleArchiveProject = () => {
@@ -66,8 +65,7 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
       id: project.id,
       name: project.name,
       lifecycle: ProjectLifecycle.Archived,
-      isFavorite: project.isFavorite
-    }).unwrap()
+    })
     onClose()
   }
 
@@ -75,18 +73,16 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
     updateProject({
       id: project.id,
       name: project.name,
-      lifecycle: ProjectLifecycle.Active,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Active
+    })
     onClose()
   }
   const handleSetUpcomingProject = () => {
     updateProject({
       id: project.id,
       name: project.name,
-      lifecycle: ProjectLifecycle.Upcoming,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Upcoming
+    })
     onClose()
   }
 

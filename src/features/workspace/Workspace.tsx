@@ -5,7 +5,6 @@ import { Route, Routes, useNavigate, useParams } from "react-router-dom";
 import { SyntheticEvent, useEffect, useState } from "react";
 import { setWorkspaceId } from "../../state/workspace/workspaceSlice.ts";
 import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
-import useDependencyState from "../../hooks/useDependencyState.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
 import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
@@ -21,7 +20,11 @@ import {
 } from "@mui/icons-material";
 import WorkspaceActionsMenu from "./components/WorkspaceActionsMenu.tsx";
 import WorkspaceParams from "./utils/WorkspaceParams.ts";
-import { useGetWorkspaceQuery, useUpdateWorkspaceMutation } from "./state/workspaceApi.ts";
+import {
+  useGetWorkspaceQuery,
+  useUpdateFavoritesWorkspaceMutation,
+  useUpdateWorkspaceMutation
+} from "./state/workspaceApi.ts";
 import demoWorkspacePicture from "../../assets/demo-workspace-pic.jpg";
 import { WorkspaceTabs } from "./utils/WorkspaceTabs.ts";
 import WorkspaceLoader from "./components/WorkspaceLoader.tsx";
@@ -53,7 +56,6 @@ function Workspace() {
   )?.data
 
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
-  const [isFavorite, setIsFavorite, refreshIsFavorite] = useDependencyState(false)
   useEffect(() => {
     if (workspace) {
       setFacadeName(workspace.name)
@@ -64,17 +66,18 @@ function Workspace() {
 
   const [updateWorkspace] = useUpdateWorkspaceMutation()
   useUpdateEffect(() => {
-    if (!workspace || name.value === '' || isNoneUserDependencyState([isFavorite, name])) return
+    if (!workspace || name.value === '' || isNoneUserDependencyState([name])) return
 
     updateWorkspace({
       id: workspaceId,
-      name: name.value,
-      isFavorite: isFavorite.value
-    }).unwrap()
+      name: name.value
+    })
 
     refreshName()
-    refreshIsFavorite()
-  }, [isFavorite, name])
+  }, [name])
+
+  const [updateFavoritesWorkspace] = useUpdateFavoritesWorkspaceMutation()
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const handleTabChange = (_e: SyntheticEvent<Element, Event>, newTab: WorkspaceTabs) => {
     setTab(newTab)
@@ -106,12 +109,18 @@ function Workspace() {
         </Stack>
 
         <IconButton
-          onClick={() => setIsFavorite(!isFavorite.value, true)}
+          onClick={() => {
+            setIsFavorite(!isFavorite)
+            updateFavoritesWorkspace({
+              id: workspaceId,
+              isFavorite: !isFavorite
+            })
+          }}
           sx={{
             color: theme.palette.primary[100],
             '&:hover': { color: theme.palette.secondary.main }
           }}>
-          {isFavorite.value ? <Star /> : <StarOutline />}
+          {isFavorite ? <Star /> : <StarOutline />}
         </IconButton>
       </Stack>
 

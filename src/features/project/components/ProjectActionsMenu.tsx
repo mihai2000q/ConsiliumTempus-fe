@@ -75,18 +75,16 @@ function ProjectActionsMenu({
     updateProject({
       id: projectId,
       name: project.name,
-      lifecycle: ProjectLifecycle.Active,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Active
+    })
     onClose()
   }
   const handleArchiveProject = () => {
     updateProject({
       id: projectId,
       name: project.name,
-      lifecycle: ProjectLifecycle.Archived,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Archived
+    })
     onClose()
   }
 
@@ -94,18 +92,16 @@ function ProjectActionsMenu({
     updateProject({
       id: projectId,
       name: project.name,
-      lifecycle: ProjectLifecycle.Active,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Active
+    })
     onClose()
   }
   const handleSetUpcomingProject = () => {
     updateProject({
       id: projectId,
       name: project.name,
-      lifecycle: ProjectLifecycle.Upcoming,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Upcoming
+    })
     onClose()
   }
 

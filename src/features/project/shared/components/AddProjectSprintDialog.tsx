@@ -93,7 +93,7 @@ function AddProjectSprintDialog() {
           status: projectStatus,
           description: values.projectStatusDescription
         }
-    })
+    }).unwrap()
     resetForm()
     onClose()
   }

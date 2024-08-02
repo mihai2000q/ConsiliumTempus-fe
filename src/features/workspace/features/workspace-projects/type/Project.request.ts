@@ -11,7 +11,11 @@ export interface GetProjectsQueryParameters {
 export interface UpdateProjectRequest {
   id: string,
   name: string,
-  lifecycle: ProjectLifecycle,
+  lifecycle: ProjectLifecycle
+}
+
+export interface UpdateFavoritesProjectRequest {
+  id: string,
   isFavorite: boolean
 }
 

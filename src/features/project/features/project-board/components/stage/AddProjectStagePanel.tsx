@@ -27,7 +27,7 @@ function AddProjectStagePanel({
         id: sprintId,
         name: newStageName,
         onTop: onTop
-      }).unwrap()
+      })
       setNewStageName('')
     }
     closeCard()

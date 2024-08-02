@@ -50,7 +50,7 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
       name: task.name,
       isCompleted: newIsCompleted,
       assigneeId: assigneeId
-    }).unwrap()
+    })
   }
 
   if (task.id === draggedProjectTask?.id) {

@@ -73,7 +73,7 @@ function AddProjectStatusDialog({
       title: values.projectStatusTitle === '' ? titlePlaceholder : values.projectStatusTitle,
       status: statusType,
       description: values.projectStatusDescription
-    })
+    }).unwrap()
     resetForm()
     onClose()
   }
