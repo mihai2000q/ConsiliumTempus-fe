@@ -37,6 +37,7 @@ import { addProjectSprintDialogValidationSchema } from "../state/sharedProjectVa
 import { useAddProjectSprintMutation } from "../state/sharedProjectApi.ts";
 import { addProjectSprintDialogInitialValues } from "../state/sharedProjectState.ts";
 import LoadingButton from "../../../../components/button/LoadingButton.tsx";
+import { useSnackbar } from "notistack";
 
 function AddProjectSprintDialog() {
   const projectStatusTitlePlaceholder = 'Status Update'
@@ -51,8 +52,7 @@ function AddProjectSprintDialog() {
   const onClose = () => dispatch(closeAddProjectSprintDialog())
 
   const [addProjectSprint, {
-    isLoading,
-    isError
+    isLoading
   }] = useAddProjectSprintMutation()
 
   const {
@@ -80,6 +80,8 @@ function AddProjectSprintDialog() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isAccordionExpanded]);
 
+  const { enqueueSnackbar } = useSnackbar()
+
   async function handleSubmitForm() {
     await addProjectSprint({
       projectId: projectId,
@@ -94,9 +96,9 @@ function AddProjectSprintDialog() {
           status: projectStatus,
           description: values.projectStatusDescription
         }
-    })
-    if (isError) return
+    }).unwrap()
     resetForm()
+    enqueueSnackbar("Sprint created successfully!")
     onClose()
   }
 

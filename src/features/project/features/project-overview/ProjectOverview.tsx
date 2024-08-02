@@ -25,7 +25,7 @@ function ProjectOverview() {
     updateProjectOverview({
       id: projectId,
       description: description.value
-    }).unwrap()
+    })
 
     refreshDescription()
   }, [description])

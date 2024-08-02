@@ -1,5 +1,5 @@
 import { useParams, useSearchParams } from "react-router-dom";
-import { useGetProjectQuery, useUpdateProjectMutation } from "./state/projectApi.ts";
+import { useGetProjectQuery, useUpdateFavoritesProjectMutation, useUpdateProjectMutation } from "./state/projectApi.ts";
 import { Avatar, Button, Divider, IconButton, Stack, Tab, Tabs, Typography, useTheme } from "@mui/material";
 import demoProjectPicture from './../../assets/demo-projects.jpg'
 import {
@@ -30,7 +30,6 @@ import { AppDispatch } from "../../state/store.ts";
 import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
 import ProjectParams from "./utils/ProjectParams.ts";
 import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import useDependencyState from "../../hooks/useDependencyState.ts";
 import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
 import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
 import ProjectLoader from "./components/ProjectLoader.tsx";
@@ -68,7 +67,6 @@ function Project() {
   const project = useAdapterState(projectResponse, ProjectAdapter.adapt)
 
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
-  const [isFavorite, setIsFavorite, refreshIsFavorite] = useDependencyState(false)
   useEffect(() => {
     if (project) {
       setFacadeName(project.name)
@@ -86,18 +84,19 @@ function Project() {
 
   const [updateProject] = useUpdateProjectMutation()
   useUpdateEffect(() => {
-    if (!project || name.value === '' || isNoneUserDependencyState([isFavorite, name])) return
+    if (!project || name.value === '' || isNoneUserDependencyState([name])) return
 
     updateProject({
       id: projectId,
       name: name.value,
-      lifecycle: project.lifecycle,
-      isFavorite: isFavorite.value
-    }).unwrap()
+      lifecycle: project.lifecycle
+    })
 
     refreshName()
-    refreshIsFavorite()
-  }, [isFavorite, name])
+  }, [name])
+
+  const [updateFavoritesProject] = useUpdateFavoritesProjectMutation()
+  const [isFavorite, setIsFavorite] = useState(false)
 
   const handleTabChange = (_e: SyntheticEvent<Element, Event>, newTab: number) => {
     searchParams.set(ProjectSearchParams.Tab, newTab.toString())
@@ -131,12 +130,15 @@ function Project() {
         </Stack>
 
         <IconButton
-          onClick={() => setIsFavorite(!isFavorite.value, true)}
+          onClick={() => {
+            setIsFavorite(!isFavorite)
+            updateFavoritesProject({ id: projectId, isFavorite: !isFavorite })
+          }}
           sx={{
             color: theme.palette.primary[100],
             '&:hover': { color: theme.palette.secondary.main }
           }}>
-          {isFavorite.value ? <Star /> : <StarOutline />}
+          {isFavorite ? <Star /> : <StarOutline />}
         </IconButton>
 
         <Button

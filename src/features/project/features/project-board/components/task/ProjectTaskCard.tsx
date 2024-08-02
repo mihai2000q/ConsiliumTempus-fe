@@ -2,7 +2,7 @@ import { Box, IconButton, Stack } from "@mui/material";
 import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
 import React, { useEffect, useState } from "react";
 import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
-import { useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { useUpdateIsCompletedProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import AssigneeIconButton from "./AssigneeIconButton.tsx";
 import ProjectTask from "../../types/ProjectTask.model.ts";
 import StyledProjectTaskCard from "./StyledProjectTaskCard.tsx";
@@ -40,17 +40,16 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
   }
 
   const [updateProjectTask] = useUpdateProjectTaskMutation()
+  const [updateIsCompletedProjectTask] = useUpdateIsCompletedProjectTaskMutation()
 
   function updateTask({
-    newIsCompleted = isCompleted,
     assigneeId = task.assignee?.id ?? null
   }) {
     updateProjectTask({
       id: task.id,
       name: task.name,
-      isCompleted: newIsCompleted,
       assigneeId: assigneeId
-    }).unwrap()
+    })
   }
 
   if (task.id === draggedProjectTask?.id) {
@@ -88,7 +87,7 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
         size={'small'}
         onClick={() => {
           setIsCompleted(!isCompleted)
-          updateTask({ newIsCompleted: !isCompleted })
+          updateIsCompletedProjectTask({ id: task.id, isCompleted: !isCompleted })
         }}>
         {isCompleted
           ? <CheckCircleRounded fontSize={'small'} />

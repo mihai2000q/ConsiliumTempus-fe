@@ -1,10 +1,11 @@
 import { MouseEventHandler, ReactNode } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
 import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
-import { useDeleteProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { useDeleteProjectTaskMutation, useUpdateIsCompletedProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useNavigate } from "react-router-dom";
 import Paths from "../../../../../../utils/enums/Paths.ts";
 import ProjectTask from "../../types/ProjectTask.model.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
@@ -38,8 +39,9 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
   const theme = useTheme()
 
   const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
 
-  const [updateProjectTask] = useUpdateProjectTaskMutation()
+  const [updateIsCompletedProjectTask] = useUpdateIsCompletedProjectTaskMutation()
   const [deleteProjectTask] = useDeleteProjectTaskMutation()
 
   const handleViewDetails = () => {
@@ -49,30 +51,29 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
   const handleCopyTaskLink = () => {
     onClose()
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${task.id}`).then()
+    enqueueSnackbar("Task copied on clipboard!", { variant: 'info' })
   }
   const handleDuplicateTask = () => {
     onClose()
+    enqueueSnackbar("Task duplicated!", { variant: 'info' })
   }
   const handleMarkCompleteTask = () => {
-    updateProjectTask({
+    updateIsCompletedProjectTask({
       id: task.id,
-      name: task.name,
       isCompleted: true,
-      assigneeId: task.assignee?.id ?? null
     })
     onClose()
   }
   const handleMarkIncompleteTask = () => {
-    updateProjectTask({
+    updateIsCompletedProjectTask({
       id: task.id,
-      name: task.name,
       isCompleted: false,
-      assigneeId: task.assignee?.id ?? null
     })
     onClose()
   }
   const handleDeleteTask = () => {
     deleteProjectTask({ id: task.id, stageId: stageId })
+    enqueueSnackbar("Task deleted")
     onClose()
   }
 

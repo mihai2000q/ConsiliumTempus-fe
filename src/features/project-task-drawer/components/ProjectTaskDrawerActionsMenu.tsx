@@ -2,6 +2,7 @@ import { MouseEventHandler, ReactNode } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
 import { ContentCopy, DeleteOutlined } from "@mui/icons-material";
 import { useDeleteProjectTaskMutation } from "../state/projectTaskDrawerApi.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
@@ -32,14 +33,17 @@ interface ProjectTaskDrawerActionsMenuProps {
 
 function ProjectTaskDrawerActionsMenu({ anchorEl, onClose, taskId }: ProjectTaskDrawerActionsMenuProps) {
   const theme = useTheme()
+  const { enqueueSnackbar } = useSnackbar()
 
   const handleDuplicateTask = () => {
+    enqueueSnackbar('Task duplicated!', { variant: 'info' })
     onClose()
   }
 
   const [deleteProjectTask] = useDeleteProjectTaskMutation()
   const handleDeleteTask = () => {
-    deleteProjectTask({ id: taskId }).unwrap()
+    deleteProjectTask({ id: taskId })
+    enqueueSnackbar('Task deleted!')
     onClose()
   }
 

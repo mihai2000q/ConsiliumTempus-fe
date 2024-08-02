@@ -1,7 +1,12 @@
 import { api } from "../../../state/api.ts";
 import TagTypes from "../../../utils/enums/TagTypes.ts";
 import Urls from "../../../utils/enums/Urls.ts";
-import { DeleteProjectRequest, GetProjectRequest, UpdateProjectRequest, } from "../types/Project.request.ts";
+import {
+  DeleteProjectRequest,
+  GetProjectRequest,
+  UpdateFavoritesProjectRequest,
+  UpdateProjectRequest,
+} from "../types/Project.request.ts";
 import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
 import { GetProjectSprintsRequest } from "../types/ProjectSprint.request.ts";
 import ProjectResponse from "../types/Project.response.ts";
@@ -16,6 +21,14 @@ export const projectApiSlice = api.injectEndpoints({
     updateProject: builder.mutation<HttpMessageResponse, UpdateProjectRequest>({
       query: body => ({
         url: Urls.Projects,
+        method: 'PUT',
+        body: body
+      }),
+      invalidatesTags: [TagTypes.Projects]
+    }),
+    updateFavoritesProject: builder.mutation<HttpMessageResponse, UpdateFavoritesProjectRequest>({
+      query: body => ({
+        url: `${Urls.Projects}/favorites`,
         method: 'PUT',
         body: body
       }),
@@ -41,7 +54,8 @@ export const projectApiSlice = api.injectEndpoints({
 
 export const {
   useGetProjectQuery,
-  useGetProjectSprintsQuery,
   useUpdateProjectMutation,
+  useUpdateFavoritesProjectMutation,
   useDeleteProjectMutation,
+  useGetProjectSprintsQuery,
 } = projectApiSlice

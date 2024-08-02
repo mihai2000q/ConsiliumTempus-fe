@@ -14,6 +14,7 @@ import {
 } from "@mui/icons-material";
 import { MouseEventHandler, ReactNode } from "react";
 import { useDeleteProjectMutation, useUpdateProjectMutation } from "../state/workspaceProjectsApi.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -40,6 +41,7 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
   const theme = useTheme()
 
   const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
 
   const [updateProject] = useUpdateProjectMutation()
   const [deleteProject] = useDeleteProjectMutation()
@@ -56,9 +58,9 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
     updateProject({
       id: project.id,
       name: project.name,
-      lifecycle: ProjectLifecycle.Active,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Active
+    })
+    enqueueSnackbar("Project unarchived!", { variant: 'info' })
     onClose()
   }
   const handleArchiveProject = () => {
@@ -66,8 +68,8 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
       id: project.id,
       name: project.name,
       lifecycle: ProjectLifecycle.Archived,
-      isFavorite: project.isFavorite
-    }).unwrap()
+    })
+    enqueueSnackbar("Project has been archived", { variant: 'info' })
     onClose()
   }
 
@@ -75,24 +77,25 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
     updateProject({
       id: project.id,
       name: project.name,
-      lifecycle: ProjectLifecycle.Active,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Active
+    })
+    enqueueSnackbar("Project unset from 'Upcoming'", { variant: 'info' })
     onClose()
   }
   const handleSetUpcomingProject = () => {
     updateProject({
       id: project.id,
       name: project.name,
-      lifecycle: ProjectLifecycle.Upcoming,
-      isFavorite: project.isFavorite
-    }).unwrap()
+      lifecycle: ProjectLifecycle.Upcoming
+    })
+    enqueueSnackbar("Project set to 'Upcoming'", { variant: 'info' })
     onClose()
   }
 
   const handleDeleteProject = async () => {
     onClose()
     await deleteProject({ id: project.id })
+    enqueueSnackbar("Project deleted successfully!", { variant: 'success' })
     navigate(Paths.Projects)
   }
 
