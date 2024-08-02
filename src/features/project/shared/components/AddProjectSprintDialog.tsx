@@ -51,8 +51,7 @@ function AddProjectSprintDialog() {
   const onClose = () => dispatch(closeAddProjectSprintDialog())
 
   const [addProjectSprint, {
-    isLoading,
-    isError
+    isLoading
   }] = useAddProjectSprintMutation()
 
   const {
@@ -95,7 +94,6 @@ function AddProjectSprintDialog() {
           description: values.projectStatusDescription
         }
     })
-    if (isError) return
     resetForm()
     onClose()
   }

@@ -28,7 +28,7 @@ interface AddProjectDialogProps {
 }
 
 function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) {
-  const [addProject, { isError, isLoading }] = useAddProjectMutation()
+  const [addProject, { isLoading }] = useAddProjectMutation()
 
   const {
     values,
@@ -53,7 +53,6 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
       workspaceId: values.workspaceId!,
       name: values.projectName
     }).unwrap()
-    if (isError) return
     resetForm()
     onClose()
   }

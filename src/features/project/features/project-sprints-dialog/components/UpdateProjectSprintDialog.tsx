@@ -45,7 +45,6 @@ function UpdateProjectSprintDialog({
 
   const [updateProjectSprint, {
     isLoading,
-    isError
   }] = useUpdateProjectSprintMutation()
 
   const [startDate, setStartDate] = useState<Dayjs | null>(dayjs())
@@ -79,7 +78,6 @@ function UpdateProjectSprintDialog({
       startDate: startDate?.toJSON()?.split('T')[0],
       endDate: endDate?.toJSON()?.split('T')[0],
     })
-    if (isError) return
     onClose()
   }
 

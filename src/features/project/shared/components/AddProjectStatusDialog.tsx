@@ -45,8 +45,7 @@ function AddProjectStatusDialog({
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
   const [addStatusToProject, {
-    isLoading,
-    isError
+    isLoading
   }] = useAddStatusToProjectMutation()
 
   const [statusType, setStatusType] = useState(ProjectStatusType.OnTrack)
@@ -75,7 +74,6 @@ function AddProjectStatusDialog({
       status: statusType,
       description: values.projectStatusDescription
     })
-    if (isError) return
     resetForm()
     onClose()
   }

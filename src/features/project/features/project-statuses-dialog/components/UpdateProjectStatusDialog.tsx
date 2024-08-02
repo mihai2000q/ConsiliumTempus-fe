@@ -46,8 +46,7 @@ function UpdateProjectStatusDialog({
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
   const [updateStatusFromProject, {
-    isLoading,
-    isError
+    isLoading
   }] = useUpdateStatusFromProjectMutation()
 
   const [statusType, setStatusType] = useState(ProjectStatusType.OnTrack)
@@ -79,7 +78,6 @@ function UpdateProjectStatusDialog({
       status: statusType,
       description: values.projectStatusDescription
     })
-    if (isError) return
     onClose()
   }
 

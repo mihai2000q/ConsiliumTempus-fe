@@ -11,7 +11,7 @@ interface AddWorkspaceDialogProps {
 }
 
 function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
-  const [addWorkspace, { isError, isLoading }] = useAddWorkspaceMutation()
+  const [addWorkspace, { isLoading }] = useAddWorkspaceMutation()
 
   const {
     values,
@@ -31,7 +31,6 @@ function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
     await addWorkspace({
       name: values.workspaceName
     }).unwrap()
-    if (isError) return
     resetForm()
     onClose()
   }
