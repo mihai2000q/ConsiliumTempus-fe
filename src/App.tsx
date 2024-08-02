@@ -21,6 +21,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import Workspaces from "./features/workspaces/Workspaces.tsx";
 import WorkspaceParams from "./features/workspace/utils/WorkspaceParams.ts";
 import Workspace from "./features/workspace/Workspace.tsx";
+import SnackbarProvider from "./providers/SnackbarProvider.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -33,23 +34,25 @@ function App() {
       <BrowserRouter>
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <ThemeProvider theme={theme}>
-            <CssBaseline enableColorScheme />
-            <Routes>
-              <Route element={<Layout />}>
-                <Route path={'/'} element={<Navigate to={'/login'} replace />} />
-                <Route path={Paths.Login} element={<Login />} />
-                <Route path={Paths.Signup} element={<Signup />} />
+            <SnackbarProvider>
+              <CssBaseline enableColorScheme />
+              <Routes>
+                <Route element={<Layout />}>
+                  <Route path={'/'} element={<Navigate to={'/login'} replace />} />
+                  <Route path={Paths.Login} element={<Login />} />
+                  <Route path={Paths.Signup} element={<Signup />} />
 
-                <Route path={Paths.Home} element={<Home />} />
-                <Route path={Paths.Tasks} element={<MyTasks />} />
-                <Route path={Paths.Calendar} element={<Calendar />} />
-                <Route path={Paths.Projects} element={<Projects />} />
-                <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
-                <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
-                <Route path={Paths.Workspaces} element={<Workspaces />} />
-                <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
-              </Route>
-            </Routes>
+                  <Route path={Paths.Home} element={<Home />} />
+                  <Route path={Paths.Tasks} element={<MyTasks />} />
+                  <Route path={Paths.Calendar} element={<Calendar />} />
+                  <Route path={Paths.Projects} element={<Projects />} />
+                  <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
+                  <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
+                  <Route path={Paths.Workspaces} element={<Workspaces />} />
+                  <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
+                </Route>
+              </Routes>
+            </SnackbarProvider>
           </ThemeProvider>
         </LocalizationProvider>
       </BrowserRouter>
