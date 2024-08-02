@@ -4,6 +4,7 @@ import { useFormik } from "formik";
 import { addWorkspaceDialogFormInitialValues } from "../state/sidebarState.ts";
 import { addWorkspaceDialogSchema } from "../state/sidebarValidation.ts";
 import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
+import { useSnackbar } from "notistack";
 
 interface AddWorkspaceDialogProps {
   open: boolean,
@@ -27,11 +28,14 @@ function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
     onSubmit: handleSubmitForm
   })
 
+  const { enqueueSnackbar } = useSnackbar()
+
   async function handleSubmitForm() {
     await addWorkspace({
       name: values.workspaceName
     }).unwrap()
     resetForm()
+    enqueueSnackbar('Workspace created successfully!')
     onClose()
   }
 

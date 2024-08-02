@@ -6,6 +6,7 @@ import ProjectStatus from "../types/ProjectStatus.model.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../state/store.ts";
 import { useRemoveStatusFromProjectMutation } from "../state/projectStatusesDialogApi.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectStatusActionsMenuItemProps {
   children: ReactNode,
@@ -41,6 +42,8 @@ function ProjectStatusActionsMenu({
 }: ProjectStatusActionsMenuProps) {
   const projectId = useSelector((state: RootState) => state.project.projectId)
 
+  const { enqueueSnackbar } = useSnackbar()
+
   const [isUpdateProjectStatusDialogOpen, setIsUpdateProjectStatusDialogOpen] = useState(false)
   const handleCloseUpdateProjectStatusDialog = () => setIsUpdateProjectStatusDialogOpen(false)
 
@@ -56,6 +59,7 @@ function ProjectStatusActionsMenu({
       id: projectId,
       statusId: projectStatus.id
     })
+    enqueueSnackbar("Status deleted successfully!", { variant: 'success' })
   }
 
   return (

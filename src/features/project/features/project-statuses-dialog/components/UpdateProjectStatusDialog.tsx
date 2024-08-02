@@ -28,6 +28,7 @@ import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
 import { useUpdateStatusFromProjectMutation } from "../state/projectStatusesDialogApi.ts";
 import { updateProjectStatusDialogSchema } from "../state/projectStatusesDialogValidation.ts";
 import { updateProjectStatusDialogFormInitialValues } from "../state/projectStatusesDialogState.ts";
+import { useSnackbar } from "notistack";
 
 interface UpdateProjectStatusDialogProps {
   open: boolean,
@@ -70,6 +71,8 @@ function UpdateProjectStatusDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialProjectStatus])
 
+  const { enqueueSnackbar } = useSnackbar()
+
   async function handleSubmitForm() {
     await updateStatusFromProject({
       id: projectId,
@@ -78,6 +81,7 @@ function UpdateProjectStatusDialog({
       status: statusType,
       description: values.projectStatusDescription
     }).unwrap()
+    enqueueSnackbar('Project status updated successfully!')
     onClose()
   }
 

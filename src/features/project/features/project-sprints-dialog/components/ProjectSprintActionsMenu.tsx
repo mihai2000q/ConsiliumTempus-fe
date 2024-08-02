@@ -4,6 +4,7 @@ import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
 import UpdateProjectSprintDialog from "./UpdateProjectSprintDialog.tsx";
 import ProjectSprint from "../types/ProjectSprint.model.ts";
 import { useDeleteProjectSprintMutation } from "../state/projectSprintsDialogApi.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectSprintActionsMenuItemProps {
   children: ReactNode,
@@ -42,6 +43,8 @@ function ProjectSprintActionsMenu({
 
   const [deleteProjectSprint] = useDeleteProjectSprintMutation()
 
+  const { enqueueSnackbar } = useSnackbar()
+
   function handleUpdate() {
     onClose()
     setIsUpdateProjectSprintDialogOpen(true)
@@ -49,6 +52,7 @@ function ProjectSprintActionsMenu({
   async function handleDelete() {
     onClose()
     deleteProjectSprint({ id: sprintId })
+    enqueueSnackbar("Sprint deleted successfully!", { variant: 'success' })
   }
 
   return (

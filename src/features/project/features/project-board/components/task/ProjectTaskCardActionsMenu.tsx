@@ -5,6 +5,7 @@ import { useDeleteProjectTaskMutation, useUpdateIsCompletedProjectTaskMutation }
 import { useNavigate } from "react-router-dom";
 import Paths from "../../../../../../utils/enums/Paths.ts";
 import ProjectTask from "../../types/ProjectTask.model.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
@@ -38,6 +39,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
   const theme = useTheme()
 
   const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
 
   const [updateIsCompletedProjectTask] = useUpdateIsCompletedProjectTaskMutation()
   const [deleteProjectTask] = useDeleteProjectTaskMutation()
@@ -49,9 +51,11 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
   const handleCopyTaskLink = () => {
     onClose()
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${task.id}`).then()
+    enqueueSnackbar("Task copied on clipboard!", { variant: 'info' })
   }
   const handleDuplicateTask = () => {
     onClose()
+    enqueueSnackbar("Task duplicated!", { variant: 'info' })
   }
   const handleMarkCompleteTask = () => {
     updateIsCompletedProjectTask({
@@ -69,6 +73,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
   }
   const handleDeleteTask = () => {
     deleteProjectTask({ id: task.id, stageId: stageId })
+    enqueueSnackbar("Task deleted")
     onClose()
   }
 

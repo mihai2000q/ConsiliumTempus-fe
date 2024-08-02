@@ -18,6 +18,7 @@ import { MouseEventHandler, ReactNode } from "react";
 import Project from "../types/Project.model.ts";
 import { useDeleteProjectMutation, useUpdateProjectMutation } from "../state/projectApi.ts";
 import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -50,6 +51,7 @@ function ProjectActionsMenu({
   const theme = useTheme()
 
   const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
 
   const [updateProject] = useUpdateProjectMutation()
   const [deleteProject] = useDeleteProjectMutation()
@@ -77,6 +79,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
+    enqueueSnackbar("Project unarchived!", { variant: 'info' })
     onClose()
   }
   const handleArchiveProject = () => {
@@ -85,6 +88,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Archived
     })
+    enqueueSnackbar("Project has been archived!", { variant: 'info' })
     onClose()
   }
 
@@ -94,6 +98,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
+    enqueueSnackbar("Project unset from 'Upcoming'", { variant: 'info' })
     onClose()
   }
   const handleSetUpcomingProject = () => {
@@ -102,6 +107,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Upcoming
     })
+    enqueueSnackbar("Project set to 'Upcoming'", { variant: 'info' })
     onClose()
   }
 
@@ -109,6 +115,7 @@ function ProjectActionsMenu({
     onClose()
     await deleteProject({ id: projectId })
     navigate(Paths.Projects)
+    enqueueSnackbar("Project has been deleted!", { variant: 'success' })
   }
 
   return (

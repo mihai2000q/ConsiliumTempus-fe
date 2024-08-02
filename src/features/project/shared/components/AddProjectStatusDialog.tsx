@@ -27,6 +27,7 @@ import LoadingButton from "../../../../components/button/LoadingButton.tsx";
 import { addProjectStatusDialogSchema } from "../state/sharedProjectValidation.ts";
 import { addProjectStatusDialogFormInitialValues } from "../state/sharedProjectState.ts";
 import { useAddStatusToProjectMutation } from "../state/sharedProjectApi.ts";
+import { useSnackbar } from "notistack";
 
 interface AddProjectStatusDialogProps {
   open: boolean,
@@ -67,6 +68,8 @@ function AddProjectStatusDialog({
     if (initialStatus) setStatusType(initialStatus)
   }, [initialStatus]);
 
+  const { enqueueSnackbar } = useSnackbar()
+
   async function handleSubmitForm() {
     await addStatusToProject({
       id: projectId,
@@ -75,6 +78,7 @@ function AddProjectStatusDialog({
       description: values.projectStatusDescription
     }).unwrap()
     resetForm()
+    enqueueSnackbar('Successfully updated project status!')
     onClose()
   }
 

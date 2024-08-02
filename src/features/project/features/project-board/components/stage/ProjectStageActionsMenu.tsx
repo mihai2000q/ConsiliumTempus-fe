@@ -4,6 +4,7 @@ import { DeleteOutlined, East, Edit, ElectricBolt, PlaylistAdd, West } from "@mu
 import { useRemoveStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../../state/store.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectStageActionsMenuItemProps {
   icon: ReactNode,
@@ -37,6 +38,8 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
 
   const sprintId = useSelector((state: RootState) => state.project.sprintId)
 
+  const { enqueueSnackbar } = useSnackbar()
+
   const handleAddRuleToStage = () => {
     onClose()
   }
@@ -54,6 +57,7 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
   const handleDeleteStage = () => {
     removeStageFromProjectSprint({ id: sprintId, stageId })
     onClose()
+    enqueueSnackbar("Stage deleted successfully!", { variant: 'success' })
   }
 
   return (

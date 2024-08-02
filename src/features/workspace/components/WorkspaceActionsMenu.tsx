@@ -4,6 +4,7 @@ import Paths from "../../../utils/enums/Paths.ts";
 import { useNavigate } from "react-router-dom";
 import { MouseEventHandler, ReactNode } from "react";
 import { useDeleteWorkspaceMutation } from "../state/workspaceApi.ts";
+import { useSnackbar } from "notistack";
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -34,6 +35,7 @@ function WorkspaceActionsMenu({
   const theme = useTheme()
 
   const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
 
   const [deleteWorkspace] = useDeleteWorkspaceMutation()
 
@@ -46,9 +48,10 @@ function WorkspaceActionsMenu({
   const handleAddWorkspaceToPortfolio = () => {
     onClose()
   }
-  const handleDeleteProject = async () => {
+  const handleDeleteWorkspace = async () => {
     onClose()
     await deleteWorkspace({ id: workspaceId })
+    enqueueSnackbar("Workspace deleted successfully!", { variant: 'success' })
     navigate(Paths.Workspaces)
   }
 
@@ -66,7 +69,7 @@ function WorkspaceActionsMenu({
       <WorkspaceActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
-        onClick={handleDeleteProject}>
+        onClick={handleDeleteWorkspace}>
         Delete Workspace
       </WorkspaceActionsMenuItem>
     </Menu>

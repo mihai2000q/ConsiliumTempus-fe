@@ -26,7 +26,7 @@ const DefaultMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) =
 
 const SuccessMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({
   '&.notistack-MuiContent-success': {
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.success.dark : theme.palette.success.light,
+    backgroundColor: theme.palette.mode === 'dark' ? '#526863' : '#429887',
   },
 }))
 

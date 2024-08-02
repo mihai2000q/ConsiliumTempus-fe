@@ -27,6 +27,7 @@ import { DatePicker } from "@mui/x-date-pickers";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../state/store.ts";
 import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
+import { useSnackbar } from "notistack";
 
 interface UpdateProjectSprintDialogProps {
   open: boolean,
@@ -71,6 +72,8 @@ function UpdateProjectSprintDialog({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialProjectSprint]);
 
+  const { enqueueSnackbar } = useSnackbar()
+
   async function handleSubmitForm() {
     await updateProjectSprint({
       id: sprintId,
@@ -78,6 +81,7 @@ function UpdateProjectSprintDialog({
       startDate: startDate?.toJSON()?.split('T')[0],
       endDate: endDate?.toJSON()?.split('T')[0],
     }).unwrap()
+    enqueueSnackbar('Sprint updated successfully!')
     onClose()
   }
 

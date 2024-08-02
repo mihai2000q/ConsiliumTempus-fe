@@ -20,6 +20,7 @@ import { useAddProjectMutation } from "../state/sidebarApi.ts";
 import { People } from "@mui/icons-material";
 import { useEffect } from "react";
 import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
+import { useSnackbar } from "notistack";
 
 interface AddProjectDialogProps {
   workspaces: Workspace[] | undefined,
@@ -48,11 +49,14 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
     if (values.workspaceId === undefined) values.workspaceId = workspaces && workspaces[0].id
   }, [values, workspaces])
 
+  const { enqueueSnackbar } = useSnackbar()
+
   async function handleSubmitForm() {
     await addProject({
       workspaceId: values.workspaceId!,
       name: values.projectName
     }).unwrap()
+    enqueueSnackbar('Project created successfully!')
     resetForm()
     onClose()
   }
