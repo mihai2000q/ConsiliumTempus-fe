@@ -15,9 +15,14 @@ export interface AddProjectTaskRequest {
 export interface UpdateProjectTaskRequest {
   id: string,
   name: string,
-  isCompleted: boolean,
   assigneeId: string | null
 }
+
+export interface UpdateIsCompletedProjectTaskRequest {
+  id: string,
+  isCompleted: boolean
+}
+
 
 export interface MoveProjectTaskRequest {
   sprintId: string,

@@ -1,7 +1,7 @@
 import { MouseEventHandler, ReactNode } from "react";
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
 import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
-import { useDeleteProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
+import { useDeleteProjectTaskMutation, useUpdateIsCompletedProjectTaskMutation } from "../../state/projectBoardApi.ts";
 import { useNavigate } from "react-router-dom";
 import Paths from "../../../../../../utils/enums/Paths.ts";
 import ProjectTask from "../../types/ProjectTask.model.ts";
@@ -39,7 +39,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
 
   const navigate = useNavigate()
 
-  const [updateProjectTask] = useUpdateProjectTaskMutation()
+  const [updateIsCompletedProjectTask] = useUpdateIsCompletedProjectTaskMutation()
   const [deleteProjectTask] = useDeleteProjectTaskMutation()
 
   const handleViewDetails = () => {
@@ -54,20 +54,16 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
     onClose()
   }
   const handleMarkCompleteTask = () => {
-    updateProjectTask({
+    updateIsCompletedProjectTask({
       id: task.id,
-      name: task.name,
       isCompleted: true,
-      assigneeId: task.assignee?.id ?? null
     })
     onClose()
   }
   const handleMarkIncompleteTask = () => {
-    updateProjectTask({
+    updateIsCompletedProjectTask({
       id: task.id,
-      name: task.name,
       isCompleted: false,
-      assigneeId: task.assignee?.id ?? null
     })
     onClose()
   }

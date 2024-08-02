@@ -13,7 +13,7 @@ import {
   AddProjectTaskRequest,
   DeleteProjectTaskRequest,
   GetProjectTasksQueryParameters,
-  MoveProjectTaskRequest,
+  MoveProjectTaskRequest, UpdateIsCompletedProjectTaskRequest,
   UpdateProjectTaskRequest
 } from "../types/ProjectTask.request.ts";
 import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
@@ -78,6 +78,14 @@ export const projectBoardApiSlice = api.injectEndpoints({
       }),
       invalidatesTags: [TagTypes.ProjectTasks]
     }),
+    updateIsCompletedProjectTask: builder.mutation<HttpMessageResponse, UpdateIsCompletedProjectTaskRequest>({
+      query: body => ({
+        url: `${Urls.ProjectTasks}/is-completed`,
+        method: 'PUT',
+        body: body
+      }),
+      invalidatesTags: [TagTypes.ProjectTasks]
+    }),
     moveProjectTask: builder.mutation<HttpMessageResponse, MoveProjectTaskRequest>({
       query: body => ({
         url: `${Urls.ProjectTasks}/move`,
@@ -106,6 +114,7 @@ export const {
   useLazyGetProjectTasksQuery,
   useAddProjectTaskMutation,
   useUpdateProjectTaskMutation,
+  useUpdateIsCompletedProjectTaskMutation,
   useMoveProjectTaskMutation,
   useDeleteProjectTaskMutation,
 } = projectBoardApiSlice
