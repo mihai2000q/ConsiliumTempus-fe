@@ -63,7 +63,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 }
 
 const errorCodeToPathname = new Map<number | string, string>([
-  [403, Paths.Unauthorized]
+  [403, Paths.Unauthorized],
+  [404, Paths.NotFound]
 ])
 
 const queryWithRedirection: BaseQueryFn<

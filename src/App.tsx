@@ -25,6 +25,7 @@ import SnackbarProvider from "./providers/SnackbarProvider.tsx";
 import RequireAuthentication from "./security/RequireAuthentication.tsx";
 import IsAlreadyAuthenticated from "./security/IsAlreadyAuthenticated.tsx";
 import Unauthorized from "./features/unauthorized/Unauthorized.tsx";
+import NotFound from "./features/not-found/NotFound.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -58,6 +59,8 @@ function App() {
                     <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
                     {/* Errors */}
                     <Route path={Paths.Unauthorized} element={<Unauthorized />} />
+                    <Route path={Paths.NotFound} element={<NotFound />} />
+                    <Route path={'*'} element={<Navigate to={Paths.NotFound} replace />} />
                   </Route>
                 </Route>
               </Routes>
