@@ -7,6 +7,8 @@ import Urls from "../utils/enums/Urls.ts";
 import { Mutex } from 'async-mutex'
 import Paths from "../utils/enums/Paths.ts";
 import { setErrorPath } from "./global/globalSlice.ts";
+import { enqueueSnackbar } from "notistack";
+import HttpErrorResponse from "../types/responses/HttpError.response.ts";
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
@@ -64,7 +66,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
 const errorCodeToPathname = new Map<number | string, string>([
   [403, Paths.Unauthorized],
-  [404, Paths.NotFound]
+  [404, Paths.NotFound],
 ])
 
 const queryWithRedirection: BaseQueryFn<
@@ -73,9 +75,18 @@ const queryWithRedirection: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   const result = await baseQueryWithRefreshToken(args, api, extraOptions)
-  const errorStatus = result?.error?.status ?? 0
+  const error = result?.error as HttpErrorResponse | undefined | null
+  const errorStatus = error?.status ?? 0
   if (errorCodeToPathname.has(errorStatus)) {
     api.dispatch(setErrorPath(errorCodeToPathname.get(errorStatus)))
+  } else if (errorStatus === 400) {
+    enqueueSnackbar(
+      `ERROR 400: ${error?.data?.title}! Reason: ${JSON.stringify(error?.data?.errors)}`,
+      {
+        persist: true,
+        variant: 'error'
+      }
+    )
   }
   return result
 }
