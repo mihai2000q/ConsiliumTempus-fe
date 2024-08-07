@@ -1,16 +1,15 @@
 import { Stack } from "@mui/material";
 import Topbar from "./features/topbar/Topbar.tsx";
 import Sidebar from "./features/sidebar/Sidebar.tsx";
-import { Outlet, useLocation } from "react-router-dom";
-import Paths from "../../utils/enums/Paths.ts";
 import { useState } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import Main from "./components/Main.tsx";
+import useAuth from "../../hooks/useAuth.ts";
 
 const drawerWidth = 250
 
 function Layout() {
-  const location = useLocation()
-  const isLayoutHidden = handleIsLayoutHidden(location.pathname)
+  const isLayoutHidden = !useAuth()
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 
@@ -39,10 +38,6 @@ function Layout() {
       </Stack>
     </Stack>
   );
-}
-
-function handleIsLayoutHidden(path: string): boolean {
-  return path === Paths.Login || path === Paths.Signup
 }
 
 export default Layout;

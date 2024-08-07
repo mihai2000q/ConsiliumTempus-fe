@@ -1,12 +1,10 @@
-import { useAppSelector } from "../state/store.ts";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import Paths from "../utils/enums/Paths.ts";
+import useAuth from "../hooks/useAuth.ts";
 
 function RequireAuthentication() {
-  const token = useAppSelector(state => state.auth.token)
-  const isAuthenticated = token !== null
-
   const location = useLocation()
+  const isAuthenticated = useAuth()
 
   return (
     isAuthenticated
