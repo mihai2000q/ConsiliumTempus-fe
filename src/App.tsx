@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Layout from "./features/layout/Layout.tsx";
 import Login from "./features/login/Login.tsx";
@@ -40,6 +40,7 @@ function App() {
               <CssBaseline enableColorScheme />
               <Routes>
                 <Route element={<Layout />}>
+                  <Route path={'/'} element={<Navigate to={Paths.Home} replace />} />
                   <Route element={<IsAlreadyAuthenticated />}>
                     <Route path={Paths.Login} element={<Login />} />
                     <Route path={Paths.Signup} element={<Signup />} />
