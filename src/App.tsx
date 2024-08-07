@@ -24,6 +24,7 @@ import Workspace from "./features/workspace/Workspace.tsx";
 import SnackbarProvider from "./providers/SnackbarProvider.tsx";
 import RequireAuthentication from "./security/RequireAuthentication.tsx";
 import IsAlreadyAuthenticated from "./security/IsAlreadyAuthenticated.tsx";
+import Unauthorized from "./features/unauthorized/Unauthorized.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -55,6 +56,8 @@ function App() {
                     <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
                     <Route path={Paths.Workspaces} element={<Workspaces />} />
                     <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
+                    {/* Errors */}
+                    <Route path={Paths.Unauthorized} element={<Unauthorized />} />
                   </Route>
                 </Route>
               </Routes>

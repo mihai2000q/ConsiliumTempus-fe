@@ -1,6 +1,7 @@
 enum Paths {
   Login = '/login',
   Signup = '/signup',
+  Unauthorized = '/403',
   Home = '/home',
   Tasks = '/my-tasks',
   Calendar = '/calendar',
