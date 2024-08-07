@@ -22,8 +22,8 @@ import Workspaces from "./features/workspaces/Workspaces.tsx";
 import WorkspaceParams from "./features/workspace/utils/WorkspaceParams.ts";
 import Workspace from "./features/workspace/Workspace.tsx";
 import SnackbarProvider from "./providers/SnackbarProvider.tsx";
-import RequireAuthentication from "./security/RequireAuthentication.tsx";
-import IsAlreadyAuthenticated from "./security/IsAlreadyAuthenticated.tsx";
+import RequireAuthentication from "./router/RequireAuthentication.tsx";
+import IsAlreadyAuthenticated from "./router/IsAlreadyAuthenticated.tsx";
 import Unauthorized from "./features/unauthorized/Unauthorized.tsx";
 import NotFound from "./features/not-found/NotFound.tsx";
 
