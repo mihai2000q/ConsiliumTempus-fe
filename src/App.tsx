@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Layout from "./features/layout/Layout.tsx";
 import Login from "./features/login/Login.tsx";
@@ -22,6 +22,8 @@ import Workspaces from "./features/workspaces/Workspaces.tsx";
 import WorkspaceParams from "./features/workspace/utils/WorkspaceParams.ts";
 import Workspace from "./features/workspace/Workspace.tsx";
 import SnackbarProvider from "./providers/SnackbarProvider.tsx";
+import RequireAuthentication from "./security/RequireAuthentication.tsx";
+import IsAlreadyAuthenticated from "./security/IsAlreadyAuthenticated.tsx";
 
 function App() {
   const mode = useSelector((state: RootState) => state.global.mode)
@@ -38,18 +40,21 @@ function App() {
               <CssBaseline enableColorScheme />
               <Routes>
                 <Route element={<Layout />}>
-                  <Route path={'/'} element={<Navigate to={'/login'} replace />} />
-                  <Route path={Paths.Login} element={<Login />} />
-                  <Route path={Paths.Signup} element={<Signup />} />
+                  <Route element={<IsAlreadyAuthenticated />}>
+                    <Route path={Paths.Login} element={<Login />} />
+                    <Route path={Paths.Signup} element={<Signup />} />
+                  </Route>
 
-                  <Route path={Paths.Home} element={<Home />} />
-                  <Route path={Paths.Tasks} element={<MyTasks />} />
-                  <Route path={Paths.Calendar} element={<Calendar />} />
-                  <Route path={Paths.Projects} element={<Projects />} />
-                  <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
-                  <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
-                  <Route path={Paths.Workspaces} element={<Workspaces />} />
-                  <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
+                  <Route element={<RequireAuthentication />}>
+                    <Route path={Paths.Home} element={<Home />} />
+                    <Route path={Paths.Tasks} element={<MyTasks />} />
+                    <Route path={Paths.Calendar} element={<Calendar />} />
+                    <Route path={Paths.Projects} element={<Projects />} />
+                    <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
+                    <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
+                    <Route path={Paths.Workspaces} element={<Workspaces />} />
+                    <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
+                  </Route>
                 </Route>
               </Routes>
             </SnackbarProvider>
