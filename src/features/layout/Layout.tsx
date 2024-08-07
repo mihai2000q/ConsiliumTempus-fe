@@ -1,15 +1,18 @@
 import { Stack } from "@mui/material";
 import Topbar from "./features/topbar/Topbar.tsx";
 import Sidebar from "./features/sidebar/Sidebar.tsx";
+import { Outlet } from "react-router-dom";
 import { useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
 import Main from "./components/Main.tsx";
 import useAuth from "../../hooks/useAuth.ts";
+import useErrorRedirection from "../../hooks/useErrorRedirection.ts";
 
 const drawerWidth = 250
 
 function Layout() {
   const isLayoutHidden = !useAuth()
+
+  useErrorRedirection()
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
 

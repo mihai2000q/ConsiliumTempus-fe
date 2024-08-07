@@ -5,6 +5,8 @@ import { RootState } from "./store.ts";
 import TagTypes from "../utils/enums/TagTypes.ts";
 import Urls from "../utils/enums/Urls.ts";
 import { Mutex } from 'async-mutex'
+import Paths from "../utils/enums/Paths.ts";
+import { setErrorPath } from "./global/globalSlice.ts";
 
 const mutex = new Mutex()
 const baseQuery = fetchBaseQuery({
@@ -60,13 +62,30 @@ const baseQueryWithRefreshToken: BaseQueryFn<
   return result
 }
 
+const errorCodeToPathname = new Map<number | string, string>([
+  [403, Paths.Unauthorized]
+])
+
+const queryWithRedirection: BaseQueryFn<
+  string | FetchArgs,
+  unknown,
+  FetchBaseQueryError
+> = async (args, api, extraOptions) => {
+  const result = await baseQueryWithRefreshToken(args, api, extraOptions)
+  const errorStatus = result?.error?.status ?? 0
+  if (errorCodeToPathname.has(errorStatus)) {
+    api.dispatch(setErrorPath(errorCodeToPathname.get(errorStatus)))
+  }
+  return result
+}
+
 function isAuthRequest(args: string | FetchArgs) {
   return typeof args === "string" && args.includes(Urls.Auth) ||
     typeof args === 'object' && args.url.includes(Urls.Auth)
 }
 
 export const api = createApi({
-  baseQuery: baseQueryWithRefreshToken,
+  baseQuery: queryWithRedirection,
   reducerPath: 'api',
   tagTypes: [...Object.values(TagTypes)],
   endpoints: (build) => ({

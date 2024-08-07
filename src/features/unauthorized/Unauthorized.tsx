@@ -4,7 +4,7 @@ function Unauthorized() {
   return (
     <Stack>
       <Typography variant={"h1"} fontSize={150} fontWeight={600}>403</Typography>
-      <Typography>You are not allowed to access this page.</Typography>
+      <Typography>You are not authorized to access this page.</Typography>
     </Stack>
   );
 }
