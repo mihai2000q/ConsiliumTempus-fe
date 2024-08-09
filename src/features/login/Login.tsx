@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { useLoginMutation } from "./state/loginApi.ts";
 import { LoginForm, loginFormInitialValues } from "./state/loginState.ts";
 import { setRefreshToken, setToken } from "../../state/auth/authSlice.ts";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Paths from "../../utils/enums/Paths.ts";
 import HttpErrorResponse from "../../types/responses/HttpError.response.ts";
 
@@ -27,6 +27,7 @@ function Login() {
   const loginError = (error as HttpErrorResponse | undefined)?.data
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   const {
     values,
@@ -48,7 +49,7 @@ function Login() {
 
       dispatch(setToken(res.token))
       dispatch(setRefreshToken(res.refreshToken))
-      navigate(Paths.Home)
+      navigate(location.state?.from?.pathname ?? Paths.Home)
     } catch (e) { /* empty */ }
   }
 

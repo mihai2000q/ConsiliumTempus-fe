@@ -30,6 +30,12 @@ const SuccessMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) =
   },
 }))
 
+const ErrorMaterialDesignContent = styled(MaterialDesignContent)(() => ({
+  '&.notistack-MuiContent-error': {
+    maxWidth: 500,
+  }
+}))
+
 const InfoMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({
   '&.notistack-MuiContent-info': {
     backgroundColor: theme.palette.primary.main,
@@ -42,6 +48,7 @@ function SnackbarProvider({ children }: { children: ReactNode }) {
       Components={{
         default: DefaultMaterialDesignContent,
         success: SuccessMaterialDesignContent,
+        error: ErrorMaterialDesignContent,
         info: InfoMaterialDesignContent,
       }}
       action={snackbarKey => <SnackbarCloseButton snackbarKey={snackbarKey} /> }>
