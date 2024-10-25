@@ -43,6 +43,7 @@ function App() {
               <Routes>
                 <Route element={<Layout />}>
                   <Route path={'/'} element={<Navigate to={Paths.Home} replace />} />
+
                   <Route element={<IsAlreadyAuthenticated />}>
                     <Route path={Paths.Login} element={<Login />} />
                     <Route path={Paths.Signup} element={<Signup />} />

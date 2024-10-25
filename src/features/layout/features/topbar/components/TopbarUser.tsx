@@ -1,6 +1,4 @@
 import { Avatar, AvatarProps, Button, ButtonProps, Stack, styled } from "@mui/material";
-import User from "../types/User.model.ts";
-import { useGetCurrentUserQuery } from "../../../../../state/api.ts";
 import demoUserPic from '../../../../../assets/demo-user-pic.jpg'
 import { useEffect, useState } from "react";
 import { ArrowDropDownOutlined } from "@mui/icons-material";
@@ -9,6 +7,7 @@ import TopbarUserLoader from "./TopbarUserLoader.tsx";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../../../state/store.ts";
 import { setUserId } from "../../../../../state/global/globalSlice.ts";
+import { useGetCurrentUserQuery } from "../state/topbarApi.ts";
 
 const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: theme.palette.mode === 'dark' ? 'inherit' : theme.palette.grey[700],
@@ -31,10 +30,10 @@ const StyledAvatar = styled(Avatar)<AvatarProps>(({ theme }) => ({
 }))
 
 function TopbarUser() {
-  const user: User | undefined = useGetCurrentUserQuery(undefined).data
+  const user = useGetCurrentUserQuery().data
 
   const dispatch = useDispatch<AppDispatch>()
-  
+
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   useEffect(() => {
@@ -42,7 +41,7 @@ function TopbarUser() {
   }, [dispatch, user]) // TODO: Reference equality ?
 
   if (!user) return <TopbarUserLoader />
-  
+
   return (
     <>
       <StyledButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
