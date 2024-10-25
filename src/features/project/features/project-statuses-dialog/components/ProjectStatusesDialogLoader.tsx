@@ -1,4 +1,4 @@
-import { Dialog, Divider, Skeleton, Stack } from "@mui/material";
+import { Dialog, Divider, Skeleton, Stack } from '@mui/material'
 
 interface ProjectStatusesDialogLoaderProps {
   open: boolean,
@@ -21,7 +21,7 @@ function ProjectStatusesDialogLoader({ open, onClose }: ProjectStatusesDialogLoa
           <Skeleton variant={'circular'} width={30} height={30} />
         </Stack>
         <Divider flexItem />
-        <Stack direction={'row'} height={'100%'}  sx={{ overflowY: 'hidden' }}>
+        <Stack direction={'row'} height={'100%'} sx={{ overflowY: 'hidden' }}>
           <Stack width={280}>
             {Array.from(Array(7)).map((_, i) => (
               <div key={i}>
@@ -43,7 +43,7 @@ function ProjectStatusesDialogLoader({ open, onClose }: ProjectStatusesDialogLoa
         </Stack>
       </Stack>
     </Dialog>
-  );
+  )
 }
 
-export default ProjectStatusesDialogLoader;
+export default ProjectStatusesDialogLoader

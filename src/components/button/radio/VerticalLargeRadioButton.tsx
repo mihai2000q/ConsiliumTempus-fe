@@ -1,4 +1,4 @@
-import { alpha, Box, BoxProps, styled } from "@mui/material";
+import { alpha, Box, BoxProps, styled } from '@mui/material'
 
 interface ProjectStatusButtonProps extends BoxProps {
   isSelected: boolean
@@ -14,15 +14,15 @@ const VerticalLargeRadioButton = styled(Box, {
   borderRadius: 0,
   fontWeight: 600,
   transition: theme.transitions.create(['background-color', 'color'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   backgroundColor: 'transparent',
   color: theme.palette.text.secondary,
   '& .MuiTypography-body2': {
     transition: theme.transitions.create(['color'], {
-      duration: theme.transitions.duration.short,
+      duration: theme.transitions.duration.short
     }),
-    color: isSelected ? theme.palette.text.secondary : theme.palette.text.triadic,
+    color: isSelected ? theme.palette.text.secondary : theme.palette.text.triadic
   },
   '&: hover': {
     backgroundColor: alpha(theme.palette.background[100], 0.08),
@@ -36,9 +36,9 @@ const VerticalLargeRadioButton = styled(Box, {
     color: theme.palette.background[200],
     '&:hover': {
       backgroundColor: alpha(theme.palette.background[100], 0.13),
-      color: theme.palette.background[50],
+      color: theme.palette.background[50]
     }
   })
 }))
 
-export default VerticalLargeRadioButton;
+export default VerticalLargeRadioButton

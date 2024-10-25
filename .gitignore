@@ -21,3 +21,6 @@ dist-ssr
 
 # Environment Files
 .env
+
+# Typechecks info
+*.tsbuildinfo

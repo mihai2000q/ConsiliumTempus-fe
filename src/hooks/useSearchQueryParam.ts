@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
-import SearchQueryParamValue from "../types/SearchQueryParamValue.ts";
-import FilterOperator from "../utils/enums/FilterOperator.ts";
-import { Filter } from "../types/Filter.ts";
+import { useRef, useState } from 'react'
+import SearchQueryParamValue from '../types/SearchQueryParamValue.ts'
+import FilterOperator from '../utils/enums/FilterOperator.ts'
+import { Filter } from '../types/Filter.ts'
 
 interface FilterSearchQueryParam {
   property: string,
@@ -14,7 +14,7 @@ export type removeFromSearchQueryParamType = (filter: FilterSearchQueryParam | F
 
 export default function useSearchQueryParam(initialFilter: FilterSearchQueryParam | null = null): [
   searchQueryParam: string[],
-  addToSearchQueryParam:  addToSearchQueryParamType,
+  addToSearchQueryParam: addToSearchQueryParamType,
   removeFromSearchQueryParam: removeFromSearchQueryParamType
 ] {
   const propertyOperators = useRef(new Map<string, SearchQueryParamValue>(

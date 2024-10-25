@@ -1,9 +1,9 @@
-import { api } from "../../../../../state/api.ts";
-import Urls from "../../../../../utils/enums/Urls.ts";
-import TagTypes from "../../../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
-import WorkspaceOverview from "../types/WorkspaceOverview.model.ts";
-import { GetWorkspaceOverviewRequest, UpdateWorkspaceOverviewRequest } from "../types/WorkspaceOverview.request.ts";
+import { api } from '../../../../../state/api.ts'
+import Urls from '../../../../../utils/enums/Urls.ts'
+import TagTypes from '../../../../../utils/enums/TagTypes.ts'
+import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
+import WorkspaceOverview from '../types/WorkspaceOverview.model.ts'
+import { GetWorkspaceOverviewRequest, UpdateWorkspaceOverviewRequest } from '../types/WorkspaceOverview.request.ts'
 
 export const projectOverviewApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -18,7 +18,7 @@ export const projectOverviewApiSlice = api.injectEndpoints({
         body: body
       }),
       invalidatesTags: [TagTypes.WorkspaceOverview, TagTypes.Workspaces]
-    }),
+    })
   })
 })
 

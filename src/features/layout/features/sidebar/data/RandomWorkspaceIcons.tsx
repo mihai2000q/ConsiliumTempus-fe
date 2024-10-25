@@ -1,4 +1,4 @@
-import { Group, Groups, Groups2, Groups3, Workspaces } from "@mui/icons-material";
+import { Group, Groups, Groups2, Groups3, Workspaces } from '@mui/icons-material'
 
 const randomWorkspaceIcons = [
   <Workspaces />,
@@ -8,4 +8,4 @@ const randomWorkspaceIcons = [
   <Groups3 />
 ]
 
-export default randomWorkspaceIcons;
+export default randomWorkspaceIcons

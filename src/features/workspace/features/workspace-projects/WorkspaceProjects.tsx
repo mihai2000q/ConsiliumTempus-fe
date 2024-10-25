@@ -1,20 +1,20 @@
-import { Button, Card, CardContent, CardHeader, CircularProgress, Stack } from "@mui/material";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../state/store.ts";
-import useProjects from "./hooks/useProjects.ts";
-import WorkspaceProjectCard from "./components/WorkspaceProjectCard.tsx";
-import AddWorkspaceProjectCard from "./components/AddWorkspaceProjectCard.tsx";
-import { useState } from "react";
-import ProjectLifecycle from "../../../../utils/project/ProjectLifecycle.ts";
-import { FilterList, Sort } from "@mui/icons-material";
-import WorkspaceProjectsFilterMenu from "./components/WorkspaceProjectsFilterMenu.tsx";
-import WorkspaceProjectsLoader from "./components/WorkspaceProjectsLoader.tsx";
-import SimpleOrderMenu from "../../../../components/order/SimpleOrderMenu.tsx";
-import ProjectsOrderQueryParams from "./utils/ProjectsOrderQueryParams.ts";
-import OrderType from "../../../../utils/enums/OrderType.ts";
-import { projectOrderProperties } from "./data/ProjectOrderPropertiesData.tsx";
-import useOrderByQueryParam from "../../../../hooks/useOrderByQueryParam.ts";
-import Order from "../../../../types/Order.ts";
+import { Button, Card, CardContent, CardHeader, CircularProgress, Stack } from '@mui/material'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../state/store.ts'
+import useProjects from './hooks/useProjects.ts'
+import WorkspaceProjectCard from './components/WorkspaceProjectCard.tsx'
+import AddWorkspaceProjectCard from './components/AddWorkspaceProjectCard.tsx'
+import { useState } from 'react'
+import ProjectLifecycle from '../../../../utils/project/ProjectLifecycle.ts'
+import { FilterList, Sort } from '@mui/icons-material'
+import WorkspaceProjectsFilterMenu from './components/WorkspaceProjectsFilterMenu.tsx'
+import WorkspaceProjectsLoader from './components/WorkspaceProjectsLoader.tsx'
+import SimpleOrderMenu from '../../../../components/order/SimpleOrderMenu.tsx'
+import ProjectsOrderQueryParams from './utils/ProjectsOrderQueryParams.ts'
+import OrderType from '../../../../utils/enums/OrderType.ts'
+import { projectOrderProperties } from './data/ProjectOrderPropertiesData.tsx'
+import useOrderByQueryParam from '../../../../hooks/useOrderByQueryParam.ts'
+import Order from '../../../../types/Order.ts'
 
 function WorkspaceProjects() {
   const workspaceId = useSelector((state: RootState) => state.workspace.workspaceId)
@@ -42,7 +42,7 @@ function WorkspaceProjects() {
   if (!projects) return <WorkspaceProjectsLoader />
 
   return (
-    <Stack width={'100%'} height={'100%'} alignItems={'center'} py={2} overflow={"auto"}>
+    <Stack width={'100%'} height={'100%'} alignItems={'center'} py={2} overflow={'auto'}>
       <Card variant={'outlined-panel'} sx={{ width: 720 }}>
         <CardHeader
           title="Projects"
@@ -93,7 +93,7 @@ function WorkspaceProjects() {
         anchorEl={filterMenuAnchorEl}
         onClose={() => setFilterMenuAnchorEl(null)} />
     </Stack>
-  );
+  )
 }
 
-export default WorkspaceProjects;
+export default WorkspaceProjects

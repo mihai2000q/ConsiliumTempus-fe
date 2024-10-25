@@ -1,7 +1,7 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialState, ProjectStageState } from "./projectBoardState.ts";
-import ProjectTask from "../../features/project/features/project-board/types/ProjectTask.model.ts";
-import { arrayMove } from "@dnd-kit/sortable";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { initialState, ProjectStageState } from './projectBoardState.ts'
+import ProjectTask from '../../features/project/features/project-board/types/ProjectTask.model.ts'
+import { arrayMove } from '@dnd-kit/sortable'
 
 export const projectBoardSlice = createSlice({
   name: 'projectBoard',
@@ -37,10 +37,10 @@ export const projectBoardSlice = createSlice({
       const newActiveStageTasks = activeTasks.filter(t => t.id !== activeId)
 
       const newIndex = () => {
-        const overIndex = overTasks.findIndex(t => t.id === overId);
-        const putOnBelowLastItem = overIndex === overTasks.length - 1 && delta.y > 0;
-        const modifier = putOnBelowLastItem ? 1 : 0;
-        return overIndex >= 0 ? overIndex + modifier : overTasks.length + 1;
+        const overIndex = overTasks.findIndex(t => t.id === overId)
+        const putOnBelowLastItem = overIndex === overTasks.length - 1 && delta.y > 0
+        const modifier = putOnBelowLastItem ? 1 : 0
+        return overIndex >= 0 ? overIndex + modifier : overTasks.length + 1
       }
 
       const activeTaskIndex = activeTasks.findIndex(t => t.id === activeId)
@@ -53,13 +53,13 @@ export const projectBoardSlice = createSlice({
 
       state.projectStages = state.projectStages.map(prevStage => {
         if (prevStage.id === activeStage.id) {
-          prevStage.tasks = newActiveStageTasks;
+          prevStage.tasks = newActiveStageTasks
           return prevStage
         } else if (prevStage.id === overStage.id) {
-          prevStage.tasks = newOverStageTasks;
-          return prevStage;
+          prevStage.tasks = newOverStageTasks
+          return prevStage
         } else {
-          return prevStage;
+          return prevStage
         }
       })
     },
@@ -100,7 +100,7 @@ export const projectBoardSlice = createSlice({
       } else {
         state.projectStages.push(action.payload)
       }
-    },
+    }
   }
 })
 

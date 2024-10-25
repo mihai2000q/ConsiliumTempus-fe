@@ -1,8 +1,8 @@
-import { ProjectResponse } from "../types/Project.response.ts";
-import Project from "../types/Project.model.ts";
-import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
-import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
-import dayjs from "dayjs";
+import { ProjectResponse } from '../types/Project.response.ts'
+import Project from '../types/Project.model.ts'
+import ProjectStatusType from '../../../utils/project/ProjectStatusType.ts'
+import ProjectLifecycle from '../../../utils/project/ProjectLifecycle.ts'
+import dayjs from 'dayjs'
 
 export default class ProjectAdapter {
   static adapt(projects: ProjectResponse[] | undefined): Project[] | undefined {

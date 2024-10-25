@@ -1,4 +1,4 @@
-import Breadcrumb from "../../types/Breadcrumb.ts";
+import Breadcrumb from '../../types/Breadcrumb.ts'
 
 interface ProjectState {
   projectId: string,
@@ -32,7 +32,7 @@ export const initialState: ProjectState = {
   breadcrumbs: [],
   projectStatusesDialog: {
     open: false,
-    statusIdSelected: undefined,
+    statusIdSelected: undefined
   },
   projectSprintsDialog: {
     open: false

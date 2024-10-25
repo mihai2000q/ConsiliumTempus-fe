@@ -1,6 +1,6 @@
-import { Typography } from "@mui/material";
-import { Variant } from "@mui/material/styles/createTypography";
-import { ReactNode } from "react";
+import { Typography } from '@mui/material'
+import { Variant } from '@mui/material/styles/createTypography'
+import { ReactNode } from 'react'
 
 interface ParagraphProps {
   children: ReactNode,
@@ -12,13 +12,13 @@ interface ParagraphProps {
 }
 
 function Paragraph({
-  children,
-  fontWeight,
-  color,
-  variant,
-  lines = 2,
-  paragraph = true,
-} : ParagraphProps) {
+                     children,
+                     fontWeight,
+                     color,
+                     variant,
+                     lines = 2,
+                     paragraph = true
+                   }: ParagraphProps) {
   return (
     <Typography
       paragraph={paragraph}
@@ -30,11 +30,11 @@ function Paragraph({
         WebkitLineClamp: lines,
         WebkitBoxOrient: 'vertical',
         textOverflow: 'ellipsis',
-        overflow: 'hidden',
+        overflow: 'hidden'
       }}>
       {children}
     </Typography>
-  );
+  )
 }
 
-export default Paragraph;
+export default Paragraph

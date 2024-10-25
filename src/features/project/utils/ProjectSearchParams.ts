@@ -1,5 +1,5 @@
 enum ProjectSearchParams {
-  Tab = "tab"
+  Tab = 'tab'
 }
 
 export default ProjectSearchParams

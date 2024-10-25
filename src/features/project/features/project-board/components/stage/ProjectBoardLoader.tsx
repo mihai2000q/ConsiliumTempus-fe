@@ -1,4 +1,4 @@
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack } from '@mui/material'
 
 function ProjectBoardLoader() {
   return (
@@ -16,7 +16,7 @@ function ProjectBoardLoader() {
         ))}
       </Stack>
     </Stack>
-  );
+  )
 }
 
-export default ProjectBoardLoader;
+export default ProjectBoardLoader

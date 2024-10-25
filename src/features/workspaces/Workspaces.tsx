@@ -1,36 +1,36 @@
+import Grid from '@mui/material/Grid2'
 import {
   Button,
   ButtonGroup,
   CircularProgress,
-  Grid,
   Pagination,
   Skeleton,
   Stack,
   TextField,
   Typography
-} from "@mui/material";
-import { GridViewRounded, Search, ViewStreamRounded } from "@mui/icons-material";
-import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
-import { ChangeEvent, ReactNode } from "react";
-import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
-import useFacadeState from "../../hooks/useFacadeState.ts";
-import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import FilterOperator from "../../utils/enums/FilterOperator.ts";
-import WorkspacesSearchQueryParams from "./utils/WorkspacesSearchQueryParams.ts";
-import { useGetWorkspacesQuery } from "./state/workspacesApi.ts";
-import useWorkspacesPage from "./hooks/useWorkspacesPages.ts";
-import WorkspaceFilterButton from "./components/WorkspaceFilterButton.tsx";
-import WorkspaceSortButton from "./components/WorkspaceSortButton.tsx";
-import WorkspaceCard from "./components/WorkspaceCard.tsx";
-import workspacesSearchParamsState from "./state/WorkspacesSearchParamsState.ts";
-import useOrderByQueryParam from "../../hooks/useOrderByQueryParam.ts";
-import WorkspacesOrderQueryParams from "./utils/WorkspacesOrderQueryParams.ts";
-import OrderType from "../../utils/enums/OrderType.ts";
-import Order from "../../types/Order.ts";
+} from '@mui/material'
+import { GridViewRounded, Search, ViewStreamRounded } from '@mui/icons-material'
+import useSearchParamsState from '../../hooks/useSearchParamsState.ts'
+import { ChangeEvent, ReactNode } from 'react'
+import useSearchQueryParam from '../../hooks/useSearchQueryParam.ts'
+import useFacadeState from '../../hooks/useFacadeState.ts'
+import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
+import FilterOperator from '../../utils/enums/FilterOperator.ts'
+import WorkspacesSearchQueryParams from './utils/WorkspacesSearchQueryParams.ts'
+import { useGetWorkspacesQuery } from './state/workspacesApi.ts'
+import useWorkspacesPage from './hooks/useWorkspacesPages.ts'
+import WorkspaceFilterButton from './components/WorkspaceFilterButton.tsx'
+import WorkspaceSortButton from './components/WorkspaceSortButton.tsx'
+import WorkspaceCard from './components/WorkspaceCard.tsx'
+import workspacesSearchParamsState from './state/WorkspacesSearchParamsState.ts'
+import useOrderByQueryParam from '../../hooks/useOrderByQueryParam.ts'
+import WorkspacesOrderQueryParams from './utils/WorkspacesOrderQueryParams.ts'
+import OrderType from '../../utils/enums/OrderType.ts'
+import Order from '../../types/Order.ts'
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
-    <Grid item xs={4}>
+    <Grid size={4}>
       {children}
     </Grid>
   )
@@ -49,7 +49,7 @@ function Workspaces() {
     searchQueryParam,
     addToSearchQueryParam,
     removeFromSearchQueryParam
-  ] = useSearchQueryParam();
+  ] = useSearchQueryParam()
 
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
   useUpdateEffect(() => {
@@ -86,7 +86,7 @@ function Workspaces() {
 
   useUpdateEffect(() => {
     if (data?.workspaces.length === 0 && data?.totalCount != 0)
-      setSearchParams({ ...searchParams, currentPage: totalPages})
+      setSearchParams({ ...searchParams, currentPage: totalPages })
   }, [data, pageSize])
 
   const handleSearchNameChangeField = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -115,7 +115,7 @@ function Workspaces() {
             value={facadeName}
             onChange={handleSearchNameChangeField}
             InputProps={{ endAdornment: <Search /> }}
-            sx={{ boxShadow: 8 }}/>
+            sx={{ boxShadow: 8 }} />
           {isFetching && !isLoading &&
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />}
         </Stack>
@@ -144,7 +144,7 @@ function Workspaces() {
             : <CircularProgress color={'secondary'} size={20} thickness={8} />
         }
 
-        <ButtonGroup variant='text'>
+        <ButtonGroup variant="text">
           <Button sx={{ paddingX: 4 }}>
             <ViewStreamRounded />
           </Button>
@@ -191,7 +191,7 @@ function Workspaces() {
             sx={{ mt: 4 }} />
       }
     </Stack>
-  );
+  )
 }
 
-export default Workspaces;
+export default Workspaces

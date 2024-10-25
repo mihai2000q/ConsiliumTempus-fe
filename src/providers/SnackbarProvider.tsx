@@ -1,45 +1,45 @@
-import { ReactNode } from 'react';
+import { ReactNode } from 'react'
 import {
   MaterialDesignContent,
   SnackbarKey,
   SnackbarProvider as NotistackSnackbarProvider,
   useSnackbar
-} from "notistack";
-import { IconButton, styled } from "@mui/material";
-import { Close } from "@mui/icons-material";
+} from 'notistack'
+import { IconButton, styled } from '@mui/material'
+import { Close } from '@mui/icons-material'
 
 function SnackbarCloseButton({ snackbarKey }: { snackbarKey: SnackbarKey }) {
-  const { closeSnackbar } = useSnackbar();
+  const { closeSnackbar } = useSnackbar()
 
   return (
     <IconButton variant={'circular'} onClick={() => closeSnackbar(snackbarKey)} sx={{ color: 'white' }}>
       <Close />
     </IconButton>
-  );
+  )
 }
 
 const DefaultMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({
   '&.notistack-MuiContent-default': {
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.triadic[700] : theme.palette.primary[600],
-  },
+    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.triadic[700] : theme.palette.primary[600]
+  }
 }))
 
 const SuccessMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({
   '&.notistack-MuiContent-success': {
-    backgroundColor: theme.palette.mode === 'dark' ? '#526863' : '#429887',
-  },
+    backgroundColor: theme.palette.mode === 'dark' ? '#526863' : '#429887'
+  }
 }))
 
 const ErrorMaterialDesignContent = styled(MaterialDesignContent)(() => ({
   '&.notistack-MuiContent-error': {
-    maxWidth: 500,
+    maxWidth: 500
   }
 }))
 
 const InfoMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({
   '&.notistack-MuiContent-info': {
-    backgroundColor: theme.palette.primary.main,
-  },
+    backgroundColor: theme.palette.primary.main
+  }
 }))
 
 function SnackbarProvider({ children }: { children: ReactNode }) {
@@ -49,12 +49,12 @@ function SnackbarProvider({ children }: { children: ReactNode }) {
         default: DefaultMaterialDesignContent,
         success: SuccessMaterialDesignContent,
         error: ErrorMaterialDesignContent,
-        info: InfoMaterialDesignContent,
+        info: InfoMaterialDesignContent
       }}
-      action={snackbarKey => <SnackbarCloseButton snackbarKey={snackbarKey} /> }>
+      action={snackbarKey => <SnackbarCloseButton snackbarKey={snackbarKey} />}>
       {children}
     </NotistackSnackbarProvider>
-  );
+  )
 }
 
-export default SnackbarProvider;
+export default SnackbarProvider

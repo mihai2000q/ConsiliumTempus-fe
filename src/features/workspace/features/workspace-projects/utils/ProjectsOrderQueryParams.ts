@@ -5,4 +5,4 @@ enum ProjectsOrderQueryParams {
   UpdatedDateTime = 'updated_date_time',
 }
 
-export default ProjectsOrderQueryParams;
+export default ProjectsOrderQueryParams

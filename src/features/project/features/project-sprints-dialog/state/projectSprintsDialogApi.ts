@@ -1,15 +1,15 @@
-import { api } from "../../../../../state/api.ts";
-import Urls from "../../../../../utils/enums/Urls.ts";
-import TagTypes from "../../../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
+import { api } from '../../../../../state/api.ts'
+import Urls from '../../../../../utils/enums/Urls.ts'
+import TagTypes from '../../../../../utils/enums/TagTypes.ts'
+import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
 import {
   DeleteProjectSprintRequest,
   GetProjectSprintRequest,
   GetProjectSprintsRequest,
   UpdateProjectSprintRequest
-} from "../types/ProjectSprint.request.ts";
-import { GetProjectSprintsResponse } from "../types/ProjectSprints.response.ts";
-import ProjectSprintResponse from "../types/ProjectSprint.response.ts";
+} from '../types/ProjectSprint.request.ts'
+import { GetProjectSprintsResponse } from '../types/ProjectSprints.response.ts'
+import ProjectSprintResponse from '../types/ProjectSprint.response.ts'
 
 export const projectSprintsDialogApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -38,7 +38,7 @@ export const projectSprintsDialogApiSlice = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: [TagTypes.ProjectSprints]
-    }),
+    })
   })
 })
 

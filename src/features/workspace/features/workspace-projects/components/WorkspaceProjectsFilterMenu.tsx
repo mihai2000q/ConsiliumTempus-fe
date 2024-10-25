@@ -1,7 +1,7 @@
-import { ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
-import { Dispatch, ReactNode, SetStateAction } from "react";
-import { Check } from "@mui/icons-material";
-import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
+import { ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
+import { Check } from '@mui/icons-material'
+import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
 
 interface ProjectsFilterMenuItemProps {
   children: ReactNode,
@@ -9,13 +9,13 @@ interface ProjectsFilterMenuItemProps {
   onClick: () => void
 }
 
-const ProjectsFilterMenuItem = ({ selected, onClick, children } : ProjectsFilterMenuItemProps) => (
+const ProjectsFilterMenuItem = ({ selected, onClick, children }: ProjectsFilterMenuItemProps) => (
   <MenuItem
     selected={selected}
     onClick={onClick}
     sx={{
       '& .MuiSvgIcon-root': { fontSize: 17 },
-      '& .MuiListItemIcon-root': { minWidth: 23, }
+      '& .MuiListItemIcon-root': { minWidth: 23 }
     }}>
     <ListItemIcon>{selected && <Check />}</ListItemIcon>
     <ListItemText sx={{ pt: 0.3 }}>{children}</ListItemText>
@@ -30,11 +30,11 @@ interface WorkspaceProjectsFilterMenuProps {
 }
 
 function WorkspaceProjectsFilterMenu({
-  anchorEl,
-  onClose,
-  lifecycle,
-  setLifecycle
-}: WorkspaceProjectsFilterMenuProps) {
+                                       anchorEl,
+                                       onClose,
+                                       lifecycle,
+                                       setLifecycle
+                                     }: WorkspaceProjectsFilterMenuProps) {
   return (
     <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
       <ProjectsFilterMenuItem selected={lifecycle === null} onClick={() => setLifecycle(null)}>
@@ -46,7 +46,7 @@ function WorkspaceProjectsFilterMenu({
         </ProjectsFilterMenuItem>
       ))}
     </Menu>
-  );
+  )
 }
 
-export default WorkspaceProjectsFilterMenu;
+export default WorkspaceProjectsFilterMenu

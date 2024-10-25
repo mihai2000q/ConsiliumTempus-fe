@@ -1,5 +1,5 @@
-import { TextField } from "@mui/material";
-import React, { ReactNode } from "react";
+import { TextField } from '@mui/material'
+import React, { ReactNode } from 'react'
 
 interface PasswordTextFieldProps {
   value: string,
@@ -14,16 +14,16 @@ interface PasswordTextFieldProps {
 }
 
 function PasswordTextField({
-  value,
-  onChange,
-  onBlur,
-  error,
-  helperText,
-  maxLength,
-  name = 'password',
-  label = 'Password',
-  placeholder = 'Enter your password',
-}: PasswordTextFieldProps) {
+                             value,
+                             onChange,
+                             onBlur,
+                             error,
+                             helperText,
+                             maxLength,
+                             name = 'password',
+                             label = 'Password',
+                             placeholder = 'Enter your password'
+                           }: PasswordTextFieldProps) {
   return (
     <TextField
       name={name}
@@ -36,7 +36,7 @@ function PasswordTextField({
       value={value}
       onBlur={onBlur}
       onChange={onChange} />
-  );
+  )
 }
 
-export default PasswordTextField;
+export default PasswordTextField

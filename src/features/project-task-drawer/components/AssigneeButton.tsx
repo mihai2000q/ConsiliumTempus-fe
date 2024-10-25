@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { Close, PersonOutlineRounded } from "@mui/icons-material";
-import { Avatar, Button, IconButton, Stack, Tooltip, Typography } from "@mui/material";
-import SetAssigneeMenu from "../../../components/project-task/menu/SetAssigneeMenu.tsx";
-import { Assignee } from "../types/ProjectTask.model.ts";
-import DependencyState from "../../../types/DependencyState.ts";
-import demoUsePic from "./../../../assets/demo-user-pic.jpg"
-import UserPopper from "../../../components/popper/UserPopper.tsx";
+import { useState } from 'react'
+import { Close, PersonOutlineRounded } from '@mui/icons-material'
+import { Avatar, Button, IconButton, Stack, Tooltip, Typography } from '@mui/material'
+import SetAssigneeMenu from '../../../components/project-task/menu/SetAssigneeMenu.tsx'
+import { Assignee } from '../types/ProjectTask.model.ts'
+import DependencyState from '../../../types/DependencyState.ts'
+import demoUsePic from './../../../assets/demo-user-pic.jpg'
+import UserPopper from '../../../components/popper/UserPopper.tsx'
 
 interface SetAssigneeButtonProps {
   isFetching: boolean,
@@ -16,12 +16,12 @@ interface SetAssigneeButtonProps {
 }
 
 function AssigneeButton({
-  isFetching,
-  workspaceId,
-  assignee,
-  assigneeId,
-  setAssigneeId,
-}: SetAssigneeButtonProps) {
+                          isFetching,
+                          workspaceId,
+                          assignee,
+                          assigneeId,
+                          setAssigneeId
+                        }: SetAssigneeButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
   return (
@@ -68,7 +68,7 @@ function AssigneeButton({
         assigneeId={assigneeId.value}
         setAssigneeId={(newAssigneeId) => setAssigneeId(newAssigneeId, true)} />
     </>
-  );
+  )
 }
 
-export default AssigneeButton;
+export default AssigneeButton

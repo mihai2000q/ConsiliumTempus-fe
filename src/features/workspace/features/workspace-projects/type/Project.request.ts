@@ -1,4 +1,4 @@
-import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
+import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
 
 export interface GetProjectsQueryParameters {
   workspaceId: string,

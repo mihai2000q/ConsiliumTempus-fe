@@ -1,4 +1,4 @@
-import { SearchParamsState } from "../../../hooks/useSearchParamsState.ts";
+import { SearchParamsState } from '../../../hooks/useSearchParamsState.ts'
 
 enum WorkspacesSearchParams {
   CurrentPage = 'p'
@@ -20,7 +20,7 @@ const workspacesSearchParamsSerializer = (state: WorkspacesSearchParamsState) =>
 
 const workspacesSearchParamsDeserializer = (params: URLSearchParams): WorkspacesSearchParamsState => {
   return {
-    currentPage: Number(params.get(WorkspacesSearchParams.CurrentPage)) ?? 1,
+    currentPage: Number(params.get(WorkspacesSearchParams.CurrentPage)) ?? 1
   }
 }
 
@@ -30,4 +30,4 @@ const workspacesSearchParamsState: SearchParamsState<WorkspacesSearchParamsState
   deserialize: workspacesSearchParamsDeserializer
 }
 
-export default workspacesSearchParamsState;
+export default workspacesSearchParamsState

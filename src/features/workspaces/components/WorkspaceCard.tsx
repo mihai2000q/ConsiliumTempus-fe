@@ -1,8 +1,8 @@
-import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography, } from "@mui/material";
-import Paragraph from "../../../components/text/Paragraph.tsx";
-import { useNavigate } from "react-router-dom";
-import Paths from "../../../utils/enums/Paths.ts";
-import Workspace from "../types/Workspace.model.ts";
+import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography } from '@mui/material'
+import Paragraph from '../../../components/text/Paragraph.tsx'
+import { useNavigate } from 'react-router-dom'
+import Paths from '../../../utils/enums/Paths.ts'
+import Workspace from '../types/Workspace.model.ts'
 
 const StyledWorkspaceCard = styled(Box)<BoxProps>(({ theme }) => ({
   height: 340,
@@ -11,7 +11,7 @@ const StyledWorkspaceCard = styled(Box)<BoxProps>(({ theme }) => ({
   backgroundColor: alpha(theme.palette.background[900], 0.6),
   boxShadow: theme.shadows[10],
   transition: theme.transitions.create(['transform', 'box-shadow', 'background-color'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   '&:hover': {
     transform: 'scale(1.05)',
@@ -52,7 +52,7 @@ function WorkspaceCard({ workspace }: WorkspaceCardProps) {
         </Paragraph>
       </CardContent>
     </StyledWorkspaceCard>
-  );
+  )
 }
 
-export default WorkspaceCard;
+export default WorkspaceCard

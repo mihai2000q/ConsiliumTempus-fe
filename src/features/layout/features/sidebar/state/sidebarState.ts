@@ -4,7 +4,7 @@ export interface AddProjectDialogForm {
 }
 
 export const addProjectDialogFormInitialValues: AddProjectDialogForm = {
-  projectName: "",
+  projectName: '',
   workspaceId: undefined
 }
 
@@ -13,5 +13,5 @@ export interface AddWorkspaceDialogForm {
 }
 
 export const addWorkspaceDialogFormInitialValues: AddWorkspaceDialogForm = {
-  workspaceName: ""
+  workspaceName: ''
 }

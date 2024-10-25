@@ -1,5 +1,5 @@
-import { Dialog, Divider, Skeleton, Stack } from "@mui/material";
-import ProjectSprintLoader from "./ProjectSprintLoader.tsx";
+import { Dialog, Divider, Skeleton, Stack } from '@mui/material'
+import ProjectSprintLoader from './ProjectSprintLoader.tsx'
 
 interface ProjectSprintsDialogLoaderProps {
   open: boolean,
@@ -22,7 +22,7 @@ function ProjectSprintsDialogLoader({ open, onClose }: ProjectSprintsDialogLoade
           <Skeleton variant={'circular'} width={30} height={30} />
         </Stack>
         <Divider flexItem />
-        <Stack direction={'row'} height={'100%'}  sx={{ overflowY: 'hidden' }}>
+        <Stack direction={'row'} height={'100%'} sx={{ overflowY: 'hidden' }}>
           <Stack width={280}>
             {Array.from(Array(7)).map((_, i) => (
               <div key={i}>
@@ -36,7 +36,7 @@ function ProjectSprintsDialogLoader({ open, onClose }: ProjectSprintsDialogLoade
         </Stack>
       </Stack>
     </Dialog>
-  );
+  )
 }
 
-export default ProjectSprintsDialogLoader;
+export default ProjectSprintsDialogLoader

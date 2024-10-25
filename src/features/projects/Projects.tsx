@@ -1,40 +1,40 @@
-import { useGetProjectsQuery } from "./state/projectsApi.ts";
+import { useGetProjectsQuery } from './state/projectsApi.ts'
+import Grid from '@mui/material/Grid2'
 import {
   Button,
   ButtonGroup,
   CircularProgress,
-  Grid,
   Pagination,
   Skeleton,
   Stack,
   TextField,
   Typography
-} from "@mui/material";
-import ProjectCard from "./components/ProjectCard.tsx";
-import { ChangeEvent, ReactNode, useState } from "react";
-import { GridViewRounded, Search, ViewStreamRounded } from "@mui/icons-material";
-import ProjectSortButton from "./components/ProjectSortButton.tsx";
-import ProjectFilterButton from "./components/ProjectFilterButton.tsx";
-import ProjectsLifecycleButtons from "./components/ProjectsLifecycleButtons.tsx";
-import useProjectsPages from "./hooks/useProjectsPages.ts";
-import useSearchParamsState from "../../hooks/useSearchParamsState.ts";
-import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import useFacadeState from "../../hooks/useFacadeState.ts";
-import projectsSearchParamsState from "./state/ProjectsSearchParamsState.ts";
-import useSearchQueryParam from "../../hooks/useSearchQueryParam.ts";
-import FilterOperator from "../../utils/enums/FilterOperator.ts";
-import ProjectsSearchQueryParams from "./utils/ProjectsSearchQueryParams.ts";
-import ProjectAdapter from "./adapters/Project.adapter.ts";
-import ProjectLifecycle from "../../utils/project/ProjectLifecycle.ts";
-import useAdapterState from "../../hooks/useAdapterState.ts";
-import Order from "../../types/Order.ts";
-import ProjectsOrderQueryParams from "./utils/ProjectsOrderQueryParams.ts";
-import OrderType from "../../utils/enums/OrderType.ts";
-import useOrderByQueryParam from "../../hooks/useOrderByQueryParam.ts";
+} from '@mui/material'
+import ProjectCard from './components/ProjectCard.tsx'
+import { ChangeEvent, ReactNode, useState } from 'react'
+import { GridViewRounded, Search, ViewStreamRounded } from '@mui/icons-material'
+import ProjectSortButton from './components/ProjectSortButton.tsx'
+import ProjectFilterButton from './components/ProjectFilterButton.tsx'
+import ProjectsLifecycleButtons from './components/ProjectsLifecycleButtons.tsx'
+import useProjectsPages from './hooks/useProjectsPages.ts'
+import useSearchParamsState from '../../hooks/useSearchParamsState.ts'
+import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
+import useFacadeState from '../../hooks/useFacadeState.ts'
+import projectsSearchParamsState from './state/ProjectsSearchParamsState.ts'
+import useSearchQueryParam from '../../hooks/useSearchQueryParam.ts'
+import FilterOperator from '../../utils/enums/FilterOperator.ts'
+import ProjectsSearchQueryParams from './utils/ProjectsSearchQueryParams.ts'
+import ProjectAdapter from './adapters/Project.adapter.ts'
+import ProjectLifecycle from '../../utils/project/ProjectLifecycle.ts'
+import useAdapterState from '../../hooks/useAdapterState.ts'
+import Order from '../../types/Order.ts'
+import ProjectsOrderQueryParams from './utils/ProjectsOrderQueryParams.ts'
+import OrderType from '../../utils/enums/OrderType.ts'
+import useOrderByQueryParam from '../../hooks/useOrderByQueryParam.ts'
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
-    <Grid item xs={4}>
+    <Grid size={4}>
       {children}
     </Grid>
   )
@@ -97,7 +97,7 @@ function Projects() {
 
   useUpdateEffect(() => {
     if (data?.projects.length === 0 && data?.totalCount != 0)
-      setSearchParams({ ...searchParams, currentPage: totalPages})
+      setSearchParams({ ...searchParams, currentPage: totalPages })
   }, [data, pageSize])
 
   const handleSearchNameChangeField = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -114,7 +114,7 @@ function Projects() {
       </Typography>
 
       <Grid container width={'100%'} alignItems={'center'}>
-        <Grid item xs={3} display={'flex'} alignItems={'center'}>
+        <Grid size={3} display={'flex'} alignItems={'center'}>
           <TextField
             name={'project-search'}
             label={'Search'}
@@ -123,12 +123,12 @@ function Projects() {
             value={facadeName}
             onChange={handleSearchNameChangeField}
             InputProps={{ endAdornment: <Search /> }}
-            sx={{ boxShadow: 8 }}/>
+            sx={{ boxShadow: 8 }} />
           {isFetching && !isLoading &&
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 2 }} />}
         </Grid>
 
-        <Grid item xs={6} display={'flex'} justifyContent={'center'}>
+        <Grid size={6} display={'flex'} justifyContent={'center'}>
           <ProjectsLifecycleButtons
             lifecycle={lifecycle}
             setLifecycle={setLifecycle}
@@ -137,10 +137,10 @@ function Projects() {
             addToSearchQueryParam={addToSearchQueryParam} />
         </Grid>
 
-        <Grid item xs={3} display={'flex'} justifyContent={'end'} gap={2}>
-            <ProjectSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
-            <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
-                                 removeFromSearchQueryParam={removeFromSearchQueryParam} />
+        <Grid size={3} display={'flex'} justifyContent={'end'} gap={2}>
+          <ProjectSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
+          <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
+                               removeFromSearchQueryParam={removeFromSearchQueryParam} />
         </Grid>
       </Grid>
 
@@ -156,12 +156,12 @@ function Projects() {
           data
             ?
             <Typography>
-                {startPageCount} - {endPageCount} of {data.totalCount} projects
+              {startPageCount} - {endPageCount} of {data.totalCount} projects
             </Typography>
             : <CircularProgress color={'secondary'} size={20} thickness={8} />
         }
 
-        <ButtonGroup variant='text'>
+        <ButtonGroup variant="text">
           <Button sx={{ paddingX: 4 }}>
             <ViewStreamRounded />
           </Button>
@@ -172,8 +172,8 @@ function Projects() {
       </Stack>
 
       {
-        projects && searchName !== "" && projects.length === 0 && (
-          <Typography variant="body2" align={"center"}>No Projects to display</Typography>
+        projects && searchName !== '' && projects.length === 0 && (
+          <Typography variant="body2" align={'center'}>No Projects to display</Typography>
         )
       }
 
@@ -214,7 +214,7 @@ function Projects() {
             sx={{ mt: 4 }} />
       }
     </Stack>
-  );
+  )
 }
 
-export default Projects;
+export default Projects

@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode } from 'react'
 
 interface TabPanelProps {
   children: ReactNode,
@@ -15,7 +15,7 @@ function TabPanel({ value, index, children }: TabPanelProps) {
       style={{ height: 'inherit' }}>
       {children}
     </div>
-  );
+  )
 }
 
-export default TabPanel;
+export default TabPanel

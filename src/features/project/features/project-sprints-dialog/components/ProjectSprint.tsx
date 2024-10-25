@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { Grid, IconButton, Stack, Typography } from "@mui/material";
-import { MoreHoriz } from "@mui/icons-material";
-import ProjectSprintActionsMenu from "./ProjectSprintActionsMenu.tsx";
-import FormGridItem from "../../../../../components/form/FormGridItem.tsx";
-import UserLabel from "../../../../../components/label/UserLabel.tsx";
-import ProjectSprintLoader from "./ProjectSprintLoader.tsx";
-import useAdapterState from "../../../../../hooks/useAdapterState.ts";
-import ProjectSprintAdapter from "../adapters/ProjectSprint.adapter.ts";
-import { useGetProjectSprintQuery } from "../state/projectSprintsDialogApi.ts";
+import { useState } from 'react'
+import { Grid, IconButton, Stack, Typography } from '@mui/material'
+import { MoreHoriz } from '@mui/icons-material'
+import ProjectSprintActionsMenu from './ProjectSprintActionsMenu.tsx'
+import FormGridItem from '../../../../../components/form/FormGridItem.tsx'
+import UserLabel from '../../../../../components/label/UserLabel.tsx'
+import ProjectSprintLoader from './ProjectSprintLoader.tsx'
+import useAdapterState from '../../../../../hooks/useAdapterState.ts'
+import ProjectSprintAdapter from '../adapters/ProjectSprint.adapter.ts'
+import { useGetProjectSprintQuery } from '../state/projectSprintsDialogApi.ts'
 
 interface ProjectSprintProps {
   sprintId: string
@@ -71,7 +71,7 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
         )}
       </Grid>
     </Stack>
-  );
+  )
 }
 
-export default ProjectSprint;
+export default ProjectSprint

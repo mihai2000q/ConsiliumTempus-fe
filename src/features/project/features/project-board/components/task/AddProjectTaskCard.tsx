@@ -1,9 +1,9 @@
-import { InputBase } from "@mui/material";
-import { useAddProjectTaskMutation } from "../../state/projectBoardApi.ts";
-import React, { useEffect, useRef, useState } from "react";
-import StyledProjectTaskCard from "./StyledProjectTaskCard.tsx";
+import { InputBase } from '@mui/material'
+import { useAddProjectTaskMutation } from '../../state/projectBoardApi.ts'
+import React, { useEffect, useRef, useState } from 'react'
+import StyledProjectTaskCard from './StyledProjectTaskCard.tsx'
 
-interface AddProjectTaskCardProps{
+interface AddProjectTaskCardProps {
   closeCard: (() => void),
   projectStageId: string,
   onTop: boolean,
@@ -16,11 +16,12 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: 
   const inputRef = useRef<HTMLElement>(null)
   useEffect(() => {
     if (show) inputRef.current?.focus()
-  }, [show]);
+  }, [show])
 
   const [name, setName] = useState('')
 
   const [addProjectTask] = useAddProjectTaskMutation()
+
   function addNewTask() {
     if (name !== '') {
       addProjectTask({
@@ -36,6 +37,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: 
   function handleBlur() {
     addNewTask()
   }
+
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
     if ((e.key === 'Enter')) {
       e.preventDefault()
@@ -52,19 +54,19 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: 
       sx={{
         padding: 2,
         mt: mt,
-        mb: mb,
+        mb: mb
       }}>
-        <InputBase
-          inputRef={inputRef}
-          fullWidth
-          multiline
-          maxRows={3}
-          inputProps={{ maxLength: 256 }}
-          placeholder={'Enter new task name'}
-          value={name}
-          onChange={(e) => setName(e.target.value)} />
+      <InputBase
+        inputRef={inputRef}
+        fullWidth
+        multiline
+        maxRows={3}
+        inputProps={{ maxLength: 256 }}
+        placeholder={'Enter new task name'}
+        value={name}
+        onChange={(e) => setName(e.target.value)} />
     </StyledProjectTaskCard>
-  );
+  )
 }
 
-export default AddProjectTaskCard;
+export default AddProjectTaskCard

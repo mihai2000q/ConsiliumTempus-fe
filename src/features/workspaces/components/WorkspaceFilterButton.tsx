@@ -1,11 +1,11 @@
-import { FilterAlt } from "@mui/icons-material";
-import { Badge, Button } from "@mui/material";
-import { addToSearchQueryParamType, removeFromSearchQueryParamType } from "../../../hooks/useSearchQueryParam.ts";
-import { useState } from "react";
-import FilterMenu from "../../../components/filter/FilterMenu.tsx";
-import { workspaceFilterChipsData } from "../data/WorkspaceFilterChipsData.tsx";
-import { workspaceFilterPropertiesData } from "../data/WorkspaceFilterPropertiesData.tsx";
-import { workspacesSearchQueryParamsFilterOperators } from "../utils/WorkspacesSearchQueryParamsFilterOperators.ts";
+import { FilterAlt } from '@mui/icons-material'
+import { Badge, Button } from '@mui/material'
+import { addToSearchQueryParamType, removeFromSearchQueryParamType } from '../../../hooks/useSearchQueryParam.ts'
+import { useState } from 'react'
+import FilterMenu from '../../../components/filter/FilterMenu.tsx'
+import { workspaceFilterChipsData } from '../data/WorkspaceFilterChipsData.tsx'
+import { workspaceFilterPropertiesData } from '../data/WorkspaceFilterPropertiesData.tsx'
+import { workspacesSearchQueryParamsFilterOperators } from '../utils/WorkspacesSearchQueryParamsFilterOperators.ts'
 
 interface WorkspaceFilterButtonProps {
   addToSearchQueryParam: addToSearchQueryParamType
@@ -13,9 +13,9 @@ interface WorkspaceFilterButtonProps {
 }
 
 function WorkspaceFilterButton({
-  addToSearchQueryParam,
-  removeFromSearchQueryParam
-} : WorkspaceFilterButtonProps) {
+                                 addToSearchQueryParam,
+                                 removeFromSearchQueryParam
+                               }: WorkspaceFilterButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [filtersSize, setFiltersSize] = useState(0)
 
@@ -42,7 +42,7 @@ function WorkspaceFilterButton({
         onSizeChange={setFiltersSize}
       />
     </>
-  );
+  )
 }
 
-export default WorkspaceFilterButton;
+export default WorkspaceFilterButton

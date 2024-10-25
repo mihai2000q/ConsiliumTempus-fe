@@ -2,4 +2,4 @@ enum ProjectsSearchQueryParams {
   Lifecycle = 'lifecycle'
 }
 
-export default ProjectsSearchQueryParams;
+export default ProjectsSearchQueryParams

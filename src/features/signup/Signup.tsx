@@ -3,7 +3,7 @@ function Signup() {
     <>
       Signup
     </>
-  );
+  )
 }
 
-export default Signup;
+export default Signup

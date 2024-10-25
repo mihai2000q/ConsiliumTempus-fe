@@ -3,4 +3,4 @@ enum OrderType {
   Descending = 'desc'
 }
 
-export default OrderType;
+export default OrderType

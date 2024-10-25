@@ -1,4 +1,4 @@
-import { SearchParamsState } from "../../../hooks/useSearchParamsState.ts";
+import { SearchParamsState } from '../../../hooks/useSearchParamsState.ts'
 
 enum ProjectsSearchParams {
   CurrentPage = 'p'
@@ -20,7 +20,7 @@ const projectsSearchParamsSerializer = (state: ProjectsSearchParamsState) => {
 
 const projectsSearchParamsDeserializer = (params: URLSearchParams): ProjectsSearchParamsState => {
   return {
-    currentPage: Number(params.get(ProjectsSearchParams.CurrentPage)) ?? 1,
+    currentPage: Number(params.get(ProjectsSearchParams.CurrentPage)) ?? 1
   }
 }
 
@@ -30,4 +30,4 @@ const projectsSearchParamsState: SearchParamsState<ProjectsSearchParamsState> = 
   deserialize: projectsSearchParamsDeserializer
 }
 
-export default projectsSearchParamsState;
+export default projectsSearchParamsState

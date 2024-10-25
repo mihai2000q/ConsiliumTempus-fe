@@ -1,7 +1,7 @@
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import { MenuItem } from "@mui/material";
-import { Dispatch, SetStateAction } from "react";
-import FilterSelector from "../FilterSelector.tsx";
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import { MenuItem } from '@mui/material'
+import { Dispatch, SetStateAction } from 'react'
+import FilterSelector from '../FilterSelector.tsx'
 
 interface FilterOperatorSelectorProps {
   filterOperators: FilterOperator[],
@@ -11,11 +11,11 @@ interface FilterOperatorSelectorProps {
 }
 
 function FilterOperatorSelector({
-  filterOperators,
-  availableOperators,
-  operator,
-  setOperator,
-}: FilterOperatorSelectorProps) {
+                                  filterOperators,
+                                  availableOperators,
+                                  operator,
+                                  setOperator
+                                }: FilterOperatorSelectorProps) {
   const filterOperatorToDisplay = new Map<FilterOperator, string>()
   filterOperatorToDisplay.set(FilterOperator.Equal, '=')
   filterOperatorToDisplay.set(FilterOperator.NotEqual, '≠')
@@ -39,7 +39,7 @@ function FilterOperatorSelector({
         </MenuItem>
       ))}
     </FilterSelector>
-  );
+  )
 }
 
-export default FilterOperatorSelector;
+export default FilterOperatorSelector

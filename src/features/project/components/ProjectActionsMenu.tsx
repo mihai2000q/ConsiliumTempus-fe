@@ -1,4 +1,4 @@
-import { Divider, ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
+import { Divider, ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
 import {
   Archive,
   ContentCopy,
@@ -11,14 +11,14 @@ import {
   MoveDown,
   Save,
   UnarchiveOutlined
-} from "@mui/icons-material";
-import Paths from "../../../utils/enums/Paths.ts";
-import { useNavigate } from "react-router-dom";
-import { MouseEventHandler, ReactNode } from "react";
-import Project from "../types/Project.model.ts";
-import { useDeleteProjectMutation, useUpdateProjectMutation } from "../state/projectApi.ts";
-import ProjectLifecycle from "../../../utils/project/ProjectLifecycle.ts";
-import { useSnackbar } from "notistack";
+} from '@mui/icons-material'
+import Paths from '../../../utils/enums/Paths.ts'
+import { useNavigate } from 'react-router-dom'
+import { MouseEventHandler, ReactNode } from 'react'
+import Project from '../types/Project.model.ts'
+import { useDeleteProjectMutation, useUpdateProjectMutation } from '../state/projectApi.ts'
+import ProjectLifecycle from '../../../utils/project/ProjectLifecycle.ts'
+import { useSnackbar } from 'notistack'
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -28,7 +28,7 @@ interface ProjectActionsMenuItemProps {
   disabled?: boolean | undefined
 }
 
-const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color } : ProjectActionsMenuItemProps) => (
+const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
     <Typography pt={0.5} color={color}>{children}</Typography>
@@ -43,11 +43,11 @@ interface ProjectActionsMenuProps {
 }
 
 function ProjectActionsMenu({
-  anchorEl,
-  onClose,
-  projectId,
-  project
-} : ProjectActionsMenuProps ) {
+                              anchorEl,
+                              onClose,
+                              projectId,
+                              project
+                            }: ProjectActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -79,7 +79,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
-    enqueueSnackbar("Project unarchived!", { variant: 'info' })
+    enqueueSnackbar('Project unarchived!', { variant: 'info' })
     onClose()
   }
   const handleArchiveProject = () => {
@@ -88,7 +88,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Archived
     })
-    enqueueSnackbar("Project has been archived!", { variant: 'info' })
+    enqueueSnackbar('Project has been archived!', { variant: 'info' })
     onClose()
   }
 
@@ -98,7 +98,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
-    enqueueSnackbar("Project unset from 'Upcoming'", { variant: 'info' })
+    enqueueSnackbar('Project unset from \'Upcoming\'', { variant: 'info' })
     onClose()
   }
   const handleSetUpcomingProject = () => {
@@ -107,7 +107,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Upcoming
     })
-    enqueueSnackbar("Project set to 'Upcoming'", { variant: 'info' })
+    enqueueSnackbar('Project set to \'Upcoming\'', { variant: 'info' })
     onClose()
   }
 
@@ -115,7 +115,7 @@ function ProjectActionsMenu({
     onClose()
     await deleteProject({ id: projectId })
     navigate(Paths.Projects)
-    enqueueSnackbar("Project has been deleted!", { variant: 'success' })
+    enqueueSnackbar('Project has been deleted!', { variant: 'success' })
   }
 
   return (
@@ -127,7 +127,7 @@ function ProjectActionsMenu({
         Manage Allowed Members
       </ProjectActionsMenuItem>
 
-      <Divider variant={'middle'}/>
+      <Divider variant={'middle'} />
       <ProjectActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateProject}>
         Duplicate
       </ProjectActionsMenuItem>
@@ -141,7 +141,7 @@ function ProjectActionsMenu({
         Move To The Next Sprint
       </ProjectActionsMenuItem>
 
-      <Divider variant={'middle'}/>
+      <Divider variant={'middle'} />
       {
         project.lifecycle === 'Archived'
           ?
@@ -171,7 +171,7 @@ function ProjectActionsMenu({
         Delete Project
       </ProjectActionsMenuItem>
     </Menu>
-  );
+  )
 }
 
-export default ProjectActionsMenu;
+export default ProjectActionsMenu

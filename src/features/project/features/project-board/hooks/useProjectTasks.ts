@@ -1,8 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import ProjectTask from "../types/ProjectTask.model.ts";
-import { useGetProjectTasksQuery, useLazyGetProjectTasksQuery } from "../state/projectBoardApi.ts";
-import { setProjectTasksOnStage } from "../../../../../state/project-board/projectBoardSlice.ts";
-import { useAppDispatch, useAppSelector } from "../../../../../state/store.ts";
+import { useEffect, useRef, useState } from 'react'
+import ProjectTask from '../types/ProjectTask.model.ts'
+import { useGetProjectTasksQuery, useLazyGetProjectTasksQuery } from '../state/projectBoardApi.ts'
+import { setProjectTasksOnStage } from '../../../../../state/project-board/projectBoardSlice.ts'
+import { useAppDispatch, useAppSelector } from '../../../../../state/store.ts'
 
 export default function useProjectTasks(
   stageId: string,
@@ -34,11 +34,11 @@ export default function useProjectTasks(
     pageSize: currentPage.current * pageSize
   })
   useEffect(() => {
-    if(data) {
+    if (data) {
       setTasks([...data.tasks])
       setTotalCount(data.totalCount)
     }
-  }, [data]);
+  }, [data])
 
   const fetchMoreTasks = () => {
     if (isLazyFetching || totalCount === (tasks?.length ?? 0)) return
@@ -65,7 +65,7 @@ export default function useProjectTasks(
       id: stageId,
       tasks: tasks
     }))
-  }, [dispatch, stageId, tasks]);
+  }, [dispatch, stageId, tasks])
 
   const stateTasks = useAppSelector(state => state.projectBoard.projectStages
     .find(ps => ps.id === stageId)?.tasks)

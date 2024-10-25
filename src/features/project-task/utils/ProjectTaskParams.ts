@@ -2,4 +2,4 @@ enum ProjectTaskParams {
   Id = 'id'
 }
 
-export default ProjectTaskParams;
+export default ProjectTaskParams

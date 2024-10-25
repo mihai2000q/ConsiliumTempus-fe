@@ -1,13 +1,13 @@
-import { Button, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from "@mui/material";
-import ProjectSprint from "../types/ProjectSprint.model.ts";
-import { useGetProjectSprintsQuery } from "../state/projectApi.ts";
-import { useEffect, useState } from "react";
-import { ArrowDropDown } from "@mui/icons-material";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../state/store.ts";
-import { openProjectSprintsDialog, setProjectSprintId } from "../../../state/project/projectSlice.ts";
-import useAdapterState from "../../../hooks/useAdapterState.ts";
-import ProjectSprintAdapter from "../adapters/ProjectSprint.adapter.ts";
+import { Button, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
+import ProjectSprint from '../types/ProjectSprint.model.ts'
+import { useGetProjectSprintsQuery } from '../state/projectApi.ts'
+import { useEffect, useState } from 'react'
+import { ArrowDropDown } from '@mui/icons-material'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../../state/store.ts'
+import { openProjectSprintsDialog, setProjectSprintId } from '../../../state/project/projectSlice.ts'
+import useAdapterState from '../../../hooks/useAdapterState.ts'
+import ProjectSprintAdapter from '../adapters/ProjectSprint.adapter.ts'
 
 interface ProjectSprintsSelectorProps {
   projectId: string
@@ -85,7 +85,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
         </Button>
       </Menu>
     </>
-  );
+  )
 }
 
-export default ProjectSprintsSelector;
+export default ProjectSprintsSelector

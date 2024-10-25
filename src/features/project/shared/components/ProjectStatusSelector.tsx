@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Button, Menu, MenuItem } from "@mui/material";
-import ProjectStatusLabel from "./ProjectStatusLabel.tsx";
-import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
+import { useState } from 'react'
+import { Button, Menu, MenuItem } from '@mui/material'
+import ProjectStatusLabel from './ProjectStatusLabel.tsx'
+import ProjectStatusType from '../../../../utils/project/ProjectStatusType.ts'
 
 interface ProjectStatusSelectorProps {
   value: ProjectStatusType,
@@ -35,7 +35,7 @@ function ProjectStatusSelector({ value, onChange }: ProjectStatusSelectorProps) 
         ))}
       </Menu>
     </>
-  );
+  )
 }
 
-export default ProjectStatusSelector;
+export default ProjectStatusSelector

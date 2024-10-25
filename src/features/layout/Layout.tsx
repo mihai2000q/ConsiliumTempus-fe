@@ -1,11 +1,11 @@
-import { Stack } from "@mui/material";
-import Topbar from "./features/topbar/Topbar.tsx";
-import Sidebar from "./features/sidebar/Sidebar.tsx";
-import { Outlet } from "react-router-dom";
-import { useState } from "react";
-import Main from "./components/Main.tsx";
-import useAuth from "../../hooks/useAuth.ts";
-import useErrorRedirection from "../../hooks/useErrorRedirection.ts";
+import { Stack } from '@mui/material'
+import Topbar from './features/topbar/Topbar.tsx'
+import Sidebar from './features/sidebar/Sidebar.tsx'
+import { Outlet } from 'react-router-dom'
+import { useState } from 'react'
+import Main from './components/Main.tsx'
+import useAuth from '../../hooks/useAuth.ts'
+import useErrorRedirection from '../../hooks/useErrorRedirection.ts'
 
 const drawerWidth = 250
 
@@ -40,7 +40,7 @@ function Layout() {
         </Main>
       </Stack>
     </Stack>
-  );
+  )
 }
 
-export default Layout;
+export default Layout

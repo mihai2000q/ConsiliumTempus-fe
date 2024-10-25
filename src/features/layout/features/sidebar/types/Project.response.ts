@@ -1,4 +1,4 @@
-import Project from "./Project.model.ts";
+import Project from './Project.model.ts'
 
 export default interface ProjectResponse {
   projects: Project[],

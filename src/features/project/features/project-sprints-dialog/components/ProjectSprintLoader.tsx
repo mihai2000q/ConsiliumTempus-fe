@@ -1,4 +1,4 @@
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack } from '@mui/material'
 
 function ProjectSprintLoader() {
   return (
@@ -11,7 +11,7 @@ function ProjectSprintLoader() {
         <Skeleton variant={'rectangular'} height={300} />
       </Stack>
     </Stack>
-  );
+  )
 }
 
-export default ProjectSprintLoader;
+export default ProjectSprintLoader

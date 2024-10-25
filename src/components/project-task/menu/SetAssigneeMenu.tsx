@@ -12,13 +12,13 @@ import {
   styled,
   TextField,
   Typography
-} from "@mui/material";
-import demoUserPic from "../../../assets/demo-user-pic.jpg";
-import { useEffect, useState } from "react";
-import Collaborator from "../../../features/project-task-drawer/types/Collaborator.model.ts";
-import { useGetCollaboratorsQuery } from "../../../features/project-task-drawer/state/projectTaskDrawerApi.ts";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../state/store.ts";
+} from '@mui/material'
+import demoUserPic from '../../../assets/demo-user-pic.jpg'
+import { useEffect, useState } from 'react'
+import Collaborator from '../../../features/project-task-drawer/types/Collaborator.model.ts'
+import { useGetCollaboratorsQuery } from '../../../features/project-task-drawer/state/projectTaskDrawerApi.ts'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../state/store.ts'
 
 const StyledPopper = styled(Popper)<PopperProps>(({ theme }) => ({
   '& .MuiPaper-root': {
@@ -37,12 +37,12 @@ interface SetAssigneeMenuProps {
 }
 
 function SetAssigneeMenu({
-  anchorEl,
-  onClose,
-  workspaceId,
-  assigneeId,
-  setAssigneeId
-}: SetAssigneeMenuProps) {
+                           anchorEl,
+                           onClose,
+                           workspaceId,
+                           assigneeId,
+                           setAssigneeId
+                         }: SetAssigneeMenuProps) {
   const currentUserId = useSelector((state: RootState) => state.global.userId)
 
   const [searchValue, setSearchValue] = useState('')
@@ -57,7 +57,7 @@ function SetAssigneeMenu({
     if (collaborators && assigneeId) {
       setCollaborator(collaborators.find(({ id }) => id === assigneeId) ?? null)
     }
-  }, [collaborators, assigneeId]);
+  }, [collaborators, assigneeId])
 
   function handleAssignMe() {
     setAssigneeId(currentUserId ?? null)
@@ -116,7 +116,7 @@ function SetAssigneeMenu({
         </Stack>
       </Stack>
     </Menu>
-  );
+  )
 }
 
-export default SetAssigneeMenu;
+export default SetAssigneeMenu

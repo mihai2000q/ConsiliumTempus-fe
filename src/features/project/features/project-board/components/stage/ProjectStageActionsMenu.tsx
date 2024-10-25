@@ -1,10 +1,10 @@
-import { MouseEventHandler, ReactNode } from "react";
-import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { DeleteOutlined, East, Edit, ElectricBolt, PlaylistAdd, West } from "@mui/icons-material";
-import { useRemoveStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../../state/store.ts";
-import { useSnackbar } from "notistack";
+import { MouseEventHandler, ReactNode } from 'react'
+import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
+import { DeleteOutlined, East, Edit, ElectricBolt, PlaylistAdd, West } from '@mui/icons-material'
+import { useRemoveStageFromProjectSprintMutation } from '../../state/projectBoardApi.ts'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../../state/store.ts'
+import { useSnackbar } from 'notistack'
 
 interface ProjectStageActionsMenuItemProps {
   icon: ReactNode,
@@ -15,12 +15,12 @@ interface ProjectStageActionsMenuItemProps {
 }
 
 const ProjectStageActionsMenuItem = ({
-  onClick,
-  icon,
-  children,
-  disabled,
-  color
-} : ProjectStageActionsMenuItemProps) => (
+                                       onClick,
+                                       icon,
+                                       children,
+                                       disabled,
+                                       color
+                                     }: ProjectStageActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
     <Typography pt={0.5} color={color}>{children}</Typography>
@@ -48,6 +48,7 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
   }
 
   enum Placement { Left = 'left', Right = 'right' }
+
   const handleAddNewStage = (placement: Placement) => {
     console.log(placement)
     onClose()
@@ -57,7 +58,7 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
   const handleDeleteStage = () => {
     removeStageFromProjectSprint({ id: sprintId, stageId })
     onClose()
-    enqueueSnackbar("Stage deleted successfully!", { variant: 'success' })
+    enqueueSnackbar('Stage deleted successfully!', { variant: 'success' })
   }
 
   return (
@@ -84,7 +85,7 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
         Delete Stage
       </ProjectStageActionsMenuItem>
     </Menu>
-  );
+  )
 }
 
-export default ProjectStageActionsMenu;
+export default ProjectStageActionsMenu

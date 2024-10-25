@@ -1,14 +1,14 @@
-import { api } from "../../../state/api.ts";
-import TagTypes from "../../../utils/enums/TagTypes.ts";
-import Urls from "../../../utils/enums/Urls.ts";
+import { api } from '../../../state/api.ts'
+import TagTypes from '../../../utils/enums/TagTypes.ts'
+import Urls from '../../../utils/enums/Urls.ts'
 import {
   DeleteWorkspaceRequest,
   GetWorkspaceRequest,
   UpdateFavoritesWorkspaceRequest,
-  UpdateWorkspaceRequest,
-} from "../types/Workspace.request.ts";
-import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
-import Workspace from "../types/Workspace.model.ts";
+  UpdateWorkspaceRequest
+} from '../types/Workspace.request.ts'
+import HttpMessageResponse from '../../../types/responses/HttpMessage.response.ts'
+import Workspace from '../types/Workspace.model.ts'
 
 export const workspaceApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -38,7 +38,7 @@ export const workspaceApiSlice = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: [TagTypes.Workspaces]
-    }),
+    })
   })
 })
 
@@ -46,5 +46,5 @@ export const {
   useGetWorkspaceQuery,
   useUpdateWorkspaceMutation,
   useUpdateFavoritesWorkspaceMutation,
-  useDeleteWorkspaceMutation,
+  useDeleteWorkspaceMutation
 } = workspaceApiSlice

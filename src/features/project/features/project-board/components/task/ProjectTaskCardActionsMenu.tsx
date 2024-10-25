@@ -1,11 +1,11 @@
-import { MouseEventHandler, ReactNode } from "react";
-import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from "@mui/icons-material";
-import { useDeleteProjectTaskMutation, useUpdateIsCompletedProjectTaskMutation } from "../../state/projectBoardApi.ts";
-import { useNavigate } from "react-router-dom";
-import Paths from "../../../../../../utils/enums/Paths.ts";
-import ProjectTask from "../../types/ProjectTask.model.ts";
-import { useSnackbar } from "notistack";
+import { MouseEventHandler, ReactNode } from 'react'
+import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
+import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from '@mui/icons-material'
+import { useDeleteProjectTaskMutation, useUpdateIsCompletedProjectTaskMutation } from '../../state/projectBoardApi.ts'
+import { useNavigate } from 'react-router-dom'
+import Paths from '../../../../../../utils/enums/Paths.ts'
+import ProjectTask from '../../types/ProjectTask.model.ts'
+import { useSnackbar } from 'notistack'
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
@@ -16,12 +16,12 @@ interface ProjectTaskActionsMenuItemProps {
 }
 
 const ProjectTaskActionsMenuItem = ({
-  onClick,
-  icon,
-  children,
-  disabled,
-  color
-} : ProjectTaskActionsMenuItemProps) => (
+                                      onClick,
+                                      icon,
+                                      children,
+                                      disabled,
+                                      color
+                                    }: ProjectTaskActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
     <Typography pt={0.5} color={color}>{children}</Typography>
@@ -51,35 +51,35 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
   const handleCopyTaskLink = () => {
     onClose()
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${task.id}`).then()
-    enqueueSnackbar("Task copied on clipboard!", { variant: 'info' })
+    enqueueSnackbar('Task copied on clipboard!', { variant: 'info' })
   }
   const handleDuplicateTask = () => {
     onClose()
-    enqueueSnackbar("Task duplicated!", { variant: 'info' })
+    enqueueSnackbar('Task duplicated!', { variant: 'info' })
   }
   const handleMarkCompleteTask = () => {
     updateIsCompletedProjectTask({
       id: task.id,
-      isCompleted: true,
+      isCompleted: true
     })
     onClose()
   }
   const handleMarkIncompleteTask = () => {
     updateIsCompletedProjectTask({
       id: task.id,
-      isCompleted: false,
+      isCompleted: false
     })
     onClose()
   }
   const handleDeleteTask = () => {
     deleteProjectTask({ id: task.id, stageId: stageId })
-    enqueueSnackbar("Task deleted")
+    enqueueSnackbar('Task deleted')
     onClose()
   }
 
   return (
     <Menu
-      anchorOrigin={{ horizontal: 'center', vertical: 'bottom'}}
+      anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={onClose}>
@@ -112,7 +112,7 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
         Delete Task
       </ProjectTaskActionsMenuItem>
     </Menu>
-  );
+  )
 }
 
-export default ProjectTaskCardActionsMenu;
+export default ProjectTaskCardActionsMenu

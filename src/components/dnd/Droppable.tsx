@@ -1,5 +1,5 @@
-import { ReactNode } from 'react';
-import { useDroppable } from "@dnd-kit/core";
+import { ReactNode } from 'react'
+import { useDroppable } from '@dnd-kit/core'
 
 interface DroppableProps {
   children: ReactNode,
@@ -13,7 +13,7 @@ function Droppable({ children, id }: DroppableProps) {
     <div ref={setNodeRef} style={{ height: 'inherit' }}>
       {children}
     </div>
-  );
+  )
 }
 
-export default Droppable;
+export default Droppable

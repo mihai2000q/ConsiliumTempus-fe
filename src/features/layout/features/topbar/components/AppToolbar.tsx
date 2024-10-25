@@ -1,4 +1,4 @@
-import { styled, Toolbar, ToolbarProps } from "@mui/material";
+import { styled, Toolbar, ToolbarProps } from '@mui/material'
 
 interface AppToolbarProps extends ToolbarProps {
   isSidebarOpen: boolean,
@@ -6,21 +6,21 @@ interface AppToolbarProps extends ToolbarProps {
 }
 
 export const AppToolbar = styled(Toolbar, {
-  shouldForwardProp: (prop) => prop !== 'isSidebarOpen' && prop !== 'drawerWidth',
+  shouldForwardProp: (prop) => prop !== 'isSidebarOpen' && prop !== 'drawerWidth'
 })<AppToolbarProps>(({ theme, isSidebarOpen, drawerWidth }) => ({
   position: 'absolute',
   width: `${isSidebarOpen ? `calc(100% - ${drawerWidth}px)` : '100%'}`,
-  justifyContent: "space-between",
+  justifyContent: 'space-between',
   marginLeft: `-${drawerWidth}px`,
   transition: theme.transitions.create(['margin', 'width'], {
     easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
+    duration: theme.transitions.duration.leavingScreen
   }),
   ...(isSidebarOpen && {
     marginLeft: 0,
     transition: theme.transitions.create(['margin', 'width'], {
       easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
+      duration: theme.transitions.duration.enteringScreen
+    })
+  })
+}))

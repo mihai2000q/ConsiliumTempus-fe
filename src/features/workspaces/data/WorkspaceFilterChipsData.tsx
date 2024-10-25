@@ -1,10 +1,10 @@
-import { Person } from "@mui/icons-material";
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import FilterChipItem from "../../../types/FilterChipItem.ts";
-import FilterPropertyValueType from "../../../utils/enums/FilterPropertyValueType.ts";
-import dayjs from "dayjs";
-import { CalendarIcon } from "@mui/x-date-pickers";
-import WorkspacesSearchQueryParams from "../utils/WorkspacesSearchQueryParams.ts";
+import { Person } from '@mui/icons-material'
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import FilterChipItem from '../../../types/FilterChipItem.ts'
+import FilterPropertyValueType from '../../../utils/enums/FilterPropertyValueType.ts'
+import dayjs from 'dayjs'
+import { CalendarIcon } from '@mui/x-date-pickers'
+import WorkspacesSearchQueryParams from '../utils/WorkspacesSearchQueryParams.ts'
 
 export const workspaceFilterChipsData: FilterChipItem[] = [
   {

@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from 'react-router-dom'
 
 export interface SearchParamsState<TState> {
   initialState: TState,
@@ -7,10 +7,10 @@ export interface SearchParamsState<TState> {
 }
 
 export default function useSearchParamsState<TState>({
-  initialState,
-  serialize,
-  deserialize
-}: SearchParamsState<TState>)
+                                                       initialState,
+                                                       serialize,
+                                                       deserialize
+                                                     }: SearchParamsState<TState>)
   : [TState, (state: TState) => void] {
   const [searchParams, setSearchParams] = useSearchParams(serialize(initialState))
 

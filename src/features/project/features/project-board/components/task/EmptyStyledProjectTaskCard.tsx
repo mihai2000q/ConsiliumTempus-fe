@@ -1,4 +1,4 @@
-import { alpha, Box, BoxProps, lighten, styled } from "@mui/material";
+import { alpha, Box, BoxProps, lighten, styled } from '@mui/material'
 
 const EmptyStyledProjectTaskCard = styled(Box)<BoxProps>(({ theme }) => ({
   borderRadius: '16px',

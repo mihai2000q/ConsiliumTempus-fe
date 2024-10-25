@@ -2,4 +2,4 @@ enum WorkspaceParams {
   Id = 'id'
 }
 
-export default WorkspaceParams;
+export default WorkspaceParams

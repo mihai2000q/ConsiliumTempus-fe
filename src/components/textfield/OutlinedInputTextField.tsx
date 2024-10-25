@@ -1,5 +1,5 @@
-import { alpha, InputBase, InputBaseProps, styled, SxProps, Theme } from "@mui/material";
-import { ChangeEventHandler, useEffect, useRef, useState } from "react";
+import { alpha, InputBase, InputBaseProps, styled, SxProps, Theme } from '@mui/material'
+import { ChangeEventHandler, useEffect, useRef, useState } from 'react'
 
 interface OutlinedInputProps extends InputBaseProps {
   isFocused: boolean,
@@ -18,19 +18,19 @@ const OutlinedInput = styled(
   borderRadius: isTitle === true ? '4px' : '9px',
   fontSize: isTitle === true ? 20 : 14,
   '& .MuiInputBase-input': {
-    padding: isTitle === true ? '1px 5px' : '4px 6px',
+    padding: isTitle === true ? '1px 5px' : '4px 6px'
   },
   ...(isFocused
     ? {
-      borderColor: alpha(theme.palette.background[100], 0.7),
+      borderColor: alpha(theme.palette.background[100], 0.7)
     }
     : {
       '&:hover': {
         '& .MuiInputBase-input': {
-          padding: isTitle === true ? '2px 6px' : '5px 7px',
+          padding: isTitle === true ? '2px 6px' : '5px 7px'
         },
-        border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`,
-      },
+        border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`
+      }
     }),
   ...(error === true && {
     borderColor: theme.palette.error.main,
@@ -57,29 +57,29 @@ interface OutlinedInputTextFieldProps {
 }
 
 function OutlinedInputTextField({
-  value,
-  onChange,
-  name,
-  placeholder,
-  autoFocus,
-  refreshFocus,
-  fullWidth,
-  multiline,
-  isTitle,
-  error,
-  onBlur,
-  onBlurEvent,
-  minRows,
-  maxLength,
-  sx,
-}: OutlinedInputTextFieldProps) {
+                                  value,
+                                  onChange,
+                                  name,
+                                  placeholder,
+                                  autoFocus,
+                                  refreshFocus,
+                                  fullWidth,
+                                  multiline,
+                                  isTitle,
+                                  error,
+                                  onBlur,
+                                  onBlurEvent,
+                                  minRows,
+                                  maxLength,
+                                  sx
+                                }: OutlinedInputTextFieldProps) {
   const inputRef = useRef<HTMLElement>(null)
 
   const [isFocused, setIsFocused] = useState(false)
 
   useEffect(() => {
     if (autoFocus && refreshFocus) inputRef.current?.focus()
-  }, [autoFocus, inputRef, refreshFocus]);
+  }, [autoFocus, inputRef, refreshFocus])
 
   return (
     <OutlinedInput
@@ -109,7 +109,7 @@ function OutlinedInputTextField({
         }
       }}
       sx={{ ...sx }} />
-  );
+  )
 }
 
-export default OutlinedInputTextField;
+export default OutlinedInputTextField

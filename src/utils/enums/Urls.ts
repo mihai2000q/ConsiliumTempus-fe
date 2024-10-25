@@ -7,4 +7,4 @@ enum Urls {
   ProjectTasks = '/projects/tasks'
 }
 
-export default Urls;
+export default Urls

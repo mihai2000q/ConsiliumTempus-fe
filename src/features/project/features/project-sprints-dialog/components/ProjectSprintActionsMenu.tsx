@@ -1,10 +1,10 @@
-import { MouseEventHandler, ReactNode, useState } from "react";
-import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
-import { DeleteOutlined, EditOutlined } from "@mui/icons-material";
-import UpdateProjectSprintDialog from "./UpdateProjectSprintDialog.tsx";
-import ProjectSprint from "../types/ProjectSprint.model.ts";
-import { useDeleteProjectSprintMutation } from "../state/projectSprintsDialogApi.ts";
-import { useSnackbar } from "notistack";
+import { MouseEventHandler, ReactNode, useState } from 'react'
+import { ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
+import { DeleteOutlined, EditOutlined } from '@mui/icons-material'
+import UpdateProjectSprintDialog from './UpdateProjectSprintDialog.tsx'
+import ProjectSprint from '../types/ProjectSprint.model.ts'
+import { useDeleteProjectSprintMutation } from '../state/projectSprintsDialogApi.ts'
+import { useSnackbar } from 'notistack'
 
 interface ProjectSprintActionsMenuItemProps {
   children: ReactNode,
@@ -14,11 +14,11 @@ interface ProjectSprintActionsMenuItemProps {
 }
 
 const ProjectSprintActionsMenuItem = ({
-  onClick,
-  icon,
-  children,
-  color
-} : ProjectSprintActionsMenuItemProps) => (
+                                        onClick,
+                                        icon,
+                                        children,
+                                        color
+                                      }: ProjectSprintActionsMenuItemProps) => (
   <MenuItem onClick={onClick}>
     {icon && <ListItemIcon>{icon}</ListItemIcon>}
     <Typography pt={icon ? 0.5 : 0} color={color}>{children}</Typography>
@@ -33,11 +33,11 @@ interface ProjectSprintActionsMenuProps {
 }
 
 function ProjectSprintActionsMenu({
-  anchorEl,
-  onClose,
-  sprintId,
-  projectSprint
-}: ProjectSprintActionsMenuProps) {
+                                    anchorEl,
+                                    onClose,
+                                    sprintId,
+                                    projectSprint
+                                  }: ProjectSprintActionsMenuProps) {
   const [isUpdateProjectSprintDialogOpen, setIsUpdateProjectSprintDialogOpen] = useState(false)
   const handleCloseUpdateProjectStatusDialog = () => setIsUpdateProjectSprintDialogOpen(false)
 
@@ -49,10 +49,11 @@ function ProjectSprintActionsMenu({
     onClose()
     setIsUpdateProjectSprintDialogOpen(true)
   }
+
   async function handleDelete() {
     onClose()
     deleteProjectSprint({ id: sprintId })
-    enqueueSnackbar("Sprint deleted successfully!", { variant: 'success' })
+    enqueueSnackbar('Sprint deleted successfully!', { variant: 'success' })
   }
 
   return (
@@ -77,7 +78,7 @@ function ProjectSprintActionsMenu({
         sprintId={sprintId}
         initialProjectSprint={projectSprint} />
     </>
-  );
+  )
 }
 
 export default ProjectSprintActionsMenu

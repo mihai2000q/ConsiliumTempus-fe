@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useAddStageToProjectSprintMutation } from "../../state/projectBoardApi.ts";
-import OutlinedInputTextField from "../../../../../../components/textfield/OutlinedInputTextField.tsx";
-import StyledProjectStagePanel from "./StyledProjectStagePanel.tsx";
-import { SxProps } from "@mui/material";
+import { useState } from 'react'
+import { useAddStageToProjectSprintMutation } from '../../state/projectBoardApi.ts'
+import OutlinedInputTextField from '../../../../../../components/textfield/OutlinedInputTextField.tsx'
+import StyledProjectStagePanel from './StyledProjectStagePanel.tsx'
+import { SxProps } from '@mui/material'
 
 interface AddProjectStagePanelProps {
   sprintId: string,
@@ -13,14 +13,15 @@ interface AddProjectStagePanelProps {
 }
 
 function AddProjectStagePanel({
-  sprintId,
-  closeCard,
-  onTop,
-  show,
-  sx,
-}: AddProjectStagePanelProps) {
+                                sprintId,
+                                closeCard,
+                                onTop,
+                                show,
+                                sx
+                              }: AddProjectStagePanelProps) {
   const [newStageName, setNewStageName] = useState('')
   const [addStageToProjectSprint] = useAddStageToProjectSprintMutation()
+
   function handleAddStageToProjectSprint() {
     if (newStageName !== '') {
       addStageToProjectSprint({
@@ -44,7 +45,7 @@ function AddProjectStagePanel({
         onChange={(e) => setNewStageName(e.target.value)}
         onBlurEvent={handleAddStageToProjectSprint} />
     </StyledProjectStagePanel>
-  );
+  )
 }
 
-export default AddProjectStagePanel;
+export default AddProjectStagePanel

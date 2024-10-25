@@ -1,4 +1,4 @@
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack } from '@mui/material'
 
 function ProjectTasksLoader() {
   return (
@@ -7,7 +7,7 @@ function ProjectTasksLoader() {
         <Skeleton variant={'rectangular'} key={i} height={100} width={'100%'} sx={{ borderRadius: 4 }} />
       ))}
     </Stack>
-  );
+  )
 }
 
-export default ProjectTasksLoader;
+export default ProjectTasksLoader

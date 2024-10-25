@@ -1,9 +1,9 @@
-import StyledProjectTaskCard from "../task/StyledProjectTaskCard.tsx";
-import { useAppSelector } from "../../../../../../state/store.ts";
-import { Box, IconButton, Stack, Typography } from "@mui/material";
-import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
-import AssigneeIconButton from "../task/AssigneeIconButton.tsx";
-import StyledCompleteButton from "../task/StyledCompleteButton.tsx";
+import StyledProjectTaskCard from '../task/StyledProjectTaskCard.tsx'
+import { useAppSelector } from '../../../../../../state/store.ts'
+import { Box, IconButton, Stack, Typography } from '@mui/material'
+import { CheckCircleOutlineRounded, CheckCircleRounded } from '@mui/icons-material'
+import AssigneeIconButton from '../task/AssigneeIconButton.tsx'
+import StyledCompleteButton from '../task/StyledCompleteButton.tsx'
 
 function DragOverlayProjectTaskCard() {
   const task = useAppSelector(state => state.projectBoard.dragOverlayProjectTask)
@@ -11,7 +11,7 @@ function DragOverlayProjectTaskCard() {
   if (!task) return <></>
 
   return (
-    <Box position="relative" sx={{ backdropFilter: "blur(2px)" }}>
+    <Box position="relative" sx={{ backdropFilter: 'blur(2px)' }}>
       <StyledProjectTaskCard
         component={'div'}
         isSelected={true}
@@ -36,7 +36,7 @@ function DragOverlayProjectTaskCard() {
           assignee={task.assignee} />
       </Stack>
     </Box>
-  );
+  )
 }
 
-export default DragOverlayProjectTaskCard;
+export default DragOverlayProjectTaskCard

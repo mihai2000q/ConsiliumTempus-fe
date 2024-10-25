@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialState } from "./globalState.ts";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { initialState } from './globalState.ts'
 
 export const globalSlice = createSlice({
   name: 'global',

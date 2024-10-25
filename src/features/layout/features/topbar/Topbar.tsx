@@ -1,9 +1,9 @@
-import { IconButton, Stack } from "@mui/material";
-import { Menu, NotificationsOutlined } from "@mui/icons-material";
-import TopbarUser from "./components/TopbarUser.tsx";
-import { Dispatch, SetStateAction } from "react";
-import { AppToolbar } from "./components/AppToolbar.tsx";
-import TopbarSearchBar from "./components/TopbarSearchBar.tsx";
+import { IconButton, Stack } from '@mui/material'
+import { Menu, NotificationsOutlined } from '@mui/icons-material'
+import TopbarUser from './components/TopbarUser.tsx'
+import { Dispatch, SetStateAction } from 'react'
+import { AppToolbar } from './components/AppToolbar.tsx'
+import TopbarSearchBar from './components/TopbarSearchBar.tsx'
 
 interface TopbarProps {
   hidden: boolean,
@@ -19,6 +19,7 @@ function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: Topbar
   function handleMenu() {
     setIsSidebarOpen((prev) => !prev)
   }
+
   function handleNotifications() {
 
   }
@@ -30,8 +31,8 @@ function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: Topbar
       </IconButton>
 
       <Stack
-        alignItems={"center"}
-        direction={"row"}
+        alignItems={'center'}
+        direction={'row'}
         spacing={1}>
         <TopbarSearchBar />
         <IconButton variant={'circular'} onClick={handleNotifications}>
@@ -40,8 +41,8 @@ function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: Topbar
         <TopbarUser />
       </Stack>
     </AppToolbar>
-  );
+  )
 }
 
 
-export default Topbar;
+export default Topbar

@@ -1,6 +1,6 @@
-import { useState } from "react";
-import useTimeoutCallback from "./useTimeoutCallback.ts";
-import DependencyState from "../types/DependencyState.ts";
+import { useState } from 'react'
+import useTimeoutCallback from './useTimeoutCallback.ts'
+import DependencyState from '../types/DependencyState.ts'
 
 export default function useDependencyFacadeState<T>(initialValue: T): [
   DependencyState<T>,
@@ -19,7 +19,7 @@ export default function useDependencyFacadeState<T>(initialValue: T): [
 
   useTimeoutCallback(
     () => setState(facadeState),
-    [facadeState],
+    [facadeState]
   )
 
   const refreshIsUserState = () => {

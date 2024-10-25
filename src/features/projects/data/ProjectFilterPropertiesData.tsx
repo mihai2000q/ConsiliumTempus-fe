@@ -1,10 +1,10 @@
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import { CalendarTodayRounded, ChargingStationOutlined, Lock } from "@mui/icons-material";
-import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
-import FilterProperty from "../../../types/FilterProperty.ts";
-import FilterPropertyValueType from "../../../utils/enums/FilterPropertyValueType.ts";
-import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
-import { Dayjs } from "dayjs";
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import { CalendarTodayRounded, ChargingStationOutlined, Lock } from '@mui/icons-material'
+import ProjectsSearchQueryParams from '../utils/ProjectsSearchQueryParams.ts'
+import FilterProperty from '../../../types/FilterProperty.ts'
+import FilterPropertyValueType from '../../../utils/enums/FilterPropertyValueType.ts'
+import ProjectStatusType from '../../../utils/project/ProjectStatusType.ts'
+import { Dayjs } from 'dayjs'
 
 export const projectFilterPropertiesData: FilterProperty[] = [
   {
@@ -46,5 +46,5 @@ export const projectFilterPropertiesData: FilterProperty[] = [
     defaultValue: null as Dayjs | null,
     valueType: FilterPropertyValueType.PastDate,
     title: 'Last Modified On'
-  },
+  }
 ]

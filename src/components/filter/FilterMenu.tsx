@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react';
-import { Button, Collapse, Menu, Stack, Typography } from "@mui/material";
-import FilterChip from "./FilterChip.tsx";
-import { AddRounded } from "@mui/icons-material";
-import FilterPropertyMenu from "./property/FilterPropertyMenu.tsx";
-import { Filter } from "../../types/Filter.ts";
-import { addToSearchQueryParamType, removeFromSearchQueryParamType } from "../../hooks/useSearchQueryParam.ts";
-import FilterOperator from "../../utils/enums/FilterOperator.ts";
-import { default as FilterPropertyModel } from "../../types/FilterProperty.ts";
-import FilterChipItem from "../../types/FilterChipItem.ts";
-import FilterProperty from "./property/FilterProperty.tsx";
+import { useEffect, useState } from 'react'
+import { Button, Collapse, Menu, Stack, Typography } from '@mui/material'
+import FilterChip from './FilterChip.tsx'
+import { AddRounded } from '@mui/icons-material'
+import FilterPropertyMenu from './property/FilterPropertyMenu.tsx'
+import { Filter } from '../../types/Filter.ts'
+import { addToSearchQueryParamType, removeFromSearchQueryParamType } from '../../hooks/useSearchQueryParam.ts'
+import FilterOperator from '../../utils/enums/FilterOperator.ts'
+import { default as FilterPropertyModel } from '../../types/FilterProperty.ts'
+import FilterChipItem from '../../types/FilterChipItem.ts'
+import FilterProperty from './property/FilterProperty.tsx'
 
 interface FilterMenuProps {
   anchorEl: HTMLElement | null,
@@ -22,22 +22,22 @@ interface FilterMenuProps {
 }
 
 function FilterMenu({
-  anchorEl,
-  onClose,
-  addToSearchQueryParam,
-  removeFromSearchQueryParam,
-  filterChips,
-  filterProperties,
-  operatorsMap,
-  onSizeChange
-}: FilterMenuProps) {
+                      anchorEl,
+                      onClose,
+                      addToSearchQueryParam,
+                      removeFromSearchQueryParam,
+                      filterChips,
+                      filterProperties,
+                      operatorsMap,
+                      onSizeChange
+                    }: FilterMenuProps) {
   const [filterPropertiesMenuAnchorEl, setFilterPropertiesMenuAnchorEl] =
     useState<HTMLElement | null>(null)
 
   const [filters, setFilters] = useState<Filter[]>([])
   useEffect(() => {
     if (onSizeChange) onSizeChange(filters.length)
-  }, [filters.length, onSizeChange]);
+  }, [filters.length, onSizeChange])
 
   function handleClear() {
     filters.forEach(f => removeFromSearchQueryParam(f))
@@ -58,7 +58,7 @@ function FilterMenu({
 
   function handleRemoveFilters(filtersToRemove: Filter[]) {
     const f: Filter[] = []
-    filtersToRemove.forEach(ff =>{
+    filtersToRemove.forEach(ff => {
       const filterToRemove = filters.find(f =>
         f.property === ff.property &&
         f.operator === ff.operator &&
@@ -86,7 +86,7 @@ function FilterMenu({
     setFilters([...filters, ...f])
     f.forEach(addToSearchQueryParam)
   }
-  
+
   return (
     <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
       <Stack pt={2} pb={1} px={3} width={550}>
@@ -99,10 +99,10 @@ function FilterMenu({
 
         <Stack spacing={1} my={3}>
           <Typography color={'text.secondary'}>Quick Filters</Typography>
-          <Stack flexWrap={"wrap"} direction={'row'} alignItems={'center'} gap={1}>
+          <Stack flexWrap={'wrap'} direction={'row'} alignItems={'center'} gap={1}>
             {filterChips.map((chip) => (
               <FilterChip
-                { ...chip }
+                {...chip}
                 key={chip.title}
                 allFilters={filters}
                 handleFilters={handleAddFilters}
@@ -147,7 +147,7 @@ function FilterMenu({
           onClose={() => setFilterPropertiesMenuAnchorEl(null)} />
       </Stack>
     </Menu>
-  );
+  )
 }
 
-export default FilterMenu;
+export default FilterMenu

@@ -1,13 +1,13 @@
-import { alpha, Box, BoxProps, darken, InputBase, InputBaseProps, lighten, Stack, styled } from "@mui/material";
-import { useState } from "react";
-import { Search } from "@mui/icons-material";
+import { alpha, Box, BoxProps, darken, InputBase, InputBaseProps, lighten, Stack, styled } from '@mui/material'
+import { useState } from 'react'
+import { Search } from '@mui/icons-material'
 
 interface SearchbarProps extends BoxProps {
   isFocused: boolean
 }
 
 const Searchbar = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'isFocused',
+  shouldForwardProp: (prop) => prop !== 'isFocused'
 })<SearchbarProps>(({ theme, isFocused }) => ({
   boxShadow:
     theme.palette.mode === 'dark'
@@ -30,7 +30,7 @@ const Searchbar = styled(Box, {
   marginTop: '4px',
   marginLeft: 50,
   transition: theme.transitions.create(['background-color', 'border-radius', 'box-shadow'], {
-    duration: theme.transitions.duration.standard,
+    duration: theme.transitions.duration.standard
   }),
   '&:hover': {
     backgroundColor: theme.palette.mode === 'dark'
@@ -45,7 +45,7 @@ const Searchbar = styled(Box, {
         '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
         '10px 10px 15px -4px rgba(0,0,0,0.08),' +
         '10px -3px 15px -4px rgba(0,0,0,0.08),' +
-        '-10px -3px 15px -3px rgba(0,0,0,0.08)',
+        '-10px -3px 15px -3px rgba(0,0,0,0.08)'
   },
   ...(isFocused && {
     backgroundColor: theme.palette.mode === 'dark'
@@ -60,13 +60,13 @@ const Searchbar = styled(Box, {
         '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
         '10px 10px 15px -4px rgba(0,0,0,0.08),' +
         '10px -3px 15px -4px rgba(0,0,0,0.08),' +
-        '-10px -3px 15px -3px rgba(0,0,0,0.08)',
+        '-10px -3px 15px -3px rgba(0,0,0,0.08)'
   })
 }))
 
 const SearchInput = styled(InputBase)<InputBaseProps>({
   width: 200,
-  padding: '4px 8px',
+  padding: '4px 8px'
 })
 
 function TopbarSearchBar() {
@@ -85,7 +85,7 @@ function TopbarSearchBar() {
           onChange={(e) => setSearch(e.target.value)} />
       </Stack>
     </Searchbar>
-  );
+  )
 }
 
-export default TopbarSearchBar;
+export default TopbarSearchBar

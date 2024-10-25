@@ -1,4 +1,4 @@
-import { useGetProjectTaskQuery, useUpdateProjectTaskMutation } from "./state/projectTaskDrawerApi.ts";
+import { useGetProjectTaskQuery, useUpdateProjectTaskMutation } from './state/projectTaskDrawerApi.ts'
 import {
   alpha,
   Button,
@@ -12,21 +12,21 @@ import {
   TextField,
   Tooltip,
   Typography
-} from "@mui/material";
-import { CheckRounded, LinkOutlined, MoreHoriz, SkipNextRounded, VisibilityOutlined } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import Paths from "../../utils/enums/Paths.ts";
-import ProjectTaskDrawerActionsMenu from "./components/ProjectTaskDrawerActionsMenu.tsx";
-import useDependencyState from "../../hooks/useDependencyState.ts";
-import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
-import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
-import OutlinedInputTextField from "../../components/textfield/OutlinedInputTextField.tsx";
-import { useNavigate } from "react-router-dom";
-import ProjectTaskDrawerLoader from "./components/ProjectTaskDrawerLoader.tsx";
-import FormGridItem from "../../components/form/FormGridItem.tsx";
-import AssigneeButton from "./components/AssigneeButton.tsx";
-import RichTooltip from "../../components/tooltip/RichTooltip.tsx";
+} from '@mui/material'
+import { CheckRounded, LinkOutlined, MoreHoriz, SkipNextRounded, VisibilityOutlined } from '@mui/icons-material'
+import { useEffect, useState } from 'react'
+import Paths from '../../utils/enums/Paths.ts'
+import ProjectTaskDrawerActionsMenu from './components/ProjectTaskDrawerActionsMenu.tsx'
+import useDependencyState from '../../hooks/useDependencyState.ts'
+import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
+import useDependencyFacadeState from '../../hooks/useDependencyFacadeState.ts'
+import { isNoneUserDependencyState } from '../../types/DependencyState.ts'
+import OutlinedInputTextField from '../../components/textfield/OutlinedInputTextField.tsx'
+import { useNavigate } from 'react-router-dom'
+import ProjectTaskDrawerLoader from './components/ProjectTaskDrawerLoader.tsx'
+import FormGridItem from '../../components/form/FormGridItem.tsx'
+import AssigneeButton from './components/AssigneeButton.tsx'
+import RichTooltip from '../../components/tooltip/RichTooltip.tsx'
 
 interface CompletedButtonProps extends ButtonProps {
   isCompleted: boolean
@@ -40,11 +40,11 @@ const CompletedButton = styled(Button, {
     fontWeight: 400,
     fontSize: 12,
     paddingTop: '2px',
-    fontFamily: '"Roboto", sans-serif',
+    fontFamily: '"Roboto", sans-serif'
   },
   color: theme.palette.background[100],
   borderColor: alpha(theme.palette.background[100], 0.25),
-  '&:hover' : {
+  '&:hover': {
     borderColor: alpha(theme.palette.success.main, 0.75),
     color: theme.palette.success.main,
     backgroundColor: alpha(theme.palette.success.main, 0.1)
@@ -53,17 +53,17 @@ const CompletedButton = styled(Button, {
     color: theme.palette.success.main,
     borderColor: theme.palette.success.main,
     backgroundColor: alpha(theme.palette.success.main, 0.1),
-    '&:hover' : {
+    '&:hover': {
       borderColor: theme.palette.success.main,
       color: theme.palette.success.main,
       backgroundColor: alpha(theme.palette.success.main, 0.3)
     },
     ...(theme.palette.mode === 'light' && {
-      '&:hover' : {
+      '&:hover': {
         borderColor: theme.palette.success.light,
         color: theme.palette.background[900],
         backgroundColor: alpha(theme.palette.success.main, 0.75)
-      },
+      }
     })
   })
 }))
@@ -84,7 +84,7 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
     { skip: !isDrawerOpen }
   )
 
-  const [name, refreshName,  facadeName, setFacadeName] =
+  const [name, refreshName, facadeName, setFacadeName] =
     useDependencyFacadeState(task?.name ?? '')
   const [description, refreshDescription, facadeDescription, setFacadeDescription] =
     useDependencyFacadeState(task?.description ?? '')
@@ -102,7 +102,7 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
     setAssigneeId(task.assignee?.id ?? null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [task]) // TODO: Referential Equality
-  
+
   const [updateProjectTask] = useUpdateProjectTaskMutation()
   useUpdateEffect(() => {
     if (name.value === '' || isNoneUserDependencyState([name, description, isCompleted, assigneeId])) return
@@ -119,12 +119,13 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
     refreshDescription()
     refreshIsCompleted()
     refreshAssignee()
-  }, [name, description, isCompleted, assigneeId]);
+  }, [name, description, isCompleted, assigneeId])
 
   function handleViewDetails() {
     onClose()
     navigate(`${Paths.ProjectTask}/${taskId}`)
   }
+
   function handleCopyTaskLink() {
     navigator.clipboard.writeText(`${window.location.host}${Paths.ProjectTask}/${taskId}`).then()
   }
@@ -136,7 +137,7 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
       onClose={onClose}
       sx={{
         width: 600,
-        '& .MuiDrawer-paper': { width: 600, },
+        '& .MuiDrawer-paper': { width: 600 }
       }}>
       {
         !task
@@ -176,7 +177,7 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
                   </Tooltip>
                 </Stack>
               </Stack>
-              <Divider sx={{ mb: 1 }}/>
+              <Divider sx={{ mb: 1 }} />
 
               <Stack mx={2} spacing={0.5}>
                 <OutlinedInputTextField
@@ -228,7 +229,7 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
         anchorEl={menuAnchorEl}
         onClose={() => setMenuAnchorEl(null)} />
     </Drawer>
-  );
+  )
 }
 
-export default ProjectTaskDrawer;
+export default ProjectTaskDrawer

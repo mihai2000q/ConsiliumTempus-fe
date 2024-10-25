@@ -1,9 +1,9 @@
-import { Divider, ListItemIcon, ListItemText, ListSubheader, Menu, MenuItem } from "@mui/material";
-import { projectOrderProperties } from "../data/ProjectOrderPropertiesData.tsx";
-import { Dispatch, ReactNode, SetStateAction } from "react";
-import ProjectsOrderQueryParams from "../utils/ProjectsOrderQueryParams.ts";
-import { Check } from "@mui/icons-material";
-import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
+import { Divider, ListItemIcon, ListItemText, ListSubheader, Menu, MenuItem } from '@mui/material'
+import { projectOrderProperties } from '../data/ProjectOrderPropertiesData.tsx'
+import { Dispatch, ReactNode, SetStateAction } from 'react'
+import ProjectsOrderQueryParams from '../utils/ProjectsOrderQueryParams.ts'
+import { Check } from '@mui/icons-material'
+import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
 
 interface ProjectsMenuItemProps {
   children: ReactNode,
@@ -11,13 +11,13 @@ interface ProjectsMenuItemProps {
   onClick: () => void
 }
 
-const ProjectsMenuItem = ({ selected, onClick, children } : ProjectsMenuItemProps) => (
+const ProjectsMenuItem = ({ selected, onClick, children }: ProjectsMenuItemProps) => (
   <MenuItem
     selected={selected}
     onClick={onClick}
     sx={{
       '& .MuiSvgIcon-root': { fontSize: 17 },
-      '& .MuiListItemIcon-root': { minWidth: 23, }
+      '& .MuiListItemIcon-root': { minWidth: 23 }
     }}>
     <ListItemIcon>{selected && <Check />}</ListItemIcon>
     <ListItemText sx={{ pt: 0.3 }}>{children}</ListItemText>
@@ -34,13 +34,13 @@ interface SidebarProjectsMenuProps {
 }
 
 function SidebarProjectsMenu({
-  anchorEl,
-  onClose,
-  order,
-  setOrder,
-  lifecycle,
-  setLifecycle
-}: SidebarProjectsMenuProps) {
+                               anchorEl,
+                               onClose,
+                               order,
+                               setOrder,
+                               lifecycle,
+                               setLifecycle
+                             }: SidebarProjectsMenuProps) {
   function handleOrderClick(newOrder: string) {
     setOrder(newOrder as ProjectsOrderQueryParams)
   }
@@ -63,12 +63,15 @@ function SidebarProjectsMenu({
         Orders
       </ListSubheader>
       {projectOrderProperties.map(op => (
-        <ProjectsMenuItem key={op.property} selected={op.property === order} onClick={() => handleOrderClick(op.property)}>
+        <ProjectsMenuItem
+          key={op.property}
+          selected={op.property === order}
+          onClick={() => handleOrderClick(op.property)}>
           {op.displayName}
         </ProjectsMenuItem>
       ))}
     </Menu>
-  );
+  )
 }
 
-export default SidebarProjectsMenu;
+export default SidebarProjectsMenu

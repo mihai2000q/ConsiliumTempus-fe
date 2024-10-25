@@ -1,16 +1,16 @@
-import { useEffect, useState } from "react";
-import OrderType from "../../utils/enums/OrderType.ts";
-import Order from "../../types/Order.ts";
-import OrderPropertiesMenu from "./OrderPropertiesMenu.tsx";
-import { Button, Collapse, Menu, Stack, Typography } from "@mui/material";
-import { default as OrderPropertyModel } from "../../types/OrderProperty.ts";
-import { AddRounded } from "@mui/icons-material";
-import OrderProperty from "./OrderProperty.tsx";
-import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import { closestCenter, DndContext, DragEndEvent } from "@dnd-kit/core";
-import { arrayMove, SortableContext, verticalListSortingStrategy } from "@dnd-kit/sortable";
-import { restrictToFirstScrollableAncestor } from "@dnd-kit/modifiers";
-import { TransitionGroup } from "react-transition-group";
+import { useEffect, useState } from 'react'
+import OrderType from '../../utils/enums/OrderType.ts'
+import Order from '../../types/Order.ts'
+import OrderPropertiesMenu from './OrderPropertiesMenu.tsx'
+import { Button, Collapse, Menu, Stack, Typography } from '@mui/material'
+import { default as OrderPropertyModel } from '../../types/OrderProperty.ts'
+import { AddRounded } from '@mui/icons-material'
+import OrderProperty from './OrderProperty.tsx'
+import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
+import { closestCenter, DndContext, DragEndEvent } from '@dnd-kit/core'
+import { arrayMove, SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { restrictToFirstScrollableAncestor } from '@dnd-kit/modifiers'
+import { TransitionGroup } from 'react-transition-group'
 
 interface OrderMenuProps {
   anchorEl: HTMLElement | null,
@@ -22,13 +22,13 @@ interface OrderMenuProps {
 }
 
 function OrderMenu({
-  anchorEl,
-  onClose,
-  orderProperties,
-  initialOrder,
-  setOrderBy,
-  onSizeChange
-}: OrderMenuProps) {
+                     anchorEl,
+                     onClose,
+                     orderProperties,
+                     initialOrder,
+                     setOrderBy,
+                     onSizeChange
+                   }: OrderMenuProps) {
   const [orderPropertiesMenuAnchorEl, setOrderPropertiesMenuAnchorEl] =
     useState<HTMLElement | null>(null)
 
@@ -36,7 +36,7 @@ function OrderMenu({
     useState<Order[]>(initialOrder ? [initialOrder] : [])
   useEffect(() => {
     if (onSizeChange) onSizeChange(orders.length)
-  }, [onSizeChange, orders.length]);
+  }, [onSizeChange, orders.length])
   useUpdateEffect(() => {
     setOrderBy(orders)
   }, [orders])
@@ -61,7 +61,7 @@ function OrderMenu({
     handleAddOrder({
       property: orderProperty.property,
       displayName: orderProperty.displayName,
-      type: OrderType.Ascending,
+      type: OrderType.Ascending
     })
   }
 
@@ -70,11 +70,11 @@ function OrderMenu({
 
     if (over && active.id !== over.id) {
       setOrders((orders) => {
-        const oldIndex = orders.findIndex(o => o.property === active.id);
-        const newIndex = orders.findIndex(o => o.property === over.id);
+        const oldIndex = orders.findIndex(o => o.property === active.id)
+        const newIndex = orders.findIndex(o => o.property === over.id)
 
-        return arrayMove(orders, oldIndex, newIndex);
-      });
+        return arrayMove(orders, oldIndex, newIndex)
+      })
     }
   }
 
@@ -134,7 +134,7 @@ function OrderMenu({
           </Stack>
         </Menu>
       )
-  );
+  )
 }
 
-export default OrderMenu;
+export default OrderMenu

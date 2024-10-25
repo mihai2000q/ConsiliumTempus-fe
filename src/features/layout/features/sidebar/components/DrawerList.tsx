@@ -12,13 +12,13 @@ import {
   Stack,
   styled,
   Typography
-} from "@mui/material";
-import DrawerItem from "../types/DrawerItem.ts";
-import DrawerListItem from "./DrawerListItem.tsx";
-import { useLocation, useNavigate } from "react-router-dom";
-import React, { ReactElement, ReactNode, useState } from "react";
-import { ArrowDropDownRounded } from "@mui/icons-material";
-import DrawerListLoader from "./DrawerListLoader.tsx";
+} from '@mui/material'
+import DrawerItem from '../types/DrawerItem.ts'
+import DrawerListItem from './DrawerListItem.tsx'
+import { useLocation, useNavigate } from 'react-router-dom'
+import React, { ReactElement, ReactNode, useState } from 'react'
+import { ArrowDropDownRounded } from '@mui/icons-material'
+import DrawerListLoader from './DrawerListLoader.tsx'
 
 interface CollapseButtonProps extends IconButtonProps {
   isCollapsed: boolean
@@ -30,7 +30,7 @@ const CollapseButton = styled(IconButton, {
   width: 20,
   height: 20,
   transition: theme.transitions.create(['transform'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   transform: isCollapsed ? 'rotate(-90deg)' : undefined
 }))
@@ -55,14 +55,14 @@ interface DrawerListProps {
 }
 
 function DrawerList({
-  subheader,
-  subheaderDestination,
-  subheaderAction,
-  drawerItems,
-  fetchMore,
-  isFetching,
-  menu
-}: DrawerListProps) {
+                      subheader,
+                      subheaderDestination,
+                      subheaderAction,
+                      drawerItems,
+                      fetchMore,
+                      isFetching,
+                      menu
+                    }: DrawerListProps) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -121,7 +121,7 @@ function DrawerList({
             drawerItems.length === 0
               ?
               <Typography ml={5} my={1} variant={'body2'}>
-                No {subheader ?? "data"}
+                No {subheader ?? 'data'}
               </Typography>
               : <Collapse in={!hideItems} unmountOnExit>
                 {drawerItems.map((item) =>
@@ -145,7 +145,7 @@ function DrawerList({
           : <DrawerListLoader />
       }
     </List>
-  );
+  )
 }
 
-export default DrawerList;
+export default DrawerList

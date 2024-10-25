@@ -1,9 +1,9 @@
-import { api } from "../../../../../state/api.ts";
-import Urls from "../../../../../utils/enums/Urls.ts";
-import TagTypes from "../../../../../utils/enums/TagTypes.ts";
-import ProjectOverview from "../types/ProjectOverview.model.ts";
-import { GetProjectOverviewRequest, UpdateProjectOverviewRequest } from "../types/ProjectOverview.request.ts";
-import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
+import { api } from '../../../../../state/api.ts'
+import Urls from '../../../../../utils/enums/Urls.ts'
+import TagTypes from '../../../../../utils/enums/TagTypes.ts'
+import ProjectOverview from '../types/ProjectOverview.model.ts'
+import { GetProjectOverviewRequest, UpdateProjectOverviewRequest } from '../types/ProjectOverview.request.ts'
+import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
 
 export const projectOverviewApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -18,7 +18,7 @@ export const projectOverviewApiSlice = api.injectEndpoints({
         body: body
       }),
       invalidatesTags: [TagTypes.ProjectOverview, TagTypes.Projects]
-    }),
+    })
   })
 })
 

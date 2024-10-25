@@ -11,30 +11,30 @@ import {
   Typography,
   useTheme,
   Zoom
-} from "@mui/material";
-import ProjectStage from "../../types/ProjectStage.model.ts";
-import { useUpdateStageFromProjectSprintMutation } from "../../state/projectBoardApi.ts";
-import ProjectTaskCard from "../task/ProjectTaskCard.tsx";
-import { Add, AddRounded, MoreHorizRounded, SearchRounded } from "@mui/icons-material";
-import { Dispatch, SetStateAction, useState } from "react";
-import ProjectStageActionsMenu from "./ProjectStageActionsMenu.tsx";
-import ProjectTasksLoader from "../task/ProjectTasksLoader.tsx";
-import AddProjectTaskCard from "../task/AddProjectTaskCard.tsx";
-import OutlinedContentEditable from "../../../../../../components/text/OutlinedContentEditable.tsx";
-import useTimeoutCallback from "../../../../../../hooks/useTimeoutCallback.ts";
-import plural from "../../../../../../utils/plural.ts";
-import useProjectTasks from "../../hooks/useProjectTasks.ts";
-import StyledProjectStagePanel from "./StyledProjectStagePanel.tsx";
-import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities";
-import { rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
-import SortableItem from "../../../../../../components/dnd/SortableItem.tsx";
-import { useAppSelector } from "../../../../../../state/store.ts";
-import { TransitionGroup } from "react-transition-group";
-import TransitionComponent from "../../../../../../components/transition/TransitionComponent.tsx";
+} from '@mui/material'
+import ProjectStage from '../../types/ProjectStage.model.ts'
+import { useUpdateStageFromProjectSprintMutation } from '../../state/projectBoardApi.ts'
+import ProjectTaskCard from '../task/ProjectTaskCard.tsx'
+import { Add, AddRounded, MoreHorizRounded, SearchRounded } from '@mui/icons-material'
+import { Dispatch, SetStateAction, useState } from 'react'
+import ProjectStageActionsMenu from './ProjectStageActionsMenu.tsx'
+import ProjectTasksLoader from '../task/ProjectTasksLoader.tsx'
+import AddProjectTaskCard from '../task/AddProjectTaskCard.tsx'
+import OutlinedContentEditable from '../../../../../../components/text/OutlinedContentEditable.tsx'
+import useTimeoutCallback from '../../../../../../hooks/useTimeoutCallback.ts'
+import plural from '../../../../../../utils/plural.ts'
+import useProjectTasks from '../../hooks/useProjectTasks.ts'
+import StyledProjectStagePanel from './StyledProjectStagePanel.tsx'
+import { SyntheticListenerMap } from '@dnd-kit/core/dist/hooks/utilities'
+import { rectSortingStrategy, SortableContext } from '@dnd-kit/sortable'
+import SortableItem from '../../../../../../components/dnd/SortableItem.tsx'
+import { useAppSelector } from '../../../../../../state/store.ts'
+import { TransitionGroup } from 'react-transition-group'
+import TransitionComponent from '../../../../../../components/transition/TransitionComponent.tsx'
 
 const StyledDragHandle = styled(Box)<BoxProps>(() => ({
   position: 'absolute',
-  width: "calc(100% + 24px)",
+  width: 'calc(100% + 24px)',
   left: '-12px',
   top: '-12px',
   borderRadius: '16px 16px 0 0',
@@ -52,14 +52,14 @@ interface ProjectStagePanelProps {
 }
 
 function ProjectStagePanel({
-  stage,
-  showAddTaskCard,
-  setShowAddTaskCard,
-  listeners,
-  setActivatorNodeRef,
-  isDragged,
-  isDragging
-}: ProjectStagePanelProps) {
+                             stage,
+                             showAddTaskCard,
+                             setShowAddTaskCard,
+                             listeners,
+                             setActivatorNodeRef,
+                             isDragged,
+                             isDragging
+                           }: ProjectStagePanelProps) {
   const theme = useTheme()
 
   const sprintId = useAppSelector((state) => state.project.sprintId)
@@ -70,7 +70,7 @@ function ProjectStagePanel({
       id: sprintId,
       stageId: stage.id,
       name: stageName
-  }), [stageName])
+    }), [stageName])
 
   const {
     tasks,
@@ -89,7 +89,7 @@ function ProjectStagePanel({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleScroll = (e: any) => {
-    const { scrollTop, scrollHeight, clientHeight } = e.target;
+    const { scrollTop, scrollHeight, clientHeight } = e.target
 
     if (scrollTop + clientHeight > scrollHeight - 25) {
       fetchMoreTasks()
@@ -205,7 +205,7 @@ function ProjectStagePanel({
           <CircularProgress thickness={6} size={35} sx={{ mb: 4, mt: 2, alignSelf: 'center' }} />}
       </Stack>
     </StyledProjectStagePanel>
-  );
+  )
 }
 
-export default ProjectStagePanel;
+export default ProjectStagePanel
