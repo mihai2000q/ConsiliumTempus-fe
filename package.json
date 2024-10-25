@@ -1,12 +1,14 @@
 {
   "name": "consilium-tempus",
-  "private": true,
-  "version": "0.0.0",
+  "description": "The frontend of the Consillium Tempus application",
+  "version": "1.0.0",
+  "license": "Apache-2.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "typecheck": "tsc -b --verbose",
+    "build": "tsc -b && vite build",
+    "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
