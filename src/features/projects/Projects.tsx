@@ -1,9 +1,9 @@
 import { useGetProjectsQuery } from "./state/projectsApi.ts";
+import Grid from '@mui/material/Grid2'
 import {
   Button,
   ButtonGroup,
   CircularProgress,
-  Grid,
   Pagination,
   Skeleton,
   Stack,
@@ -34,7 +34,7 @@ import useOrderByQueryParam from "../../hooks/useOrderByQueryParam.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
-    <Grid item xs={4}>
+    <Grid size={4}>
       {children}
     </Grid>
   )
@@ -114,7 +114,7 @@ function Projects() {
       </Typography>
 
       <Grid container width={'100%'} alignItems={'center'}>
-        <Grid item xs={3} display={'flex'} alignItems={'center'}>
+        <Grid size={3} display={'flex'} alignItems={'center'}>
           <TextField
             name={'project-search'}
             label={'Search'}
@@ -128,7 +128,7 @@ function Projects() {
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 2 }} />}
         </Grid>
 
-        <Grid item xs={6} display={'flex'} justifyContent={'center'}>
+        <Grid size={6} display={'flex'} justifyContent={'center'}>
           <ProjectsLifecycleButtons
             lifecycle={lifecycle}
             setLifecycle={setLifecycle}
@@ -137,7 +137,7 @@ function Projects() {
             addToSearchQueryParam={addToSearchQueryParam} />
         </Grid>
 
-        <Grid item xs={3} display={'flex'} justifyContent={'end'} gap={2}>
+        <Grid size={3} display={'flex'} justifyContent={'end'} gap={2}>
             <ProjectSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
             <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
                                  removeFromSearchQueryParam={removeFromSearchQueryParam} />

@@ -1,8 +1,8 @@
+import Grid from '@mui/material/Grid2'
 import {
   Button,
   ButtonGroup,
   CircularProgress,
-  Grid,
   Pagination,
   Skeleton,
   Stack,
@@ -30,7 +30,7 @@ import Order from "../../types/Order.ts";
 
 const GridItem = ({ children }: { children: ReactNode }) => {
   return (
-    <Grid item xs={4}>
+    <Grid size={4}>
       {children}
     </Grid>
   )

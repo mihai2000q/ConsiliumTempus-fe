@@ -1,4 +1,5 @@
-import { Divider, Grid, Skeleton, Stack } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { Divider, Skeleton, Stack } from "@mui/material";
 
 function ProjectTaskDrawerLoader() {
   return (
@@ -17,24 +18,24 @@ function ProjectTaskDrawerLoader() {
       <Stack mx={2}>
         <Skeleton variant={'text'} width={'100%'} height={50} />
         <Grid container rowSpacing={1} alignItems={'center'}>
-          <Grid item xs={3}>
+          <Grid size={3}>
             <Skeleton variant={'text'} width={100} height={30} sx={{ borderRadius: 1 }} />
           </Grid>
-          <Grid item xs={9}>
+          <Grid size={9}>
             <Skeleton variant={'text'} width={125} height={40} sx={{ borderRadius: 1 }} />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid size={3}>
             <Skeleton variant={'text'} width={50} height={30} sx={{ borderRadius: 1 }} />
           </Grid>
-          <Grid item xs={9}>
+          <Grid size={9}>
             <Skeleton variant={'text'} width={90} height={40} sx={{ borderRadius: 1 }} />
           </Grid>
 
-          <Grid item xs={3}>
+          <Grid size={3}>
             <Skeleton variant={'text'} width={68} height={30} sx={{ borderRadius: 1 }} />
           </Grid>
-          <Grid item xs={9}>
+          <Grid size={9}>
             <Skeleton variant={'text'} width={150} height={40} sx={{ borderRadius: 1 }} />
           </Grid>
         </Grid>

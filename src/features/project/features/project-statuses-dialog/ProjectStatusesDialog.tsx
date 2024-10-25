@@ -1,4 +1,5 @@
-import { Button, Dialog, Divider, Grid, IconButton, Stack, Typography, } from "@mui/material";
+import Grid from "@mui/material/Grid2";
+import { Button, Dialog, Divider, IconButton, Stack, Typography, } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../../state/store.ts";
 import { closeProjectStatusesDialog } from "../../../../state/project/projectSlice.ts";
