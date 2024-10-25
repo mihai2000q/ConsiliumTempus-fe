@@ -1,6 +1,6 @@
-import { ReactNode } from 'react';
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities"
+import { ReactNode } from 'react'
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
 
 interface SortableItemProps {
   children: ReactNode,
@@ -29,12 +29,12 @@ function SortableItem({ children, id, blurBackground }: SortableItemProps) {
         height: 'inherit',
         position: 'relative',
         ...(isDragging && blurBackground && {
-          backdropFilter: "blur(2px)",
+          backdropFilter: 'blur(2px)'
         })
       }}>
       {children}
     </div>
-  );
+  )
 }
 
-export default SortableItem;
+export default SortableItem

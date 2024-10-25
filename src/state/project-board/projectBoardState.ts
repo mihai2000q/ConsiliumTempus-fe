@@ -1,4 +1,4 @@
-import ProjectTask from "../../features/project/features/project-board/types/ProjectTask.model.ts";
+import ProjectTask from '../../features/project/features/project-board/types/ProjectTask.model.ts'
 
 export interface ProjectStageState {
   id: string,

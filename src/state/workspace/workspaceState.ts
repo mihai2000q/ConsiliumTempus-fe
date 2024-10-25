@@ -3,5 +3,5 @@ interface WorkspaceState {
 }
 
 export const initialState: WorkspaceState = {
-  workspaceId: '',
+  workspaceId: ''
 }

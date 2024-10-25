@@ -1,17 +1,17 @@
-import { Divider, DividerProps, Stack, styled, Tooltip, Typography } from "@mui/material";
-import { ReactElement } from "react";
+import { Divider, DividerProps, Stack, styled, Tooltip, Typography } from '@mui/material'
+import { ReactElement } from 'react'
 
 interface ThickDividerProps extends DividerProps {
   thickness?: number | undefined
 }
 
 const ThickDivider = styled(Divider, {
-  shouldForwardProp: (props) => props !== 'thickness',
+  shouldForwardProp: (props) => props !== 'thickness'
 })<ThickDividerProps>(({ theme, thickness, orientation }) => ({
   backgroundColor: theme.palette.text.secondary,
   borderRadius: 8,
   ...(thickness &&
-    (orientation === "vertical"
+    (orientation === 'vertical'
       ? { borderRightWidth: thickness }
       : { borderBottomWidth: thickness }))
 }))
@@ -24,19 +24,19 @@ interface RichTooltipProps {
   enterDelay?: number,
   leaveDelay?: number,
   width?: number,
-  placement?: "bottom-end" | "bottom-start" | "bottom" | "left-end" | "left-start" | "left" | "right-end" | "right-start" | "right" | "top-end" | "top-start" | "top" | undefined,
+  placement?: 'bottom-end' | 'bottom-start' | 'bottom' | 'left-end' | 'left-start' | 'left' | 'right-end' | 'right-start' | 'right' | 'top-end' | 'top-start' | 'top' | undefined,
 }
 
 function RichTooltip({
-  children,
-  title,
-  description,
-  enterDelay = 300,
-  leaveDelay = 100,
-  placement = 'top',
-  arrow = true,
-  width = 150
-}: RichTooltipProps) {
+                       children,
+                       title,
+                       description,
+                       enterDelay = 300,
+                       leaveDelay = 100,
+                       placement = 'top',
+                       arrow = true,
+                       width = 150
+                     }: RichTooltipProps) {
   return (
     <Tooltip
       arrow={arrow}
@@ -52,7 +52,7 @@ function RichTooltip({
       }>
       {children}
     </Tooltip>
-  );
+  )
 }
 
-export default RichTooltip;
+export default RichTooltip

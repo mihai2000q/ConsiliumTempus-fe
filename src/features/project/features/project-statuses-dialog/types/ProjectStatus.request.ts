@@ -1,4 +1,4 @@
-import ProjectStatusType from "../../../../../utils/project/ProjectStatusType.ts";
+import ProjectStatusType from '../../../../../utils/project/ProjectStatusType.ts'
 
 export interface GetStatusesFromProjectRequest {
   id: string

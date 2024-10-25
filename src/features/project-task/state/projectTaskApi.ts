@@ -1,9 +1,9 @@
-import { api } from "../../../state/api.ts";
-import ProjectTask from "../types/ProjectTask.model.ts";
-import { GetProjectTaskRequest, UpdateOverviewProjectTaskRequest } from "../types/ProjectTask.request.ts";
-import Urls from "../../../utils/enums/Urls.ts";
-import TagTypes from "../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
+import { api } from '../../../state/api.ts'
+import ProjectTask from '../types/ProjectTask.model.ts'
+import { GetProjectTaskRequest, UpdateOverviewProjectTaskRequest } from '../types/ProjectTask.request.ts'
+import Urls from '../../../utils/enums/Urls.ts'
+import TagTypes from '../../../utils/enums/TagTypes.ts'
+import HttpMessageResponse from '../../../types/responses/HttpMessage.response.ts'
 
 export const projectTaskApi = api.injectEndpoints({
   endpoints: builder => ({

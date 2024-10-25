@@ -1,6 +1,6 @@
-import { api } from "../../../../../state/api.ts";
-import User from "../types/User.model.ts";
-import Urls from "../../../../../utils/enums/Urls.ts";
+import { api } from '../../../../../state/api.ts'
+import User from '../types/User.model.ts'
+import Urls from '../../../../../utils/enums/Urls.ts'
 
 export const topbarApiSlice = api.injectEndpoints({
   endpoints: (build) => ({

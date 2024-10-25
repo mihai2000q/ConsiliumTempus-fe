@@ -1,4 +1,4 @@
-import GetWorkspacesResponse from "../types/Workspace.response.ts";
+import GetWorkspacesResponse from '../types/Workspace.response.ts'
 
 export default function useWorkspacesPage(
   data: GetWorkspacesResponse | undefined,

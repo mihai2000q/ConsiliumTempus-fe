@@ -1,8 +1,8 @@
-import { alpha, Box, BoxProps, styled, SxProps, Theme, Typography } from "@mui/material";
-import { useEffect, useRef, useState } from "react";
-import { OverridableStringUnion } from "@mui/types";
-import { Variant } from "@mui/material/styles/createTypography";
-import { TypographyPropsVariantOverrides } from "@mui/material/Typography/Typography";
+import { alpha, Box, BoxProps, styled, SxProps, Theme, Typography } from '@mui/material'
+import { useEffect, useRef, useState } from 'react'
+import { OverridableStringUnion } from '@mui/types'
+import { Variant } from '@mui/material/styles/createTypography'
+import { TypographyPropsVariantOverrides } from '@mui/material/Typography/Typography'
 
 interface OutlinedBorderProps extends BoxProps {
   isFocused: boolean
@@ -16,13 +16,13 @@ const OutlinedBorder = styled(Box, {
   borderRadius: '6px',
   ...(isFocused
     ? {
-      borderColor: alpha(theme.palette.background[100], 0.7),
+      borderColor: alpha(theme.palette.background[100], 0.7)
     }
     : {
       '&:hover': {
         padding: '1px',
-        border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`,
-      },
+        border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`
+      }
     })
 }))
 
@@ -36,25 +36,25 @@ interface OutlinedInputTextFieldProps {
 }
 
 function OutlinedContentEditable({
-  value,
-  handleChange,
-  typographyVariant,
-  sx,
-  noWrap,
-  maxLength
-}: OutlinedInputTextFieldProps) {
+                                   value,
+                                   handleChange,
+                                   typographyVariant,
+                                   sx,
+                                   noWrap,
+                                   maxLength
+                                 }: OutlinedInputTextFieldProps) {
   const [isFocused, setIsFocused] = useState(false)
   const [localNoWrap, setLocalNoWrap] = useState(noWrap)
   useEffect(() => {
     if (noWrap !== undefined) setLocalNoWrap(!isFocused)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isFocused]);
+  }, [isFocused])
 
   const contentEditableRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (contentEditableRef.current && contentEditableRef.current.textContent !== value) {
-      contentEditableRef.current.textContent = value;
+      contentEditableRef.current.textContent = value
     }
   }, [contentEditableRef, value]) // TODO: CHECK THIS
 
@@ -87,7 +87,7 @@ function OutlinedContentEditable({
           outline: 0
         }} />
     </OutlinedBorder>
-  );
+  )
 }
 
-export default OutlinedContentEditable;
+export default OutlinedContentEditable

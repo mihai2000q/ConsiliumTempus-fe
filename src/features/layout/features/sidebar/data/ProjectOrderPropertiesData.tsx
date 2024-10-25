@@ -1,5 +1,5 @@
-import ProjectsOrderQueryParams from "../utils/ProjectsOrderQueryParams.ts";
-import OrderProperty from "../../../../../types/OrderProperty.ts";
+import ProjectsOrderQueryParams from '../utils/ProjectsOrderQueryParams.ts'
+import OrderProperty from '../../../../../types/OrderProperty.ts'
 
 export const projectOrderProperties: OrderProperty[] = [
   {

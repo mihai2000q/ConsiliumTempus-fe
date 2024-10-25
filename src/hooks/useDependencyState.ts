@@ -1,5 +1,5 @@
-import { useState } from "react";
-import DependencyState from "../types/DependencyState.ts";
+import { useState } from 'react'
+import DependencyState from '../types/DependencyState.ts'
 
 export default function useDependencyState<T>(initialValue: T): [
   DependencyState<T>,

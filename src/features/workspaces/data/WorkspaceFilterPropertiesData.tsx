@@ -1,9 +1,9 @@
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import { CalendarTodayRounded, Person } from "@mui/icons-material";
-import FilterProperty from "../../../types/FilterProperty.ts";
-import FilterPropertyValueType from "../../../utils/enums/FilterPropertyValueType.ts";
-import { Dayjs } from "dayjs";
-import WorkspacesSearchQueryParams from "../utils/WorkspacesSearchQueryParams.ts";
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import { CalendarTodayRounded, Person } from '@mui/icons-material'
+import FilterProperty from '../../../types/FilterProperty.ts'
+import FilterPropertyValueType from '../../../utils/enums/FilterPropertyValueType.ts'
+import { Dayjs } from 'dayjs'
+import WorkspacesSearchQueryParams from '../utils/WorkspacesSearchQueryParams.ts'
 
 export const workspaceFilterPropertiesData: FilterProperty[] = [
   {
@@ -37,5 +37,5 @@ export const workspaceFilterPropertiesData: FilterProperty[] = [
     defaultValue: null as Dayjs | null,
     valueType: FilterPropertyValueType.PastDate,
     title: 'Last Modified On'
-  },
+  }
 ]

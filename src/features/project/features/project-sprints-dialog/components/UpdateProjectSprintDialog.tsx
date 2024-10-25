@@ -1,5 +1,5 @@
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
+import { useFormik } from 'formik'
+import { useEffect, useState } from 'react'
 import {
   AppBar,
   Breadcrumbs,
@@ -15,19 +15,19 @@ import {
   Stack,
   Toolbar,
   Typography
-} from "@mui/material";
-import { updateProjectSprintDialogInitialValues } from "../state/projectSprintsDialogState.ts";
-import { updateProjectSprintDialogValidationSchema } from "../state/projectSprintsDialogValidation.ts";
-import dayjs, { Dayjs } from "dayjs";
-import { useUpdateProjectSprintMutation } from "../state/projectSprintsDialogApi.ts";
-import ProjectSprint from "../types/ProjectSprint.model.ts";
-import { Close } from "@mui/icons-material";
-import FormGridItem from "../../../../../components/form/FormGridItem.tsx";
-import { DatePicker } from "@mui/x-date-pickers";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../../state/store.ts";
-import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
-import { useSnackbar } from "notistack";
+} from '@mui/material'
+import { updateProjectSprintDialogInitialValues } from '../state/projectSprintsDialogState.ts'
+import { updateProjectSprintDialogValidationSchema } from '../state/projectSprintsDialogValidation.ts'
+import dayjs, { Dayjs } from 'dayjs'
+import { useUpdateProjectSprintMutation } from '../state/projectSprintsDialogApi.ts'
+import ProjectSprint from '../types/ProjectSprint.model.ts'
+import { Close } from '@mui/icons-material'
+import FormGridItem from '../../../../../components/form/FormGridItem.tsx'
+import { DatePicker } from '@mui/x-date-pickers'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../../state/store.ts'
+import LoadingButton from '../../../../../components/button/LoadingButton.tsx'
+import { useSnackbar } from 'notistack'
 
 interface UpdateProjectSprintDialogProps {
   open: boolean,
@@ -37,15 +37,15 @@ interface UpdateProjectSprintDialogProps {
 }
 
 function UpdateProjectSprintDialog({
-  open,
-  onClose,
-  sprintId,
-  initialProjectSprint
-}: UpdateProjectSprintDialogProps) {
+                                     open,
+                                     onClose,
+                                     sprintId,
+                                     initialProjectSprint
+                                   }: UpdateProjectSprintDialogProps) {
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
   const [updateProjectSprint, {
-    isLoading,
+    isLoading
   }] = useUpdateProjectSprintMutation()
 
   const [startDate, setStartDate] = useState<Dayjs | null>(dayjs())
@@ -70,7 +70,7 @@ function UpdateProjectSprintDialog({
     setStartDate(initialProjectSprint.startDate)
     setEndDate(initialProjectSprint.endDate)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initialProjectSprint]);
+  }, [initialProjectSprint])
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -79,7 +79,7 @@ function UpdateProjectSprintDialog({
       id: sprintId,
       name: values.projectSprintName,
       startDate: startDate?.toJSON()?.split('T')[0],
-      endDate: endDate?.toJSON()?.split('T')[0],
+      endDate: endDate?.toJSON()?.split('T')[0]
     }).unwrap()
     enqueueSnackbar('Sprint updated successfully!')
     onClose()
@@ -159,7 +159,7 @@ function UpdateProjectSprintDialog({
         </DialogContent>
       </form>
     </Dialog>
-  );
+  )
 }
 
-export default UpdateProjectSprintDialog;
+export default UpdateProjectSprintDialog

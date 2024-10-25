@@ -1,9 +1,9 @@
-import dayjs from "dayjs";
-import { ProjectSprintsResponse } from "../types/ProjectSprints.response.ts";
-import ProjectSprints from "../types/ProjectSprints.model.ts";
+import dayjs from 'dayjs'
+import { ProjectSprintsResponse } from '../types/ProjectSprints.response.ts'
+import ProjectSprints from '../types/ProjectSprints.model.ts'
 
 export default class ProjectSprintsAdapter {
-  static adapt(sprints: ProjectSprintsResponse | undefined) : ProjectSprints | undefined {
+  static adapt(sprints: ProjectSprintsResponse | undefined): ProjectSprints | undefined {
     if (!sprints) return undefined
 
     return sprints.map((sprint) => ({

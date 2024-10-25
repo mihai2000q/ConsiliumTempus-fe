@@ -1,22 +1,22 @@
-import { alpha, Box, BoxProps, Divider, Stack, StackProps, styled, Typography } from "@mui/material";
-import { Add } from "@mui/icons-material";
+import { alpha, Box, BoxProps, Divider, Stack, StackProps, styled, Typography } from '@mui/material'
+import { Add } from '@mui/icons-material'
 
 const StyledAddWorkspaceProjectCard = styled(Stack)<StackProps>(({ theme }) => ({
-  cursor: "pointer",
+  cursor: 'pointer',
   borderRadius: '16px',
   color: theme.palette.text.triadic,
   transition: theme.transitions.create(['background-color'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   '& .MuiDivider-root': {
     transition: theme.transitions.create(['opacity'], {
-      duration: theme.transitions.duration.short,
-    }),
+      duration: theme.transitions.duration.short
+    })
   },
   '& .MuiTypography-root': {
     transition: theme.transitions.create(['color'], {
-      duration: theme.transitions.duration.short,
-    }),
+      duration: theme.transitions.duration.short
+    })
   },
   '&:hover': {
     color: theme.palette.text.primary,
@@ -31,8 +31,8 @@ const DashedBorder = styled(Box)<BoxProps>(({ theme }) => ({
   borderColor: 'inherit',
   borderRadius: '14px',
   transition: theme.transitions.create(['color'], {
-    duration: theme.transitions.duration.short,
-  }),
+    duration: theme.transitions.duration.short
+  })
 }))
 
 function AddWorkspaceProjectCard() {
@@ -44,7 +44,7 @@ function AddWorkspaceProjectCard() {
       </Stack>
       <Divider variant={'middle'} />
     </StyledAddWorkspaceProjectCard>
-  );
+  )
 }
 
-export default AddWorkspaceProjectCard;
+export default AddWorkspaceProjectCard

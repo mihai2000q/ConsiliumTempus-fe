@@ -1,6 +1,6 @@
-import Grid from "@mui/material/Grid2";
-import { FormLabel } from "@mui/material";
-import { ReactNode } from "react";
+import Grid from '@mui/material/Grid2'
+import { FormLabel } from '@mui/material'
+import { ReactNode } from 'react'
 
 interface FormGridItemProps {
   children: ReactNode,
@@ -11,11 +11,11 @@ interface FormGridItemProps {
 }
 
 function FormGridItem({
-  children,
-  label,
-  labelSize,
-  justifyContent
-}: FormGridItemProps) {
+                        children,
+                        label,
+                        labelSize,
+                        justifyContent
+                      }: FormGridItemProps) {
   labelSize ??= 4
   justifyContent ??= 'start'
 
@@ -33,7 +33,7 @@ function FormGridItem({
         {children}
       </Grid>
     </>
-  );
+  )
 }
 
-export default FormGridItem;
+export default FormGridItem

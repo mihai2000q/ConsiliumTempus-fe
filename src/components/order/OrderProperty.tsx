@@ -1,4 +1,4 @@
-import Order from "../../types/Order.ts";
+import Order from '../../types/Order.ts'
 import {
   alpha,
   Box,
@@ -10,13 +10,13 @@ import {
   Select,
   styled,
   Tooltip
-} from "@mui/material";
-import { useState } from "react";
+} from '@mui/material'
+import { useState } from 'react'
 import { default as OrderPropertyModel } from './../../types/OrderProperty.ts'
-import OrderType from "../../utils/enums/OrderType.ts";
-import { Close, DragIndicator, NorthOutlined, SouthOutlined } from "@mui/icons-material";
-import { CSS } from "@dnd-kit/utilities";
-import { useSortable } from "@dnd-kit/sortable";
+import OrderType from '../../utils/enums/OrderType.ts'
+import { Close, DragIndicator, NorthOutlined, SouthOutlined } from '@mui/icons-material'
+import { CSS } from '@dnd-kit/utilities'
+import { useSortable } from '@dnd-kit/sortable'
 
 interface StyledOrderPropertyProps extends BoxProps {
   isDragHandleHovered: boolean
@@ -34,7 +34,7 @@ const StyledOrderProperty = styled(Box, {
   border: `1px solid transparent`,
   padding: '8px',
   transition: theme.transitions.create(['border-color'], {
-    duration: theme.transitions.duration.shorter,
+    duration: theme.transitions.duration.shorter
   }),
   ...(isDragHandleHovered && {
     borderColor: alpha(theme.palette.background[100], 0.2)
@@ -52,14 +52,14 @@ interface OrderPropertyProps {
 }
 
 function OrderProperty({
-  initialOrder,
-  orders,
-  index,
-  orderProperties,
-  handleOrder,
-  handleRemoveOrder,
-  disableRemove
-}: OrderPropertyProps) {
+                         initialOrder,
+                         orders,
+                         index,
+                         orderProperties,
+                         handleOrder,
+                         handleRemoveOrder,
+                         disableRemove
+                       }: OrderPropertyProps) {
   const [property, setProperty] = useState(initialOrder.property)
   const [type, setType] = useState(initialOrder.type)
   const [displayName, setDisplayName] = useState(initialOrder.displayName)
@@ -75,10 +75,12 @@ function OrderProperty({
     setDisplayName(newDisplayName)
     handleOrder(index, { property: newProperty, type, displayName: newDisplayName })
   }
+
   function handleTypeChange(newType: OrderType) {
     setType(newType)
     handleOrder(index, { property, type: newType, displayName })
   }
+
   function handleRemoveCurrentOrder() {
     handleRemoveOrder({ property, type, displayName })
   }
@@ -100,7 +102,7 @@ function OrderProperty({
       sx={{
         transform: CSS.Translate.toString(transform),
         transition,
-        cursor: transform ? 'grabbing' : 'unset',
+        cursor: transform ? 'grabbing' : 'unset'
       }}>
       <IconButton
         ref={setActivatorNodeRef}
@@ -205,7 +207,7 @@ function OrderProperty({
         </span>
       </Tooltip>
     </StyledOrderProperty>
-  );
+  )
 }
 
-export default OrderProperty;
+export default OrderProperty

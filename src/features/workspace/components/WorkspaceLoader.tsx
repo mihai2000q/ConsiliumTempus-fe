@@ -1,4 +1,4 @@
-import { Box, Skeleton, Stack } from "@mui/material";
+import { Box, Skeleton, Stack } from '@mui/material'
 
 function WorkspaceLoader() {
   return (
@@ -17,21 +17,21 @@ function WorkspaceLoader() {
 
           <Stack flexGrow={1} height={'100%'} spacing={1}>
             <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
-            <Skeleton variant={'rectangular'} height={'100%'}  sx={{ borderRadius: 2, flexGrow: 1 }} />
+            <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
           </Stack>
 
           <Stack flexGrow={1} height={'100%'} spacing={1}>
             <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
-            <Skeleton variant={'rectangular'} height={'100%'}  sx={{ borderRadius: 2, flexGrow: 1 }} />
+            <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
             <Stack direction={'row'} flexGrow={1} height={'100%'} spacing={1}>
-              <Skeleton variant={'rectangular'} height={'100%'}  sx={{ borderRadius: 2, flexGrow: 1 }} />
-              <Skeleton variant={'rectangular'} height={'100%'}  sx={{ borderRadius: 2, flexGrow: 1 }} />
+              <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
+              <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
             </Stack>
           </Stack>
         </Stack>
       </Box>
     </Stack>
-  );
+  )
 }
 
-export default WorkspaceLoader;
+export default WorkspaceLoader

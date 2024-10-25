@@ -1,12 +1,12 @@
-import { Skeleton, Stack } from "@mui/material";
+import { Skeleton, Stack } from '@mui/material'
 
 interface DrawerListLoaderProps {
   count?: number
 }
 
 function DrawerListLoader({
-  count = 5
-}: DrawerListLoaderProps) {
+                            count = 5
+                          }: DrawerListLoaderProps) {
   return (
     <Stack>
       {Array.from(Array(count)).map((_, i) => (
@@ -16,11 +16,11 @@ function DrawerListLoader({
           height={35}
           sx={{
             borderRadius: '10px',
-            margin: '1px 16px',
+            margin: '1px 16px'
           }} />
       ))}
     </Stack>
-  );
+  )
 }
 
-export default DrawerListLoader;
+export default DrawerListLoader

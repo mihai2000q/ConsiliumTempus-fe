@@ -1,20 +1,20 @@
-import { Mutex } from "async-mutex";
-import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from "@reduxjs/toolkit/query/react";
-import { RootState } from "./store.ts";
-import Urls from "../utils/enums/Urls.ts";
-import RefreshResponse from "../types/responses/Refresh.response.ts";
-import { logout, setToken } from "./auth/authSlice.ts";
-import Paths from "../utils/enums/Paths.ts";
-import HttpErrorResponse from "../types/responses/HttpError.response.ts";
-import { setErrorPath } from "./global/globalSlice.ts";
-import { enqueueSnackbar } from "notistack";
+import { Mutex } from 'async-mutex'
+import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
+import { RootState } from './store.ts'
+import Urls from '../utils/enums/Urls.ts'
+import RefreshResponse from '../types/responses/Refresh.response.ts'
+import { logout, setToken } from './auth/authSlice.ts'
+import Paths from '../utils/enums/Paths.ts'
+import HttpErrorResponse from '../types/responses/HttpError.response.ts'
+import { setErrorPath } from './global/globalSlice.ts'
+import { enqueueSnackbar } from 'notistack'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_URL,
   prepareHeaders: (headers, { getState }) => {
     const token = (getState() as RootState).auth.token
     if (token) {
-      headers.set("authorization", `Bearer ${token}`)
+      headers.set('authorization', `Bearer ${token}`)
     }
     return headers
   }
@@ -39,8 +39,8 @@ const baseQueryWithRefreshToken: BaseQueryFn<
             method: 'PUT',
             body: {
               token: authState.token,
-              refreshToken: authState.refreshToken,
-            },
+              refreshToken: authState.refreshToken
+            }
           },
           api,
           extraOptions
@@ -65,7 +65,7 @@ const baseQueryWithRefreshToken: BaseQueryFn<
 
 const errorCodeToPathname = new Map<number | string, string>([
   [403, Paths.Unauthorized],
-  [404, Paths.NotFound],
+  [404, Paths.NotFound]
 ])
 
 export const queryWithRedirection: BaseQueryFn<
@@ -91,6 +91,6 @@ export const queryWithRedirection: BaseQueryFn<
 }
 
 function isAuthRequest(args: string | FetchArgs) {
-  return typeof args === "string" && args.includes(Urls.Auth) ||
+  return typeof args === 'string' && args.includes(Urls.Auth) ||
     typeof args === 'object' && args.url.includes(Urls.Auth)
 }

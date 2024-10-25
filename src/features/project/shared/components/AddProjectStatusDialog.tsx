@@ -13,21 +13,21 @@ import {
   Stack,
   Toolbar,
   Typography
-} from "@mui/material";
-import { Close } from "@mui/icons-material";
-import { useFormik } from "formik";
-import { useEffect, useState } from "react";
-import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
-import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
-import { RootState } from "../../../../state/store.ts";
-import { useSelector } from "react-redux";
-import FormGridItem from "../../../../components/form/FormGridItem.tsx";
-import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
-import LoadingButton from "../../../../components/button/LoadingButton.tsx";
-import { addProjectStatusDialogSchema } from "../state/sharedProjectValidation.ts";
-import { addProjectStatusDialogFormInitialValues } from "../state/sharedProjectState.ts";
-import { useAddStatusToProjectMutation } from "../state/sharedProjectApi.ts";
-import { useSnackbar } from "notistack";
+} from '@mui/material'
+import { Close } from '@mui/icons-material'
+import { useFormik } from 'formik'
+import { useEffect, useState } from 'react'
+import OutlinedInputTextField from '../../../../components/textfield/OutlinedInputTextField.tsx'
+import ProjectStatusType from '../../../../utils/project/ProjectStatusType.ts'
+import { RootState } from '../../../../state/store.ts'
+import { useSelector } from 'react-redux'
+import FormGridItem from '../../../../components/form/FormGridItem.tsx'
+import ProjectStatusSelector from './ProjectStatusSelector.tsx'
+import LoadingButton from '../../../../components/button/LoadingButton.tsx'
+import { addProjectStatusDialogSchema } from '../state/sharedProjectValidation.ts'
+import { addProjectStatusDialogFormInitialValues } from '../state/sharedProjectState.ts'
+import { useAddStatusToProjectMutation } from '../state/sharedProjectApi.ts'
+import { useSnackbar } from 'notistack'
 
 interface AddProjectStatusDialogProps {
   open: boolean,
@@ -36,11 +36,11 @@ interface AddProjectStatusDialogProps {
 }
 
 function AddProjectStatusDialog({
-  open,
-  onClose,
-  initialStatus
-}: AddProjectStatusDialogProps) {
-  const titlePlaceholder = "Status Update"
+                                  open,
+                                  onClose,
+                                  initialStatus
+                                }: AddProjectStatusDialogProps) {
+  const titlePlaceholder = 'Status Update'
 
   const projectId = useSelector((state: RootState) => state.project.projectId)
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
@@ -66,7 +66,7 @@ function AddProjectStatusDialog({
   })
   useEffect(() => {
     if (initialStatus) setStatusType(initialStatus)
-  }, [initialStatus]);
+  }, [initialStatus])
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -137,7 +137,7 @@ function AddProjectStatusDialog({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.projectStatusDescription && !!errors.projectStatusDescription}
-                  sx={{ width: 500 }}/>
+                  sx={{ width: 500 }} />
                 <Collapse in={touched.projectStatusDescription && !!errors.projectStatusDescription}>
                   <FormHelperText error={touched.projectStatusDescription && !!errors.projectStatusDescription}>
                     {errors.projectStatusDescription}
@@ -149,7 +149,7 @@ function AddProjectStatusDialog({
         </DialogContent>
       </form>
     </Dialog>
-  );
+  )
 }
 
-export default AddProjectStatusDialog;
+export default AddProjectStatusDialog

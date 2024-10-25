@@ -1,5 +1,5 @@
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import WorkspacesSearchQueryParams from "./WorkspacesSearchQueryParams.ts";
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import WorkspacesSearchQueryParams from './WorkspacesSearchQueryParams.ts'
 
 export const workspacesSearchQueryParamsFilterOperators =
   new Map<string, FilterOperator[]>()

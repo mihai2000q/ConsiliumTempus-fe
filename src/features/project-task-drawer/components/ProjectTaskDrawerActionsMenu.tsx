@@ -1,8 +1,8 @@
-import { MouseEventHandler, ReactNode } from "react";
-import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { ContentCopy, DeleteOutlined } from "@mui/icons-material";
-import { useDeleteProjectTaskMutation } from "../state/projectTaskDrawerApi.ts";
-import { useSnackbar } from "notistack";
+import { MouseEventHandler, ReactNode } from 'react'
+import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
+import { ContentCopy, DeleteOutlined } from '@mui/icons-material'
+import { useDeleteProjectTaskMutation } from '../state/projectTaskDrawerApi.ts'
+import { useSnackbar } from 'notistack'
 
 interface ProjectTaskActionsMenuItemProps {
   icon: ReactNode,
@@ -13,12 +13,12 @@ interface ProjectTaskActionsMenuItemProps {
 }
 
 const ProjectTaskActionsMenuItem = ({
-  onClick,
-  icon,
-  children,
-  disabled,
-  color
-} : ProjectTaskActionsMenuItemProps) => (
+                                      onClick,
+                                      icon,
+                                      children,
+                                      disabled,
+                                      color
+                                    }: ProjectTaskActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
     <Typography pt={0.5} color={color}>{children}</Typography>
@@ -49,7 +49,7 @@ function ProjectTaskDrawerActionsMenu({ anchorEl, onClose, taskId }: ProjectTask
 
   return (
     <Menu
-      anchorOrigin={{ horizontal: 'center', vertical: 'bottom'}}
+      anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
       onClose={onClose}>
@@ -63,7 +63,7 @@ function ProjectTaskDrawerActionsMenu({ anchorEl, onClose, taskId }: ProjectTask
         Delete Task
       </ProjectTaskActionsMenuItem>
     </Menu>
-  );
+  )
 }
 
-export default ProjectTaskDrawerActionsMenu;
+export default ProjectTaskDrawerActionsMenu

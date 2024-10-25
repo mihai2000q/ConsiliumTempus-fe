@@ -1,15 +1,15 @@
-import { api } from "../../../state/api.ts";
-import ProjectTask from "../types/ProjectTask.model.ts";
+import { api } from '../../../state/api.ts'
+import ProjectTask from '../types/ProjectTask.model.ts'
 import {
   DeleteProjectTaskRequest,
   GetProjectTaskRequest,
   UpdateOverviewProjectTaskRequest
-} from "../types/ProjectTask.request.ts";
-import Urls from "../../../utils/enums/Urls.ts";
-import TagTypes from "../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
-import { GetCollaboratorsResponse } from "../types/Collaborator.response.ts";
-import { GetCollaboratorsRequest } from "../types/Collaborator.request.ts";
+} from '../types/ProjectTask.request.ts'
+import Urls from '../../../utils/enums/Urls.ts'
+import TagTypes from '../../../utils/enums/TagTypes.ts'
+import HttpMessageResponse from '../../../types/responses/HttpMessage.response.ts'
+import { GetCollaboratorsResponse } from '../types/Collaborator.response.ts'
+import { GetCollaboratorsRequest } from '../types/Collaborator.request.ts'
 
 export const projectTaskDrawerApi = api.injectEndpoints({
   endpoints: builder => ({

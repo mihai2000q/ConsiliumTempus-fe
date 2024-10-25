@@ -1,4 +1,4 @@
-import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
+import ProjectStatusType from '../../../utils/project/ProjectStatusType.ts'
 
 export const projectStatusToBackgroundColor: Map<ProjectStatusType, string> = new Map<ProjectStatusType, string>()
 projectStatusToBackgroundColor.set(ProjectStatusType.OnTrack, '#1D3733')

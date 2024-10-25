@@ -1,6 +1,6 @@
-import { ListItemIcon, ListItemText, Menu, MenuItem } from "@mui/material";
-import OrderProperty from "../../types/OrderProperty.ts";
-import Order from "../../types/Order.ts";
+import { ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
+import OrderProperty from '../../types/OrderProperty.ts'
+import Order from '../../types/Order.ts'
 
 interface OrderPropertiesMenuProps {
   anchorEl: HTMLElement | null,
@@ -11,12 +11,12 @@ interface OrderPropertiesMenuProps {
 }
 
 function OrderPropertiesMenu({
-  anchorEl,
-  onClose,
-  orders,
-  orderProperties,
-  onClick
-}: OrderPropertiesMenuProps) {
+                               anchorEl,
+                               onClose,
+                               orders,
+                               orderProperties,
+                               onClick
+                             }: OrderPropertiesMenuProps) {
   return (
     <Menu
       open={Boolean(anchorEl)}
@@ -38,7 +38,7 @@ function OrderPropertiesMenu({
         </MenuItem>
       ))}
     </Menu>
-  );
+  )
 }
 
-export default OrderPropertiesMenu;
+export default OrderPropertiesMenu

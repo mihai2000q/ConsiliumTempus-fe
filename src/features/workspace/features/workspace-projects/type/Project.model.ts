@@ -1,6 +1,6 @@
-import { Dayjs } from "dayjs";
-import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
-import ProjectStatusType from "../../../../../utils/project/ProjectStatusType.ts";
+import { Dayjs } from 'dayjs'
+import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
+import ProjectStatusType from '../../../../../utils/project/ProjectStatusType.ts'
 
 export default interface Project {
   id: string,

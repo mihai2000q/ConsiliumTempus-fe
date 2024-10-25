@@ -1,16 +1,16 @@
-import { api } from "../../../state/api.ts";
-import TagTypes from "../../../utils/enums/TagTypes.ts";
-import Urls from "../../../utils/enums/Urls.ts";
+import { api } from '../../../state/api.ts'
+import TagTypes from '../../../utils/enums/TagTypes.ts'
+import Urls from '../../../utils/enums/Urls.ts'
 import {
   DeleteProjectRequest,
   GetProjectRequest,
   UpdateFavoritesProjectRequest,
-  UpdateProjectRequest,
-} from "../types/Project.request.ts";
-import HttpMessageResponse from "../../../types/responses/HttpMessage.response.ts";
-import { GetProjectSprintsRequest } from "../types/ProjectSprint.request.ts";
-import ProjectResponse from "../types/Project.response.ts";
-import { GetProjectSprintsResponse } from "../types/ProjectSprint.response.ts";
+  UpdateProjectRequest
+} from '../types/Project.request.ts'
+import HttpMessageResponse from '../../../types/responses/HttpMessage.response.ts'
+import { GetProjectSprintsRequest } from '../types/ProjectSprint.request.ts'
+import ProjectResponse from '../types/Project.response.ts'
+import { GetProjectSprintsResponse } from '../types/ProjectSprint.response.ts'
 
 export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -48,7 +48,7 @@ export const projectApiSlice = api.injectEndpoints({
         params: arg
       }),
       providesTags: [TagTypes.ProjectSprints]
-    }),
+    })
   })
 })
 
@@ -57,5 +57,5 @@ export const {
   useUpdateProjectMutation,
   useUpdateFavoritesProjectMutation,
   useDeleteProjectMutation,
-  useGetProjectSprintsQuery,
+  useGetProjectSprintsQuery
 } = projectApiSlice

@@ -1,7 +1,7 @@
-import OrderProperty from "../../../types/OrderProperty.ts";
-import ProjectsOrderQueryParams from "../utils/ProjectsOrderQueryParams.ts";
-import { CalendarIcon } from "@mui/x-date-pickers";
-import { AbcOutlined } from "@mui/icons-material";
+import OrderProperty from '../../../types/OrderProperty.ts'
+import ProjectsOrderQueryParams from '../utils/ProjectsOrderQueryParams.ts'
+import { CalendarIcon } from '@mui/x-date-pickers'
+import { AbcOutlined } from '@mui/icons-material'
 
 export const projectOrderProperties: OrderProperty[] = [
   {
@@ -23,5 +23,5 @@ export const projectOrderProperties: OrderProperty[] = [
     property: ProjectsOrderQueryParams.UpdatedDateTime,
     displayName: 'Modified',
     icon: <CalendarIcon />
-  },
+  }
 ]

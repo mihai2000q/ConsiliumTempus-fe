@@ -1,7 +1,7 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode } from 'react'
 
 const TransitionComponent = React.forwardRef(
-  function (
+  function(
     props: { children: ReactNode },
     ref
   ) {
@@ -11,7 +11,7 @@ const TransitionComponent = React.forwardRef(
       <div ref={ref} {...props}>
         {props.children}
       </div>
-    );
-  });
+    )
+  })
 
-export default TransitionComponent;
+export default TransitionComponent

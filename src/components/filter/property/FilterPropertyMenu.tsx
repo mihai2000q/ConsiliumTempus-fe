@@ -1,8 +1,8 @@
-import { ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
-import FilterProperty from "../../../types/FilterProperty.ts";
-import { MouseEventHandler, ReactNode } from "react";
-import { Filter } from "../../../types/Filter.ts";
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
+import { ListItemIcon, Menu, MenuItem, Typography } from '@mui/material'
+import FilterProperty from '../../../types/FilterProperty.ts'
+import { MouseEventHandler, ReactNode } from 'react'
+import { Filter } from '../../../types/Filter.ts'
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
 
 interface FiltersActionsMenuItemProps {
   icon: ReactNode,
@@ -12,11 +12,11 @@ interface FiltersActionsMenuItemProps {
 }
 
 const FilterPropertyMenuItem = ({
-  onClick,
-  icon,
-  children,
-  disabled
-} : FiltersActionsMenuItemProps) => (
+                                  onClick,
+                                  icon,
+                                  children,
+                                  disabled
+                                }: FiltersActionsMenuItemProps) => (
   <MenuItem
     disabled={disabled}
     onClick={onClick}
@@ -44,13 +44,13 @@ interface FilterPropertyMenuProps {
 }
 
 function FilterPropertyMenu({
-  filterProperties,
-  filters,
-  operatorsMap,
-  menuAnchorEl,
-  handleFilter,
-  onClose
-}: FilterPropertyMenuProps) {
+                              filterProperties,
+                              filters,
+                              operatorsMap,
+                              menuAnchorEl,
+                              handleFilter,
+                              onClose
+                            }: FilterPropertyMenuProps) {
   function handleClick(filterProperty: FilterProperty) {
     const defaultOperator = filters
       .filter(f => f.property === filterProperty.property)
@@ -84,7 +84,7 @@ function FilterPropertyMenu({
         </FilterPropertyMenuItem>
       ))}
     </Menu>
-  );
+  )
 }
 
-export default FilterPropertyMenu;
+export default FilterPropertyMenu

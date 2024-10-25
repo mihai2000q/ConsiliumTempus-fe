@@ -1,24 +1,25 @@
-import { api } from "../../../../../state/api.ts";
-import Urls from "../../../../../utils/enums/Urls.ts";
-import TagTypes from "../../../../../utils/enums/TagTypes.ts";
+import { api } from '../../../../../state/api.ts'
+import Urls from '../../../../../utils/enums/Urls.ts'
+import TagTypes from '../../../../../utils/enums/TagTypes.ts'
 import {
   AddStageToProjectSprintRequest,
   GetStagesFromProjectSprintRequest,
   MoveStageFromProjectSprintRequest,
   RemoveStageFromProjectSprintRequest,
   UpdateStageFromProjectSprintRequest
-} from "../types/ProjectStage.request.ts";
-import { ProjectTaskResponse } from "../types/ProjectTask.response.ts";
+} from '../types/ProjectStage.request.ts'
+import { ProjectTaskResponse } from '../types/ProjectTask.response.ts'
 import {
   AddProjectTaskRequest,
   DeleteProjectTaskRequest,
   GetProjectTasksQueryParameters,
-  MoveProjectTaskRequest, UpdateIsCompletedProjectTaskRequest,
+  MoveProjectTaskRequest,
+  UpdateIsCompletedProjectTaskRequest,
   UpdateProjectTaskRequest
-} from "../types/ProjectTask.request.ts";
-import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
-import createQueryParams from "../../../../../utils/createQueryParams.ts";
-import { GetProjectStagesResponse } from "../types/ProjectStage.response.ts";
+} from '../types/ProjectTask.request.ts'
+import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
+import createQueryParams from '../../../../../utils/createQueryParams.ts'
+import { GetProjectStagesResponse } from '../types/ProjectStage.response.ts'
 
 export const projectBoardApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -116,5 +117,5 @@ export const {
   useUpdateProjectTaskMutation,
   useUpdateIsCompletedProjectTaskMutation,
   useMoveProjectTaskMutation,
-  useDeleteProjectTaskMutation,
+  useDeleteProjectTaskMutation
 } = projectBoardApiSlice

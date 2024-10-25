@@ -1,15 +1,15 @@
-import { Button, Dialog, Divider, IconButton, Stack, Typography } from "@mui/material";
-import { Close } from "@mui/icons-material";
-import VerticalLargeRadioButton from "../../../../components/button/radio/VerticalLargeRadioButton.tsx";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../state/store.ts";
-import useAdapterState from "../../../../hooks/useAdapterState.ts";
-import { useEffect, useState } from "react";
-import { closeProjectSprintsDialog, openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
-import ProjectSprintsDialogLoader from "./components/ProjectSprintsDialogLoader.tsx";
-import { useGetProjectSprintsQuery } from "./state/projectSprintsDialogApi.ts";
-import ProjectSprintsAdapter from "./adapters/ProjectSprints.adapter.ts";
-import ProjectSprint from "./components/ProjectSprint.tsx";
+import { Button, Dialog, Divider, IconButton, Stack, Typography } from '@mui/material'
+import { Close } from '@mui/icons-material'
+import VerticalLargeRadioButton from '../../../../components/button/radio/VerticalLargeRadioButton.tsx'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../../../state/store.ts'
+import useAdapterState from '../../../../hooks/useAdapterState.ts'
+import { useEffect, useState } from 'react'
+import { closeProjectSprintsDialog, openAddProjectSprintDialog } from '../../../../state/project/projectSlice.ts'
+import ProjectSprintsDialogLoader from './components/ProjectSprintsDialogLoader.tsx'
+import { useGetProjectSprintsQuery } from './state/projectSprintsDialogApi.ts'
+import ProjectSprintsAdapter from './adapters/ProjectSprints.adapter.ts'
+import ProjectSprint from './components/ProjectSprint.tsx'
 
 function ProjectSprintsDialog() {
   const { open } = useSelector((state: RootState) => state.project.projectSprintsDialog)
@@ -28,7 +28,7 @@ function ProjectSprintsDialog() {
   const [projectSprintIdSelected, setProjectSprintIdSelected] = useState<string>('')
   useEffect(() => {
     if (sprints) setProjectSprintIdSelected(sprints[0].id)
-  }, [sprints]);
+  }, [sprints])
 
   const handleClose = () => dispatch(closeProjectSprintsDialog())
   const handleAddNewSprint = () => {
@@ -101,13 +101,13 @@ function ProjectSprintsDialog() {
               </div>
             ))}
           </Stack>
-          <Divider orientation={"vertical"} />
+          <Divider orientation={'vertical'} />
 
           <ProjectSprint sprintId={projectSprintIdSelected} />
         </Stack>
       </Stack>
     </Dialog>
-  );
+  )
 }
 
-export default ProjectSprintsDialog;
+export default ProjectSprintsDialog

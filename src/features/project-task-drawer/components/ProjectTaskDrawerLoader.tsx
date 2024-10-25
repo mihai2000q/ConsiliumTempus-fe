@@ -1,5 +1,5 @@
-import Grid from "@mui/material/Grid2";
-import { Divider, Skeleton, Stack } from "@mui/material";
+import Grid from '@mui/material/Grid2'
+import { Divider, Skeleton, Stack } from '@mui/material'
 
 function ProjectTaskDrawerLoader() {
   return (
@@ -42,7 +42,7 @@ function ProjectTaskDrawerLoader() {
         <Skeleton variant={'rectangular'} width={'100%'} height={300} sx={{ borderRadius: 1, mt: 2 }} />
       </Stack>
     </Stack>
-  );
+  )
 }
 
-export default ProjectTaskDrawerLoader;
+export default ProjectTaskDrawerLoader

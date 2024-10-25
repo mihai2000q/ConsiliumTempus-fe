@@ -1,4 +1,4 @@
-import Project from "../type/Project.model.ts";
+import Project from '../type/Project.model.ts'
 import {
   alpha,
   Avatar,
@@ -12,16 +12,16 @@ import {
   styled,
   Typography,
   useTheme
-} from "@mui/material";
+} from '@mui/material'
 import { Link as ReactRouterLink } from 'react-router-dom'
 import demoProjectPic from './../../../../../assets/demo-projects.jpg'
 import demoUserPic from './../../../../../assets/demo-user-pic.jpg'
-import Paths from "../../../../../utils/enums/Paths.ts";
-import { Lock, MoreHoriz, Star, StarOutline } from "@mui/icons-material";
-import UserPopper from "../../../../../components/popper/UserPopper.tsx";
-import { useState } from "react";
-import WorkspaceProjectActionsMenu from "./WorkspaceProjectActionsMenu.tsx";
-import { useUpdateFavoritesProjectMutation } from "../state/workspaceProjectsApi.ts";
+import Paths from '../../../../../utils/enums/Paths.ts'
+import { Lock, MoreHoriz, Star, StarOutline } from '@mui/icons-material'
+import UserPopper from '../../../../../components/popper/UserPopper.tsx'
+import { useState } from 'react'
+import WorkspaceProjectActionsMenu from './WorkspaceProjectActionsMenu.tsx'
+import { useUpdateFavoritesProjectMutation } from '../state/workspaceProjectsApi.ts'
 
 interface StyledWorkspaceProjectCardProps extends BoxProps {
   isHovering: boolean
@@ -32,16 +32,16 @@ const StyledWorkspaceProjectCard = styled(Stack, {
 })<StyledWorkspaceProjectCardProps>(({ theme, isHovering }) => ({
   borderRadius: '16px',
   transition: theme.transitions.create(['background-color'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   '& .MuiDivider-root': {
     transition: theme.transitions.create(['opacity'], {
-      duration: theme.transitions.duration.short,
+      duration: theme.transitions.duration.short
     }),
     opacity: isHovering ? 0 : 1
   },
   ...(isHovering && {
-    backgroundColor: alpha(theme.palette.background[100], 0.1),
+    backgroundColor: alpha(theme.palette.background[100], 0.1)
   })
 }))
 
@@ -50,7 +50,7 @@ const StyledProjectAvatar = styled(Avatar)<StackProps>(({ theme }) => ({
   width: 55,
   height: 55,
   transition: theme.transitions.create(['filter'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   '&:hover': {
     filter: 'brightness(85%)'
@@ -61,7 +61,7 @@ const StyledOwnerAvatar = styled(Avatar)<StackProps>(({ theme }) => ({
   width: 30,
   height: 30,
   transition: theme.transitions.create(['filter'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   '&:hover': {
     filter: 'brightness(85%)'
@@ -76,9 +76,9 @@ const HoverToDisplay = styled(Box, {
   shouldForwardProp: (props) => props !== 'isHovering'
 })<HoverToDisplay>(({ theme, isHovering }) => ({
   transition: theme.transitions.create(['opacity'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
-  opacity: isHovering ? 1 : 0,
+  opacity: isHovering ? 1 : 0
 }))
 
 interface WorkspaceProjectCardProps {
@@ -126,7 +126,7 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
                     setIsFavorite(!isFavorite)
                     updateFavoritesProject({
                       id: project.id,
-                      isFavorite: !isFavorite,
+                      isFavorite: !isFavorite
                     })
                   }}
                   sx={{
@@ -168,7 +168,7 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
         }}
         project={project} />
     </StyledWorkspaceProjectCard>
-  );
+  )
 }
 
-export default WorkspaceProjectCard;
+export default WorkspaceProjectCard

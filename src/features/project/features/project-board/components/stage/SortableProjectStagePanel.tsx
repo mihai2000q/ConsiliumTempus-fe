@@ -1,10 +1,10 @@
-import { useSortable } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities"
-import ProjectStage from "../../types/ProjectStage.model.ts";
-import ProjectStagePanel from "./ProjectStagePanel.tsx";
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
-import { useTheme } from "@mui/material";
-import Droppable from "../../../../../../components/dnd/Droppable.tsx";
+import { useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import ProjectStage from '../../types/ProjectStage.model.ts'
+import ProjectStagePanel from './ProjectStagePanel.tsx'
+import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
+import { useTheme } from '@mui/material'
+import Droppable from '../../../../../../components/dnd/Droppable.tsx'
 
 interface SortableStagePanelProps {
   stage: ProjectStage,
@@ -13,12 +13,12 @@ interface SortableStagePanelProps {
   draggedStageId: string | null
 }
 
-function SortableProjectStagePanel({ 
-  stage, 
-  showAddTaskCard, 
-  setShowAddTaskCard,
-  draggedStageId 
-}: SortableStagePanelProps) {
+function SortableProjectStagePanel({
+                                     stage,
+                                     showAddTaskCard,
+                                     setShowAddTaskCard,
+                                     draggedStageId
+                                   }: SortableStagePanelProps) {
   const theme = useTheme()
 
   const {
@@ -33,12 +33,12 @@ function SortableProjectStagePanel({
   const [isDragged, setIsDragged] = useState(false)
   useEffect(() => {
     setIsDragged(stage.id === draggedStageId)
-  }, [draggedStageId, stage]);
+  }, [draggedStageId, stage])
 
   const [isDragging, setIsDragging] = useState(false)
   useEffect(() => {
     setIsDragging(!!transform)
-  }, [transform]);
+  }, [transform])
 
   return (
     <div
@@ -68,4 +68,4 @@ function SortableProjectStagePanel({
   )
 }
 
-export default SortableProjectStagePanel;
+export default SortableProjectStagePanel

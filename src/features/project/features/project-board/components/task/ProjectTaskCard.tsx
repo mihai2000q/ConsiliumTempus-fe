@@ -1,16 +1,16 @@
-import { Box, IconButton, Stack } from "@mui/material";
-import { CheckCircleOutlineRounded, CheckCircleRounded } from "@mui/icons-material";
-import React, { useEffect, useState } from "react";
-import ProjectTaskCardActionsMenu from "./ProjectTaskCardActionsMenu.tsx";
-import { useUpdateIsCompletedProjectTaskMutation, useUpdateProjectTaskMutation } from "../../state/projectBoardApi.ts";
-import AssigneeIconButton from "./AssigneeIconButton.tsx";
-import ProjectTask from "../../types/ProjectTask.model.ts";
-import StyledProjectTaskCard from "./StyledProjectTaskCard.tsx";
-import ProjectTaskDrawer from "../../../../../project-task-drawer/ProjectTaskDrawer.tsx";
-import StyledCompleteButton from "./StyledCompleteButton.tsx";
-import { useAppSelector } from "../../../../../../state/store.ts";
-import EmptyStyledProjectTaskCard from "./EmptyStyledProjectTaskCard.tsx";
-import Paragraph from "../../../../../../components/text/Paragraph.tsx";
+import { Box, IconButton, Stack } from '@mui/material'
+import { CheckCircleOutlineRounded, CheckCircleRounded } from '@mui/icons-material'
+import React, { useEffect, useState } from 'react'
+import ProjectTaskCardActionsMenu from './ProjectTaskCardActionsMenu.tsx'
+import { useUpdateIsCompletedProjectTaskMutation, useUpdateProjectTaskMutation } from '../../state/projectBoardApi.ts'
+import AssigneeIconButton from './AssigneeIconButton.tsx'
+import ProjectTask from '../../types/ProjectTask.model.ts'
+import StyledProjectTaskCard from './StyledProjectTaskCard.tsx'
+import ProjectTaskDrawer from '../../../../../project-task-drawer/ProjectTaskDrawer.tsx'
+import StyledCompleteButton from './StyledCompleteButton.tsx'
+import { useAppSelector } from '../../../../../../state/store.ts'
+import EmptyStyledProjectTaskCard from './EmptyStyledProjectTaskCard.tsx'
+import Paragraph from '../../../../../../components/text/Paragraph.tsx'
 
 interface ProjectTaskCardProps {
   task: ProjectTask,
@@ -43,8 +43,8 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
   const [updateIsCompletedProjectTask] = useUpdateIsCompletedProjectTaskMutation()
 
   function updateTask({
-    assigneeId = task.assignee?.id ?? null
-  }) {
+                        assigneeId = task.assignee?.id ?? null
+                      }) {
     updateProjectTask({
       id: task.id,
       name: task.name,
@@ -118,7 +118,7 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
             taskId={task.id} />
         </>}
     </Box>
-  );
+  )
 }
 
-export default ProjectTaskCard;
+export default ProjectTaskCard

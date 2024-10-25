@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialState } from "./workspaceState.ts";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { initialState } from './workspaceState.ts'
 
 export const workspaceSlice = createSlice({
   name: 'workspace',
@@ -7,12 +7,12 @@ export const workspaceSlice = createSlice({
   reducers: {
     setWorkspaceId: (state, action: PayloadAction<string>) => {
       state.workspaceId = action.payload
-    },
+    }
   }
 })
 
 export const {
-  setWorkspaceId,
+  setWorkspaceId
 } = workspaceSlice.actions
 
 export default workspaceSlice.reducer

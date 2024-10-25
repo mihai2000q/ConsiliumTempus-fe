@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import FilterPropertySelector from "./FilterPropertySelector.tsx";
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import { IconButton, Stack, Tooltip } from "@mui/material";
-import FilterOperatorSelector from "../operator/FilterOperatorSelector.tsx";
-import FilterValueSelector from "../value/FilterValueSelector.tsx";
-import { Close } from "@mui/icons-material";
-import { Filter } from "../../../types/Filter.ts";
-import useUpdateEffect from "../../../hooks/useUpdateEffect.ts";
-import { default as FilterPropertyType } from "../../../types/FilterProperty.ts";
+import { useState } from 'react'
+import FilterPropertySelector from './FilterPropertySelector.tsx'
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import { IconButton, Stack, Tooltip } from '@mui/material'
+import FilterOperatorSelector from '../operator/FilterOperatorSelector.tsx'
+import FilterValueSelector from '../value/FilterValueSelector.tsx'
+import { Close } from '@mui/icons-material'
+import { Filter } from '../../../types/Filter.ts'
+import useUpdateEffect from '../../../hooks/useUpdateEffect.ts'
+import { default as FilterPropertyType } from '../../../types/FilterProperty.ts'
 
 interface FilterPropertyProps {
   filterProperties: FilterPropertyType[],
@@ -20,14 +20,14 @@ interface FilterPropertyProps {
 }
 
 function FilterProperty({
-  filterProperties,
-  operatorsMap,
-  initialFilter,
-  filters,
-  index,
-  handleFilter,
-  handleRemoveFilter
-}: FilterPropertyProps) {
+                          filterProperties,
+                          operatorsMap,
+                          initialFilter,
+                          filters,
+                          index,
+                          handleFilter,
+                          handleRemoveFilter
+                        }: FilterPropertyProps) {
   const [property, setProperty] = useState(initialFilter.property)
   const [operator, setOperator] = useState(initialFilter.operator)
   const [value, setValue] = useState(initialFilter.value)
@@ -65,7 +65,7 @@ function FilterProperty({
     setValue(newValue)
     setValueType(filterProperty.valueType)
   }
-  
+
   const filterOperators = filters.filter(f => f.property === property).map(f => f.operator)
 
   return (
@@ -95,7 +95,7 @@ function FilterProperty({
         </IconButton>
       </Tooltip>
     </Stack>
-  );
+  )
 }
 
-export default FilterProperty;
+export default FilterProperty

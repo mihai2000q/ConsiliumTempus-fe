@@ -1,4 +1,4 @@
-import Workspace from "./Workspace.model.ts";
+import Workspace from './Workspace.model.ts'
 
 export default interface GetWorkspacesResponse {
   workspaces: Workspace[],

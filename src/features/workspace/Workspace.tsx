@@ -1,13 +1,13 @@
-import { Avatar, Divider, IconButton, Stack, Tab, Tabs, useTheme } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../state/store.ts";
-import { Route, Routes, useNavigate, useParams } from "react-router-dom";
-import { SyntheticEvent, useEffect, useState } from "react";
-import { setWorkspaceId } from "../../state/workspace/workspaceSlice.ts";
-import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
-import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
-import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
+import { Avatar, Divider, IconButton, Stack, Tab, Tabs, useTheme } from '@mui/material'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../state/store.ts'
+import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { SyntheticEvent, useEffect, useState } from 'react'
+import { setWorkspaceId } from '../../state/workspace/workspaceSlice.ts'
+import useDependencyFacadeState from '../../hooks/useDependencyFacadeState.ts'
+import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
+import { isNoneUserDependencyState } from '../../types/DependencyState.ts'
+import OutlinedContentEditable from '../../components/text/OutlinedContentEditable.tsx'
 import {
   ArrowDropDown,
   AssignmentRounded,
@@ -17,19 +17,19 @@ import {
   StarOutline,
   SubjectRounded,
   TimelineRounded
-} from "@mui/icons-material";
-import WorkspaceActionsMenu from "./components/WorkspaceActionsMenu.tsx";
-import WorkspaceParams from "./utils/WorkspaceParams.ts";
+} from '@mui/icons-material'
+import WorkspaceActionsMenu from './components/WorkspaceActionsMenu.tsx'
+import WorkspaceParams from './utils/WorkspaceParams.ts'
 import {
   useGetWorkspaceQuery,
   useUpdateFavoritesWorkspaceMutation,
   useUpdateWorkspaceMutation
-} from "./state/workspaceApi.ts";
-import demoWorkspacePicture from "../../assets/demo-workspace-pic.jpg";
-import { WorkspaceTabs } from "./utils/WorkspaceTabs.ts";
-import WorkspaceLoader from "./components/WorkspaceLoader.tsx";
-import WorkspaceOverview from "./features/workspace-overview/WorkspaceOverview.tsx";
-import WorkspaceProjects from "./features/workspace-projects/WorkspaceProjects.tsx";
+} from './state/workspaceApi.ts'
+import demoWorkspacePicture from '../../assets/demo-workspace-pic.jpg'
+import { WorkspaceTabs } from './utils/WorkspaceTabs.ts'
+import WorkspaceLoader from './components/WorkspaceLoader.tsx'
+import WorkspaceOverview from './features/workspace-overview/WorkspaceOverview.tsx'
+import WorkspaceProjects from './features/workspace-projects/WorkspaceProjects.tsx'
 
 function Workspace() {
   const theme = useTheme()
@@ -41,12 +41,12 @@ function Workspace() {
   useEffect(() => {
     dispatch(setWorkspaceId(workspaceId))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [workspaceId]);
+  }, [workspaceId])
 
   const [tab, setTab] = useState(WorkspaceTabs.Overview)
   useEffect(() => {
     navigate(tab)
-  }, [navigate, tab]);
+  }, [navigate, tab])
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
@@ -138,7 +138,7 @@ function Workspace() {
         <Route path={WorkspaceTabs.Projects} element={<WorkspaceProjects />} />
       </Routes>
     </Stack>
-  );
+  )
 }
 
-export default Workspace;
+export default Workspace

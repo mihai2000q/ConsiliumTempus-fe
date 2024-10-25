@@ -1,22 +1,22 @@
-import Grid from "@mui/material/Grid2";
-import { Button, Dialog, Divider, IconButton, Stack, Typography, } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../state/store.ts";
-import { closeProjectStatusesDialog } from "../../../../state/project/projectSlice.ts";
-import ProjectStatus from "./types/ProjectStatus.model.ts";
-import { useEffect, useState } from "react";
-import { Close, MoreHoriz } from "@mui/icons-material";
-import ProjectStatusLabel from "../../shared/components/ProjectStatusLabel.tsx";
-import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
-import ProjectStatusActionsMenu from "./components/ProjectStatusActionsMenu.tsx";
-import UserLabel from "../../../../components/label/UserLabel.tsx";
-import ProjectStatusMenu from "../../shared/components/ProjectStatusMenu.tsx";
-import ProjectStatusesDialogLoader from "./components/ProjectStatusesDialogLoader.tsx";
-import ProjectStatusAdapter from "./adapters/ProjectStatus.adapter.ts";
-import useAdapterState from "../../../../hooks/useAdapterState.ts";
-import FormGridItem from "../../../../components/form/FormGridItem.tsx";
-import VerticalLargeRadioButton from "../../../../components/button/radio/VerticalLargeRadioButton.tsx";
-import { useGetStatusesFromProjectQuery } from "./state/projectStatusesDialogApi.ts";
+import Grid from '@mui/material/Grid2'
+import { Button, Dialog, Divider, IconButton, Stack, Typography } from '@mui/material'
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../../../state/store.ts'
+import { closeProjectStatusesDialog } from '../../../../state/project/projectSlice.ts'
+import ProjectStatus from './types/ProjectStatus.model.ts'
+import { useEffect, useState } from 'react'
+import { Close, MoreHoriz } from '@mui/icons-material'
+import ProjectStatusLabel from '../../shared/components/ProjectStatusLabel.tsx'
+import { projectStatusToColor } from '../../data/ProjectStatusToColor.ts'
+import ProjectStatusActionsMenu from './components/ProjectStatusActionsMenu.tsx'
+import UserLabel from '../../../../components/label/UserLabel.tsx'
+import ProjectStatusMenu from '../../shared/components/ProjectStatusMenu.tsx'
+import ProjectStatusesDialogLoader from './components/ProjectStatusesDialogLoader.tsx'
+import ProjectStatusAdapter from './adapters/ProjectStatus.adapter.ts'
+import useAdapterState from '../../../../hooks/useAdapterState.ts'
+import FormGridItem from '../../../../components/form/FormGridItem.tsx'
+import VerticalLargeRadioButton from '../../../../components/button/radio/VerticalLargeRadioButton.tsx'
+import { useGetStatusesFromProjectQuery } from './state/projectStatusesDialogApi.ts'
 
 function ProjectStatusesDialog() {
   const {
@@ -45,7 +45,7 @@ function ProjectStatusesDialog() {
     } else {
       setProjectStatusSelected(statuses && statuses[0])
     }
-  }, [statuses, statusIdSelected]);
+  }, [statuses, statusIdSelected])
 
   const [actionsMenuAnchorEl, setActionsMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
@@ -116,7 +116,7 @@ function ProjectStatusesDialog() {
               </div>
             ))}
           </Stack>
-          <Divider orientation={"vertical"} />
+          <Divider orientation={'vertical'} />
 
           <Stack flexGrow={1}>
             <Divider color={projectStatusToColor.get(projectStatusSelected.status) ?? 'white'} sx={{ height: 8 }} />
@@ -170,7 +170,7 @@ function ProjectStatusesDialog() {
         </Stack>
       </Stack>
     </Dialog>
-  );
+  )
 }
 
-export default ProjectStatusesDialog;
+export default ProjectStatusesDialog

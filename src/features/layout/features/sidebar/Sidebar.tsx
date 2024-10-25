@@ -1,20 +1,20 @@
-import { Button, Divider, Drawer, IconButton, Stack, Typography, useTheme } from "@mui/material";
-import demoLogo from "../../../../assets/demo-logo.png";
-import DrawerList from "./components/DrawerList.tsx";
-import topDrawerItems from "./data/TopDrawerItemsData.tsx";
-import Paths from "../../../../utils/enums/Paths.ts";
-import { Add, MailOutlined, Person } from "@mui/icons-material";
-import AddProjectDialog from "./components/AddProjectDialog.tsx";
-import AddWorkspaceDialog from "./components/AddWorkspaceDialog.tsx";
-import Workspace from "./types/Workspace.model.ts";
-import { useGetWorkspacesQuery } from "./state/sidebarApi.ts";
-import { useState } from "react";
-import randomWorkspaceIcons from "./data/RandomWorkspaceIcons.tsx";
-import randomProjectIcons from "./data/RandomProjectIcons.tsx";
-import useProjects from "./hooks/useProjects.ts";
-import ProjectsOrderQueryParams from "./utils/ProjectsOrderQueryParams.ts";
-import SidebarProjectsMenu from "./components/SidebarProjectsMenu.tsx";
-import ProjectLifecycle from "../../../../utils/project/ProjectLifecycle.ts";
+import { Button, Divider, Drawer, IconButton, Stack, Typography, useTheme } from '@mui/material'
+import demoLogo from '../../../../assets/demo-logo.png'
+import DrawerList from './components/DrawerList.tsx'
+import topDrawerItems from './data/TopDrawerItemsData.tsx'
+import Paths from '../../../../utils/enums/Paths.ts'
+import { Add, MailOutlined, Person } from '@mui/icons-material'
+import AddProjectDialog from './components/AddProjectDialog.tsx'
+import AddWorkspaceDialog from './components/AddWorkspaceDialog.tsx'
+import Workspace from './types/Workspace.model.ts'
+import { useGetWorkspacesQuery } from './state/sidebarApi.ts'
+import { useState } from 'react'
+import randomWorkspaceIcons from './data/RandomWorkspaceIcons.tsx'
+import randomProjectIcons from './data/RandomProjectIcons.tsx'
+import useProjects from './hooks/useProjects.ts'
+import ProjectsOrderQueryParams from './utils/ProjectsOrderQueryParams.ts'
+import SidebarProjectsMenu from './components/SidebarProjectsMenu.tsx'
+import ProjectLifecycle from '../../../../utils/project/ProjectLifecycle.ts'
 
 interface SidebarProps {
   width: number,
@@ -48,6 +48,7 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
   function handleOpenAddProjectDialog() {
     setAddProjectDialogOpen(true)
   }
+
   function handleOpenAddWorkspaceDialog() {
     setAddWorkspaceDialogOpen(true)
   }
@@ -56,6 +57,7 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
     if (index === 0) return <Person />
     return randomWorkspaceIcons[Math.floor(name.length % randomWorkspaceIcons.length)]
   }
+
   function getProjectIcon(name: string) {
     return randomProjectIcons[Math.floor(name.length % randomProjectIcons.length)]
   }
@@ -64,11 +66,11 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
 
   return (
     <Drawer
-      variant={"persistent"}
+      variant={'persistent'}
       open={open}
       sx={{
         width: width,
-        '& .MuiDrawer-paper': { width: width },
+        '& .MuiDrawer-paper': { width: width }
       }}>
       <Stack pt={1.5} height={'100%'} sx={{ overflowY: 'hidden' }}>
         <Stack direction={'row'} alignItems={'center'} mb={2}>
@@ -86,11 +88,11 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
         <Stack flexGrow={1} sx={{ overflowY: 'auto' }}>
           <DrawerList drawerItems={topDrawerItems} />
           <DrawerList
-            subheader={"Workspaces"}
+            subheader={'Workspaces'}
             subheaderDestination={Paths.Workspaces}
             subheaderAction={
               <IconButton onClick={handleOpenAddWorkspaceDialog}>
-                <Add sx={{ color: 'darkgrey' }}/>
+                <Add sx={{ color: 'darkgrey' }} />
               </IconButton>
             }
             drawerItems={workspaces?.map((w, i) => ({
@@ -100,11 +102,11 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
             }))}
           />
           <DrawerList
-            subheader={"Projects"}
+            subheader={'Projects'}
             subheaderDestination={Paths.Projects}
             subheaderAction={
               <IconButton onClick={handleOpenAddProjectDialog}>
-                <Add sx={{ color: 'darkgrey' }}/>
+                <Add sx={{ color: 'darkgrey' }} />
               </IconButton>
             }
             drawerItems={projects?.map((p) => ({
@@ -152,7 +154,7 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
           onClose={() => setAddWorkspaceDialogOpen(false)} />
       </Stack>
     </Drawer>
-  );
+  )
 }
 
-export default Sidebar;
+export default Sidebar

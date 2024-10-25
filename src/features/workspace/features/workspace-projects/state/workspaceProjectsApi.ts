@@ -1,15 +1,15 @@
-import { api } from "../../../../../state/api.ts";
-import GetProjectsResponse from "../type/Project.response.ts";
+import { api } from '../../../../../state/api.ts'
+import GetProjectsResponse from '../type/Project.response.ts'
 import {
   DeleteProjectRequest,
   GetProjectsQueryParameters,
   UpdateFavoritesProjectRequest,
   UpdateProjectRequest
-} from "../type/Project.request.ts";
-import createQueryParams from "../../../../../utils/createQueryParams.ts";
-import Urls from "../../../../../utils/enums/Urls.ts";
-import TagTypes from "../../../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
+} from '../type/Project.request.ts'
+import createQueryParams from '../../../../../utils/createQueryParams.ts'
+import Urls from '../../../../../utils/enums/Urls.ts'
+import TagTypes from '../../../../../utils/enums/TagTypes.ts'
+import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
 
 export const workspaceProjectsApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -39,7 +39,7 @@ export const workspaceProjectsApiSlice = api.injectEndpoints({
         method: 'DELETE'
       }),
       invalidatesTags: [TagTypes.Projects]
-    }),
+    })
   })
 })
 
@@ -48,5 +48,5 @@ export const {
   useLazyGetProjectsQuery,
   useUpdateProjectMutation,
   useUpdateFavoritesProjectMutation,
-  useDeleteProjectMutation,
+  useDeleteProjectMutation
 } = workspaceProjectsApiSlice

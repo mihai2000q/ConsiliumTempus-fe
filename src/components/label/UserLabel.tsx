@@ -1,5 +1,5 @@
-import { Avatar, Box, BoxProps, darken, lighten, styled, Typography } from "@mui/material";
-import UserPopper from "../popper/UserPopper.tsx";
+import { Avatar, Box, BoxProps, darken, lighten, styled, Typography } from '@mui/material'
+import UserPopper from '../popper/UserPopper.tsx'
 import demoUserPic from '../../assets/demo-user-pic.jpg'
 
 const StyledUserLabel = styled(Box)<BoxProps>(({ theme }) => ({
@@ -15,14 +15,14 @@ const StyledUserLabel = styled(Box)<BoxProps>(({ theme }) => ({
   color: theme.palette.background[100],
   boxShadow: theme.shadows[2],
   transition: theme.transitions.create(['background-color', 'color', 'box-shadow'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   '&:hover': {
     backgroundColor: theme.palette.mode === 'dark'
       ? lighten(theme.palette.background[900], 0.02)
       : theme.palette.primary[800],
     color: theme.palette.background[50],
-    boxShadow: theme.shadows[6],
+    boxShadow: theme.shadows[6]
   }
 }))
 
@@ -44,7 +44,7 @@ function UserLabel({ user }: UserLabelProps) {
         <Typography noWrap>{user.name}</Typography>
       </StyledUserLabel>
     </UserPopper>
-  );
+  )
 }
 
-export default UserLabel;
+export default UserLabel

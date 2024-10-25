@@ -1,11 +1,11 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import {
   AddProjectSprintDialogState,
   initialState,
   ProjectSprintsDialogState,
   ProjectStatusesDialogState
-} from "./projectState.ts";
-import Breadcrumb from "../../types/Breadcrumb.ts";
+} from './projectState.ts'
+import Breadcrumb from '../../types/Breadcrumb.ts'
 
 export const projectSlice = createSlice({
   name: 'project',

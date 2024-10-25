@@ -4,6 +4,6 @@ export interface UpdateProjectStatusDialogForm {
 }
 
 export const updateProjectStatusDialogFormInitialValues: UpdateProjectStatusDialogForm = {
-  projectStatusTitle: "",
-  projectStatusDescription: ""
+  projectStatusTitle: '',
+  projectStatusDescription: ''
 }

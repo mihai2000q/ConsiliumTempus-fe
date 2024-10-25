@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom";
-import { useGetProjectTaskQuery } from "./state/projectTaskApi.ts";
-import { Stack, Typography } from "@mui/material";
-import ProjectTaskParams from "./utils/ProjectTaskParams.ts";
+import { useParams } from 'react-router-dom'
+import { useGetProjectTaskQuery } from './state/projectTaskApi.ts'
+import { Stack, Typography } from '@mui/material'
+import ProjectTaskParams from './utils/ProjectTaskParams.ts'
 
 function ProjectTask() {
   const params = useParams()
@@ -9,7 +9,7 @@ function ProjectTask() {
 
   const task = useGetProjectTaskQuery({ id: id }).data
 
-  if (!task) return <></>;
+  if (!task) return <></>
 
   return (
     <Stack>
@@ -17,7 +17,7 @@ function ProjectTask() {
       <Typography variant={'h5'}>{task.name}</Typography>
       <Typography>{task.description}</Typography>
     </Stack>
-  );
+  )
 }
 
-export default ProjectTask;
+export default ProjectTask

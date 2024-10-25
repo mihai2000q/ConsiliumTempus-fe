@@ -1,9 +1,9 @@
-import { api } from "../../../../state/api.ts";
-import Urls from "../../../../utils/enums/Urls.ts";
-import TagTypes from "../../../../utils/enums/TagTypes.ts";
-import HttpMessageResponse from "../../../../types/responses/HttpMessage.response.ts";
-import { AddProjectSprintRequest } from "../types/ProjectSprint.request.ts";
-import { AddStatusToProjectRequest } from "../types/ProjectStatus.request.ts";
+import { api } from '../../../../state/api.ts'
+import Urls from '../../../../utils/enums/Urls.ts'
+import TagTypes from '../../../../utils/enums/TagTypes.ts'
+import HttpMessageResponse from '../../../../types/responses/HttpMessage.response.ts'
+import { AddProjectSprintRequest } from '../types/ProjectSprint.request.ts'
+import { AddStatusToProjectRequest } from '../types/ProjectStatus.request.ts'
 
 export const sharedProjectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -23,7 +23,7 @@ export const sharedProjectApiSlice = api.injectEndpoints({
         body: body
       }),
       invalidatesTags: [TagTypes.Projects, TagTypes.ProjectStatuses]
-    }),
+    })
   })
 })
 

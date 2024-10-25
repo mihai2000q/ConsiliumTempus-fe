@@ -10,7 +10,7 @@ import {
   ViewModuleRounded,
   ViewQuiltRounded,
   ViewWeekRounded
-} from "@mui/icons-material";
+} from '@mui/icons-material'
 
 const randomProjectIcons = [
   <DashboardRounded />,
@@ -26,4 +26,4 @@ const randomProjectIcons = [
   <ViewCarouselRounded />
 ]
 
-export default randomProjectIcons;
+export default randomProjectIcons

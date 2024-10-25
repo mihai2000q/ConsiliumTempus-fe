@@ -8,4 +8,4 @@ enum ProjectsSearchQueryParams {
   UpdatedDateTime = 'updated_date_time',
 }
 
-export default ProjectsSearchQueryParams;
+export default ProjectsSearchQueryParams

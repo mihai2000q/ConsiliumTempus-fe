@@ -2,7 +2,7 @@ export const typographies = {
   h1: {
     fontFamily: fonts('"Source Sans 3"'),
     fontSize: 50,
-    fontWeight: 900,
+    fontWeight: 900
   },
   h2: {
     fontFamily: fonts('"Source Sans 3"'),
@@ -26,7 +26,7 @@ export const typographies = {
   },
   h6: {
     fontFamily: fonts('"Source Sans 3"'),
-    fontSize: 16,
+    fontSize: 16
   },
   body1: {
     fontFamily: fonts('"Source Sans 3"'),
@@ -34,7 +34,7 @@ export const typographies = {
   },
   body2: {
     fontFamily: fonts('"Source Sans 3"'),
-    fontSize: 13,
+    fontSize: 13
   },
   subtitle1: {
     fontFamily: fonts('"Source Sans 3"'),
@@ -51,7 +51,7 @@ export const typographies = {
   },
   button: {
     fontSize: 14,
-    fontWeight: 600,
+    fontWeight: 600
   }
 }
 

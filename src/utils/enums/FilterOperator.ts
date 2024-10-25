@@ -9,4 +9,4 @@ enum FilterOperator {
   StartsWith = 'sw'
 }
 
-export default FilterOperator;
+export default FilterOperator

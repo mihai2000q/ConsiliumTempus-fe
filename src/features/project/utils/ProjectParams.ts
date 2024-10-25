@@ -2,4 +2,4 @@ enum ProjectParams {
   Id = 'id'
 }
 
-export default ProjectParams;
+export default ProjectParams

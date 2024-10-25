@@ -1,6 +1,6 @@
-import { useParams, useSearchParams } from "react-router-dom";
-import { useGetProjectQuery, useUpdateFavoritesProjectMutation, useUpdateProjectMutation } from "./state/projectApi.ts";
-import { Avatar, Button, Divider, IconButton, Stack, Tab, Tabs, Typography, useTheme } from "@mui/material";
+import { useParams, useSearchParams } from 'react-router-dom'
+import { useGetProjectQuery, useUpdateFavoritesProjectMutation, useUpdateProjectMutation } from './state/projectApi.ts'
+import { Avatar, Button, Divider, IconButton, Stack, Tab, Tabs, Typography, useTheme } from '@mui/material'
 import demoProjectPicture from './../../assets/demo-projects.jpg'
 import {
   AccessTimeRounded,
@@ -16,32 +16,32 @@ import {
   StarOutline,
   SubjectRounded,
   TimelineRounded
-} from "@mui/icons-material";
-import { SyntheticEvent, useEffect, useState } from "react";
-import ProjectActionsMenu from "./components/ProjectActionsMenu.tsx";
-import { ProjectTabs } from "./utils/ProjectTabs.ts";
-import TabPanel from "../../components/tab/TabPanel.tsx";
-import ProjectBoard from "./features/project-board/ProjectBoard.tsx";
-import ProjectSearchParams from "./utils/ProjectSearchParams.ts";
-import OutlinedContentEditable from "../../components/text/OutlinedContentEditable.tsx";
-import ProjectSprintsSelector from "./components/ProjectSprintsSelector.tsx";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../state/store.ts";
-import ProjectOverview from "./features/project-overview/ProjectOverview.tsx";
-import ProjectParams from "./utils/ProjectParams.ts";
-import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
-import useDependencyFacadeState from "../../hooks/useDependencyFacadeState.ts";
-import { isNoneUserDependencyState } from "../../types/DependencyState.ts";
-import ProjectLoader from "./components/ProjectLoader.tsx";
-import ProjectStatusMenu from "./shared/components/ProjectStatusMenu.tsx";
-import ProjectStatusLabel from "./shared/components/ProjectStatusLabel.tsx";
-import ProjectStatusesDialog from "./features/project-statuses-dialog/ProjectStatusesDialog.tsx";
-import ProjectAdapter from "./adapters/Project.adapter.ts";
-import { setBreadcrumbs, setProjectId, setProjectName, setWorkspaceId } from "../../state/project/projectSlice.ts";
-import Paths from "../../utils/enums/Paths.ts";
-import AddProjectSprintDialog from "./shared/components/AddProjectSprintDialog.tsx";
-import useAdapterState from "../../hooks/useAdapterState.ts";
-import ProjectSprintsDialog from "./features/project-sprints-dialog/ProjectSprintsDialog.tsx";
+} from '@mui/icons-material'
+import { SyntheticEvent, useEffect, useState } from 'react'
+import ProjectActionsMenu from './components/ProjectActionsMenu.tsx'
+import { ProjectTabs } from './utils/ProjectTabs.ts'
+import TabPanel from '../../components/tab/TabPanel.tsx'
+import ProjectBoard from './features/project-board/ProjectBoard.tsx'
+import ProjectSearchParams from './utils/ProjectSearchParams.ts'
+import OutlinedContentEditable from '../../components/text/OutlinedContentEditable.tsx'
+import ProjectSprintsSelector from './components/ProjectSprintsSelector.tsx'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '../../state/store.ts'
+import ProjectOverview from './features/project-overview/ProjectOverview.tsx'
+import ProjectParams from './utils/ProjectParams.ts'
+import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
+import useDependencyFacadeState from '../../hooks/useDependencyFacadeState.ts'
+import { isNoneUserDependencyState } from '../../types/DependencyState.ts'
+import ProjectLoader from './components/ProjectLoader.tsx'
+import ProjectStatusMenu from './shared/components/ProjectStatusMenu.tsx'
+import ProjectStatusLabel from './shared/components/ProjectStatusLabel.tsx'
+import ProjectStatusesDialog from './features/project-statuses-dialog/ProjectStatusesDialog.tsx'
+import ProjectAdapter from './adapters/Project.adapter.ts'
+import { setBreadcrumbs, setProjectId, setProjectName, setWorkspaceId } from '../../state/project/projectSlice.ts'
+import Paths from '../../utils/enums/Paths.ts'
+import AddProjectSprintDialog from './shared/components/AddProjectSprintDialog.tsx'
+import useAdapterState from '../../hooks/useAdapterState.ts'
+import ProjectSprintsDialog from './features/project-sprints-dialog/ProjectSprintsDialog.tsx'
 
 function Project() {
   const theme = useTheme()
@@ -52,7 +52,7 @@ function Project() {
   useEffect(() => {
     dispatch(setProjectId(projectId))
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [projectId]);
+  }, [projectId])
 
   const [searchParams, setSearchParams] = useSearchParams()
   const tab = Number(searchParams.get(ProjectSearchParams.Tab)) ?? ProjectTabs.Overview
@@ -76,7 +76,7 @@ function Project() {
       dispatch(setWorkspaceId(project.workspace.id))
       dispatch(setBreadcrumbs([
         { path: `${Paths.Workspace}/${project.workspace.id}`, name: project.workspace.name },
-        { path: `${Paths.Project}/${projectId}`, name: project.name },
+        { path: `${Paths.Project}/${projectId}`, name: project.name }
       ]))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -210,7 +210,7 @@ function Project() {
       <ProjectSprintsDialog />
       <AddProjectSprintDialog />
     </Stack>
-  );
+  )
 }
 
-export default Project;
+export default Project

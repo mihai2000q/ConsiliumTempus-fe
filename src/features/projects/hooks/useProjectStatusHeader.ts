@@ -1,9 +1,9 @@
-import { ProjectStatus } from "../types/Project.model.ts";
-import { useTheme } from "@mui/material";
-import useIsDarkMode from "../../../hooks/useIsDarkMode.ts";
-import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
-import normalize from "../../../utils/normalize.ts";
-import { Dayjs } from "dayjs";
+import { ProjectStatus } from '../types/Project.model.ts'
+import { useTheme } from '@mui/material'
+import useIsDarkMode from '../../../hooks/useIsDarkMode.ts'
+import ProjectStatusType from '../../../utils/project/ProjectStatusType.ts'
+import normalize from '../../../utils/normalize.ts'
+import { Dayjs } from 'dayjs'
 
 export default function useProjectStatusHeader(
   createdDateTime: Dayjs,
@@ -19,7 +19,7 @@ export default function useProjectStatusHeader(
     ]
 
   return [
-    `Project has been ${normalize(latestStatus.status, true)} since 
+    `Project has been ${normalize(latestStatus.status, true)} since
     ${latestStatus.updatedDateTime.format('DD MMMM YYYY')}`,
     statusTypeToColor.get(latestStatus.status)!
   ]

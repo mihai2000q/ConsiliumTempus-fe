@@ -3,7 +3,7 @@ function MyTasks() {
     <div>
       My Tasks page
     </div>
-  );
+  )
 }
 
-export default MyTasks;
+export default MyTasks

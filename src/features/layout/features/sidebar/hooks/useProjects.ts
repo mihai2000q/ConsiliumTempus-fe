@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useRef, useState } from "react";
-import Project from "../types/Project.model.ts";
-import { useGetProjectsQuery, useLazyGetProjectsQuery } from "../state/sidebarApi.ts";
-import ProjectsOrderQueryParams from "../utils/ProjectsOrderQueryParams.ts";
-import OrderType from "../../../../../utils/enums/OrderType.ts";
-import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
-import useSearchQueryParam from "../../../../../hooks/useSearchQueryParam.ts";
-import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
-import FilterOperator from "../../../../../utils/enums/FilterOperator.ts";
-import useUpdateEffect from "../../../../../hooks/useUpdateEffect.ts";
+import { useEffect, useMemo, useRef, useState } from 'react'
+import Project from '../types/Project.model.ts'
+import { useGetProjectsQuery, useLazyGetProjectsQuery } from '../state/sidebarApi.ts'
+import ProjectsOrderQueryParams from '../utils/ProjectsOrderQueryParams.ts'
+import OrderType from '../../../../../utils/enums/OrderType.ts'
+import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
+import useSearchQueryParam from '../../../../../hooks/useSearchQueryParam.ts'
+import ProjectsSearchQueryParams from '../utils/ProjectsSearchQueryParams.ts'
+import FilterOperator from '../../../../../utils/enums/FilterOperator.ts'
+import useUpdateEffect from '../../../../../hooks/useUpdateEffect.ts'
 
 export default function useProjects(
   hidden: boolean,
@@ -39,7 +39,7 @@ export default function useProjects(
       operator: FilterOperator.Equal,
       value: lifecycle
     })
-  }, [lifecycle]);
+  }, [lifecycle])
 
   const currentPage = useRef(1)
 
@@ -53,18 +53,18 @@ export default function useProjects(
     { skip: hidden }
   )
   useEffect(() => {
-    if(data) {
+    if (data) {
       setProjects([...data.projects])
       setTotalCount(data.totalCount)
     }
-  }, [data]);
+  }, [data])
 
   useEffect(() => {
     if (hidden) {
       setTotalCount(0)
       setProjects([])
     }
-  }, [hidden]);
+  }, [hidden])
 
   const fetchMoreProjects = () => {
     currentPage.current++

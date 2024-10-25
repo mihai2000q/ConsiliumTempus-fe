@@ -1,5 +1,5 @@
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import ProjectsSearchQueryParams from "./ProjectsSearchQueryParams.ts";
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import ProjectsSearchQueryParams from './ProjectsSearchQueryParams.ts'
 
 export const projectsSearchQueryParamsFilterOperators =
   new Map<string, FilterOperator[]>()

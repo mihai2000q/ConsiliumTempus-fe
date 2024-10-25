@@ -5,7 +5,7 @@ export interface LoginForm {
 }
 
 export const loginFormInitialValues: LoginForm = {
-  email: "",
-  password: "",
+  email: '',
+  password: '',
   rememberMe: false
 }

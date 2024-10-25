@@ -1,10 +1,10 @@
-import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack } from "@mui/material";
-import OrderType from "../../utils/enums/OrderType.ts";
-import { KeyboardArrowDown, KeyboardArrowUp } from "@mui/icons-material";
-import { useState } from "react";
-import OrderProperty from "../../types/OrderProperty.ts";
-import Order from "../../types/Order.ts";
-import useUpdateEffect from "../../hooks/useUpdateEffect.ts";
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem, Stack } from '@mui/material'
+import OrderType from '../../utils/enums/OrderType.ts'
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
+import { useState } from 'react'
+import OrderProperty from '../../types/OrderProperty.ts'
+import Order from '../../types/Order.ts'
+import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
 
 interface SimpleOrderMenuProps {
   anchorEl: HTMLElement | null,
@@ -16,13 +16,13 @@ interface SimpleOrderMenuProps {
 }
 
 function SimpleOrderMenu({
-  anchorEl,
-  onClose,
-  initialOrder,
-  orderProperties,
-  setOrderBy,
-  onOrderChange
-}: SimpleOrderMenuProps) {
+                           anchorEl,
+                           onClose,
+                           initialOrder,
+                           orderProperties,
+                           setOrderBy,
+                           onOrderChange
+                         }: SimpleOrderMenuProps) {
   const [orderProperty, setOrderProperty] =
     useState(orderProperties.find(op => op.property === initialOrder.property)!)
   const [orderType, setOrderType] = useState(initialOrder.type)
@@ -34,7 +34,7 @@ function SimpleOrderMenu({
     }
     setOrderBy(newOrder)
     if (onOrderChange) onOrderChange(newOrder)
-  }, [orderType, orderProperty]);
+  }, [orderType, orderProperty])
 
   return (
     <Menu
@@ -76,7 +76,7 @@ function SimpleOrderMenu({
         </MenuItem>
       ))}
     </Menu>
-  );
+  )
 }
 
-export default SimpleOrderMenu;
+export default SimpleOrderMenu

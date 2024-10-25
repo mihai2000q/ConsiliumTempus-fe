@@ -1,11 +1,11 @@
-import { CheckCircleOutlineRounded, Lock, TrendingDown, TrendingUp } from "@mui/icons-material";
-import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import FilterChipItem from "../../../types/FilterChipItem.ts";
-import ProjectStatusType from "../../../utils/project/ProjectStatusType.ts";
-import FilterPropertyValueType from "../../../utils/enums/FilterPropertyValueType.ts";
-import dayjs from "dayjs";
-import { CalendarIcon } from "@mui/x-date-pickers";
+import { CheckCircleOutlineRounded, Lock, TrendingDown, TrendingUp } from '@mui/icons-material'
+import ProjectsSearchQueryParams from '../utils/ProjectsSearchQueryParams.ts'
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import FilterChipItem from '../../../types/FilterChipItem.ts'
+import ProjectStatusType from '../../../utils/project/ProjectStatusType.ts'
+import FilterPropertyValueType from '../../../utils/enums/FilterPropertyValueType.ts'
+import dayjs from 'dayjs'
+import { CalendarIcon } from '@mui/x-date-pickers'
 
 export const projectFilterChipsData: FilterChipItem[] = [
   {
@@ -36,7 +36,7 @@ export const projectFilterChipsData: FilterChipItem[] = [
       operator: FilterOperator.Equal,
       value: ProjectStatusType.Completed,
       valueType: FilterPropertyValueType.ProjectStatusType
-    }],
+    }]
   },
   {
     icon: <Lock />,

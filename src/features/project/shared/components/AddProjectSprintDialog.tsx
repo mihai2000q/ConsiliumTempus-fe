@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../../state/store.ts";
-import { useFormik } from "formik";
+import { useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, RootState } from '../../../../state/store.ts'
+import { useFormik } from 'formik'
 import {
   Accordion,
   AccordionDetails,
@@ -23,21 +23,21 @@ import {
   Tooltip,
   Typography,
   useTheme
-} from "@mui/material";
-import { Close, ExpandMore, InfoOutlined } from "@mui/icons-material";
-import { closeAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
-import { DatePicker } from "@mui/x-date-pickers";
-import { useEffect, useState } from "react";
-import dayjs, { Dayjs } from "dayjs";
-import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
-import OutlinedInputTextField from "../../../../components/textfield/OutlinedInputTextField.tsx";
-import ProjectStatusSelector from "./ProjectStatusSelector.tsx";
-import FormGridItem from "../../../../components/form/FormGridItem.tsx";
-import { addProjectSprintDialogValidationSchema } from "../state/sharedProjectValidation.ts";
-import { useAddProjectSprintMutation } from "../state/sharedProjectApi.ts";
-import { addProjectSprintDialogInitialValues } from "../state/sharedProjectState.ts";
-import LoadingButton from "../../../../components/button/LoadingButton.tsx";
-import { useSnackbar } from "notistack";
+} from '@mui/material'
+import { Close, ExpandMore, InfoOutlined } from '@mui/icons-material'
+import { closeAddProjectSprintDialog } from '../../../../state/project/projectSlice.ts'
+import { DatePicker } from '@mui/x-date-pickers'
+import { useEffect, useState } from 'react'
+import dayjs, { Dayjs } from 'dayjs'
+import ProjectStatusType from '../../../../utils/project/ProjectStatusType.ts'
+import OutlinedInputTextField from '../../../../components/textfield/OutlinedInputTextField.tsx'
+import ProjectStatusSelector from './ProjectStatusSelector.tsx'
+import FormGridItem from '../../../../components/form/FormGridItem.tsx'
+import { addProjectSprintDialogValidationSchema } from '../state/sharedProjectValidation.ts'
+import { useAddProjectSprintMutation } from '../state/sharedProjectApi.ts'
+import { addProjectSprintDialogInitialValues } from '../state/sharedProjectState.ts'
+import LoadingButton from '../../../../components/button/LoadingButton.tsx'
+import { useSnackbar } from 'notistack'
 
 function AddProjectSprintDialog() {
   const projectStatusTitlePlaceholder = 'Status Update'
@@ -78,7 +78,7 @@ function AddProjectSprintDialog() {
   useEffect(() => {
     values.isProjectStatusAccordionOpen = isAccordionExpanded
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isAccordionExpanded]);
+  }, [isAccordionExpanded])
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -98,7 +98,7 @@ function AddProjectSprintDialog() {
         }
     }).unwrap()
     resetForm()
-    enqueueSnackbar("Sprint created successfully!")
+    enqueueSnackbar('Sprint created successfully!')
     onClose()
   }
 
@@ -229,7 +229,7 @@ function AddProjectSprintDialog() {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         error={touched.projectStatusDescription && !!errors.projectStatusDescription}
-                        sx={{ width: 500 }}/>
+                        sx={{ width: 500 }} />
                       <Collapse in={touched.projectStatusDescription && !!errors.projectStatusDescription}>
                         <FormHelperText error={touched.projectStatusDescription && !!errors.projectStatusDescription}>
                           {errors.projectStatusDescription}
@@ -244,7 +244,7 @@ function AddProjectSprintDialog() {
         </DialogContent>
       </form>
     </Dialog>
-  );
+  )
 }
 
-export default AddProjectSprintDialog;
+export default AddProjectSprintDialog

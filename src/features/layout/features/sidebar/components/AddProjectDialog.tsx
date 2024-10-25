@@ -11,16 +11,16 @@ import {
   Select,
   Stack,
   TextField
-} from "@mui/material";
-import Workspace from "../types/Workspace.model.ts";
-import { useFormik } from "formik";
-import { addProjectDialogSchema } from "../state/sidebarValidation.ts";
-import { addProjectDialogFormInitialValues } from "../state/sidebarState.ts";
-import { useAddProjectMutation } from "../state/sidebarApi.ts";
-import { People } from "@mui/icons-material";
-import { useEffect } from "react";
-import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
-import { useSnackbar } from "notistack";
+} from '@mui/material'
+import Workspace from '../types/Workspace.model.ts'
+import { useFormik } from 'formik'
+import { addProjectDialogSchema } from '../state/sidebarValidation.ts'
+import { addProjectDialogFormInitialValues } from '../state/sidebarState.ts'
+import { useAddProjectMutation } from '../state/sidebarApi.ts'
+import { People } from '@mui/icons-material'
+import { useEffect } from 'react'
+import LoadingButton from '../../../../../components/button/LoadingButton.tsx'
+import { useSnackbar } from 'notistack'
 
 interface AddProjectDialogProps {
   workspaces: Workspace[] | undefined,
@@ -72,7 +72,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
             <TextField
               variant="filled"
               name={'projectName'}
-              label={"Name"}
+              label={'Name'}
               placeholder="Enter the project name"
               value={values.projectName}
               onChange={handleChange}
@@ -89,7 +89,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
                 onBlur={handleBlur}
                 sx={{ '& .MuiListItemIcon-root': { mr: 1 } }}
                 SelectDisplayProps={{
-                  style: { display: 'flex', alignItems: 'center' },
+                  style: { display: 'flex', alignItems: 'center' }
                 }}>
                 {
                   workspaces?.map((workspace) => (
@@ -104,13 +104,13 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
           </Stack>
         </DialogContent>
         <DialogActions>
-          <LoadingButton isLoading={isLoading} variant={'contained'} type={"submit"}>
+          <LoadingButton isLoading={isLoading} variant={'contained'} type={'submit'}>
             Add
           </LoadingButton>
         </DialogActions>
       </form>
     </Dialog>
-  );
+  )
 }
 
-export default AddProjectDialog;
+export default AddProjectDialog

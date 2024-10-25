@@ -1,6 +1,6 @@
-import { ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from "@mui/material";
-import DrawerItem from "../types/DrawerItem.ts";
-import { useLocation, useNavigate } from "react-router-dom";
+import { ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
+import DrawerItem from '../types/DrawerItem.ts'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 interface DrawerListItemProps {
   drawerItem: DrawerItem
@@ -25,7 +25,7 @@ function DrawerListItem({ drawerItem }: DrawerListItemProps) {
         </ListItemText>
       </ListItemButton>
     </ListItem>
-  );
+  )
 }
 
-export default DrawerListItem;
+export default DrawerListItem

@@ -1,8 +1,8 @@
-import { ListItemIcon, ListItemText, MenuItem } from "@mui/material";
-import FilterProperty from "../../../types/FilterProperty.ts";
-import FilterOperator from "../../../utils/enums/FilterOperator.ts";
-import { Filter } from "../../../types/Filter.ts";
-import FilterSelector from "../FilterSelector.tsx";
+import { ListItemIcon, ListItemText, MenuItem } from '@mui/material'
+import FilterProperty from '../../../types/FilterProperty.ts'
+import FilterOperator from '../../../utils/enums/FilterOperator.ts'
+import { Filter } from '../../../types/Filter.ts'
+import FilterSelector from '../FilterSelector.tsx'
 
 interface PropertySelectorProps {
   filterProperties: FilterProperty[],
@@ -13,12 +13,12 @@ interface PropertySelectorProps {
 }
 
 function FilterPropertySelector({
-  filterProperties,
-  filters,
-  operatorsMap,
-  property,
-  setProperty,
-}: PropertySelectorProps) {
+                                  filterProperties,
+                                  filters,
+                                  operatorsMap,
+                                  property,
+                                  setProperty
+                                }: PropertySelectorProps) {
   const filtersWithProperty = (fp: FilterProperty) => {
     return filters.filter(f => f.property === fp.property)
   }

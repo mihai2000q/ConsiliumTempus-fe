@@ -1,5 +1,5 @@
-import React from 'react';
-import { SnackbarContent } from "notistack";
+import React from 'react'
+import { SnackbarContent } from 'notistack'
 
 const DefaultSnackbar = React.forwardRef<HTMLDivElement>((props, ref) => {
   const {
@@ -16,4 +16,4 @@ const DefaultSnackbar = React.forwardRef<HTMLDivElement>((props, ref) => {
   )
 })
 
-export default DefaultSnackbar;
+export default DefaultSnackbar

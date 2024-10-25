@@ -1,11 +1,11 @@
-import { Stack, TextField, Typography } from "@mui/material";
-import { useGetProjectOverviewQuery, useUpdateProjectOverviewMutation } from "./state/projectOverviewApi.ts";
-import useDependencyFacadeState from "../../../../hooks/useDependencyFacadeState.ts";
-import useUpdateEffect from "../../../../hooks/useUpdateEffect.ts";
-import { isNoneUserDependencyState } from "../../../../types/DependencyState.ts";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../../../../state/store.ts";
+import { Stack, TextField, Typography } from '@mui/material'
+import { useGetProjectOverviewQuery, useUpdateProjectOverviewMutation } from './state/projectOverviewApi.ts'
+import useDependencyFacadeState from '../../../../hooks/useDependencyFacadeState.ts'
+import useUpdateEffect from '../../../../hooks/useUpdateEffect.ts'
+import { isNoneUserDependencyState } from '../../../../types/DependencyState.ts'
+import { useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../state/store.ts'
 
 function ProjectOverview() {
   const projectId = useSelector((state: RootState) => state.project.projectId)
@@ -43,9 +43,9 @@ function ProjectOverview() {
         minRows={5}
         sx={{
           width: 500
-        }}/>
+        }} />
     </Stack>
-  );
+  )
 }
 
-export default ProjectOverview;
+export default ProjectOverview

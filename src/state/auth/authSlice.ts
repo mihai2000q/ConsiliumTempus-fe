@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { initialState } from "./authState.ts";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { initialState } from './authState.ts'
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -7,17 +7,17 @@ export const authSlice = createSlice({
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload
-      localStorage.setItem("access_token", state.token)
+      localStorage.setItem('access_token', state.token)
     },
     setRefreshToken: (state, action: PayloadAction<string>) => {
       state.refreshToken = action.payload
-      localStorage.setItem("refresh_token", state.refreshToken)
+      localStorage.setItem('refresh_token', state.refreshToken)
     },
     logout: state => {
       state.token = null
       state.refreshToken = null
-      localStorage.removeItem("access_token")
-      localStorage.removeItem("refresh_token")
+      localStorage.removeItem('access_token')
+      localStorage.removeItem('refresh_token')
     }
   }
 })

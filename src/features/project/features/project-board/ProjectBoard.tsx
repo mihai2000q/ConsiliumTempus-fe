@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from 'react'
 import {
   Box,
   Button,
@@ -10,8 +10,8 @@ import {
   Menu,
   MenuItem,
   Stack
-} from "@mui/material";
-import ProjectBoardLoader from "./components/stage/ProjectBoardLoader.tsx";
+} from '@mui/material'
+import ProjectBoardLoader from './components/stage/ProjectBoardLoader.tsx'
 import {
   Add,
   ArrowDropDownOutlined,
@@ -23,17 +23,17 @@ import {
   ViewTimelineOutlined,
   ViewWeekOutlined,
   VisibilityOffOutlined
-} from "@mui/icons-material";
+} from '@mui/icons-material'
 import {
   useGetStagesFromProjectSprintQuery,
   useMoveProjectTaskMutation,
   useMoveStageFromProjectSprintMutation
-} from "./state/projectBoardApi.ts";
-import AddProjectStagePanel from "./components/stage/AddProjectStagePanel.tsx";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch, useAppSelector } from "../../../../state/store.ts";
-import { openAddProjectSprintDialog } from "../../../../state/project/projectSlice.ts";
-import AddProjectStatusDialog from "../../shared/components/AddProjectStatusDialog.tsx";
+} from './state/projectBoardApi.ts'
+import AddProjectStagePanel from './components/stage/AddProjectStagePanel.tsx'
+import { useSelector } from 'react-redux'
+import { RootState, useAppDispatch, useAppSelector } from '../../../../state/store.ts'
+import { openAddProjectSprintDialog } from '../../../../state/project/projectSlice.ts'
+import AddProjectStatusDialog from '../../shared/components/AddProjectStatusDialog.tsx'
 import {
   closestCorners,
   DndContext,
@@ -44,18 +44,18 @@ import {
   PointerSensor,
   useSensor,
   useSensors
-} from "@dnd-kit/core";
-import { arrayMove, rectSortingStrategy, SortableContext } from "@dnd-kit/sortable";
-import SortableProjectStagePanel from "./components/stage/SortableProjectStagePanel.tsx";
-import { TransitionGroup } from "react-transition-group";
+} from '@dnd-kit/core'
+import { arrayMove, rectSortingStrategy, SortableContext } from '@dnd-kit/sortable'
+import SortableProjectStagePanel from './components/stage/SortableProjectStagePanel.tsx'
+import { TransitionGroup } from 'react-transition-group'
 import {
   setDraggedProjectTask,
   setDragOverlayProjectTask,
   setProjectStagesWithEndTasks,
-  setProjectStagesWithOverTasks,
-} from "../../../../state/project-board/projectBoardSlice.ts";
-import DragOverlayProjectTaskCard from "./components/stage/DragOverlayProjectTaskCard.tsx";
-import ProjectStage from "./types/ProjectStage.model.ts";
+  setProjectStagesWithOverTasks
+} from '../../../../state/project-board/projectBoardSlice.ts'
+import DragOverlayProjectTaskCard from './components/stage/DragOverlayProjectTaskCard.tsx'
+import ProjectStage from './types/ProjectStage.model.ts'
 
 function ProjectBoard() {
   const dispatch = useAppDispatch()
@@ -94,7 +94,7 @@ function ProjectBoard() {
     { icon: <AssignmentOutlined />, option: 'Task', action: handleAddTask },
     { icon: <ViewWeekOutlined />, option: 'Stage', action: handleAddStage },
     { icon: <ViewTimelineOutlined />, option: 'Sprint', action: handleAddSprint },
-    { icon: <ChargingStationOutlined />, option: 'Status', action: handleAddStatus },
+    { icon: <ChargingStationOutlined />, option: 'Status', action: handleAddStatus }
   ]
   const [addOption, setAddOption] = useState(addOptions[0])
 
@@ -116,7 +116,7 @@ function ProjectBoard() {
         tolerance: 10
       }
     })
-  );
+  )
 
   function handleDragStart(event: DragStartEvent) {
     const id = event.active.id as string
@@ -195,14 +195,14 @@ function ProjectBoard() {
     moveStageFromProjectSprint({
       id: sprintId,
       stageId: activeId,
-      overStageId: overId,
+      overStageId: overId
     })
   }
 
   function handleDragEndProjectTask(activeId: string, overId: string) {
     dispatch(setProjectStagesWithEndTasks({
       activeId: activeId,
-      overId: overId,
+      overId: overId
     }))
 
     moveProjectTask({
@@ -350,7 +350,7 @@ function ProjectBoard() {
         open={isAddProjectStatusDialogOpen}
         onClose={() => setIsAddProjectStatusDialogOpen(false)} />
     </Stack>
-  );
+  )
 }
 
-export default ProjectBoard;
+export default ProjectBoard

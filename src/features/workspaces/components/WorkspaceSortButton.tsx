@@ -1,10 +1,10 @@
-import { Button } from "@mui/material";
-import { ArrowDownward, ArrowUpward, Sort } from "@mui/icons-material";
-import OrderType from "../../../utils/enums/OrderType.ts";
-import { workspaceOrderProperties } from "../data/WorkspaceOrderPropertiesData.tsx";
-import { useState } from "react";
-import SimpleOrderMenu from "../../../components/order/SimpleOrderMenu.tsx";
-import Order from "../../../types/Order.ts";
+import { Button } from '@mui/material'
+import { ArrowDownward, ArrowUpward, Sort } from '@mui/icons-material'
+import OrderType from '../../../utils/enums/OrderType.ts'
+import { workspaceOrderProperties } from '../data/WorkspaceOrderPropertiesData.tsx'
+import { useState } from 'react'
+import SimpleOrderMenu from '../../../components/order/SimpleOrderMenu.tsx'
+import Order from '../../../types/Order.ts'
 
 interface WorkspaceSortButtonProps {
   initialOrder: Order,
@@ -41,7 +41,7 @@ function WorkspaceSortButton({ initialOrder, setOrderBy }: WorkspaceSortButtonPr
         setOrderBy={setOrderBy}
         onOrderChange={setOrder} />
     </>
-  );
+  )
 }
 
-export default WorkspaceSortButton;
+export default WorkspaceSortButton

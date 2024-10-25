@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../state/store.ts";
-import { useEffect } from "react";
-import { setErrorPath } from "../state/global/globalSlice.ts";
+import { useNavigate } from 'react-router-dom'
+import { useAppDispatch, useAppSelector } from '../state/store.ts'
+import { useEffect } from 'react'
+import { setErrorPath } from '../state/global/globalSlice.ts'
 
 export default function useErrorRedirection() {
   const navigate = useNavigate()

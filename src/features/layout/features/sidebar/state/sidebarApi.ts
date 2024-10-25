@@ -1,12 +1,12 @@
-import { api } from "../../../../../state/api.ts";
-import TagTypes from "../../../../../utils/enums/TagTypes.ts";
-import GetWorkspacesResponse from "../types/Workspace.response.ts";
-import GetProjectsResponse from "../types/Project.response.ts";
-import Urls from "../../../../../utils/enums/Urls.ts";
-import { CreateWorkspaceRequest, GetWorkspacesRequest } from "../types/Workspace.request.ts";
-import { CreateProjectRequest, GetProjectsRequest } from "../types/Project.request.ts";
-import HttpMessageResponse from "../../../../../types/responses/HttpMessage.response.ts";
-import createQueryParams from "../../../../../utils/createQueryParams.ts";
+import { api } from '../../../../../state/api.ts'
+import TagTypes from '../../../../../utils/enums/TagTypes.ts'
+import GetWorkspacesResponse from '../types/Workspace.response.ts'
+import GetProjectsResponse from '../types/Project.response.ts'
+import Urls from '../../../../../utils/enums/Urls.ts'
+import { CreateWorkspaceRequest, GetWorkspacesRequest } from '../types/Workspace.request.ts'
+import { CreateProjectRequest, GetProjectsRequest } from '../types/Project.request.ts'
+import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
+import createQueryParams from '../../../../../utils/createQueryParams.ts'
 
 export const sidebarApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -43,5 +43,5 @@ export const {
   useGetProjectsQuery,
   useLazyGetProjectsQuery,
   useAddProjectMutation,
-  useAddWorkspaceMutation,
+  useAddWorkspaceMutation
 } = sidebarApiSlice

@@ -1,8 +1,8 @@
-import Project from "../type/Project.model.ts";
-import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { useNavigate } from "react-router-dom";
-import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
-import Paths from "../../../../../utils/enums/Paths.ts";
+import Project from '../type/Project.model.ts'
+import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
+import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
+import Paths from '../../../../../utils/enums/Paths.ts'
 import {
   Archive,
   CreateNewFolder,
@@ -11,10 +11,10 @@ import {
   HourglassEmpty,
   HourglassFull,
   UnarchiveOutlined
-} from "@mui/icons-material";
-import { MouseEventHandler, ReactNode } from "react";
-import { useDeleteProjectMutation, useUpdateProjectMutation } from "../state/workspaceProjectsApi.ts";
-import { useSnackbar } from "notistack";
+} from '@mui/icons-material'
+import { MouseEventHandler, ReactNode } from 'react'
+import { useDeleteProjectMutation, useUpdateProjectMutation } from '../state/workspaceProjectsApi.ts'
+import { useSnackbar } from 'notistack'
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -24,7 +24,7 @@ interface ProjectActionsMenuItemProps {
   disabled?: boolean | undefined
 }
 
-const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color } : ProjectActionsMenuItemProps) => (
+const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon sx={{ '& .MuiSvgIcon': { color: color } }}>{icon}</ListItemIcon>
     <Typography pt={0.5} color={color}>{children}</Typography>
@@ -60,16 +60,16 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
-    enqueueSnackbar("Project unarchived!", { variant: 'info' })
+    enqueueSnackbar('Project unarchived!', { variant: 'info' })
     onClose()
   }
   const handleArchiveProject = () => {
     updateProject({
       id: project.id,
       name: project.name,
-      lifecycle: ProjectLifecycle.Archived,
+      lifecycle: ProjectLifecycle.Archived
     })
-    enqueueSnackbar("Project has been archived", { variant: 'info' })
+    enqueueSnackbar('Project has been archived', { variant: 'info' })
     onClose()
   }
 
@@ -79,7 +79,7 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
-    enqueueSnackbar("Project unset from 'Upcoming'", { variant: 'info' })
+    enqueueSnackbar('Project unset from \'Upcoming\'', { variant: 'info' })
     onClose()
   }
   const handleSetUpcomingProject = () => {
@@ -88,14 +88,14 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
       name: project.name,
       lifecycle: ProjectLifecycle.Upcoming
     })
-    enqueueSnackbar("Project set to 'Upcoming'", { variant: 'info' })
+    enqueueSnackbar('Project set to \'Upcoming\'', { variant: 'info' })
     onClose()
   }
 
   const handleDeleteProject = async () => {
     onClose()
     await deleteProject({ id: project.id })
-    enqueueSnackbar("Project deleted successfully!", { variant: 'success' })
+    enqueueSnackbar('Project deleted successfully!', { variant: 'success' })
     navigate(Paths.Projects)
   }
 
@@ -138,7 +138,7 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
         Delete Project
       </ProjectActionsMenuItem>
     </Menu>
-  );
+  )
 }
 
-export default WorkspaceProjectActionsMenu;
+export default WorkspaceProjectActionsMenu

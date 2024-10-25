@@ -1,7 +1,7 @@
-import { ReactNode, useEffect, useState } from "react";
-import { alpha, Chip, Stack, Tooltip, Typography, useTheme } from "@mui/material";
-import { Check } from "@mui/icons-material";
-import { Filter } from "../../types/Filter.ts";
+import { ReactNode, useEffect, useState } from 'react'
+import { alpha, Chip, Stack, Tooltip, Typography, useTheme } from '@mui/material'
+import { Check } from '@mui/icons-material'
+import { Filter } from '../../types/Filter.ts'
 
 interface FilterChipProps {
   title: string,
@@ -13,13 +13,13 @@ interface FilterChipProps {
 }
 
 function FilterChip({
-  title,
-  icon,
-  filters,
-  allFilters,
-  handleFilters,
-  removeFilters,
-}: FilterChipProps) {
+                      title,
+                      icon,
+                      filters,
+                      allFilters,
+                      handleFilters,
+                      removeFilters
+                    }: FilterChipProps) {
   const theme = useTheme()
 
   const [selected, setSelected] = useState(false)
@@ -36,7 +36,7 @@ function FilterChip({
     }
     return true
   }
-  
+
   const isDisabled = (selected: boolean, filters: Filter[]) => {
     if (selected) return false
 
@@ -50,7 +50,7 @@ function FilterChip({
 
     return false
   }
-  
+
   useEffect(() => {
     const selected = isSelected(filters)
     setSelected(selected)
@@ -102,7 +102,7 @@ function FilterChip({
               borderColor: theme.palette.primary[300],
               color: theme.palette.primary[300]
             }))
-          }}/>
+          }} />
       </span>
     </Tooltip>
   )

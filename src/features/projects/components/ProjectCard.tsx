@@ -1,9 +1,9 @@
-import Project from "../types/Project.model.ts";
-import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography, } from "@mui/material";
-import Paragraph from "../../../components/text/Paragraph.tsx";
-import { useNavigate } from "react-router-dom";
-import Paths from "../../../utils/enums/Paths.ts";
-import useProjectStatusHeader from "../hooks/useProjectStatusHeader.ts";
+import Project from '../types/Project.model.ts'
+import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography } from '@mui/material'
+import Paragraph from '../../../components/text/Paragraph.tsx'
+import { useNavigate } from 'react-router-dom'
+import Paths from '../../../utils/enums/Paths.ts'
+import useProjectStatusHeader from '../hooks/useProjectStatusHeader.ts'
 
 const StyledProjectCard = styled(Box)<BoxProps>(({ theme }) => ({
   height: 340,
@@ -12,12 +12,12 @@ const StyledProjectCard = styled(Box)<BoxProps>(({ theme }) => ({
   backgroundColor: alpha(theme.palette.background[900], 0.6),
   boxShadow: theme.shadows[10],
   transition: theme.transitions.create(['transform', 'box-shadow', 'background-color'], {
-    duration: theme.transitions.duration.short,
+    duration: theme.transitions.duration.short
   }),
   '&:hover': {
     transform: 'scale(1.05)',
     backgroundColor: theme.palette.background[900],
-    boxShadow: theme.shadows[20],
+    boxShadow: theme.shadows[20]
   }
 }))
 
@@ -28,7 +28,7 @@ interface ProjectStatusHeaderProps extends BoxProps {
 const ProjectStatusHeader = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'headerColor'
 })<ProjectStatusHeaderProps>(({ headerColor }) => ({
-  position: "absolute",
+  position: 'absolute',
   bottom: 0,
   width: '100%',
   backgroundColor: alpha(headerColor, 0.43),
@@ -75,7 +75,7 @@ function ProjectCard({ project }: ProjectCardProps) {
         </Paragraph>
       </CardContent>
     </StyledProjectCard>
-  );
+  )
 }
 
-export default ProjectCard;
+export default ProjectCard

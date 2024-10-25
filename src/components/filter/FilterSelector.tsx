@@ -1,7 +1,7 @@
-import { ReactNode } from "react";
-import { Select, SxProps, Theme } from "@mui/material";
+import { ReactNode } from 'react'
+import { Select, SxProps, Theme } from '@mui/material'
 
-interface FilterSelectorProps<TValue>{
+interface FilterSelectorProps<TValue> {
   children: ReactNode,
   value: TValue,
   onChange: (newValue: TValue | string) => void,
@@ -9,11 +9,11 @@ interface FilterSelectorProps<TValue>{
 }
 
 function FilterSelector<TValue>({
-  children,
-  value,
-  onChange,
-  sx
-} : FilterSelectorProps<TValue>) {
+                                  children,
+                                  value,
+                                  onChange,
+                                  sx
+                                }: FilterSelectorProps<TValue>) {
   return (
     <Select
       size={'small'}
@@ -25,10 +25,10 @@ function FilterSelector<TValue>({
           paddingRight: '14px'
         },
         ...sx
-    }}>
+      }}>
       {children}
     </Select>
-  );
+  )
 }
 
-export default FilterSelector;
+export default FilterSelector

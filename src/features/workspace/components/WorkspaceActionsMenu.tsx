@@ -1,10 +1,10 @@
-import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from "@mui/material";
-import { CreateNewFolder, DeleteOutlined, Edit, ManageAccounts } from "@mui/icons-material";
-import Paths from "../../../utils/enums/Paths.ts";
-import { useNavigate } from "react-router-dom";
-import { MouseEventHandler, ReactNode } from "react";
-import { useDeleteWorkspaceMutation } from "../state/workspaceApi.ts";
-import { useSnackbar } from "notistack";
+import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
+import { CreateNewFolder, DeleteOutlined, Edit, ManageAccounts } from '@mui/icons-material'
+import Paths from '../../../utils/enums/Paths.ts'
+import { useNavigate } from 'react-router-dom'
+import { MouseEventHandler, ReactNode } from 'react'
+import { useDeleteWorkspaceMutation } from '../state/workspaceApi.ts'
+import { useSnackbar } from 'notistack'
 
 interface ProjectActionsMenuItemProps {
   icon: ReactNode,
@@ -14,7 +14,7 @@ interface ProjectActionsMenuItemProps {
   disabled?: boolean | undefined
 }
 
-const WorkspaceActionsMenuItem = ({ onClick, icon, children, disabled, color } : ProjectActionsMenuItemProps) => (
+const WorkspaceActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
     <Typography pt={0.5} color={color}>{children}</Typography>
@@ -28,10 +28,10 @@ interface WorkspaceActionsMenuProps {
 }
 
 function WorkspaceActionsMenu({
-  anchorEl,
-  onClose,
-  workspaceId
-} : WorkspaceActionsMenuProps ) {
+                                anchorEl,
+                                onClose,
+                                workspaceId
+                              }: WorkspaceActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -51,7 +51,7 @@ function WorkspaceActionsMenu({
   const handleDeleteWorkspace = async () => {
     onClose()
     await deleteWorkspace({ id: workspaceId })
-    enqueueSnackbar("Workspace deleted successfully!", { variant: 'success' })
+    enqueueSnackbar('Workspace deleted successfully!', { variant: 'success' })
     navigate(Paths.Workspaces)
   }
 
@@ -73,7 +73,7 @@ function WorkspaceActionsMenu({
         Delete Workspace
       </WorkspaceActionsMenuItem>
     </Menu>
-  );
+  )
 }
 
-export default WorkspaceActionsMenu;
+export default WorkspaceActionsMenu

@@ -1,5 +1,5 @@
-import Order from "../types/Order.ts";
-import { useState } from "react";
+import Order from '../types/Order.ts'
+import { useState } from 'react'
 
 export default function useOrderByQueryParam(
   initialOrder: Order | null = null

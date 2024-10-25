@@ -1,7 +1,7 @@
-import { Dayjs } from "dayjs";
+import { Dayjs } from 'dayjs'
 
 type ProjectSprints = ProjectSprint[]
-export default ProjectSprints;
+export default ProjectSprints
 
 interface ProjectSprint {
   id: string,

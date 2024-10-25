@@ -1,11 +1,11 @@
-import { useGetProjectsQuery, useLazyGetProjectsQuery } from "../state/workspaceProjectsApi.ts";
-import ProjectAdapter from "../adapters/Project.adapter.ts";
-import Project from "../type/Project.model.ts";
-import ProjectLifecycle from "../../../../../utils/project/ProjectLifecycle.ts";
-import { useEffect, useRef, useState } from "react";
-import useSearchQueryParam from "../../../../../hooks/useSearchQueryParam.ts";
-import FilterOperator from "../../../../../utils/enums/FilterOperator.ts";
-import ProjectsSearchQueryParams from "../utils/ProjectsSearchQueryParams.ts";
+import { useGetProjectsQuery, useLazyGetProjectsQuery } from '../state/workspaceProjectsApi.ts'
+import ProjectAdapter from '../adapters/Project.adapter.ts'
+import Project from '../type/Project.model.ts'
+import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
+import { useEffect, useRef, useState } from 'react'
+import useSearchQueryParam from '../../../../../hooks/useSearchQueryParam.ts'
+import FilterOperator from '../../../../../utils/enums/FilterOperator.ts'
+import ProjectsSearchQueryParams from '../utils/ProjectsSearchQueryParams.ts'
 
 export default function useProjects(
   workspaceId: string,
@@ -31,7 +31,7 @@ export default function useProjects(
       value: lifecycle
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lifecycle]);
+  }, [lifecycle])
 
   const currentPage = useRef(1)
 
@@ -43,11 +43,11 @@ export default function useProjects(
     pageSize: currentPage.current * pageSize
   })
   useEffect(() => {
-    if(data) {
+    if (data) {
       setProjects([...ProjectAdapter.adapt(data.projects)!])
       setTotalCount(data.totalCount)
     }
-  }, [data]);
+  }, [data])
 
   const fetchMoreProjects = () => {
     currentPage.current++

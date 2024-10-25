@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Divider, Skeleton, Stack } from "@mui/material";
+import { Card, CardContent, CardHeader, Divider, Skeleton, Stack } from '@mui/material'
 
 function WorkspaceProjectsLoader() {
   return (
@@ -7,11 +7,11 @@ function WorkspaceProjectsLoader() {
         <CardHeader
           title={<Skeleton width={100} height={50} />}
           action={
-          <Stack direction={'row'} alignItems={'center'} spacing={1}>
-            <Skeleton variant={'rectangular'} width={50} height={23} sx={{ borderRadius: 1 }} />
-            <Skeleton variant={'rectangular'} width={50} height={23} sx={{ borderRadius: 1 }} />
-          </Stack>
-        }/>
+            <Stack direction={'row'} alignItems={'center'} spacing={1}>
+              <Skeleton variant={'rectangular'} width={50} height={23} sx={{ borderRadius: 1 }} />
+              <Skeleton variant={'rectangular'} width={50} height={23} sx={{ borderRadius: 1 }} />
+            </Stack>
+          } />
         <CardContent>
           {Array.from(Array(7)).map((_, i) => (
             <div key={i}>
@@ -22,7 +22,7 @@ function WorkspaceProjectsLoader() {
         </CardContent>
       </Card>
     </Stack>
-  );
+  )
 }
 
-export default WorkspaceProjectsLoader;
+export default WorkspaceProjectsLoader

@@ -1,9 +1,9 @@
-import { api } from "../../../state/api.ts";
-import TagTypes from "../../../utils/enums/TagTypes.ts";
-import Urls from "../../../utils/enums/Urls.ts";
-import createQueryParams from "../../../utils/createQueryParams.ts";
-import GetWorkspacesResponse from "../types/Workspace.response.ts";
-import { GetWorkspacesQueryParameters } from "../types/Workspace.request.ts";
+import { api } from '../../../state/api.ts'
+import TagTypes from '../../../utils/enums/TagTypes.ts'
+import Urls from '../../../utils/enums/Urls.ts'
+import createQueryParams from '../../../utils/createQueryParams.ts'
+import GetWorkspacesResponse from '../types/Workspace.response.ts'
+import { GetWorkspacesQueryParameters } from '../types/Workspace.request.ts'
 
 export const projectsApiSlice = api.injectEndpoints({
   endpoints: builder => ({
@@ -15,5 +15,5 @@ export const projectsApiSlice = api.injectEndpoints({
 })
 
 export const {
-  useGetWorkspacesQuery,
+  useGetWorkspacesQuery
 } = projectsApiSlice

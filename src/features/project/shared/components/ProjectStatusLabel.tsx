@@ -1,9 +1,9 @@
-import { Box, BoxProps, styled, Typography } from "@mui/material";
-import { projectStatusToBackgroundColor } from "../../data/ProjectStatusToBackgroundColor.ts";
-import { Check, Circle } from "@mui/icons-material";
-import { projectStatusToColor } from "../../data/ProjectStatusToColor.ts";
-import ProjectStatusType from "../../../../utils/project/ProjectStatusType.ts";
-import normalize from "../../../../utils/normalize.ts";
+import { Box, BoxProps, styled, Typography } from '@mui/material'
+import { projectStatusToBackgroundColor } from '../../data/ProjectStatusToBackgroundColor.ts'
+import { Check, Circle } from '@mui/icons-material'
+import { projectStatusToColor } from '../../data/ProjectStatusToColor.ts'
+import ProjectStatusType from '../../../../utils/project/ProjectStatusType.ts'
+import normalize from '../../../../utils/normalize.ts'
 
 interface StyledLabelProps extends BoxProps {
   status: ProjectStatusType
@@ -22,7 +22,7 @@ const StyledLabel = styled(Box, {
   borderRadius: '16px',
   gap: '8px',
   '& .MuiSvgIcon-root': {
-    fontSize: status === 'Completed' ? '16px' : '12px',
+    fontSize: status === 'Completed' ? '16px' : '12px'
   }
 }))
 
@@ -31,14 +31,14 @@ interface ProjectStatusLabelProps {
 }
 
 function ProjectStatusLabel({
-  status
-}: ProjectStatusLabelProps) {
+                              status
+                            }: ProjectStatusLabelProps) {
   return (
     <StyledLabel status={status}>
       {status === 'Completed' ? <Check /> : <Circle />}
       <Typography variant={'body2'}>{normalize(status)}</Typography>
     </StyledLabel>
-  );
+  )
 }
 
-export default ProjectStatusLabel;
+export default ProjectStatusLabel

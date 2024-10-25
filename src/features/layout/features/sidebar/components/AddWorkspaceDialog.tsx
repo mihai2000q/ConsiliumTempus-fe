@@ -1,10 +1,10 @@
-import { Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from "@mui/material";
-import { useAddWorkspaceMutation } from "../state/sidebarApi.ts";
-import { useFormik } from "formik";
-import { addWorkspaceDialogFormInitialValues } from "../state/sidebarState.ts";
-import { addWorkspaceDialogSchema } from "../state/sidebarValidation.ts";
-import LoadingButton from "../../../../../components/button/LoadingButton.tsx";
-import { useSnackbar } from "notistack";
+import { Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
+import { useAddWorkspaceMutation } from '../state/sidebarApi.ts'
+import { useFormik } from 'formik'
+import { addWorkspaceDialogFormInitialValues } from '../state/sidebarState.ts'
+import { addWorkspaceDialogSchema } from '../state/sidebarValidation.ts'
+import LoadingButton from '../../../../../components/button/LoadingButton.tsx'
+import { useSnackbar } from 'notistack'
 
 interface AddWorkspaceDialogProps {
   open: boolean,
@@ -50,7 +50,7 @@ function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
             <TextField
               variant="filled"
               name={'workspaceName'}
-              label={"Name"}
+              label={'Name'}
               placeholder="Enter the workspace name"
               value={values.workspaceName}
               onChange={handleChange}
@@ -60,13 +60,13 @@ function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <LoadingButton isLoading={isLoading} variant={'contained'} type={"submit"}>
+          <LoadingButton isLoading={isLoading} variant={'contained'} type={'submit'}>
             Add
           </LoadingButton>
         </DialogActions>
       </form>
     </Dialog>
-  );
+  )
 }
 
-export default AddWorkspaceDialog;
+export default AddWorkspaceDialog

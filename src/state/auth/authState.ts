@@ -4,6 +4,6 @@ interface AuthState {
 }
 
 export const initialState: AuthState = {
-  token: localStorage.getItem("access_token"),
-  refreshToken: localStorage.getItem("refresh_token")
+  token: localStorage.getItem('access_token'),
+  refreshToken: localStorage.getItem('refresh_token')
 }

@@ -1,9 +1,9 @@
-import { Badge, Button } from "@mui/material";
-import { Sort } from "@mui/icons-material";
-import { projectOrderProperties } from "../data/ProjectOrderPropertiesData.tsx";
-import { useState } from "react";
-import OrderMenu from "../../../components/order/OrderMenu.tsx";
-import Order from "../../../types/Order.ts";
+import { Badge, Button } from '@mui/material'
+import { Sort } from '@mui/icons-material'
+import { projectOrderProperties } from '../data/ProjectOrderPropertiesData.tsx'
+import { useState } from 'react'
+import OrderMenu from '../../../components/order/OrderMenu.tsx'
+import Order from '../../../types/Order.ts'
 
 interface ProjectSortButtonProps {
   initialOrder: Order,
@@ -35,7 +35,7 @@ function ProjectSortButton({ initialOrder, setOrderBy }: ProjectSortButtonProps)
         setOrderBy={setOrderBy}
         onSizeChange={setOrdersSize} />
     </>
-  );
+  )
 }
 
-export default ProjectSortButton;
+export default ProjectSortButton

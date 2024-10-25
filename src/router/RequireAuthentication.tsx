@@ -1,6 +1,6 @@
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import Paths from "../utils/enums/Paths.ts";
-import useAuth from "../hooks/useAuth.ts";
+import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import Paths from '../utils/enums/Paths.ts'
+import useAuth from '../hooks/useAuth.ts'
 
 function RequireAuthentication() {
   const location = useLocation()
@@ -10,7 +10,7 @@ function RequireAuthentication() {
     isAuthenticated
       ? <Outlet />
       : <Navigate to={Paths.Login} state={{ from: location }} replace />
-  );
+  )
 }
 
-export default RequireAuthentication;
+export default RequireAuthentication
