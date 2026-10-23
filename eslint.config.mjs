@@ -4,13 +4,10 @@ import reactLint from 'eslint-plugin-react'
 import prettier from 'eslint-config-prettier'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
-import reactCompiler from 'eslint-plugin-react-compiler'
 
 export default [
-  {
-    ignores: ['dist', '.vite'],
-    files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}']
-  },
+  { ignores: ['dist', '.vite'] },
+  { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   {
     languageOptions: {
       globals: {
@@ -21,19 +18,16 @@ export default [
   },
   ...tsLint.configs.recommended,
   reactLint.configs.flat.recommended,
+  reactHooks.configs.flat.recommended,
   {
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
-      'react-compiler': reactCompiler
+      'react-refresh': reactRefresh
     },
     rules: {
-      ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true }
       ],
-      'react-compiler/react-compiler': 'error',
       'react/react-in-jsx-scope': 'off',
       'no-console': 'warn',
       '@typescript-eslint/no-require-imports': 'warn'
