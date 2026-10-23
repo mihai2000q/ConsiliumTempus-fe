@@ -4,22 +4,22 @@ import { Check } from '@mui/icons-material'
 import { Filter } from '../../types/Filter.ts'
 
 interface FilterChipProps {
-  title: string,
-  icon: ReactNode,
-  allFilters: Filter[],
-  filters: Filter[],
-  handleFilters: (filters: Filter[]) => void,
-  removeFilters: (filters: Filter[]) => void,
+  title: string
+  icon: ReactNode
+  allFilters: Filter[]
+  filters: Filter[]
+  handleFilters: (filters: Filter[]) => void
+  removeFilters: (filters: Filter[]) => void
 }
 
 function FilterChip({
-                      title,
-                      icon,
-                      filters,
-                      allFilters,
-                      handleFilters,
-                      removeFilters
-                    }: FilterChipProps) {
+  title,
+  icon,
+  filters,
+  allFilters,
+  handleFilters,
+  removeFilters
+}: FilterChipProps) {
   const theme = useTheme()
 
   const [selected, setSelected] = useState(false)
@@ -27,10 +27,11 @@ function FilterChip({
 
   const isSelected = (filters: Filter[]) => {
     for (const filter of filters) {
-      const res = allFilters.some(f =>
-        f.property === filter.property &&
-        f.operator === filter.operator &&
-        f.value === filter.value
+      const res = allFilters.some(
+        (f) =>
+          f.property === filter.property &&
+          f.operator === filter.operator &&
+          f.value === filter.value
       )
       if (!res) return false
     }
@@ -41,9 +42,8 @@ function FilterChip({
     if (selected) return false
 
     for (const filter of filters) {
-      const res = allFilters.some(f =>
-        f.property === filter.property &&
-        f.operator === filter.operator
+      const res = allFilters.some(
+        (f) => f.property === filter.property && f.operator === filter.operator
       )
       if (res) return true
     }
@@ -59,10 +59,8 @@ function FilterChip({
   }, [allFilters, filters]) // TODO: check for filters (Reference Equality)
 
   function handleClick() {
-    if (selected)
-      removeFilters(filters)
-    else
-      handleFilters(filters)
+    if (selected) removeFilters(filters)
+    else handleFilters(filters)
   }
 
   return (
@@ -73,7 +71,8 @@ function FilterChip({
       disableHoverListener={!disabled}
       disableFocusListener={!disabled}
       disableTouchListener={!disabled}
-      title={`Same property with operator${filters.length > 1 ? 's' : ''} is already active`}>
+      title={`Same property with operator${filters.length > 1 ? 's' : ''} is already active`}
+    >
       <span>
         <Chip
           variant={'outlined'}
@@ -85,29 +84,34 @@ function FilterChip({
 
                 '& .MuiSvgIcon-root': {
                   fontSize: 17,
-                  ...((selected && {
+                  ...(selected && {
                     color: theme.palette.primary[300]
-                  }))
+                  })
                 }
-              }}>
+              }}
+            >
               {selected ? <Check /> : icon}
               <Typography
                 sx={{
                   ml: 0.5,
                   pt: '3px'
-                }}>{title}</Typography>
+                }}
+              >
+                {title}
+              </Typography>
             </Stack>
           }
           clickable
           disabled={disabled}
           onClick={handleClick}
           sx={{
-            ...((selected && {
+            ...(selected && {
               backgroundColor: alpha(theme.palette.primary[700], 0.3),
               borderColor: theme.palette.primary[300],
               color: theme.palette.primary[300]
-            }))
-          }} />
+            })
+          }}
+        />
       </span>
     </Tooltip>
   )

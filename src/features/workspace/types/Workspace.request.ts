@@ -3,12 +3,12 @@ export interface GetWorkspaceRequest {
 }
 
 export interface UpdateWorkspaceRequest {
-  id: string,
+  id: string
   name: string
 }
 
 export interface UpdateFavoritesWorkspaceRequest {
-  id: string,
+  id: string
   isFavorite: boolean
 }
 

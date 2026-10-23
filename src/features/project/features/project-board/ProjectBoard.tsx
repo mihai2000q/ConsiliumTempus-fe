@@ -75,21 +75,23 @@ function ProjectBoard() {
   const [isAddProjectStatusDialogOpen, setIsAddProjectStatusDialogOpen] = useState(false)
 
   const handleAddTask = () => {
-    setShowAddTaskCard(s => !s)
+    setShowAddTaskCard((s) => !s)
   }
   const handleAddStage = () => {
-    setShowLeftAddStagePanel(s => !s)
+    setShowLeftAddStagePanel((s) => !s)
   }
   const handleAddSprint = () => {
-    dispatch(openAddProjectSprintDialog({
-      open: true
-    }))
+    dispatch(
+      openAddProjectSprintDialog({
+        open: true
+      })
+    )
   }
   const handleAddStatus = () => {
     setIsAddProjectStatusDialogOpen(true)
   }
 
-  type Option = { icon: ReactNode, option: string, action: () => void }
+  type Option = { icon: ReactNode; option: string; action: () => void }
   const addOptions: Option[] = [
     { icon: <AssignmentOutlined />, option: 'Task', action: handleAddTask },
     { icon: <ViewWeekOutlined />, option: 'Stage', action: handleAddStage },
@@ -98,13 +100,12 @@ function ProjectBoard() {
   ]
   const [addOption, setAddOption] = useState(addOptions[0])
 
-  const [addOptionsMenuAnchorEl, setAddOptionsMenuAnchorEl] =
-    useState<HTMLElement | null>(null)
+  const [addOptionsMenuAnchorEl, setAddOptionsMenuAnchorEl] = useState<HTMLElement | null>(null)
   const handleCloseAddOptionsMenu = () => setAddOptionsMenuAnchorEl(null)
 
   const [draggedStageId, setDraggedStageId] = useState<string | null>(null)
 
-  const stateProjectStages = useAppSelector(state => state.projectBoard.projectStages)
+  const stateProjectStages = useAppSelector((state) => state.projectBoard.projectStages)
 
   const [moveStageFromProjectSprint] = useMoveStageFromProjectSprintMutation()
   const [moveProjectTask] = useMoveProjectTaskMutation()
@@ -124,9 +125,7 @@ function ProjectBoard() {
     if (isProjectStageId(id)) {
       setDraggedStageId(id)
     } else {
-      const task = stateProjectStages
-        .flatMap(ps => ps.tasks)
-        .find(task => task?.id === id)
+      const task = stateProjectStages.flatMap((ps) => ps.tasks).find((task) => task?.id === id)
       dispatch(setDraggedProjectTask(task))
       dispatch(setDragOverlayProjectTask(task))
     }
@@ -156,24 +155,24 @@ function ProjectBoard() {
 
     if (!overId || isProjectStageId(activeId)) return
 
-    const activeStage = stateProjectStages.find(ps =>
-      ps.tasks?.some(t => t.id === activeId))!
-    let overStage = stateProjectStages.find(ps => ps.id === overId)
+    const activeStage = stateProjectStages.find((ps) => ps.tasks?.some((t) => t.id === activeId))!
+    let overStage = stateProjectStages.find((ps) => ps.id === overId)
 
     if (!overStage) {
-      overStage = stateProjectStages.find(ps =>
-        ps.tasks?.some(t => t.id === overId))
+      overStage = stateProjectStages.find((ps) => ps.tasks?.some((t) => t.id === overId))
     }
 
     if (!overId || !overStage || overStage.id === activeStage.id) return
 
-    dispatch(setProjectStagesWithOverTasks({
-      activeId: activeId,
-      overId: overId,
-      activeStage: activeStage,
-      overStage: overStage,
-      delta: delta
-    }))
+    dispatch(
+      setProjectStagesWithOverTasks({
+        activeId: activeId,
+        overId: overId,
+        activeStage: activeStage,
+        overStage: overStage,
+        delta: delta
+      })
+    )
 
     moveProjectTask({
       sprintId: sprintId,
@@ -187,10 +186,10 @@ function ProjectBoard() {
   }
 
   function handleDragEndProjectStage(activeId: string, overId: string) {
-    const activeIndex = stages.findIndex(s => s.id === activeId)
-    const overIndex = stages.findIndex(s => s.id === overId)
+    const activeIndex = stages.findIndex((s) => s.id === activeId)
+    const overIndex = stages.findIndex((s) => s.id === overId)
 
-    setStages(prevStages => arrayMove(prevStages, activeIndex, overIndex))
+    setStages((prevStages) => arrayMove(prevStages, activeIndex, overIndex))
 
     moveStageFromProjectSprint({
       id: sprintId,
@@ -200,10 +199,12 @@ function ProjectBoard() {
   }
 
   function handleDragEndProjectTask(activeId: string, overId: string) {
-    dispatch(setProjectStagesWithEndTasks({
-      activeId: activeId,
-      overId: overId
-    }))
+    dispatch(
+      setProjectStagesWithEndTasks({
+        activeId: activeId,
+        overId: overId
+      })
+    )
 
     moveProjectTask({
       sprintId: sprintId,
@@ -217,31 +218,35 @@ function ProjectBoard() {
   return (
     <Stack
       sx={{
-        alignItems: "start",
+        alignItems: 'start',
         height: '100%',
         mt: 1
-      }}>
-      <Stack direction={'row'} spacing={2} sx={{
-        alignItems: 'center'
-      }}>
+      }}
+    >
+      <Stack
+        direction={'row'}
+        spacing={2}
+        sx={{
+          alignItems: 'center'
+        }}
+      >
         <ButtonGroup variant={'outlined'} size={'small'}>
-          <Button
-            startIcon={<Add />}
-            sx={{ borderRadius: 1.5 }}
-            onClick={addOption.action}>
+          <Button startIcon={<Add />} sx={{ borderRadius: 1.5 }} onClick={addOption.action}>
             Add {addOption.option}
           </Button>
           <Button
             size={'small'}
             sx={{ borderRadius: 1.5 }}
-            onClick={(e) => setAddOptionsMenuAnchorEl(e.currentTarget)}>
+            onClick={(e) => setAddOptionsMenuAnchorEl(e.currentTarget)}
+          >
             <ArrowDropDownOutlined />
           </Button>
         </ButtonGroup>
         <Menu
           open={Boolean(addOptionsMenuAnchorEl)}
           anchorEl={addOptionsMenuAnchorEl}
-          onClose={handleCloseAddOptionsMenu}>
+          onClose={handleCloseAddOptionsMenu}
+        >
           {addOptions.map((a, i) => (
             <MenuItem
               key={i}
@@ -255,16 +260,21 @@ function ProjectBoard() {
                   minWidth: 0,
                   mr: 1
                 }
-              }}>
+              }}
+            >
               <ListItemIcon>{a.icon}</ListItemIcon>
               <ListItemText sx={{ pt: 0.5 }}>{a.option}</ListItemText>
             </MenuItem>
           ))}
         </Menu>
 
-        <Stack direction={'row'} spacing={1} sx={{
-          alignItems: 'center'
-        }}>
+        <Stack
+          direction={'row'}
+          spacing={1}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <Button startIcon={<FilterList />} size={'small'}>
             Filter
           </Button>
@@ -285,14 +295,16 @@ function ProjectBoard() {
         sx={{
           mt: 3,
           height: 800
-        }}>
+        }}
+      >
         <Collapse in={showLeftAddStagePanel} orientation={'horizontal'} unmountOnExit>
           <AddProjectStagePanel
             sprintId={sprintId}
             closeCard={() => setShowLeftAddStagePanel(false)}
             onTop={true}
             show={showLeftAddStagePanel}
-            sx={{ mr: '18px' }} />
+            sx={{ mr: '18px' }}
+          />
         </Collapse>
 
         <DndContext
@@ -300,8 +312,9 @@ function ProjectBoard() {
           collisionDetection={closestCorners}
           onDragStart={handleDragStart}
           onDragEnd={handleDragEnd}
-          onDragOver={handleDragOver}>
-          <SortableContext strategy={rectSortingStrategy} items={stages.map(stage => stage.id)}>
+          onDragOver={handleDragOver}
+        >
+          <SortableContext strategy={rectSortingStrategy} items={stages.map((stage) => stage.id)}>
             <TransitionGroup style={{ display: 'flex', gap: '18px' }}>
               {stages.map((stage, i) => (
                 <Collapse
@@ -312,19 +325,23 @@ function ProjectBoard() {
                     height: '100%',
                     '& .MuiCollapse-wrapper': { height: '100%' },
                     '& .MuiCollapse-wrapperInner': { height: '100%' }
-                  }}>
+                  }}
+                >
                   <SortableProjectStagePanel
                     stage={stage}
                     showAddTaskCard={i === 0 ? showAddTaskCard : undefined}
                     setShowAddTaskCard={i === 0 ? setShowAddTaskCard : undefined}
-                    draggedStageId={draggedStageId} />
+                    draggedStageId={draggedStageId}
+                  />
                 </Collapse>
               ))}
             </TransitionGroup>
           </SortableContext>
-          {!draggedStageId && <DragOverlay>
-            <DragOverlayProjectTaskCard />
-          </DragOverlay>}
+          {!draggedStageId && (
+            <DragOverlay>
+              <DragOverlayProjectTaskCard />
+            </DragOverlay>
+          )}
         </DndContext>
 
         <Box
@@ -332,19 +349,22 @@ function ProjectBoard() {
             display: 'grid',
             ml: '18px',
             height: '100%'
-          }}>
+          }}
+        >
           <Fade in={showRightAddStagePanel} mountOnEnter unmountOnExit>
             <Box
               sx={{
                 height: '100%',
                 gridRow: 1,
                 gridColumn: 1
-              }}>
+              }}
+            >
               <AddProjectStagePanel
                 sprintId={sprintId}
                 closeCard={() => setShowRightAddStagePanel(false)}
                 onTop={false}
-                show={showRightAddStagePanel} />
+                show={showRightAddStagePanel}
+              />
             </Box>
           </Fade>
 
@@ -354,7 +374,8 @@ function ProjectBoard() {
                 height: '100%',
                 gridRow: 1,
                 gridColumn: 1
-              }}>
+              }}
+            >
               <Button
                 size={'large'}
                 startIcon={<Add />}
@@ -367,7 +388,8 @@ function ProjectBoard() {
                   alignItems: 'start',
                   pt: 2,
                   '& .MuiButton-startIcon': { marginTop: '2px' }
-                }}>
+                }}
+              >
                 Add Stage
               </Button>
             </Box>
@@ -377,7 +399,8 @@ function ProjectBoard() {
 
       <AddProjectStatusDialog
         open={isAddProjectStatusDialogOpen}
-        onClose={() => setIsAddProjectStatusDialogOpen(false)} />
+        onClose={() => setIsAddProjectStatusDialogOpen(false)}
+      />
     </Stack>
   )
 }

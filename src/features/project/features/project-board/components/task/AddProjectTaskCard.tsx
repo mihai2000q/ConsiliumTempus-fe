@@ -4,15 +4,22 @@ import React, { useEffect, useRef, useState } from 'react'
 import StyledProjectTaskCard from './StyledProjectTaskCard.tsx'
 
 interface AddProjectTaskCardProps {
-  closeCard: (() => void),
-  projectStageId: string,
-  onTop: boolean,
-  show: boolean,
-  mb?: number | undefined,
-  mt?: number | undefined,
+  closeCard: () => void
+  projectStageId: string
+  onTop: boolean
+  show: boolean
+  mb?: number | undefined
+  mt?: number | undefined
 }
 
-function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: AddProjectTaskCardProps) {
+function AddProjectTaskCard({
+  closeCard,
+  projectStageId,
+  onTop,
+  mb,
+  mt,
+  show
+}: AddProjectTaskCardProps) {
   const inputRef = useRef<HTMLElement>(null)
   useEffect(() => {
     if (show) inputRef.current?.focus()
@@ -39,7 +46,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: 
   }
 
   function handleOnKeyDown(e: React.KeyboardEvent<HTMLButtonElement>) {
-    if ((e.key === 'Enter')) {
+    if (e.key === 'Enter') {
       e.preventDefault()
       inputRef.current?.blur()
     }
@@ -56,7 +63,8 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: 
         padding: 2,
         mt: mt,
         mb: mb
-      }}>
+      }}
+    >
       <InputBase
         inputRef={inputRef}
         fullWidth
@@ -65,7 +73,8 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: 
         inputProps={{ maxLength: 256 }}
         placeholder={'Enter new task name'}
         value={name}
-        onChange={(e) => setName(e.target.value)} />
+        onChange={(e) => setName(e.target.value)}
+      />
     </StyledProjectTaskCard>
   )
 }

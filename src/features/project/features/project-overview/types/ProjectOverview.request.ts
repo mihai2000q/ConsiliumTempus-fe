@@ -3,6 +3,6 @@ export interface GetProjectOverviewRequest {
 }
 
 export interface UpdateProjectOverviewRequest {
-  id: string,
+  id: string
   description: string
 }

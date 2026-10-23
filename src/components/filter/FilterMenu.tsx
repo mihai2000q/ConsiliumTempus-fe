@@ -4,33 +4,36 @@ import FilterChip from './FilterChip.tsx'
 import { AddRounded } from '@mui/icons-material'
 import FilterPropertyMenu from './property/FilterPropertyMenu.tsx'
 import { Filter } from '../../types/Filter.ts'
-import { addToSearchQueryParamType, removeFromSearchQueryParamType } from '../../hooks/useSearchQueryParam.ts'
+import {
+  addToSearchQueryParamType,
+  removeFromSearchQueryParamType
+} from '../../hooks/useSearchQueryParam.ts'
 import FilterOperator from '../../utils/enums/FilterOperator.ts'
 import { default as FilterPropertyModel } from '../../types/FilterProperty.ts'
 import FilterChipItem from '../../types/FilterChipItem.ts'
 import FilterProperty from './property/FilterProperty.tsx'
 
 interface FilterMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   addToSearchQueryParam: addToSearchQueryParamType
-  removeFromSearchQueryParam: removeFromSearchQueryParamType,
-  filterChips: FilterChipItem[],
-  filterProperties: FilterPropertyModel[],
-  operatorsMap: Map<string, FilterOperator[]>,
+  removeFromSearchQueryParam: removeFromSearchQueryParamType
+  filterChips: FilterChipItem[]
+  filterProperties: FilterPropertyModel[]
+  operatorsMap: Map<string, FilterOperator[]>
   onSizeChange?: (size: number) => void
 }
 
 function FilterMenu({
-                      anchorEl,
-                      onClose,
-                      addToSearchQueryParam,
-                      removeFromSearchQueryParam,
-                      filterChips,
-                      filterProperties,
-                      operatorsMap,
-                      onSizeChange
-                    }: FilterMenuProps) {
+  anchorEl,
+  onClose,
+  addToSearchQueryParam,
+  removeFromSearchQueryParam,
+  filterChips,
+  filterProperties,
+  operatorsMap,
+  onSizeChange
+}: FilterMenuProps) {
   const [filterPropertiesMenuAnchorEl, setFilterPropertiesMenuAnchorEl] =
     useState<HTMLElement | null>(null)
 
@@ -40,40 +43,37 @@ function FilterMenu({
   }, [filters.length, onSizeChange])
 
   function handleClear() {
-    filters.forEach(f => removeFromSearchQueryParam(f))
+    filters.forEach((f) => removeFromSearchQueryParam(f))
     setFilters([])
   }
 
   function handleRemoveFilter(filter: Filter) {
-    const filterToRemove = filters.find(f =>
-      f.property === filter.property &&
-      f.operator === filter.operator &&
-      f.value === filter.value
+    const filterToRemove = filters.find(
+      (f) =>
+        f.property === filter.property && f.operator === filter.operator && f.value === filter.value
     )
     if (!filterToRemove) return
 
-    setFilters(filters.filter((f => f !== filterToRemove)))
+    setFilters(filters.filter((f) => f !== filterToRemove))
     removeFromSearchQueryParam(filter)
   }
 
   function handleRemoveFilters(filtersToRemove: Filter[]) {
     const f: Filter[] = []
-    filtersToRemove.forEach(ff => {
-      const filterToRemove = filters.find(f =>
-        f.property === ff.property &&
-        f.operator === ff.operator &&
-        f.value === ff.value
+    filtersToRemove.forEach((ff) => {
+      const filterToRemove = filters.find(
+        (f) => f.property === ff.property && f.operator === ff.operator && f.value === ff.value
       )
       if (filterToRemove) f.push(filterToRemove)
     })
 
-    setFilters(filters.filter((ff => !f.includes(ff))))
+    setFilters(filters.filter((ff) => !f.includes(ff)))
     filtersToRemove.forEach(removeFromSearchQueryParam)
   }
 
   function handleFilter(index: number, filter: Filter) {
     removeFromSearchQueryParam(filters.filter((_, i) => i === index)[0])
-    setFilters(filters.map((f, i) => i === index ? filter : f))
+    setFilters(filters.map((f, i) => (i === index ? filter : f)))
     addToSearchQueryParam(filter)
   }
 
@@ -95,52 +95,79 @@ function FilterMenu({
           pb: 1,
           px: 3,
           width: 550
-        }}>
+        }}
+      >
         <Stack
           direction={'row'}
           sx={{
             justifyContent: 'space-between',
             alignItems: 'center'
-          }}>
-          <Typography sx={{
-            fontSize: 16
-          }}>Filters</Typography>
-          <Button variant={'alt-text'} size={'small'} disabled={filters.length === 0} onClick={handleClear}>
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: 16
+            }}
+          >
+            Filters
+          </Typography>
+          <Button
+            variant={'alt-text'}
+            size={'small'}
+            disabled={filters.length === 0}
+            onClick={handleClear}
+          >
             Clear
           </Button>
         </Stack>
 
-        <Stack spacing={1} sx={{
-          my: 3
-        }}>
-          <Typography sx={{
-            color: 'text.secondary'
-          }}>Quick Filters</Typography>
+        <Stack
+          spacing={1}
+          sx={{
+            my: 3
+          }}
+        >
+          <Typography
+            sx={{
+              color: 'text.secondary'
+            }}
+          >
+            Quick Filters
+          </Typography>
           <Stack
             direction={'row'}
             sx={{
               flexWrap: 'wrap',
               alignItems: 'center',
               gap: 1
-            }}>
+            }}
+          >
             {filterChips.map((chip) => (
               <FilterChip
                 {...chip}
                 key={chip.title}
                 allFilters={filters}
                 handleFilters={handleAddFilters}
-                removeFilters={handleRemoveFilters} />
+                removeFilters={handleRemoveFilters}
+              />
             ))}
           </Stack>
         </Stack>
 
         <Collapse in={filters.length > 0} unmountOnExit>
-          <Stack spacing={1} sx={{
-            mb: 3
-          }}>
-            <Typography sx={{
-              color: 'text.secondary'
-            }}>All Filters</Typography>
+          <Stack
+            spacing={1}
+            sx={{
+              mb: 3
+            }}
+          >
+            <Typography
+              sx={{
+                color: 'text.secondary'
+              }}
+            >
+              All Filters
+            </Typography>
             <Stack spacing={1}>
               {filters.map((filter, index) => (
                 <Collapse key={JSON.stringify(filter)} in={true} unmountOnExit>
@@ -151,7 +178,8 @@ function FilterMenu({
                     index={index}
                     filters={filters}
                     handleFilter={handleFilter}
-                    handleRemoveFilter={handleRemoveFilter} />
+                    handleRemoveFilter={handleRemoveFilter}
+                  />
                 </Collapse>
               ))}
             </Stack>
@@ -162,7 +190,8 @@ function FilterMenu({
           variant={'alt-text'}
           startIcon={<AddRounded />}
           onClick={(e) => setFilterPropertiesMenuAnchorEl(e.currentTarget)}
-          sx={{ alignSelf: 'start' }}>
+          sx={{ alignSelf: 'start' }}
+        >
           Add Filter
         </Button>
         <FilterPropertyMenu
@@ -171,7 +200,8 @@ function FilterMenu({
           operatorsMap={operatorsMap}
           handleFilter={handleAddFilter}
           menuAnchorEl={filterPropertiesMenuAnchorEl}
-          onClose={() => setFilterPropertiesMenuAnchorEl(null)} />
+          onClose={() => setFilterPropertiesMenuAnchorEl(null)}
+        />
       </Stack>
     </Menu>
   )

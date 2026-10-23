@@ -3,5 +3,5 @@ export enum WorkspaceTabs {
   Projects = 'projects',
   Calendar = 'calendar',
   Dashboards = 'dashboards',
-  Announcements = 'announcements',
+  Announcements = 'announcements'
 }

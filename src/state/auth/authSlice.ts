@@ -13,7 +13,7 @@ export const authSlice = createSlice({
       state.refreshToken = action.payload
       localStorage.setItem('refresh_token', state.refreshToken)
     },
-    logout: state => {
+    logout: (state) => {
       state.token = null
       state.refreshToken = null
       localStorage.removeItem('access_token')
@@ -22,10 +22,6 @@ export const authSlice = createSlice({
   }
 })
 
-export const {
-  setToken,
-  setRefreshToken,
-  logout
-} = authSlice.actions
+export const { setToken, setRefreshToken, logout } = authSlice.actions
 
 export default authSlice.reducer

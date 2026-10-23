@@ -5,13 +5,13 @@ export interface GetProjectRequest {
 }
 
 export interface UpdateProjectRequest {
-  id: string,
-  name: string,
+  id: string
+  name: string
   lifecycle: ProjectLifecycle
 }
 
 export interface UpdateFavoritesProjectRequest {
-  id: string,
+  id: string
   isFavorite: boolean
 }
 

@@ -1,4 +1,7 @@
-import { useGetProjectTaskQuery, useUpdateProjectTaskMutation } from './state/projectTaskDrawerApi.ts'
+import {
+  useGetProjectTaskQuery,
+  useUpdateProjectTaskMutation
+} from './state/projectTaskDrawerApi.ts'
 import {
   alpha,
   Button,
@@ -13,7 +16,13 @@ import {
   Tooltip,
   Typography
 } from '@mui/material'
-import { CheckRounded, LinkOutlined, MoreHoriz, SkipNextRounded, VisibilityOutlined } from '@mui/icons-material'
+import {
+  CheckRounded,
+  LinkOutlined,
+  MoreHoriz,
+  SkipNextRounded,
+  VisibilityOutlined
+} from '@mui/icons-material'
 import { useEffect, useState } from 'react'
 import Paths from '../../utils/enums/Paths.ts'
 import ProjectTaskDrawerActionsMenu from './components/ProjectTaskDrawerActionsMenu.tsx'
@@ -69,8 +78,8 @@ const CompletedButton = styled(Button, {
 }))
 
 interface ProjectTaskDrawerProps {
-  isDrawerOpen: boolean,
-  onClose: () => void,
+  isDrawerOpen: boolean
+  onClose: () => void
   taskId: string
 }
 
@@ -79,19 +88,17 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const { data: task, isFetching } = useGetProjectTaskQuery(
-    { id: taskId },
-    { skip: !isDrawerOpen }
-  )
+  const { data: task, isFetching } = useGetProjectTaskQuery({ id: taskId }, { skip: !isDrawerOpen })
 
-  const [name, refreshName, facadeName, setFacadeName] =
-    useDependencyFacadeState(task?.name ?? '')
+  const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState(task?.name ?? '')
   const [description, refreshDescription, facadeDescription, setFacadeDescription] =
     useDependencyFacadeState(task?.description ?? '')
-  const [isCompleted, setIsCompleted, refreshIsCompleted] =
-    useDependencyState(task?.isCompleted ?? false)
-  const [assigneeId, setAssigneeId, refreshAssignee] =
-    useDependencyState<string | null>(task?.assignee?.id ?? null)
+  const [isCompleted, setIsCompleted, refreshIsCompleted] = useDependencyState(
+    task?.isCompleted ?? false
+  )
+  const [assigneeId, setAssigneeId, refreshAssignee] = useDependencyState<string | null>(
+    task?.assignee?.id ?? null
+  )
 
   useEffect(() => {
     if (!task) return
@@ -105,7 +112,11 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
 
   const [updateProjectTask] = useUpdateProjectTaskMutation()
   useUpdateEffect(() => {
-    if (name.value === '' || isNoneUserDependencyState([name, description, isCompleted, assigneeId])) return
+    if (
+      name.value === '' ||
+      isNoneUserDependencyState([name, description, isCompleted, assigneeId])
+    )
+      return
 
     updateProjectTask({
       id: taskId,
@@ -138,112 +149,127 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
       sx={{
         width: 600,
         '& .MuiDrawer-paper': { width: 600 }
-      }}>
-      {
-        !task
-          ? <ProjectTaskDrawerLoader />
-          : (
-            <Stack sx={{
-              mt: 1
-            }}>
-              <Stack
-                direction={'row'}
-                sx={{
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  mx: 2,
-                  mb: 1
-                }}>
-                <CompletedButton
-                  variant={'alt-outlined'}
-                  size={'small'}
-                  startIcon={<CheckRounded />}
-                  isCompleted={isCompleted.value}
-                  onClick={() => setIsCompleted(!isCompleted.value, true)}>
-                  <Typography>{isCompleted.value ? 'Completed' : 'Mark Complete'}</Typography>
-                </CompletedButton>
+      }}
+    >
+      {!task ? (
+        <ProjectTaskDrawerLoader />
+      ) : (
+        <Stack
+          sx={{
+            mt: 1
+          }}
+        >
+          <Stack
+            direction={'row'}
+            sx={{
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              mx: 2,
+              mb: 1
+            }}
+          >
+            <CompletedButton
+              variant={'alt-outlined'}
+              size={'small'}
+              startIcon={<CheckRounded />}
+              isCompleted={isCompleted.value}
+              onClick={() => setIsCompleted(!isCompleted.value, true)}
+            >
+              <Typography>{isCompleted.value ? 'Completed' : 'Mark Complete'}</Typography>
+            </CompletedButton>
 
-                <Stack direction={'row'} spacing={1}>
-                  <Tooltip title={'View More Details'} arrow placement={'bottom'} enterDelay={400}>
-                    <IconButton onClick={handleViewDetails}>
-                      <VisibilityOutlined />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title={'Copy task Link'} arrow placement={'bottom'} enterDelay={400}>
-                    <IconButton onClick={handleCopyTaskLink}>
-                      <LinkOutlined />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title={'More'} arrow placement={'bottom'} enterDelay={400}>
-                    <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
-                      <MoreHoriz />
-                    </IconButton>
-                  </Tooltip>
-                  <Tooltip title={'Close Drawer'} arrow placement={'bottom'} enterDelay={400}>
-                    <IconButton onClick={onClose}>
-                      <SkipNextRounded />
-                    </IconButton>
-                  </Tooltip>
-                </Stack>
-              </Stack>
-              <Divider sx={{ mb: 1 }} />
-
-              <Stack spacing={0.5} sx={{
-                mx: 2
-              }}>
-                <OutlinedInputTextField
-                  fullWidth
-                  multiline
-                  isTitle
-                  maxLength={256}
-                  error={facadeName === '' && name.isUser}
-                  placeholder={'Enter a name'}
-                  value={facadeName}
-                  onChange={(e) => setFacadeName(e.target.value, true)} />
-
-                <Grid container rowSpacing={1}>
-                  <FormGridItem
-                    labelSize={3}
-                    label={
-                      <RichTooltip title={'Assignee'} description={'Add the person who should complete the task.'}>
-                        <Typography>Assignee</Typography>
-                      </RichTooltip>
-                    }>
-                    <AssigneeButton
-                      isFetching={isFetching}
-                      workspaceId={task.workspace.id}
-                      assignee={task.assignee}
-                      assigneeId={assigneeId}
-                      setAssigneeId={setAssigneeId} />
-                  </FormGridItem>
-                </Grid>
-
-                <Stack
-                  spacing={1}
-                  sx={{
-                    pt: 1.5,
-                    alignItems: 'start'
-                  }}>
-                  <RichTooltip title={'Description'} description={'Write a few things about the task.'}>
-                    <Typography>Description</Typography>
-                  </RichTooltip>
-                  <TextField
-                    fullWidth
-                    multiline
-                    placeholder={'Enter a description'}
-                    value={facadeDescription}
-                    onChange={(e) => setFacadeDescription(e.target.value, true)}
-                    minRows={5} />
-                </Stack>
-              </Stack>
+            <Stack direction={'row'} spacing={1}>
+              <Tooltip title={'View More Details'} arrow placement={'bottom'} enterDelay={400}>
+                <IconButton onClick={handleViewDetails}>
+                  <VisibilityOutlined />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={'Copy task Link'} arrow placement={'bottom'} enterDelay={400}>
+                <IconButton onClick={handleCopyTaskLink}>
+                  <LinkOutlined />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={'More'} arrow placement={'bottom'} enterDelay={400}>
+                <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
+                  <MoreHoriz />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title={'Close Drawer'} arrow placement={'bottom'} enterDelay={400}>
+                <IconButton onClick={onClose}>
+                  <SkipNextRounded />
+                </IconButton>
+              </Tooltip>
             </Stack>
-          )
-      }
+          </Stack>
+          <Divider sx={{ mb: 1 }} />
+
+          <Stack
+            spacing={0.5}
+            sx={{
+              mx: 2
+            }}
+          >
+            <OutlinedInputTextField
+              fullWidth
+              multiline
+              isTitle
+              maxLength={256}
+              error={facadeName === '' && name.isUser}
+              placeholder={'Enter a name'}
+              value={facadeName}
+              onChange={(e) => setFacadeName(e.target.value, true)}
+            />
+
+            <Grid container rowSpacing={1}>
+              <FormGridItem
+                labelSize={3}
+                label={
+                  <RichTooltip
+                    title={'Assignee'}
+                    description={'Add the person who should complete the task.'}
+                  >
+                    <Typography>Assignee</Typography>
+                  </RichTooltip>
+                }
+              >
+                <AssigneeButton
+                  isFetching={isFetching}
+                  workspaceId={task.workspace.id}
+                  assignee={task.assignee}
+                  assigneeId={assigneeId}
+                  setAssigneeId={setAssigneeId}
+                />
+              </FormGridItem>
+            </Grid>
+
+            <Stack
+              spacing={1}
+              sx={{
+                pt: 1.5,
+                alignItems: 'start'
+              }}
+            >
+              <RichTooltip title={'Description'} description={'Write a few things about the task.'}>
+                <Typography>Description</Typography>
+              </RichTooltip>
+              <TextField
+                fullWidth
+                multiline
+                placeholder={'Enter a description'}
+                value={facadeDescription}
+                onChange={(e) => setFacadeDescription(e.target.value, true)}
+                minRows={5}
+              />
+            </Stack>
+          </Stack>
+        </Stack>
+      )}
 
       <ProjectTaskDrawerActionsMenu
         taskId={taskId}
         anchorEl={menuAnchorEl}
-        onClose={() => setMenuAnchorEl(null)} />
+        onClose={() => setMenuAnchorEl(null)}
+      />
     </Drawer>
   )
 }

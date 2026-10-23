@@ -8,8 +8,13 @@ function NotFound() {
         sx={{
           fontSize: 150,
           fontWeight: 600
-        }}>404</Typography>
-      <Typography><b>Whoops!</b> It seems what you&apos;re looking for does not exist.</Typography>
+        }}
+      >
+        404
+      </Typography>
+      <Typography>
+        <b>Whoops!</b> It seems what you&apos;re looking for does not exist.
+      </Typography>
     </Stack>
   )
 }

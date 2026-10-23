@@ -9,39 +9,44 @@ import { useRemoveStatusFromProjectMutation } from '../state/projectStatusesDial
 import { useSnackbar } from 'notistack'
 
 interface ProjectStatusActionsMenuItemProps {
-  children: ReactNode,
-  icon?: ReactNode | undefined,
-  color?: string | undefined,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  children: ReactNode
+  icon?: ReactNode | undefined
+  color?: string | undefined
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
   disabled?: boolean | undefined
 }
 
 const ProjectStatusActionsMenuItem = ({
-                                        onClick,
-                                        icon,
-                                        children,
-                                        disabled,
-                                        color
-                                      }: ProjectStatusActionsMenuItemProps) => (
+  onClick,
+  icon,
+  children,
+  disabled,
+  color
+}: ProjectStatusActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     {icon && <ListItemIcon>{icon}</ListItemIcon>}
-    <Typography color={color} sx={{
-      pt: icon ? 0.5 : 0
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: icon ? 0.5 : 0
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface ProjectStatusActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   projectStatus: ProjectStatus
 }
 
 function ProjectStatusActionsMenu({
-                                    anchorEl,
-                                    onClose,
-                                    projectStatus
-                                  }: ProjectStatusActionsMenuProps) {
+  anchorEl,
+  onClose,
+  projectStatus
+}: ProjectStatusActionsMenuProps) {
   const projectId = useSelector((state: RootState) => state.project.projectId)
 
   const { enqueueSnackbar } = useSnackbar()
@@ -67,24 +72,23 @@ function ProjectStatusActionsMenu({
 
   return (
     <>
-      <Menu
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={onClose}>
+      <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
         <ProjectStatusActionsMenuItem icon={<EditOutlined />} onClick={handleUpdate}>
           Update Status
         </ProjectStatusActionsMenuItem>
         <ProjectStatusActionsMenuItem
           color={'error.light'}
           icon={<DeleteOutlined sx={{ color: 'error.light' }} />}
-          onClick={handleDelete}>
+          onClick={handleDelete}
+        >
           Delete Status
         </ProjectStatusActionsMenuItem>
       </Menu>
       <UpdateProjectStatusDialog
         open={isUpdateProjectStatusDialogOpen}
         onClose={handleCloseUpdateProjectStatusDialog}
-        initialProjectStatus={projectStatus} />
+        initialProjectStatus={projectStatus}
+      />
     </>
   )
 }

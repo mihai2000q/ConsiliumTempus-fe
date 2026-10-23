@@ -45,24 +45,24 @@ const StyledListItemButton = styled(ListItemButton)<ListItemButtonProps>(({ them
 }))
 
 interface DrawerListProps {
-  drawerItems: DrawerItem[] | undefined,
-  subheader?: string | undefined,
-  subheaderDestination?: string | undefined,
-  subheaderAction?: ReactElement | undefined,
-  fetchMore?: (() => void) | undefined,
-  isFetching?: boolean | undefined,
+  drawerItems: DrawerItem[] | undefined
+  subheader?: string | undefined
+  subheaderDestination?: string | undefined
+  subheaderAction?: ReactElement | undefined
+  fetchMore?: (() => void) | undefined
+  isFetching?: boolean | undefined
   menu?: ((anchorEl: HTMLElement | null, onClose: () => void) => ReactNode) | undefined
 }
 
 function DrawerList({
-                      subheader,
-                      subheaderDestination,
-                      subheaderAction,
-                      drawerItems,
-                      fetchMore,
-                      isFetching,
-                      menu
-                    }: DrawerListProps) {
+  subheader,
+  subheaderDestination,
+  subheaderAction,
+  drawerItems,
+  fetchMore,
+  isFetching,
+  menu
+}: DrawerListProps) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -84,97 +84,109 @@ function DrawerList({
       disablePadding
       component="nav"
       subheader={
-        (
-          subheader &&
+        subheader && (
           <ListSubheader component={'div'}>
-            {
-              subheaderDestination
-                ? (
-                  <Box>
-                    <StyledListItemButton
-                      onContextMenu={handleSubheaderRightClick}
-                      selected={location.pathname === subheaderDestination}
-                      onClick={handleSubheaderClick}>
-                      <Typography sx={{
-                        fontWeight: 500
-                      }}>{subheader}</Typography>
-                    </StyledListItemButton>
-                    {menu && menu(menuAnchorEl, () => setMenuAnchorEl(null))}
+            {subheaderDestination ? (
+              <Box>
+                <StyledListItemButton
+                  onContextMenu={handleSubheaderRightClick}
+                  selected={location.pathname === subheaderDestination}
+                  onClick={handleSubheaderClick}
+                >
+                  <Typography
+                    sx={{
+                      fontWeight: 500
+                    }}
+                  >
+                    {subheader}
+                  </Typography>
+                </StyledListItemButton>
+                {menu && menu(menuAnchorEl, () => setMenuAnchorEl(null))}
 
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        bottom: 0,
-                        top: '-5px',
-                        left: '5px'
-                      }}>
-                      <CollapseButton isCollapsed={hideItems} onClick={() => setHideItems(!hideItems)}>
-                        <ArrowDropDownRounded />
-                      </CollapseButton>
-                    </Box>
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    top: '-5px',
+                    left: '5px'
+                  }}
+                >
+                  <CollapseButton isCollapsed={hideItems} onClick={() => setHideItems(!hideItems)}>
+                    <ArrowDropDownRounded />
+                  </CollapseButton>
+                </Box>
 
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        position: 'absolute',
-                        bottom: '13%',
-                        right: '0',
-                        pr: '8px'
-                      }}>
-                      {subheaderAction}
-                    </Box>
-                  </Box>
-                )
-                : <Typography
+                <Box
+                  sx={{
+                    display: 'flex',
+                    position: 'absolute',
+                    bottom: '13%',
+                    right: '0',
+                    pr: '8px'
+                  }}
+                >
+                  {subheaderAction}
+                </Box>
+              </Box>
+            ) : (
+              <Typography
                 sx={{
                   fontWeight: 500,
                   px: 1.6,
                   py: 1
-                }}>{subheader}</Typography>
-            }
+                }}
+              >
+                {subheader}
+              </Typography>
+            )}
           </ListSubheader>
         )
-      }>
-      {
-        drawerItems
-          ? (
-            drawerItems.length === 0
-              ?
-              <Typography
-                variant={'body2'}
-                sx={{
-                  ml: 5,
-                  my: 1
-                }}>
-                No {subheader ?? 'data'}
-              </Typography>
-              : <Collapse in={!hideItems} unmountOnExit>
-                {drawerItems.map((item) =>
-                  <DrawerListItem key={item.link} drawerItem={item} />
-                )}
-                {fetchMore &&
-                  <Stack
-                    direction={'row'}
-                    spacing={1}
-                    sx={{
-                      alignItems: 'center',
-                      ml: 2
-                    }}>
-                    <Button
-                      variant={'alt-text'}
-                      size={'small'}
-                      disabled={isFetching}
-                      onClick={fetchMore}
-                      sx={{ px: 1.5 }}>
-                      Show More
-                    </Button>
-                    {isFetching === true && <CircularProgress thickness={8} color={'secondary'} size={18} />}
-                  </Stack>
-                }
-              </Collapse>
-          )
-          : <DrawerListLoader />
       }
+    >
+      {drawerItems ? (
+        drawerItems.length === 0 ? (
+          <Typography
+            variant={'body2'}
+            sx={{
+              ml: 5,
+              my: 1
+            }}
+          >
+            No {subheader ?? 'data'}
+          </Typography>
+        ) : (
+          <Collapse in={!hideItems} unmountOnExit>
+            {drawerItems.map((item) => (
+              <DrawerListItem key={item.link} drawerItem={item} />
+            ))}
+            {fetchMore && (
+              <Stack
+                direction={'row'}
+                spacing={1}
+                sx={{
+                  alignItems: 'center',
+                  ml: 2
+                }}
+              >
+                <Button
+                  variant={'alt-text'}
+                  size={'small'}
+                  disabled={isFetching}
+                  onClick={fetchMore}
+                  sx={{ px: 1.5 }}
+                >
+                  Show More
+                </Button>
+                {isFetching === true && (
+                  <CircularProgress thickness={8} color={'secondary'} size={18} />
+                )}
+              </Stack>
+            )}
+          </Collapse>
+        )
+      ) : (
+        <DrawerListLoader />
+      )}
     </List>
   )
 }

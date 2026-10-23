@@ -1,5 +1,8 @@
 import { Stack, TextField, Typography } from '@mui/material'
-import { useGetProjectOverviewQuery, useUpdateProjectOverviewMutation } from './state/projectOverviewApi.ts'
+import {
+  useGetProjectOverviewQuery,
+  useUpdateProjectOverviewMutation
+} from './state/projectOverviewApi.ts'
 import useDependencyFacadeState from '../../../../hooks/useDependencyFacadeState.ts'
 import useUpdateEffect from '../../../../hooks/useUpdateEffect.ts'
 import { isNoneUserDependencyState } from '../../../../types/DependencyState.ts'
@@ -12,7 +15,8 @@ function ProjectOverview() {
 
   const projectOverview = useGetProjectOverviewQuery({ id: projectId }).data
 
-  const [description, refreshDescription, facadeDescription, setFacadeDescription] = useDependencyFacadeState('')
+  const [description, refreshDescription, facadeDescription, setFacadeDescription] =
+    useDependencyFacadeState('')
   useEffect(() => {
     setFacadeDescription(projectOverview?.description ?? '')
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,10 +40,11 @@ function ProjectOverview() {
     <Stack
       spacing={1}
       sx={{
-        alignItems: "start",
+        alignItems: 'start',
         mt: 4,
         ml: 2
-      }}>
+      }}
+    >
       <Typography variant={'h6'}>Description</Typography>
       <TextField
         placeholder={'Enter a description'}
@@ -49,7 +54,8 @@ function ProjectOverview() {
         minRows={5}
         sx={{
           width: 500
-        }} />
+        }}
+      />
     </Stack>
   )
 }

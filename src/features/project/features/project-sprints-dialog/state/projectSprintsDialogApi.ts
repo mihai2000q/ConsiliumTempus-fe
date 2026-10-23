@@ -13,20 +13,23 @@ import CollectionResponse from '../../../../../types/responses/Collection.respon
 import ProjectSprintResponse from '../types/ProjectSprint.response.ts'
 
 export const projectSprintsDialogApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getProjectSprint: builder.query<ProjectSprintResponse, GetProjectSprintRequest>({
-      query: arg => `${Urls.ProjectSprints}/${arg.id}`,
+      query: (arg) => `${Urls.ProjectSprints}/${arg.id}`,
       providesTags: [TagTypes.ProjectSprints]
     }),
-    getProjectSprints: builder.query<CollectionResponse<'sprints', ProjectSprints>, GetProjectSprintsRequest>({
-      query: arg => ({
+    getProjectSprints: builder.query<
+      CollectionResponse<'sprints', ProjectSprints>,
+      GetProjectSprintsRequest
+    >({
+      query: (arg) => ({
         url: Urls.ProjectSprints,
         params: arg
       }),
       providesTags: [TagTypes.ProjectSprints]
     }),
     updateProjectSprint: builder.mutation<HttpMessageResponse, UpdateProjectSprintRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.ProjectSprints}`,
         method: 'PUT',
         body: body
@@ -34,7 +37,7 @@ export const projectSprintsDialogApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.ProjectSprints]
     }),
     deleteProjectSprint: builder.mutation<HttpMessageResponse, DeleteProjectSprintRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: `${Urls.ProjectSprints}/${arg.id}`,
         method: 'DELETE'
       }),

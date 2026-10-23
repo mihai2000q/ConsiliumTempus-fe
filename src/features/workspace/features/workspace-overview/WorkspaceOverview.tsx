@@ -5,7 +5,10 @@ import { isNoneUserDependencyState } from '../../../../types/DependencyState.ts'
 import { Stack, TextField, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../../../state/store.ts'
-import { useGetWorkspaceOverviewQuery, useUpdateWorkspaceOverviewMutation } from './state/workspaceOverviewApi.ts'
+import {
+  useGetWorkspaceOverviewQuery,
+  useUpdateWorkspaceOverviewMutation
+} from './state/workspaceOverviewApi.ts'
 
 function WorkspaceOverview() {
   const workspaceId = useSelector((state: RootState) => state.workspace.workspaceId)
@@ -37,10 +40,11 @@ function WorkspaceOverview() {
     <Stack
       spacing={1}
       sx={{
-        alignItems: "start",
+        alignItems: 'start',
         mt: 4,
         ml: 2
-      }}>
+      }}
+    >
       <Typography variant={'h6'}>Description</Typography>
       <TextField
         placeholder={'Enter a description'}
@@ -50,7 +54,8 @@ function WorkspaceOverview() {
         minRows={5}
         sx={{
           width: 500
-        }} />
+        }}
+      />
     </Stack>
   )
 }

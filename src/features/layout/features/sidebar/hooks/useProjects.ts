@@ -14,8 +14,8 @@ export default function useProjects(
   order: ProjectsOrderQueryParams,
   lifecycle: ProjectLifecycle | null
 ): {
-  projects: Project[] | undefined,
-  projectsIsFetching: boolean,
+  projects: Project[] | undefined
+  projectsIsFetching: boolean
   projectsFetchMoreProjects: (() => void) | undefined
 } {
   const pageSize = 5
@@ -25,7 +25,8 @@ export default function useProjects(
   const [projects, setProjects] = useState<Project[] | undefined>(undefined)
   const [totalCount, setTotalCount] = useState(0)
 
-  const orderType = order === ProjectsOrderQueryParams.Name ? OrderType.Ascending : OrderType.Descending
+  const orderType =
+    order === ProjectsOrderQueryParams.Name ? OrderType.Ascending : OrderType.Descending
   const orderSearchQueryParam = [order + '.' + orderType]
 
   const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam({
@@ -77,7 +78,7 @@ export default function useProjects(
         pageSize: pageSize
       },
       true
-    ).then(res => {
+    ).then((res) => {
       setProjects([...(projects ?? []), ...(res.data?.projects ?? [])])
       setTotalCount(res.data?.totalCount ?? 0)
     })

@@ -2,17 +2,20 @@ import { api } from '../../../../../state/api.ts'
 import Urls from '../../../../../utils/enums/Urls.ts'
 import TagTypes from '../../../../../utils/enums/TagTypes.ts'
 import ProjectOverview from '../types/ProjectOverview.model.ts'
-import { GetProjectOverviewRequest, UpdateProjectOverviewRequest } from '../types/ProjectOverview.request.ts'
+import {
+  GetProjectOverviewRequest,
+  UpdateProjectOverviewRequest
+} from '../types/ProjectOverview.request.ts'
 import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
 
 export const projectOverviewApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getProjectOverview: builder.query<ProjectOverview, GetProjectOverviewRequest>({
-      query: arg => `${Urls.Projects}/overview/${arg.id}`,
+      query: (arg) => `${Urls.Projects}/overview/${arg.id}`,
       providesTags: [TagTypes.ProjectOverview]
     }),
     updateProjectOverview: builder.mutation<HttpMessageResponse, UpdateProjectOverviewRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.Projects}/overview`,
         method: 'PUT',
         body: body
@@ -22,7 +25,5 @@ export const projectOverviewApiSlice = api.injectEndpoints({
   })
 })
 
-export const {
-  useGetProjectOverviewQuery,
-  useUpdateProjectOverviewMutation
-} = projectOverviewApiSlice
+export const { useGetProjectOverviewQuery, useUpdateProjectOverviewMutation } =
+  projectOverviewApiSlice

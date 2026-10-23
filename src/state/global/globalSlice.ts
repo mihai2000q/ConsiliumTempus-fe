@@ -5,7 +5,7 @@ export const globalSlice = createSlice({
   name: 'global',
   initialState,
   reducers: {
-    setMode: state => {
+    setMode: (state) => {
       state.mode = state.mode === 'light' ? 'dark' : 'light'
     },
     setUserId: (state, action: PayloadAction<string | undefined>) => {
@@ -17,10 +17,6 @@ export const globalSlice = createSlice({
   }
 })
 
-export const {
-  setMode,
-  setUserId,
-  setErrorPath
-} = globalSlice.actions
+export const { setMode, setUserId, setErrorPath } = globalSlice.actions
 
 export default globalSlice.reducer

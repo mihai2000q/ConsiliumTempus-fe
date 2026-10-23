@@ -48,17 +48,15 @@ function TopbarUser() {
         <Stack
           direction={'row'}
           sx={{
-            justifyContent: "center",
+            justifyContent: 'center',
             alignItems: 'center'
-          }}>
+          }}
+        >
           <StyledAvatar alt={'User Profile Picture'} src={demoUserPic} />
           <ArrowDropDownOutlined sx={{ mx: '2px' }} />
         </Stack>
       </StyledButton>
-      <TopbarUserMenu
-        anchorEl={menuAnchorEl}
-        onClose={() => setMenuAnchorEl(null)}
-        user={user} />
+      <TopbarUserMenu anchorEl={menuAnchorEl} onClose={() => setMenuAnchorEl(null)} user={user} />
     </>
   )
 }

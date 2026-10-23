@@ -7,7 +7,7 @@ enum TagTypes {
   ProjectStages = 'ProjectStages',
   ProjectTasks = 'ProjectTasks',
   Workspaces = 'Workspaces',
-  WorkspaceOverview = 'WorkspaceOverview',
+  WorkspaceOverview = 'WorkspaceOverview'
 }
 
 export default TagTypes

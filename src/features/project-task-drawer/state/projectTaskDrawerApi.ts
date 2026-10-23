@@ -12,9 +12,9 @@ import { GetCollaboratorsResponse } from '../types/Collaborator.response.ts'
 import { GetCollaboratorsRequest } from '../types/Collaborator.request.ts'
 
 export const projectTaskDrawerApi = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getCollaborators: builder.query<GetCollaboratorsResponse, GetCollaboratorsRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: `${Urls.Workspaces}/${arg.workspaceId}/collaborators`,
         method: 'GET',
         params: arg
@@ -23,11 +23,11 @@ export const projectTaskDrawerApi = api.injectEndpoints({
     }),
 
     getProjectTask: builder.query<ProjectTask, GetProjectTaskRequest>({
-      query: arg => `${Urls.ProjectTasks}/${arg.id}`,
+      query: (arg) => `${Urls.ProjectTasks}/${arg.id}`,
       providesTags: [TagTypes.ProjectTasks]
     }),
     updateProjectTask: builder.mutation<HttpMessageResponse, UpdateOverviewProjectTaskRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.ProjectTasks}/overview`,
         method: 'PUT',
         body: body
@@ -35,7 +35,7 @@ export const projectTaskDrawerApi = api.injectEndpoints({
       invalidatesTags: [TagTypes.ProjectTasks]
     }),
     deleteProjectTask: builder.mutation<HttpMessageResponse, DeleteProjectTaskRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: `${Urls.ProjectTasks}/${arg.id}`,
         method: 'DELETE'
       }),

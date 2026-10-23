@@ -11,8 +11,6 @@ export const workspaceSlice = createSlice({
   }
 })
 
-export const {
-  setWorkspaceId
-} = workspaceSlice.actions
+export const { setWorkspaceId } = workspaceSlice.actions
 
 export default workspaceSlice.reducer

@@ -27,10 +27,7 @@ export default [
       'react-refresh': reactRefresh
     },
     rules: {
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true }
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/react-in-jsx-scope': 'off',
       'no-console': 'warn',
       '@typescript-eslint/no-require-imports': 'warn'

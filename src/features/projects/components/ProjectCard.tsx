@@ -1,5 +1,14 @@
 import Project from '../types/Project.model.ts'
-import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography } from '@mui/material'
+import {
+  alpha,
+  Box,
+  BoxProps,
+  CardContent,
+  CardMedia,
+  Stack,
+  styled,
+  Typography
+} from '@mui/material'
 import Paragraph from '../../../components/text/Paragraph.tsx'
 import { useNavigate } from 'react-router'
 import Paths from '../../../utils/enums/Paths.ts'
@@ -42,8 +51,10 @@ interface ProjectCardProps {
 function ProjectCard({ project }: ProjectCardProps) {
   const navigate = useNavigate()
 
-  const [projectStatusHeader, projectStatusHeaderColor] =
-    useProjectStatusHeader(project.createdDateTime, project.latestStatus)
+  const [projectStatusHeader, projectStatusHeaderColor] = useProjectStatusHeader(
+    project.createdDateTime,
+    project.latestStatus
+  )
 
   const handleClick = () => {
     navigate(`${Paths.Project}/${project.id}`)
@@ -51,13 +62,16 @@ function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <StyledProjectCard onClick={handleClick}>
-      <Box sx={{
-        position: "relative"
-      }}>
+      <Box
+        sx={{
+          position: 'relative'
+        }}
+      >
         <CardMedia
           image={'src/assets/demo-projects.jpg'}
           title={project.name}
-          sx={{ height: 200, borderRadius: '6px 6px 0px 0px' }} />
+          sx={{ height: 200, borderRadius: '6px 6px 0px 0px' }}
+        />
         <ProjectStatusHeader headerColor={projectStatusHeaderColor}>
           <Typography
             align={'center'}
@@ -66,7 +80,8 @@ function ProjectCard({ project }: ProjectCardProps) {
             sx={{
               padding: 1,
               fontWeight: 500
-            }}>
+            }}
+          >
             {projectStatusHeader}
           </Typography>
         </ProjectStatusHeader>
@@ -74,14 +89,17 @@ function ProjectCard({ project }: ProjectCardProps) {
 
       <CardContent>
         <Stack direction={'row'}>
-          <Typography variant={'h5'} noWrap sx={{
-            flexGrow: 1
-          }}>{project.name}</Typography>
+          <Typography
+            variant={'h5'}
+            noWrap
+            sx={{
+              flexGrow: 1
+            }}
+          >
+            {project.name}
+          </Typography>
         </Stack>
-        <Paragraph
-          variant={'subtitle1'}
-          color={'text.secondary'}
-          lines={3}>
+        <Paragraph variant={'subtitle1'} color={'text.secondary'} lines={3}>
           {project.description}
         </Paragraph>
       </CardContent>

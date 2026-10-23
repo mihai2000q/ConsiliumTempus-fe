@@ -1,18 +1,21 @@
 import { api } from '../../../state/api.ts'
 import ProjectTask from '../types/ProjectTask.model.ts'
-import { GetProjectTaskRequest, UpdateOverviewProjectTaskRequest } from '../types/ProjectTask.request.ts'
+import {
+  GetProjectTaskRequest,
+  UpdateOverviewProjectTaskRequest
+} from '../types/ProjectTask.request.ts'
 import Urls from '../../../utils/enums/Urls.ts'
 import TagTypes from '../../../utils/enums/TagTypes.ts'
 import HttpMessageResponse from '../../../types/responses/HttpMessage.response.ts'
 
 export const projectTaskApi = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getProjectTask: builder.query<ProjectTask, GetProjectTaskRequest>({
-      query: arg => `${Urls.ProjectTasks}/${arg.id}`,
+      query: (arg) => `${Urls.ProjectTasks}/${arg.id}`,
       providesTags: [TagTypes.ProjectTasks]
     }),
     updateProjectTask: builder.mutation<HttpMessageResponse, UpdateOverviewProjectTaskRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.ProjectTasks}/overview`,
         method: 'PUT',
         body: body
@@ -22,7 +25,4 @@ export const projectTaskApi = api.injectEndpoints({
   })
 })
 
-export const {
-  useGetProjectTaskQuery,
-  useUpdateProjectTaskMutation
-} = projectTaskApi
+export const { useGetProjectTaskQuery, useUpdateProjectTaskMutation } = projectTaskApi

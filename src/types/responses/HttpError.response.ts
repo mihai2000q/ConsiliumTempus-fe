@@ -1,10 +1,10 @@
 export default interface HttpErrorResponse {
-  data: Error,
+  data: Error
   status: number
 }
 
 type Error = {
-  title: string,
-  status: number,
+  title: string
+  status: number
   errors: object
 }

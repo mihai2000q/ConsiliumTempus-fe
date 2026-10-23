@@ -30,9 +30,7 @@ interface ProjectStatusLabelProps {
   status: ProjectStatusType
 }
 
-function ProjectStatusLabel({
-                              status
-                            }: ProjectStatusLabelProps) {
+function ProjectStatusLabel({ status }: ProjectStatusLabelProps) {
   return (
     <StyledLabel status={status}>
       {status === 'Completed' ? <Check /> : <Circle />}

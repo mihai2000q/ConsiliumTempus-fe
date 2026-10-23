@@ -3,33 +3,32 @@ import { ReactNode } from 'react'
 import { OverridableStringUnion } from '@mui/types'
 
 interface LoadingButtonProps {
-  children: ReactNode,
-  isLoading: boolean,
-  type?: 'button' | 'submit' | 'reset' | undefined,
-  variant?: OverridableStringUnion<'text' | 'outlined' | 'contained', ButtonPropsVariantOverrides> | undefined
+  children: ReactNode
+  isLoading: boolean
+  type?: 'button' | 'submit' | 'reset' | undefined
+  variant?:
+    | OverridableStringUnion<'text' | 'outlined' | 'contained', ButtonPropsVariantOverrides>
+    | undefined
 }
 
-function LoadingButton({
-                         children,
-                         isLoading,
-                         variant,
-                         type
-                       }: LoadingButtonProps) {
+function LoadingButton({ children, isLoading, variant, type }: LoadingButtonProps) {
   return (
-    <Box sx={{
-      position: 'relative'
-    }}>
+    <Box
+      sx={{
+        position: 'relative'
+      }}
+    >
       <Button disabled={isLoading} variant={variant} type={type}>
-        <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
-          {children}
-        </div>
+        <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>{children}</div>
       </Button>
-      {isLoading &&
+      {isLoading && (
         <CircularProgress
           color={'secondary'}
           thickness={7}
           size={24}
-          sx={{ position: 'absolute', top: '50%', left: '50%', mt: '-12px', ml: '-12px' }} />}
+          sx={{ position: 'absolute', top: '50%', left: '50%', mt: '-12px', ml: '-12px' }}
+        />
+      )}
     </Box>
   )
 }

@@ -5,20 +5,14 @@ import StyledProjectStagePanel from './StyledProjectStagePanel.tsx'
 import { SxProps } from '@mui/material'
 
 interface AddProjectStagePanelProps {
-  sprintId: string,
-  closeCard: () => void,
-  onTop: boolean,
-  show: boolean,
-  sx?: SxProps | undefined,
+  sprintId: string
+  closeCard: () => void
+  onTop: boolean
+  show: boolean
+  sx?: SxProps | undefined
 }
 
-function AddProjectStagePanel({
-                                sprintId,
-                                closeCard,
-                                onTop,
-                                show,
-                                sx
-                              }: AddProjectStagePanelProps) {
+function AddProjectStagePanel({ sprintId, closeCard, onTop, show, sx }: AddProjectStagePanelProps) {
   const [newStageName, setNewStageName] = useState('')
   const [addStageToProjectSprint] = useAddStageToProjectSprintMutation()
 
@@ -43,7 +37,8 @@ function AddProjectStagePanel({
         placeholder={'Enter stage name'}
         value={newStageName}
         onChange={(e) => setNewStageName(e.target.value)}
-        onBlurEvent={handleAddStageToProjectSprint} />
+        onBlurEvent={handleAddStageToProjectSprint}
+      />
     </StyledProjectStagePanel>
   )
 }

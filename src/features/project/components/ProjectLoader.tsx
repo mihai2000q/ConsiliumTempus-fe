@@ -5,12 +5,17 @@ function ProjectLoader() {
     <Stack
       spacing={2}
       sx={{
-        alignItems: "start",
+        alignItems: 'start',
         height: '100%'
-      }}>
-      <Stack direction={'row'} spacing={1} sx={{
-        alignItems: 'center'
-      }}>
+      }}
+    >
+      <Stack
+        direction={'row'}
+        spacing={1}
+        sx={{
+          alignItems: 'center'
+        }}
+      >
         <Skeleton variant={'circular'} width={35} height={35} sx={{ borderRadius: 2 }} />
         <Skeleton variant={'text'} width={200} height={40} />
         <Skeleton variant={'rectangular'} width={30} height={30} sx={{ borderRadius: 2 }} />
@@ -24,7 +29,8 @@ function ProjectLoader() {
         sx={{
           width: '100%',
           height: '85%'
-        }}>
+        }}
+      >
         <Stack
           direction={'row'}
           spacing={2}
@@ -33,17 +39,31 @@ function ProjectLoader() {
             width: '100%',
             height: '100%',
             mt: 2
-          }}>
-          <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1.5 }} />
+          }}
+        >
+          <Skeleton
+            variant={'rectangular'}
+            height={'100%'}
+            sx={{ borderRadius: 2, flexGrow: 1.5 }}
+          />
 
           <Stack
             spacing={1}
             sx={{
               flexGrow: 1,
               height: '100%'
-            }}>
-            <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
-            <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
+            }}
+          >
+            <Skeleton
+              variant={'rectangular'}
+              height={'100%'}
+              sx={{ borderRadius: 2, flexGrow: 1 }}
+            />
+            <Skeleton
+              variant={'rectangular'}
+              height={'100%'}
+              sx={{ borderRadius: 2, flexGrow: 1 }}
+            />
           </Stack>
 
           <Stack
@@ -51,18 +71,36 @@ function ProjectLoader() {
             sx={{
               flexGrow: 1,
               height: '100%'
-            }}>
-            <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
-            <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
+            }}
+          >
+            <Skeleton
+              variant={'rectangular'}
+              height={'100%'}
+              sx={{ borderRadius: 2, flexGrow: 1 }}
+            />
+            <Skeleton
+              variant={'rectangular'}
+              height={'100%'}
+              sx={{ borderRadius: 2, flexGrow: 1 }}
+            />
             <Stack
               direction={'row'}
               spacing={1}
               sx={{
                 flexGrow: 1,
                 height: '100%'
-              }}>
-              <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
-              <Skeleton variant={'rectangular'} height={'100%'} sx={{ borderRadius: 2, flexGrow: 1 }} />
+              }}
+            >
+              <Skeleton
+                variant={'rectangular'}
+                height={'100%'}
+                sx={{ borderRadius: 2, flexGrow: 1 }}
+              />
+              <Skeleton
+                variant={'rectangular'}
+                height={'100%'}
+                sx={{ borderRadius: 2, flexGrow: 1 }}
+              />
             </Stack>
           </Stack>
         </Stack>

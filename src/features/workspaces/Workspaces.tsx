@@ -29,11 +29,7 @@ import OrderType from '../../utils/enums/OrderType.ts'
 import Order from '../../types/Order.ts'
 
 const GridItem = ({ children }: { children: ReactNode }) => {
-  return (
-    <Grid size={4}>
-      {children}
-    </Grid>
-  )
+  return <Grid size={4}>{children}</Grid>
 }
 
 function Workspaces() {
@@ -45,11 +41,8 @@ function Workspaces() {
     displayName: ''
   }
   const [orderBy, setOrderBy] = useOrderByQueryParam(initialOrder)
-  const [
-    searchQueryParam,
-    addToSearchQueryParam,
-    removeFromSearchQueryParam
-  ] = useSearchQueryParam()
+  const [searchQueryParam, addToSearchQueryParam, removeFromSearchQueryParam] =
+    useSearchQueryParam()
 
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
   useUpdateEffect(() => {
@@ -62,11 +55,7 @@ function Workspaces() {
 
   const pageSize = 12
 
-  const {
-    data,
-    isLoading,
-    isFetching
-  } = useGetWorkspacesQuery({
+  const { data, isLoading, isFetching } = useGetWorkspacesQuery({
     orderBy: orderBy,
     pageSize: pageSize,
     currentPage: searchParams.currentPage,
@@ -102,10 +91,15 @@ function Workspaces() {
         width: '100%',
         height: '100%',
         alignItems: 'center'
-      }}>
-      <Typography variant={'h1'} align={'center'} sx={{
-        mb: 4
-      }}>
+      }}
+    >
+      <Typography
+        variant={'h1'}
+        align={'center'}
+        sx={{
+          mb: 4
+        }}
+      >
         Workspaces
       </Typography>
       <Stack
@@ -114,10 +108,14 @@ function Workspaces() {
           width: '100%',
           alignItems: 'center',
           justifyContent: 'space-between'
-        }}>
-        <Stack direction={'row'} sx={{
-          alignItems: 'center'
-        }}>
+        }}
+      >
+        <Stack
+          direction={'row'}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <TextField
             name={'workspace-search'}
             label={'Search'}
@@ -128,15 +126,19 @@ function Workspaces() {
             sx={{ boxShadow: 8 }}
             slotProps={{
               input: { endAdornment: <Search /> }
-            }} />
-          {isFetching && !isLoading &&
-            <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />}
+            }}
+          />
+          {isFetching && !isLoading && (
+            <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />
+          )}
         </Stack>
 
         <Stack direction={'row'} spacing={2}>
           <WorkspaceSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
-          <WorkspaceFilterButton addToSearchQueryParam={addToSearchQueryParam}
-                                 removeFromSearchQueryParam={removeFromSearchQueryParam} />
+          <WorkspaceFilterButton
+            addToSearchQueryParam={addToSearchQueryParam}
+            removeFromSearchQueryParam={removeFromSearchQueryParam}
+          />
         </Stack>
       </Stack>
 
@@ -149,15 +151,15 @@ function Workspaces() {
           px: 1.5,
           mt: 1,
           mb: 1.5
-        }}>
-        {
-          data
-            ?
-            <Typography>
-              {startPageCount} - {endPageCount} of {data.totalCount} workspaces
-            </Typography>
-            : <CircularProgress color={'secondary'} size={20} thickness={8} />
-        }
+        }}
+      >
+        {data ? (
+          <Typography>
+            {startPageCount} - {endPageCount} of {data.totalCount} workspaces
+          </Typography>
+        ) : (
+          <CircularProgress color={'secondary'} size={20} thickness={8} />
+        )}
 
         <ButtonGroup variant="text">
           <Button sx={{ paddingX: 4 }}>
@@ -175,38 +177,36 @@ function Workspaces() {
         spacing={4}
         sx={{
           flexGrow: 1
-        }}>
-        {
-          !workspaces
-            ? (
-              <>
-                {Array.from(Array(pageSize)).map((_, i) => (
-                  <GridItem key={i}>
-                    <Skeleton variant={'rectangular'} sx={{ height: 300, borderRadius: 2 }} />
-                  </GridItem>
-                ))}
-              </>
-            )
-            : (
-              workspaces?.map((workspace) => (
-                <GridItem key={workspace.id}>
-                  <WorkspaceCard workspace={workspace} />
-                </GridItem>
-              ))
-            )
-        }
+        }}
+      >
+        {!workspaces ? (
+          <>
+            {Array.from(Array(pageSize)).map((_, i) => (
+              <GridItem key={i}>
+                <Skeleton variant={'rectangular'} sx={{ height: 300, borderRadius: 2 }} />
+              </GridItem>
+            ))}
+          </>
+        ) : (
+          workspaces?.map((workspace) => (
+            <GridItem key={workspace.id}>
+              <WorkspaceCard workspace={workspace} />
+            </GridItem>
+          ))
+        )}
       </Grid>
-      {
-        !data
-          ? <CircularProgress color={'secondary'} size={27} thickness={7} />
-          : <Pagination
-            disabled={isFetching}
-            count={totalPages}
-            page={searchParams.currentPage}
-            onChange={handleCurrentPageChange}
-            color="primary"
-            sx={{ mt: 4 }} />
-      }
+      {!data ? (
+        <CircularProgress color={'secondary'} size={27} thickness={7} />
+      ) : (
+        <Pagination
+          disabled={isFetching}
+          count={totalPages}
+          page={searchParams.currentPage}
+          onChange={handleCurrentPageChange}
+          color="primary"
+          sx={{ mt: 4 }}
+        />
+      )}
     </Stack>
   )
 }

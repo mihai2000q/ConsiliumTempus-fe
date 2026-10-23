@@ -6,26 +6,32 @@ import { ReactNode, useState } from 'react'
 import useTimeoutCallback from '../../hooks/useTimeoutCallback.ts'
 
 interface User {
-  id: string,
-  name: string,
-  email: string,
+  id: string
+  name: string
+  email: string
 }
 
-type PopperPlacement = 'top' | 'bottom' | 'left' | 'right' |
-  'top-start' | 'top-end' | 'bottom-start' | 'bottom-end' |
-  'left-start' | 'left-end' | 'right-start' | 'right-end'
+type PopperPlacement =
+  | 'top'
+  | 'bottom'
+  | 'left'
+  | 'right'
+  | 'top-start'
+  | 'top-end'
+  | 'bottom-start'
+  | 'bottom-end'
+  | 'left-start'
+  | 'left-end'
+  | 'right-start'
+  | 'right-end'
 
 interface UserPopperProps {
-  children: ReactNode,
-  user: User | null,
+  children: ReactNode
+  user: User | null
   placement?: PopperPlacement | undefined
 }
 
-function UserPopper({
-                      children,
-                      user,
-                      placement = 'top-start'
-                    }: UserPopperProps) {
+function UserPopper({ children, user, placement = 'top-start' }: UserPopperProps) {
   const theme = useTheme()
   const userId = useSelector((state: RootState) => state.global.userId)
 
@@ -35,21 +41,24 @@ function UserPopper({
     if (facadeAnchorEl !== null) setAnchorEl(facadeAnchorEl)
   }, [facadeAnchorEl])
 
-  useTimeoutCallback(() => {
-    if (facadeAnchorEl === null) setAnchorEl(null)
-  }, [facadeAnchorEl], 300)
+  useTimeoutCallback(
+    () => {
+      if (facadeAnchorEl === null) setAnchorEl(null)
+    },
+    [facadeAnchorEl],
+    300
+  )
 
   return (
     <Box onMouseLeave={() => setFacadeAnchorEl(null)}>
-      <Box onMouseEnter={(e) => setFacadeAnchorEl(e.currentTarget)}>
-        {children}
-      </Box>
+      <Box onMouseEnter={(e) => setFacadeAnchorEl(e.currentTarget)}>{children}</Box>
       <Popper
         open={Boolean(anchorEl)}
         anchorEl={anchorEl}
         placement={placement}
         transition
-        sx={{ zIndex: theme.zIndex.modal }}>
+        sx={{ zIndex: theme.zIndex.modal }}
+      >
         {({ TransitionProps }) => (
           <Grow {...TransitionProps}>
             <Stack
@@ -59,8 +68,13 @@ function UserPopper({
                 bgcolor: theme.palette.background.default,
                 boxShadow: 15,
                 borderRadius: '8px'
-              }}>
-              <img src={demoUserPic} alt={'user profile picture'} style={{ width: 150, borderRadius: '8px' }} />
+              }}
+            >
+              <img
+                src={demoUserPic}
+                alt={'user profile picture'}
+                style={{ width: 150, borderRadius: '8px' }}
+              />
               <Stack
                 sx={{
                   px: 2,
@@ -69,20 +83,30 @@ function UserPopper({
                   position: 'relative',
                   minWidth: user?.id === userId ? 258 : 0,
                   maxWidth: 258
-                }}>
-                <Stack sx={{
-                  mb: 4
-                }}>
-                  <Typography variant={'h6'} noWrap sx={{
-                    fontWeight: 700
-                  }}>{user?.name}</Typography>
+                }}
+              >
+                <Stack
+                  sx={{
+                    mb: 4
+                  }}
+                >
+                  <Typography
+                    variant={'h6'}
+                    noWrap
+                    sx={{
+                      fontWeight: 700
+                    }}
+                  >
+                    {user?.name}
+                  </Typography>
                   <Typography
                     variant={'body2'}
                     noWrap
                     sx={{
                       fontWeight: 400,
                       color: 'text.secondary'
-                    }}>
+                    }}
+                  >
                     {user?.email}
                   </Typography>
                 </Stack>
@@ -93,11 +117,13 @@ function UserPopper({
                     alignItems: 'end',
                     position: 'absolute',
                     bottom: '8%'
-                  }}>
-                  {user?.id === userId &&
+                  }}
+                >
+                  {user?.id === userId && (
                     <Button variant={'alt-outlined'} size={'small'} sx={{ padding: '4px 20px' }}>
                       Edit Profile
-                    </Button>}
+                    </Button>
+                  )}
                   <Button variant={'alt-outlined'} size={'small'} sx={{ padding: '4px 20px' }}>
                     View Profile
                   </Button>

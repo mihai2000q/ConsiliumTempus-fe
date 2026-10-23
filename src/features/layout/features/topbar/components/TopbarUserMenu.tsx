@@ -1,4 +1,15 @@
-import { Avatar, Box, Button, Divider, ListItemIcon, Menu, MenuItem, Stack, Switch, Typography } from '@mui/material'
+import {
+  Avatar,
+  Box,
+  Button,
+  Divider,
+  ListItemIcon,
+  Menu,
+  MenuItem,
+  Stack,
+  Switch,
+  Typography
+} from '@mui/material'
 import { logout } from '../../../../../state/auth/authSlice.ts'
 import { MouseEventHandler, ReactNode } from 'react'
 import { useDispatch } from 'react-redux'
@@ -18,37 +29,31 @@ import User from '../types/User.model.ts'
 import demoUserPic from '../../../../../assets/demo-user-pic.jpg'
 
 interface TopbarUserMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
+  icon: ReactNode
+  children: ReactNode
   onClick?: MouseEventHandler<HTMLLIElement> | undefined
 }
 
-const TopbarUserMenuItem = ({
-                              onClick,
-                              icon,
-                              children
-                            }: TopbarUserMenuItemProps) => (
-  <MenuItem
-    onClick={onClick}
-    sx={{ '& .MuiListItemIcon-root': { minWidth: 0 } }}>
+const TopbarUserMenuItem = ({ onClick, icon, children }: TopbarUserMenuItemProps) => (
+  <MenuItem onClick={onClick} sx={{ '& .MuiListItemIcon-root': { minWidth: 0 } }}>
     <ListItemIcon sx={{ mr: 1 }}>{icon}</ListItemIcon>
-    <Typography sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface MultipleAccountMenuItemProps {
-  children: ReactNode,
-  onClick: MouseEventHandler<HTMLLIElement>,
+  children: ReactNode
+  onClick: MouseEventHandler<HTMLLIElement>
   selected: boolean
 }
 
-const MultipleAccountMenuItem = ({
-                                   children,
-                                   onClick,
-                                   selected
-                                 }: MultipleAccountMenuItemProps) => (
+const MultipleAccountMenuItem = ({ children, onClick, selected }: MultipleAccountMenuItemProps) => (
   <MenuItem
     selected={selected}
     onClick={onClick}
@@ -57,7 +62,8 @@ const MultipleAccountMenuItem = ({
       '&:hover': {
         '& .MuiAvatar-root': { filter: 'saturate(1)' }
       }
-    }}>
+    }}
+  >
     <ListItemIcon sx={{ mr: 1 }}>
       <Avatar
         alt={'User Profile Picture'}
@@ -66,7 +72,8 @@ const MultipleAccountMenuItem = ({
           width: 25,
           height: 25,
           filter: selected ? 'saturate(1)' : 'saturate(25%)'
-        }} />
+        }}
+      />
     </ListItemIcon>
     <Stack
       direction={'row'}
@@ -74,20 +81,24 @@ const MultipleAccountMenuItem = ({
         width: '100%',
         justifyContent: 'space-between',
         alignItems: 'center'
-      }}>
+      }}
+    >
       <Typography
         sx={{
           pt: 0.5,
           fontWeight: 500
-        }}>{children}</Typography>
+        }}
+      >
+        {children}
+      </Typography>
       {selected && <Check sx={{ mb: '1px' }} />}
     </Stack>
   </MenuItem>
 )
 
 interface TopbarUserMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   user: User
 }
 
@@ -121,17 +132,15 @@ function TopbarUserMenu({ anchorEl, onClose, user }: TopbarUserMenuProps) {
   }
 
   return (
-    <Menu
-      anchorEl={anchorEl}
-      open={Boolean(anchorEl)}
-      onClose={onClose}>
+    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={onClose}>
       <Stack direction={'row'}>
         <Stack
           sx={{
             justifyContent: 'space-between',
             width: 230,
             overflowY: 'auto'
-          }}>
+          }}
+        >
           <Stack>
             <Typography
               variant={'h6'}
@@ -139,7 +148,10 @@ function TopbarUserMenu({ anchorEl, onClose, user }: TopbarUserMenuProps) {
                 fontSize: 18,
                 px: 1.5,
                 py: 1
-              }}>Accounts</Typography>
+              }}
+            >
+              Accounts
+            </Typography>
             <MultipleAccountMenuItem selected={true} onClick={handleMultipleAccount}>
               {user.email}
             </MultipleAccountMenuItem>
@@ -164,14 +176,20 @@ function TopbarUserMenu({ anchorEl, onClose, user }: TopbarUserMenuProps) {
               alignItems: 'center',
               mt: 1,
               mb: 2
-            }}>
-            <Avatar alt={'User Profile Picture'} src={demoUserPic} sx={{ width: 60, height: 60, mb: 1 }} />
+            }}
+          >
+            <Avatar
+              alt={'User Profile Picture'}
+              src={demoUserPic}
+              sx={{ width: 60, height: 60, mb: 1 }}
+            />
             <Typography
               variant={'h6'}
               noWrap
               sx={{
                 fontWeight: 'bold'
-              }}>
+              }}
+            >
               {user.firstName} {user.lastName}
             </Typography>
             <Typography
@@ -179,27 +197,38 @@ function TopbarUserMenu({ anchorEl, onClose, user }: TopbarUserMenuProps) {
               noWrap
               sx={{
                 fontWeight: isDarkMode ? 'light' : 400
-              }}>
+              }}
+            >
               {user.email}
             </Typography>
           </Stack>
 
-          <Box sx={{
-            position: 'relative'
-          }}>
+          <Box
+            sx={{
+              position: 'relative'
+            }}
+          >
             <MenuItem
               onClick={handleDarkModeToggle}
-              sx={{ '& .MuiListItemIcon-root': { minWidth: 0 } }}>
-              <ListItemIcon sx={{ mr: 1 }}><DarkModeRounded /></ListItemIcon>
-              <Typography sx={{
-                pt: 0.5
-              }}>Dark Mode</Typography>
+              sx={{ '& .MuiListItemIcon-root': { minWidth: 0 } }}
+            >
+              <ListItemIcon sx={{ mr: 1 }}>
+                <DarkModeRounded />
+              </ListItemIcon>
+              <Typography
+                sx={{
+                  pt: 0.5
+                }}
+              >
+                Dark Mode
+              </Typography>
             </MenuItem>
             <Switch
               checked={isDarkMode}
               onClick={handleDarkModeToggle}
               size={'small'}
-              sx={{ position: 'absolute', right: 0, top: '18%' }} />
+              sx={{ position: 'absolute', right: 0, top: '18%' }}
+            />
           </Box>
           <TopbarUserMenuItem icon={<PersonAddRounded />} onClick={handleInvite}>
             Invite to Consilium Tempus

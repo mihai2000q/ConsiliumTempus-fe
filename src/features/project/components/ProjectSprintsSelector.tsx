@@ -1,11 +1,22 @@
-import { Button, CircularProgress, Menu, MenuItem, Stack, Typography, useTheme } from '@mui/material'
+import {
+  Button,
+  CircularProgress,
+  Menu,
+  MenuItem,
+  Stack,
+  Typography,
+  useTheme
+} from '@mui/material'
 import ProjectSprint from '../types/ProjectSprint.model.ts'
 import { useGetProjectSprintsQuery } from '../state/projectApi.ts'
 import { useEffect, useState } from 'react'
 import { ArrowDropDown } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../state/store.ts'
-import { openProjectSprintsDialog, setProjectSprintId } from '../../../state/project/projectSlice.ts'
+import {
+  openProjectSprintsDialog,
+  setProjectSprintId
+} from '../../../state/project/projectSlice.ts'
 import dayjs from 'dayjs'
 
 interface ProjectSprintsSelectorProps {
@@ -37,9 +48,11 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
   const handleCloseMenu = () => setMenuAnchorEl(null)
 
   function handleViewAllClick() {
-    dispatch(openProjectSprintsDialog({
-      open: true
-    }))
+    dispatch(
+      openProjectSprintsDialog({
+        open: true
+      })
+    )
     handleCloseMenu()
   }
 
@@ -56,7 +69,8 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
           '& .MuiButton-endIcon': {
             marginLeft: 0.5
           }
-        }}>
+        }}
+      >
         {currentSprint?.name ?? <CircularProgress size={20} thickness={8} sx={{ marginX: 1 }} />}
       </Button>
       <Menu open={Boolean(menuAnchorEl)} anchorEl={menuAnchorEl} onClose={handleCloseMenu}>
@@ -67,25 +81,45 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
             onClick={() => {
               setCurrentSprint(sprint)
               handleCloseMenu()
-            }}>
+            }}
+          >
             <Stack direction={'row'} spacing={1}>
               <Typography>{sprint.name}</Typography>
-              {(sprint.startDate || sprint.endDate) &&
+              {(sprint.startDate || sprint.endDate) && (
                 <Stack direction={'row'} spacing={'4px'}>
-                  <Typography sx={{
-                    color: 'text.secondary'
-                  }}>{sprint.startDate ? dayjs(sprint.startDate).format('DD MMM') : '?'}</Typography>
-                  <Typography sx={{
-                    color: 'text.secondary'
-                  }}>-</Typography>
-                  <Typography sx={{
-                    color: 'text.secondary'
-                  }}>{sprint.endDate ? dayjs(sprint.endDate).format('DD MMM') : '?'}</Typography>
+                  <Typography
+                    sx={{
+                      color: 'text.secondary'
+                    }}
+                  >
+                    {sprint.startDate ? dayjs(sprint.startDate).format('DD MMM') : '?'}
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: 'text.secondary'
+                    }}
+                  >
+                    -
+                  </Typography>
+                  <Typography
+                    sx={{
+                      color: 'text.secondary'
+                    }}
+                  >
+                    {sprint.endDate ? dayjs(sprint.endDate).format('DD MMM') : '?'}
+                  </Typography>
                 </Stack>
-              }
+              )}
             </Stack>
-          </MenuItem>))}
-        <Button fullWidth color={'inherit'} size={'small'} onClick={handleViewAllClick} sx={{ borderRadius: 0 }}>
+          </MenuItem>
+        ))}
+        <Button
+          fullWidth
+          color={'inherit'}
+          size={'small'}
+          onClick={handleViewAllClick}
+          sx={{ borderRadius: 0 }}
+        >
           View All
         </Button>
       </Menu>

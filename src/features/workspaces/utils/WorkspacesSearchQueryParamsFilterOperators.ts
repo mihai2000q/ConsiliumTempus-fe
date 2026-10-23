@@ -1,14 +1,16 @@
 import FilterOperator from '../../../utils/enums/FilterOperator.ts'
 import WorkspacesSearchQueryParams from './WorkspacesSearchQueryParams.ts'
 
-export const workspacesSearchQueryParamsFilterOperators =
-  new Map<string, FilterOperator[]>()
+export const workspacesSearchQueryParamsFilterOperators = new Map<string, FilterOperator[]>()
 
 const eqAndNeq = [FilterOperator.Equal, FilterOperator.NotEqual]
 const others = [
-  FilterOperator.Equal, FilterOperator.NotEqual,
-  FilterOperator.GreaterThan, FilterOperator.GreaterThanOrEqual,
-  FilterOperator.LessThan, FilterOperator.LessThanOrEqual
+  FilterOperator.Equal,
+  FilterOperator.NotEqual,
+  FilterOperator.GreaterThan,
+  FilterOperator.GreaterThanOrEqual,
+  FilterOperator.LessThan,
+  FilterOperator.LessThanOrEqual
 ]
 
 workspacesSearchQueryParamsFilterOperators.set(WorkspacesSearchQueryParams.IsPersonal, eqAndNeq)

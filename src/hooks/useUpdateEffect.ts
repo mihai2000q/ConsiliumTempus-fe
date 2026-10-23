@@ -1,9 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-export default function useUpdateEffect(
-  effect: () => void,
-  dependencies: unknown[]
-) {
+export default function useUpdateEffect(effect: () => void, dependencies: unknown[]) {
   const isInitialMount = useRef(false)
 
   useEffect(() => {

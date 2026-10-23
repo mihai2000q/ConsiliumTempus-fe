@@ -51,19 +51,9 @@ function AddProjectSprintDialog() {
 
   const onClose = () => dispatch(closeAddProjectSprintDialog())
 
-  const [addProjectSprint, {
-    isLoading
-  }] = useAddProjectSprintMutation()
+  const [addProjectSprint, { isLoading }] = useAddProjectSprintMutation()
 
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    resetForm
-  } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: addProjectSprintDialogInitialValues,
     validationSchema: addProjectSprintDialogValidationSchema,
     onSubmit: handleSubmitForm
@@ -92,10 +82,13 @@ function AddProjectSprintDialog() {
       projectStatus: !values.isProjectStatusAccordionOpen
         ? undefined
         : {
-          title: values.projectStatusTitle.trim() === '' ? projectStatusTitlePlaceholder : values.projectStatusTitle,
-          status: projectStatus,
-          description: values.projectStatusDescription
-        }
+            title:
+              values.projectStatusTitle.trim() === ''
+                ? projectStatusTitlePlaceholder
+                : values.projectStatusTitle,
+            status: projectStatus,
+            description: values.projectStatusDescription
+          }
     }).unwrap()
     resetForm()
     enqueueSnackbar('Sprint created successfully!')
@@ -103,10 +96,7 @@ function AddProjectSprintDialog() {
   }
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={onClose}>
+    <Dialog fullScreen open={open} onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <AppBar position={'relative'}>
           <Toolbar>
@@ -115,7 +105,7 @@ function AddProjectSprintDialog() {
             </IconButton>
 
             <Breadcrumbs separator={'›'} sx={{ flexGrow: 1, ml: 2 }}>
-              {breadcrumbs.map(breadcrumb => (
+              {breadcrumbs.map((breadcrumb) => (
                 <Link key={breadcrumb.path} href={breadcrumb.path}>
                   {breadcrumb.name}
                 </Link>
@@ -139,7 +129,8 @@ function AddProjectSprintDialog() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.projectSprintName && !!errors.projectSprintName}
-                sx={{ fontSize: 24 }} />
+                sx={{ fontSize: 24 }}
+              />
               <Collapse in={touched.projectSprintName && !!errors.projectSprintName}>
                 <FormHelperText error={touched.projectSprintName && !!errors.projectSprintName}>
                   {errors.projectSprintName}
@@ -147,15 +138,20 @@ function AddProjectSprintDialog() {
               </Collapse>
             </FormControl>
 
-            <Grid container rowSpacing={1} sx={{
-              width: 500
-            }}>
+            <Grid
+              container
+              rowSpacing={1}
+              sx={{
+                width: 500
+              }}
+            >
               <FormGridItem label={'Start Date'} justifyContent={'center'}>
                 <DatePicker
                   format={'DD/MM/YYYY'}
                   name={'startDate'}
                   value={startDate}
-                  onChange={(v) => setStartDate(v)} />
+                  onChange={(v) => setStartDate(v)}
+                />
               </FormGridItem>
 
               <FormGridItem label={'End Date'} justifyContent={'center'}>
@@ -165,7 +161,8 @@ function AddProjectSprintDialog() {
                     name={'endDate'}
                     value={endDate}
                     onChange={(v) => setEndDate(v)}
-                    shouldDisableDate={(day) => day.isBefore(startDate)} />
+                    shouldDisableDate={(day) => day.isBefore(startDate)}
+                  />
                   <Collapse in={endDate?.isBefore(startDate)}>
                     <FormHelperText error={endDate?.isBefore(startDate)}>
                       End Date must happen after Start Date
@@ -181,30 +178,37 @@ function AddProjectSprintDialog() {
                     <FormLabel>Keep Previous Stages</FormLabel>
                     <Tooltip
                       placement={'top'}
-                      title={'This option copies the stages from the previous sprint and populates the new sprint'}>
+                      title={
+                        'This option copies the stages from the previous sprint and populates the new sprint'
+                      }
+                    >
                       <InfoOutlined sx={{ color: theme.palette.text.secondary, fontSize: 15 }} />
                     </Tooltip>
                   </Stack>
-                }>
+                }
+              >
                 <Checkbox
                   name={'keepPreviousStages'}
                   checked={values.keepPreviousStages}
                   onChange={handleChange}
-                  onBlur={handleBlur} />
+                  onBlur={handleBlur}
+                />
               </FormGridItem>
             </Grid>
 
             <Accordion
               expanded={isAccordionExpanded}
               onChange={(_, n) => setIsAccordionExpanded(n)}
-              sx={{ backgroundColor: theme.palette.background.default }}>
-              <AccordionSummary expandIcon={<ExpandMore />}>
-                Add Status (optional)
-              </AccordionSummary>
+              sx={{ backgroundColor: theme.palette.background.default }}
+            >
+              <AccordionSummary expandIcon={<ExpandMore />}>Add Status (optional)</AccordionSummary>
               <AccordionDetails>
-                <Stack spacing={2} sx={{
-                  mb: 1
-                }}>
+                <Stack
+                  spacing={2}
+                  sx={{
+                    mb: 1
+                  }}
+                >
                   <FormControl>
                     <InputBase
                       fullWidth
@@ -213,22 +217,34 @@ function AddProjectSprintDialog() {
                       value={values.projectStatusTitle}
                       onChange={handleChange}
                       onBlur={handleBlur}
-                      sx={{ fontSize: 16 }} />
+                      sx={{ fontSize: 16 }}
+                    />
                   </FormControl>
 
-                  <Stack direction={'row'} spacing={10} sx={{
-                    alignItems: 'center'
-                  }}>
+                  <Stack
+                    direction={'row'}
+                    spacing={10}
+                    sx={{
+                      alignItems: 'center'
+                    }}
+                  >
                     <Typography>Status</Typography>
                     <ProjectStatusSelector value={projectStatus} onChange={setProjectStatus} />
                   </Stack>
 
-                  <Stack sx={{
-                    width: '100%'
-                  }}>
-                    <Typography variant={'h6'} sx={{
-                      mb: 1
-                    }}>Description</Typography>
+                  <Stack
+                    sx={{
+                      width: '100%'
+                    }}
+                  >
+                    <Typography
+                      variant={'h6'}
+                      sx={{
+                        mb: 1
+                      }}
+                    >
+                      Description
+                    </Typography>
                     <FormControl>
                       <OutlinedInputTextField
                         multiline
@@ -238,10 +254,19 @@ function AddProjectSprintDialog() {
                         value={values.projectStatusDescription}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        error={touched.projectStatusDescription && !!errors.projectStatusDescription}
-                        sx={{ width: 500 }} />
-                      <Collapse in={touched.projectStatusDescription && !!errors.projectStatusDescription}>
-                        <FormHelperText error={touched.projectStatusDescription && !!errors.projectStatusDescription}>
+                        error={
+                          touched.projectStatusDescription && !!errors.projectStatusDescription
+                        }
+                        sx={{ width: 500 }}
+                      />
+                      <Collapse
+                        in={touched.projectStatusDescription && !!errors.projectStatusDescription}
+                      >
+                        <FormHelperText
+                          error={
+                            touched.projectStatusDescription && !!errors.projectStatusDescription
+                          }
+                        >
                           {errors.projectStatusDescription}
                         </FormHelperText>
                       </Collapse>

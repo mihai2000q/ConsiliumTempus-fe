@@ -82,7 +82,7 @@ const HoverToDisplay = styled(Box, {
 }))
 
 interface WorkspaceProjectCardProps {
-  project: Project,
+  project: Project
   isLast: boolean
 }
 
@@ -100,7 +100,8 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
     <StyledWorkspaceProjectCard
       isHovering={isHovering}
       onMouseEnter={() => setIsHovering(true)}
-      onMouseLeave={() => setIsHovering(false)}>
+      onMouseLeave={() => setIsHovering(false)}
+    >
       <Stack
         direction="row"
         spacing={2}
@@ -108,21 +109,27 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
           alignItems: 'center',
           py: 1,
           px: 3
-        }}>
+        }}
+      >
         <Stack
           direction="row"
           spacing={2}
           sx={{
             alignItems: 'center',
             flexGrow: 1
-          }}>
+          }}
+        >
           <Link component={ReactRouterLink} to={`${Paths.Project}/${project.id}`}>
             <StyledProjectAvatar src={demoProjectPic} />
           </Link>
           <Stack>
-            <Stack direction={'row'} spacing={1} sx={{
-              justifyContent: 'end'
-            }}>
+            <Stack
+              direction={'row'}
+              spacing={1}
+              sx={{
+                justifyContent: 'end'
+              }}
+            >
               <Link
                 component={ReactRouterLink}
                 variant={'h6'}
@@ -133,7 +140,8 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
                   ml: 0.4,
                   maxWidth: 400,
                   '&:hover': { color: 'inherit' }
-                }}>
+                }}
+              >
                 {project.name}
               </Link>
 
@@ -151,31 +159,46 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
                     '&:hover': { color: theme.palette.secondary.main },
                     width: 25,
                     height: 25
-                  }}>
-                  {isFavorite ? <Star fontSize={'inherit'} /> : <StarOutlined fontSize={'inherit'} />}
+                  }}
+                >
+                  {isFavorite ? (
+                    <Star fontSize={'inherit'} />
+                  ) : (
+                    <StarOutlined fontSize={'inherit'} />
+                  )}
                 </IconButton>
               </HoverToDisplay>
             </Stack>
-            {project.isPrivate &&
+            {project.isPrivate && (
               <Stack
                 direction={'row'}
                 spacing={'2px'}
                 sx={{
                   alignItems: 'center',
                   color: 'text.secondary'
-                }}>
+                }}
+              >
                 <Lock color={'inherit'} />
-                <Typography sx={{
-                  pt: 0.5
-                }}>Private</Typography>
-              </Stack>}
+                <Typography
+                  sx={{
+                    pt: 0.5
+                  }}
+                >
+                  Private
+                </Typography>
+              </Stack>
+            )}
           </Stack>
         </Stack>
 
         <HoverToDisplay isHovering={isHovering}>
-          <Stack direction={'row'} spacing={2} sx={{
-            alignItems: 'center'
-          }}>
+          <Stack
+            direction={'row'}
+            spacing={2}
+            sx={{
+              alignItems: 'center'
+            }}
+          >
             <UserPopper user={{ ...project.owner }} placement={'top'}>
               <StyledOwnerAvatar src={demoUserPic} />
             </UserPopper>
@@ -193,7 +216,8 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
           setIsHovering(false)
           setMenuAnchorEl(null)
         }}
-        project={project} />
+        project={project}
+      />
     </StyledWorkspaceProjectCard>
   )
 }

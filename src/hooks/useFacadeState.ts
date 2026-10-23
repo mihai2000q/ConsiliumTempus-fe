@@ -5,10 +5,7 @@ export default function useFacadeState<T>(initialValue: T): [T, T, Dispatch<SetS
   const [state, setState] = useState<T>(initialValue)
   const [facadeState, setFacadeState] = useState<T>(initialValue)
 
-  useTimeoutCallback(
-    () => setState(facadeState),
-    [facadeState]
-  )
+  useTimeoutCallback(() => setState(facadeState), [facadeState])
 
   return [state, facadeState, setFacadeState]
 }

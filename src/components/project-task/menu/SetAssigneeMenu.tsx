@@ -29,29 +29,32 @@ const StyledPopper = styled(Popper)<PopperProps>(({ theme }) => ({
 }))
 
 interface SetAssigneeMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
-  workspaceId: string,
-  assigneeId: string | null,
+  anchorEl: HTMLElement | null
+  onClose: () => void
+  workspaceId: string
+  assigneeId: string | null
   setAssigneeId: (newAssigneeId: string | null) => void
 }
 
 function SetAssigneeMenu({
-                           anchorEl,
-                           onClose,
-                           workspaceId,
-                           assigneeId,
-                           setAssigneeId
-                         }: SetAssigneeMenuProps) {
+  anchorEl,
+  onClose,
+  workspaceId,
+  assigneeId,
+  setAssigneeId
+}: SetAssigneeMenuProps) {
   const currentUserId = useSelector((state: RootState) => state.global.userId)
 
   const [searchValue, setSearchValue] = useState('')
   const [collaborator, setCollaborator] = useState<Collaborator | null>(null)
 
-  const { data } = useGetCollaboratorsQuery({
-    workspaceId,
-    searchValue: searchValue
-  }, { skip: anchorEl === null })
+  const { data } = useGetCollaboratorsQuery(
+    {
+      workspaceId,
+      searchValue: searchValue
+    },
+    { skip: anchorEl === null }
+  )
   const collaborators = data?.collaborators
   useEffect(() => {
     if (collaborators && assigneeId) {
@@ -71,11 +74,16 @@ function SetAssigneeMenu({
         sx={{
           px: 2,
           py: 1
-        }}>
+        }}
+      >
         <FormLabel>Assignee</FormLabel>
-        <Stack direction={'row'} spacing={1} sx={{
-          alignItems: 'center'
-        }}>
+        <Stack
+          direction={'row'}
+          spacing={1}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <Autocomplete
             value={collaborator}
             onChange={(_e, newValue) => {
@@ -92,22 +100,32 @@ function SetAssigneeMenu({
             isOptionEqualToValue={(option, value) => option.id === value.id}
             renderOption={(props, option, { selected }) => (
               <MenuItem {...props} key={option.id} selected={selected}>
-                <Stack direction={'row'} sx={{
-                  alignItems: 'center'
-                }}>
+                <Stack
+                  direction={'row'}
+                  sx={{
+                    alignItems: 'center'
+                  }}
+                >
                   <Avatar src={demoUserPic} sx={{ width: 25, height: 25, mr: 1 }} />
-                  <Typography sx={{
-                    mr: 2
-                  }}>{option.name}</Typography>
-                  <Typography variant={'subtitle1'} sx={{
-                    color: 'text.secondary'
-                  }}>{option.email}</Typography>
+                  <Typography
+                    sx={{
+                      mr: 2
+                    }}
+                  >
+                    {option.name}
+                  </Typography>
+                  <Typography
+                    variant={'subtitle1'}
+                    sx={{
+                      color: 'text.secondary'
+                    }}
+                  >
+                    {option.email}
+                  </Typography>
                 </Stack>
               </MenuItem>
             )}
-            renderInput={(params) => (
-              <TextField {...params} placeholder={'Search Collaborator'} />
-            )}
+            renderInput={(params) => <TextField {...params} placeholder={'Search Collaborator'} />}
             sx={{
               width: 230,
               '& .MuiInputBase-root': {
@@ -116,17 +134,18 @@ function SetAssigneeMenu({
               }
             }}
             slots={{
-              popper: (props) =>
-                <StyledPopper {...props} />
+              popper: (props) => <StyledPopper {...props} />
             }}
           />
 
-          {assigneeId === null && <>
-            <Typography>or</Typography>
-            <Button variant={'alt-outlined'} onClick={handleAssignMe}>
-              Assign Me
-            </Button>
-          </>}
+          {assigneeId === null && (
+            <>
+              <Typography>or</Typography>
+              <Button variant={'alt-outlined'} onClick={handleAssignMe}>
+                Assign Me
+              </Button>
+            </>
+          )}
         </Stack>
       </Stack>
     </Menu>

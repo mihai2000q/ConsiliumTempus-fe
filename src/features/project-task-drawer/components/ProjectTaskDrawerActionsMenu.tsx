@@ -5,35 +5,44 @@ import { useDeleteProjectTaskMutation } from '../state/projectTaskDrawerApi.ts'
 import { useSnackbar } from 'notistack'
 
 interface ProjectTaskActionsMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
-  color?: string | undefined,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  icon: ReactNode
+  children: ReactNode
+  color?: string | undefined
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
   disabled?: boolean | undefined
 }
 
 const ProjectTaskActionsMenuItem = ({
-                                      onClick,
-                                      icon,
-                                      children,
-                                      disabled,
-                                      color
-                                    }: ProjectTaskActionsMenuItemProps) => (
+  onClick,
+  icon,
+  children,
+  disabled,
+  color
+}: ProjectTaskActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography color={color} sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface ProjectTaskDrawerActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   taskId: string
 }
 
-function ProjectTaskDrawerActionsMenu({ anchorEl, onClose, taskId }: ProjectTaskDrawerActionsMenuProps) {
+function ProjectTaskDrawerActionsMenu({
+  anchorEl,
+  onClose,
+  taskId
+}: ProjectTaskDrawerActionsMenuProps) {
   const theme = useTheme()
   const { enqueueSnackbar } = useSnackbar()
 
@@ -54,14 +63,16 @@ function ProjectTaskDrawerActionsMenu({ anchorEl, onClose, taskId }: ProjectTask
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
-      onClose={onClose}>
+      onClose={onClose}
+    >
       <ProjectTaskActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateTask}>
         Duplicate Task
       </ProjectTaskActionsMenuItem>
       <ProjectTaskActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
-        onClick={handleDeleteTask}>
+        onClick={handleDeleteTask}
+      >
         Delete Task
       </ProjectTaskActionsMenuItem>
     </Menu>

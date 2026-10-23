@@ -9,21 +9,17 @@ import FilterPropertyValueType from '../../../utils/enums/FilterPropertyValueTyp
 import { Dayjs } from 'dayjs'
 
 interface FilterValueSelectorProps {
-  type: FilterPropertyValueType,
-  value: SearchQueryParamValue,
+  type: FilterPropertyValueType
+  value: SearchQueryParamValue
   setValue: Dispatch<SetStateAction<SearchQueryParamValue>>
 }
 
 interface ValueSelectorProps {
-  value: SearchQueryParamValue,
+  value: SearchQueryParamValue
   setValue: Dispatch<SetStateAction<SearchQueryParamValue>>
 }
 
-export default function FilterValueSelector({
-                                              type,
-                                              value,
-                                              setValue
-                                            }: FilterValueSelectorProps) {
+export default function FilterValueSelector({ type, value, setValue }: FilterValueSelectorProps) {
   switch (type) {
     case FilterPropertyValueType.Boolean:
       return <BooleanSelector value={value} setValue={setValue} />
@@ -38,11 +34,13 @@ function BooleanSelector({ value, setValue }: ValueSelectorProps) {
   value = value as boolean
 
   return (
-    <FilterSelector
-      value={value}
-      onChange={(v) => setValue(v === 'true')}>
-      <MenuItem value={'true'} disabled={value}>True</MenuItem>
-      <MenuItem value={'false'} disabled={!value}>False</MenuItem>
+    <FilterSelector value={value} onChange={(v) => setValue(v === 'true')}>
+      <MenuItem value={'true'} disabled={value}>
+        True
+      </MenuItem>
+      <MenuItem value={'false'} disabled={!value}>
+        False
+      </MenuItem>
     </FilterSelector>
   )
 }
@@ -51,11 +49,11 @@ function ProjectStatusTypeSelector({ value, setValue }: ValueSelectorProps) {
   value = value as ProjectStatusType
 
   return (
-    <FilterSelector
-      value={value}
-      onChange={(v) => setValue(v)}>
-      {Object.values(ProjectStatusType).map(s => (
-        <MenuItem key={s} value={s} disabled={value === s}>{normalize(s)}</MenuItem>
+    <FilterSelector value={value} onChange={(v) => setValue(v)}>
+      {Object.values(ProjectStatusType).map((s) => (
+        <MenuItem key={s} value={s} disabled={value === s}>
+          {normalize(s)}
+        </MenuItem>
       ))}
     </FilterSelector>
   )
@@ -78,6 +76,7 @@ function PastDateSelector({ value, setValue }: ValueSelectorProps) {
         '& .MuiInputAdornment-root': {
           paddingRight: '2px'
         }
-      }} />
+      }}
+    />
   )
 }

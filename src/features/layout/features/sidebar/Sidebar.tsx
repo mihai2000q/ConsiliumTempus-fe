@@ -17,9 +17,9 @@ import SidebarProjectsMenu from './components/SidebarProjectsMenu.tsx'
 import ProjectLifecycle from '../../../../utils/project/ProjectLifecycle.ts'
 
 interface SidebarProps {
-  width: number,
-  hidden: boolean,
-  open: boolean,
+  width: number
+  hidden: boolean
+  open: boolean
 }
 
 function Sidebar({ width, hidden, open }: SidebarProps) {
@@ -36,11 +36,11 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
   const [order, setOrder] = useState(ProjectsOrderQueryParams.LastActivity)
   const [lifecycle, setLifecycle] = useState<ProjectLifecycle | null>(ProjectLifecycle.Active)
 
-  const {
-    projects,
-    projectsIsFetching,
-    projectsFetchMoreProjects
-  } = useProjects(hidden, order, lifecycle)
+  const { projects, projectsIsFetching, projectsFetchMoreProjects } = useProjects(
+    hidden,
+    order,
+    lifecycle
+  )
 
   const [addProjectDialogOpen, setAddProjectDialogOpen] = useState(false)
   const [addWorkspaceDialogOpen, setAddWorkspaceDialogOpen] = useState(false)
@@ -71,19 +71,22 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
       sx={{
         width: width,
         '& .MuiDrawer-paper': { width: width }
-      }}>
+      }}
+    >
       <Stack
         sx={{
           pt: 1.5,
           height: '100%',
           overflowY: 'hidden'
-        }}>
+        }}
+      >
         <Stack
           direction={'row'}
           sx={{
             alignItems: 'center',
             mb: 2
-          }}>
+          }}
+        >
           <img src={demoLogo} alt={'logo'} width={50} style={{ marginLeft: '14px' }} />
           <Typography
             variant="h6"
@@ -92,7 +95,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
               pl: 2,
               fontWeight: 500,
               textShadow: `1px 1px 2px ${theme.palette.background[200]}`
-            }}>
+            }}
+          >
             Consilium Tempus
           </Typography>
         </Stack>
@@ -101,7 +105,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
           sx={{
             flexGrow: 1,
             overflowY: 'auto'
-          }}>
+          }}
+        >
           <DrawerList drawerItems={topDrawerItems} />
           <DrawerList
             subheader={'Workspaces'}
@@ -139,7 +144,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
                 order={order}
                 setOrder={setOrder}
                 lifecycle={lifecycle}
-                setLifecycle={setLifecycle} />
+                setLifecycle={setLifecycle}
+              />
             )}
           />
         </Stack>
@@ -149,7 +155,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
           <Button
             variant={'alt-outlined'}
             startIcon={<MailOutlined sx={{ mr: '3px' }} />}
-            sx={{ marginX: 2, marginTop: 3, marginBottom: 2 }}>
+            sx={{ marginX: 2, marginTop: 3, marginBottom: 2 }}
+          >
             Invite teammates
           </Button>
           <Typography
@@ -159,7 +166,8 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
               ml: 1,
               mb: 0.5,
               fontWeight: 400
-            }}>
+            }}
+          >
             © {new Date().getFullYear()} Consilium Tempus
           </Typography>
         </Stack>
@@ -167,10 +175,12 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
         <AddProjectDialog
           workspaces={workspaces}
           open={addProjectDialogOpen}
-          onClose={() => setAddProjectDialogOpen(false)} />
+          onClose={() => setAddProjectDialogOpen(false)}
+        />
         <AddWorkspaceDialog
           open={addWorkspaceDialogOpen}
-          onClose={() => setAddWorkspaceDialogOpen(false)} />
+          onClose={() => setAddWorkspaceDialogOpen(false)}
+        />
       </Stack>
     </Drawer>
   )

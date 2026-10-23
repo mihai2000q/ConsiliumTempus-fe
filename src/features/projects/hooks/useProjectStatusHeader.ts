@@ -25,7 +25,7 @@ export default function useProjectStatusHeader(
   ]
 }
 
-const statusTypeToColor = new Map<ProjectStatusType, string>
+const statusTypeToColor = new Map<ProjectStatusType, string>()
 statusTypeToColor.set(ProjectStatusType.OnTrack, '#5DA283')
 statusTypeToColor.set(ProjectStatusType.AtRisk, '#F1BD6C')
 statusTypeToColor.set(ProjectStatusType.OffTrack, '#D1395A')

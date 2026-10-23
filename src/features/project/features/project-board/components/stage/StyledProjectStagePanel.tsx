@@ -1,22 +1,15 @@
 import { alpha, Stack, StackProps, styled } from '@mui/material'
 
 interface StyledProjectStagePanelProps extends StackProps {
-  isDragHandleHovered?: boolean | undefined,
-  isDragging?: boolean | undefined,
+  isDragHandleHovered?: boolean | undefined
+  isDragging?: boolean | undefined
   isDragged?: boolean | undefined
 }
 
 const StyledProjectStagePanel = styled(Stack, {
   shouldForwardProp: (props) =>
-    props !== 'isDragging' &&
-    props !== 'isDragged' &&
-    props !== 'isDragHandleHovered'
-})<StyledProjectStagePanelProps>(({
-                                    theme,
-                                    isDragHandleHovered,
-                                    isDragging,
-                                    isDragged
-                                  }) => ({
+    props !== 'isDragging' && props !== 'isDragged' && props !== 'isDragHandleHovered'
+})<StyledProjectStagePanelProps>(({ theme, isDragHandleHovered, isDragging, isDragged }) => ({
   height: '100%',
   width: 335,
   padding: '11px 11px 0px 11px',
@@ -26,9 +19,10 @@ const StyledProjectStagePanel = styled(Stack, {
   transition: theme.transitions.create(['box-shadow', 'border-color'], {
     duration: theme.transitions.duration.standard
   }),
-  backgroundColor: theme.palette.mode === 'dark'
-    ? alpha(theme.palette.primary[800], 0.25)
-    : alpha(theme.palette.background[800], 0.25),
+  backgroundColor:
+    theme.palette.mode === 'dark'
+      ? alpha(theme.palette.primary[800], 0.25)
+      : alpha(theme.palette.background[800], 0.25),
   border: '1px solid transparent',
   ...(isDragHandleHovered === true && {
     borderColor: alpha(theme.palette.background[100], 0.45)

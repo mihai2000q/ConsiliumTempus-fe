@@ -9,10 +9,10 @@ export default function useProjectTasks(
   orderSearchQueryParam: string[] | undefined,
   searchQueryParam: string[] | undefined
 ): {
-  tasks: ProjectTask[] | undefined,
-  totalTasksCount: number | undefined,
-  isFetching: boolean,
-  isLoading: boolean,
+  tasks: ProjectTask[] | undefined
+  totalTasksCount: number | undefined
+  isFetching: boolean
+  isLoading: boolean
   fetchMoreTasks: () => void
 } {
   const dispatch = useAppDispatch()
@@ -54,21 +54,24 @@ export default function useProjectTasks(
         pageSize: pageSize
       },
       true
-    ).then(res => {
+    ).then((res) => {
       setTasks([...(tasks ?? []), ...(res.data?.tasks ?? [])])
       setTotalCount(res.data?.totalCount ?? 0)
     })
   }
 
   useEffect(() => {
-    dispatch(setProjectTasksOnStage({
-      id: stageId,
-      tasks: tasks
-    }))
+    dispatch(
+      setProjectTasksOnStage({
+        id: stageId,
+        tasks: tasks
+      })
+    )
   }, [dispatch, stageId, tasks])
 
-  const stateTasks = useAppSelector(state => state.projectBoard.projectStages
-    .find(ps => ps.id === stageId)?.tasks)
+  const stateTasks = useAppSelector(
+    (state) => state.projectBoard.projectStages.find((ps) => ps.id === stageId)?.tasks
+  )
 
   return {
     tasks: stateTasks,

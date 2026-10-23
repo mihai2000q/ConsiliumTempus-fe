@@ -3,16 +3,19 @@ import Urls from '../../../../../utils/enums/Urls.ts'
 import TagTypes from '../../../../../utils/enums/TagTypes.ts'
 import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
 import WorkspaceOverview from '../types/WorkspaceOverview.model.ts'
-import { GetWorkspaceOverviewRequest, UpdateWorkspaceOverviewRequest } from '../types/WorkspaceOverview.request.ts'
+import {
+  GetWorkspaceOverviewRequest,
+  UpdateWorkspaceOverviewRequest
+} from '../types/WorkspaceOverview.request.ts'
 
 export const projectOverviewApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getWorkspaceOverview: builder.query<WorkspaceOverview, GetWorkspaceOverviewRequest>({
-      query: arg => `${Urls.Workspaces}/overview/${arg.id}`,
+      query: (arg) => `${Urls.Workspaces}/overview/${arg.id}`,
       providesTags: [TagTypes.WorkspaceOverview]
     }),
     updateWorkspaceOverview: builder.mutation<HttpMessageResponse, UpdateWorkspaceOverviewRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.Workspaces}/overview`,
         method: 'PUT',
         body: body
@@ -22,7 +25,5 @@ export const projectOverviewApiSlice = api.injectEndpoints({
   })
 })
 
-export const {
-  useGetWorkspaceOverviewQuery,
-  useUpdateWorkspaceOverviewMutation
-} = projectOverviewApiSlice
+export const { useGetWorkspaceOverviewQuery, useUpdateWorkspaceOverviewMutation } =
+  projectOverviewApiSlice

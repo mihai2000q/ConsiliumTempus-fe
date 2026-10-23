@@ -1,13 +1,13 @@
 import ProjectTask from '../../features/project/features/project-board/types/ProjectTask.model.ts'
 
 export interface ProjectStageState {
-  id: string,
+  id: string
   tasks: ProjectTask[] | undefined
 }
 
 interface ProjectBoardState {
-  projectStages: ProjectStageState[],
-  draggedProjectTask: ProjectTask | undefined,
+  projectStages: ProjectStageState[]
+  draggedProjectTask: ProjectTask | undefined
   dragOverlayProjectTask: ProjectTask | undefined
 }
 

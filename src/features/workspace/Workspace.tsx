@@ -50,10 +50,7 @@ function Workspace() {
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const workspace = useGetWorkspaceQuery(
-    { id: workspaceId },
-    { skip: workspaceId === '' }
-  )?.data
+  const workspace = useGetWorkspaceQuery({ id: workspaceId }, { skip: workspaceId === '' })?.data
 
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
   useEffect(() => {
@@ -88,32 +85,39 @@ function Workspace() {
   return (
     <Stack
       sx={{
-        alignItems: "start",
+        alignItems: 'start',
         height: '100%'
-      }}>
-      <Stack direction={'row'} spacing={0.75} sx={{
-        alignItems: 'center'
-      }}>
-        <Stack direction={'row'} sx={{
+      }}
+    >
+      <Stack
+        direction={'row'}
+        spacing={0.75}
+        sx={{
           alignItems: 'center'
-        }}>
-          <Avatar
-            alt={workspace.name}
-            src={demoWorkspacePicture}
-            sx={{ borderRadius: 2 }} />
+        }}
+      >
+        <Stack
+          direction={'row'}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
+          <Avatar alt={workspace.name} src={demoWorkspacePicture} sx={{ borderRadius: 2 }} />
           <OutlinedContentEditable
             typographyVariant={'h6'}
             maxLength={100}
             value={facadeName}
             handleChange={(n) => setFacadeName(n, true)}
-            sx={{ ml: 1 }} />
+            sx={{ ml: 1 }}
+          />
           <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
             <ArrowDropDown />
           </IconButton>
           <WorkspaceActionsMenu
             anchorEl={menuAnchorEl}
             onClose={() => setMenuAnchorEl(null)}
-            workspaceId={workspaceId} />
+            workspaceId={workspaceId}
+          />
         </Stack>
 
         <IconButton
@@ -127,7 +131,8 @@ function Workspace() {
           sx={{
             color: theme.palette.primary[100],
             '&:hover': { color: theme.palette.secondary.main }
-          }}>
+          }}
+        >
           {isFavorite ? <Star /> : <StarOutlined />}
         </IconButton>
       </Stack>
@@ -137,7 +142,11 @@ function Workspace() {
         <Tab icon={<AssignmentRounded />} label={'Projects'} value={WorkspaceTabs.Projects} />
         <Tab icon={<CalendarTodayRounded />} label={'Calendar'} value={WorkspaceTabs.Calendar} />
         <Tab icon={<TimelineRounded />} label={'Dashboards'} value={WorkspaceTabs.Dashboards} />
-        <Tab icon={<CampaignRounded />} label={'Announcements'} value={WorkspaceTabs.Announcements} />
+        <Tab
+          icon={<CampaignRounded />}
+          label={'Announcements'}
+          value={WorkspaceTabs.Announcements}
+        />
       </Tabs>
       <Divider flexItem />
 

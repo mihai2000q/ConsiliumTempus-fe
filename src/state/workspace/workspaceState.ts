@@ -1,5 +1,5 @@
 interface WorkspaceState {
-  workspaceId: string,
+  workspaceId: string
 }
 
 export const initialState: WorkspaceState = {

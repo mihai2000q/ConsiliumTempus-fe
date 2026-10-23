@@ -31,35 +31,26 @@ import { updateProjectStatusDialogFormInitialValues } from '../state/projectStat
 import { useSnackbar } from 'notistack'
 
 interface UpdateProjectStatusDialogProps {
-  open: boolean,
-  onClose: () => void,
+  open: boolean
+  onClose: () => void
   initialProjectStatus: ProjectStatus
 }
 
 function UpdateProjectStatusDialog({
-                                     open,
-                                     onClose,
-                                     initialProjectStatus
-                                   }: UpdateProjectStatusDialogProps) {
+  open,
+  onClose,
+  initialProjectStatus
+}: UpdateProjectStatusDialogProps) {
   const titlePlaceholder = 'Status Update'
 
   const projectId = useSelector((state: RootState) => state.project.projectId)
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
-  const [updateStatusFromProject, {
-    isLoading
-  }] = useUpdateStatusFromProjectMutation()
+  const [updateStatusFromProject, { isLoading }] = useUpdateStatusFromProjectMutation()
 
   const [statusType, setStatusType] = useState(ProjectStatusType.OnTrack)
 
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit
-  } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: updateProjectStatusDialogFormInitialValues,
     validationSchema: updateProjectStatusDialogSchema,
     onSubmit: handleSubmitForm
@@ -86,10 +77,7 @@ function UpdateProjectStatusDialog({
   }
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={onClose}>
+    <Dialog fullScreen open={open} onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <AppBar position={'relative'}>
           <Toolbar>
@@ -98,7 +86,7 @@ function UpdateProjectStatusDialog({
             </IconButton>
 
             <Breadcrumbs separator={'›'} sx={{ flexGrow: 1, ml: 2 }}>
-              {breadcrumbs.map(breadcrumb => (
+              {breadcrumbs.map((breadcrumb) => (
                 <Link key={breadcrumb.path} href={breadcrumb.path}>
                   {breadcrumb.name}
                 </Link>
@@ -120,31 +108,46 @@ function UpdateProjectStatusDialog({
               value={values.projectStatusTitle}
               onChange={handleChange}
               onBlur={handleBlur}
-              sx={{ fontSize: 24 }} />
+              sx={{ fontSize: 24 }}
+            />
 
-            <Grid container rowSpacing={1} sx={{
-              width: 500
-            }}>
+            <Grid
+              container
+              rowSpacing={1}
+              sx={{
+                width: 500
+              }}
+            >
               <FormGridItem label={'Status'} labelSize={3}>
                 <ProjectStatusSelector value={statusType} onChange={setStatusType} />
               </FormGridItem>
 
               <FormGridItem label={'Publisher'} labelSize={3}>
-                <Link variant={'h6'} sx={{
-                  ml: 1.5
-                }}>{initialProjectStatus.createdBy.name}</Link>
+                <Link
+                  variant={'h6'}
+                  sx={{
+                    ml: 1.5
+                  }}
+                >
+                  {initialProjectStatus.createdBy.name}
+                </Link>
               </FormGridItem>
             </Grid>
 
-            <Stack sx={{
-              width: '100%'
-            }}>
+            <Stack
+              sx={{
+                width: '100%'
+              }}
+            >
               <Typography
                 variant={'h5'}
                 sx={{
                   mt: 2,
                   mb: 1
-                }}>Description</Typography>
+                }}
+              >
+                Description
+              </Typography>
               <FormControl>
                 <OutlinedInputTextField
                   multiline
@@ -155,9 +158,14 @@ function UpdateProjectStatusDialog({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.projectStatusDescription && !!errors.projectStatusDescription}
-                  sx={{ width: 500 }} />
-                <Collapse in={touched.projectStatusDescription && !!errors.projectStatusDescription}>
-                  <FormHelperText error={touched.projectStatusDescription && !!errors.projectStatusDescription}>
+                  sx={{ width: 500 }}
+                />
+                <Collapse
+                  in={touched.projectStatusDescription && !!errors.projectStatusDescription}
+                >
+                  <FormHelperText
+                    error={touched.projectStatusDescription && !!errors.projectStatusDescription}
+                  >
                     {errors.projectStatusDescription}
                   </FormHelperText>
                 </Collapse>

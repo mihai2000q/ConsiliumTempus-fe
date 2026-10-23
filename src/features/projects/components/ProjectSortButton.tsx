@@ -6,13 +6,12 @@ import OrderMenu from '../../../components/order/OrderMenu.tsx'
 import Order from '../../../types/Order.ts'
 
 interface ProjectSortButtonProps {
-  initialOrder: Order,
+  initialOrder: Order
   setOrderBy: (orders: Order[]) => void
 }
 
 function ProjectSortButton({ initialOrder, setOrderBy }: ProjectSortButtonProps) {
-  const [menuAnchorEl, setMenuAnchorEl] =
-    useState<HTMLElement | null>(null)
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [ordersSize, setOrdersSize] = useState(1)
 
   return (
@@ -22,7 +21,8 @@ function ProjectSortButton({ initialOrder, setOrderBy }: ProjectSortButtonProps)
           variant={'outlined'}
           startIcon={<Sort />}
           onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-          sx={{ boxShadow: 4, paddingX: 2.5 }}>
+          sx={{ boxShadow: 4, paddingX: 2.5 }}
+        >
           Sort
         </Button>
       </Badge>
@@ -33,7 +33,8 @@ function ProjectSortButton({ initialOrder, setOrderBy }: ProjectSortButtonProps)
         orderProperties={projectOrderProperties}
         initialOrder={initialOrder}
         setOrderBy={setOrderBy}
-        onSizeChange={setOrdersSize} />
+        onSizeChange={setOrdersSize}
+      />
     </>
   )
 }

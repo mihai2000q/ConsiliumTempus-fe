@@ -1,36 +1,35 @@
 export interface GetProjectTasksQueryParameters {
-  projectStageId: string,
-  orderBy?: string[],
-  search?: string[],
-  currentPage?: number,
+  projectStageId: string
+  orderBy?: string[]
+  search?: string[]
+  currentPage?: number
   pageSize?: number
 }
 
 export interface AddProjectTaskRequest {
-  projectStageId: string,
-  name: string,
+  projectStageId: string
+  name: string
   onTop: boolean
 }
 
 export interface UpdateProjectTaskRequest {
-  id: string,
-  name: string,
+  id: string
+  name: string
   assigneeId: string | null
 }
 
 export interface UpdateIsCompletedProjectTaskRequest {
-  id: string,
+  id: string
   isCompleted: boolean
 }
 
-
 export interface MoveProjectTaskRequest {
-  sprintId: string,
-  id: string,
+  sprintId: string
+  id: string
   overId: string
 }
 
 export interface DeleteProjectTaskRequest {
-  id: string,
+  id: string
   stageId: string
 }

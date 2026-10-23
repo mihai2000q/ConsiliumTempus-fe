@@ -5,9 +5,7 @@ export const addProjectDialogSchema = yup.object().shape({
     .string()
     .required('Name is required')
     .max(100, 'Name must be at most 100 characters'),
-  workspaceId: yup
-    .string()
-    .required('Workspace is required')
+  workspaceId: yup.string().required('Workspace is required')
 })
 
 export const addWorkspaceDialogSchema = yup.object().shape({

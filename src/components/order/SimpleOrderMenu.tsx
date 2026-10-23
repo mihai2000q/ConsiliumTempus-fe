@@ -7,24 +7,25 @@ import Order from '../../types/Order.ts'
 import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
 
 interface SimpleOrderMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
-  initialOrder: Order,
-  orderProperties: OrderProperty[],
-  setOrderBy: (order: Order) => void,
-  onOrderChange?: (order: Order) => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
+  initialOrder: Order
+  orderProperties: OrderProperty[]
+  setOrderBy: (order: Order) => void
+  onOrderChange?: (order: Order) => void
 }
 
 function SimpleOrderMenu({
-                           anchorEl,
-                           onClose,
-                           initialOrder,
-                           orderProperties,
-                           setOrderBy,
-                           onOrderChange
-                         }: SimpleOrderMenuProps) {
-  const [orderProperty, setOrderProperty] =
-    useState(orderProperties.find(op => op.property === initialOrder.property)!)
+  anchorEl,
+  onClose,
+  initialOrder,
+  orderProperties,
+  setOrderBy,
+  onOrderChange
+}: SimpleOrderMenuProps) {
+  const [orderProperty, setOrderProperty] = useState(
+    orderProperties.find((op) => op.property === initialOrder.property)!
+  )
   const [orderType, setOrderType] = useState(initialOrder.type)
   useUpdateEffect(() => {
     const newOrder = {
@@ -37,13 +38,13 @@ function SimpleOrderMenu({
   }, [orderType, orderProperty])
 
   return (
-    <Menu
-      open={Boolean(anchorEl)}
-      anchorEl={anchorEl}
-      onClose={onClose}>
-      <Stack direction={'row'} sx={{
-        justifyContent: 'space-evenly'
-      }}>
+    <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
+      <Stack
+        direction={'row'}
+        sx={{
+          justifyContent: 'space-evenly'
+        }}
+      >
         <IconButton
           variant={'circular'}
           disabled={orderType === OrderType.Ascending}
@@ -72,7 +73,8 @@ function SimpleOrderMenu({
           onClick={() => {
             setOrderProperty(op)
             onClose()
-          }}>
+          }}
+        >
           {op.icon && <ListItemIcon>{op.icon}</ListItemIcon>}
           <ListItemText>{op.displayName}</ListItemText>
         </MenuItem>

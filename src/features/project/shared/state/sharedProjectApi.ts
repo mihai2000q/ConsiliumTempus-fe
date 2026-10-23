@@ -6,9 +6,9 @@ import { AddProjectSprintRequest } from '../types/ProjectSprint.request.ts'
 import { AddStatusToProjectRequest } from '../types/ProjectStatus.request.ts'
 
 export const sharedProjectApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     addProjectSprint: builder.mutation<HttpMessageResponse, AddProjectSprintRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.ProjectSprints}`,
         method: 'POST',
         body: body
@@ -17,7 +17,7 @@ export const sharedProjectApiSlice = api.injectEndpoints({
     }),
 
     addStatusToProject: builder.mutation<HttpMessageResponse, AddStatusToProjectRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.Projects}/add-status`,
         method: 'POST',
         body: body
@@ -27,7 +27,4 @@ export const sharedProjectApiSlice = api.injectEndpoints({
   })
 })
 
-export const {
-  useAddProjectSprintMutation,
-  useAddStatusToProjectMutation
-} = sharedProjectApiSlice
+export const { useAddProjectSprintMutation, useAddStatusToProjectMutation } = sharedProjectApiSlice

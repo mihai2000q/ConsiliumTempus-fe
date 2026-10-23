@@ -1,4 +1,4 @@
 export interface GetProjectSprintsRequest {
-  projectId: string,
+  projectId: string
   fromThisYear?: boolean
 }

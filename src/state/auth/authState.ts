@@ -1,5 +1,5 @@
 interface AuthState {
-  token: string | null,
+  token: string | null
   refreshToken: string | null
 }
 

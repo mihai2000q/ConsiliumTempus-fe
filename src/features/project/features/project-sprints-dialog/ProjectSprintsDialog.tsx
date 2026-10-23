@@ -4,7 +4,10 @@ import VerticalLargeRadioButton from '../../../../components/button/radio/Vertic
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../../state/store.ts'
 import { useEffect, useState } from 'react'
-import { closeProjectSprintsDialog, openAddProjectSprintDialog } from '../../../../state/project/projectSlice.ts'
+import {
+  closeProjectSprintsDialog,
+  openAddProjectSprintDialog
+} from '../../../../state/project/projectSlice.ts'
 import ProjectSprintsDialogLoader from './components/ProjectSprintsDialogLoader.tsx'
 import { useGetProjectSprintsQuery } from './state/projectSprintsDialogApi.ts'
 import ProjectSprint from './components/ProjectSprint.tsx'
@@ -18,10 +21,7 @@ function ProjectSprintsDialog() {
 
   const dispatch = useDispatch<AppDispatch>()
 
-  const { data } = useGetProjectSprintsQuery(
-    { projectId: projectId },
-    { skip: projectId === '' }
-  )
+  const { data } = useGetProjectSprintsQuery({ projectId: projectId }, { skip: projectId === '' })
   const sprints = data?.sprints
 
   const [projectSprintIdSelected, setProjectSprintIdSelected] = useState<string>('')
@@ -31,9 +31,11 @@ function ProjectSprintsDialog() {
 
   const handleClose = () => dispatch(closeProjectSprintsDialog())
   const handleAddNewSprint = () => {
-    dispatch(openAddProjectSprintDialog({
-      open: true
-    }))
+    dispatch(
+      openAddProjectSprintDialog({
+        open: true
+      })
+    )
   }
 
   function handleSprintClick(sprintId: string) {
@@ -45,16 +47,13 @@ function ProjectSprintsDialog() {
   }
 
   return (
-    <Dialog
-      fullWidth
-      open={open}
-      onClose={handleClose}
-      maxWidth={'md'}>
+    <Dialog fullWidth open={open} onClose={handleClose} maxWidth={'md'}>
       <Stack
         sx={{
           height: 720,
           overflowY: 'hidden'
-        }}>
+        }}
+      >
         <Stack
           direction={'row'}
           spacing={2}
@@ -62,32 +61,46 @@ function ProjectSprintsDialog() {
             alignItems: 'center',
             px: 3,
             py: 2
-          }}>
-          <Stack sx={{
-            flexGrow: 1
-          }}>
-            <Stack direction={'row'} spacing={0.5} sx={{
-              alignItems: 'center'
-            }}>
+          }}
+        >
+          <Stack
+            sx={{
+              flexGrow: 1
+            }}
+          >
+            <Stack
+              direction={'row'}
+              spacing={0.5}
+              sx={{
+                alignItems: 'center'
+              }}
+            >
               <Typography
                 variant={'h5'}
                 sx={{
                   fontSize: 20,
                   fontWeight: 500
-                }}>Sprints of</Typography>
+                }}
+              >
+                Sprints of
+              </Typography>
               <Typography
                 variant={'h5'}
                 sx={{
                   fontSize: 20,
                   fontWeight: 600
-                }}>{projectName}</Typography>
+                }}
+              >
+                {projectName}
+              </Typography>
             </Stack>
             <Typography
               variant={'subtitle2'}
               sx={{
                 fontWeight: 400,
                 color: 'text.secondary'
-              }}>
+              }}
+            >
               {data.totalCount} sprint{data.totalCount > 1 ? 's' : ''}
             </Typography>
           </Stack>
@@ -107,20 +120,26 @@ function ProjectSprintsDialog() {
           sx={{
             flexGrow: 1,
             overflowY: 'hidden'
-          }}>
+          }}
+        >
           <Stack
             sx={{
               minWidth: 280,
               overflowY: 'auto'
-            }}>
+            }}
+          >
             {sprints?.map((sprint) => (
               <div key={sprint.id}>
                 <VerticalLargeRadioButton
                   isSelected={sprint.id === projectSprintIdSelected}
-                  onClick={() => handleSprintClick(sprint.id)}>
-                  <Stack spacing={0.5} sx={{
-                    alignItems: "start"
-                  }}>
+                  onClick={() => handleSprintClick(sprint.id)}
+                >
+                  <Stack
+                    spacing={0.5}
+                    sx={{
+                      alignItems: 'start'
+                    }}
+                  >
                     <Stack
                       direction={'row'}
                       spacing={1}
@@ -128,20 +147,28 @@ function ProjectSprintsDialog() {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         width: 240
-                      }}>
+                      }}
+                    >
                       <Typography
                         variant={'body1'}
                         noWrap
                         sx={{
                           fontWeight: 400,
                           fontSize: 16
-                        }}>{sprint.name}</Typography>
+                        }}
+                      >
+                        {sprint.name}
+                      </Typography>
                       <Typography>{dayjs(sprint.createdDateTime).format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <Stack direction={'row'} spacing={'4px'}>
-                      <Typography variant={'body2'}>{sprint.startDate ? dayjs(sprint.startDate).format('DD/MM/YYYY') : '?'}</Typography>
+                      <Typography variant={'body2'}>
+                        {sprint.startDate ? dayjs(sprint.startDate).format('DD/MM/YYYY') : '?'}
+                      </Typography>
                       <Typography variant={'body2'}>-</Typography>
-                      <Typography variant={'body2'}>{sprint.endDate ? dayjs(sprint.endDate).format('DD/MM/YYYY') : '?'}</Typography>
+                      <Typography variant={'body2'}>
+                        {sprint.endDate ? dayjs(sprint.endDate).format('DD/MM/YYYY') : '?'}
+                      </Typography>
                     </Stack>
                   </Stack>
                 </VerticalLargeRadioButton>

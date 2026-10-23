@@ -11,21 +11,24 @@ import HttpMessageResponse from '../../../types/responses/HttpMessage.response.t
 import Workspace from '../types/Workspace.model.ts'
 
 export const workspaceApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getWorkspace: builder.query<Workspace, GetWorkspaceRequest>({
-      query: arg => `${Urls.Workspaces}/${arg.id}`,
+      query: (arg) => `${Urls.Workspaces}/${arg.id}`,
       providesTags: [TagTypes.Workspaces]
     }),
     updateWorkspace: builder.mutation<HttpMessageResponse, UpdateWorkspaceRequest>({
-      query: body => ({
+      query: (body) => ({
         url: Urls.Workspaces,
         method: 'PUT',
         body: body
       }),
       invalidatesTags: [TagTypes.Workspaces]
     }),
-    updateFavoritesWorkspace: builder.mutation<HttpMessageResponse, UpdateFavoritesWorkspaceRequest>({
-      query: body => ({
+    updateFavoritesWorkspace: builder.mutation<
+      HttpMessageResponse,
+      UpdateFavoritesWorkspaceRequest
+    >({
+      query: (body) => ({
         url: `${Urls.Workspaces}/favorites`,
         method: 'PUT',
         body: body
@@ -33,7 +36,7 @@ export const workspaceApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.Workspaces]
     }),
     deleteWorkspace: builder.mutation<HttpMessageResponse, DeleteWorkspaceRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: `${Urls.Workspaces}/${arg.id}`,
         method: 'DELETE'
       }),

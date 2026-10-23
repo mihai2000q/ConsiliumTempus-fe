@@ -4,9 +4,7 @@ interface DrawerListLoaderProps {
   count?: number
 }
 
-function DrawerListLoader({
-                            count = 5
-                          }: DrawerListLoaderProps) {
+function DrawerListLoader({ count = 5 }: DrawerListLoaderProps) {
   return (
     <Stack>
       {Array.from(Array(count)).map((_, i) => (
@@ -17,7 +15,8 @@ function DrawerListLoader({
           sx={{
             borderRadius: '10px',
             margin: '1px 16px'
-          }} />
+          }}
+        />
       ))}
     </Stack>
   )

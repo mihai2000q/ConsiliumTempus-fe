@@ -30,35 +30,26 @@ import LoadingButton from '../../../../../components/button/LoadingButton.tsx'
 import { useSnackbar } from 'notistack'
 
 interface UpdateProjectSprintDialogProps {
-  open: boolean,
-  onClose: () => void,
-  sprintId: string,
+  open: boolean
+  onClose: () => void
+  sprintId: string
   initialProjectSprint: ProjectSprint
 }
 
 function UpdateProjectSprintDialog({
-                                     open,
-                                     onClose,
-                                     sprintId,
-                                     initialProjectSprint
-                                   }: UpdateProjectSprintDialogProps) {
+  open,
+  onClose,
+  sprintId,
+  initialProjectSprint
+}: UpdateProjectSprintDialogProps) {
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
-  const [updateProjectSprint, {
-    isLoading
-  }] = useUpdateProjectSprintMutation()
+  const [updateProjectSprint, { isLoading }] = useUpdateProjectSprintMutation()
 
   const [startDate, setStartDate] = useState<Dayjs | null>(dayjs())
   const [endDate, setEndDate] = useState<Dayjs | null>(null)
 
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit
-  } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: updateProjectSprintDialogInitialValues,
     validationSchema: updateProjectSprintDialogValidationSchema,
     onSubmit: handleSubmitForm
@@ -86,10 +77,7 @@ function UpdateProjectSprintDialog({
   }
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={onClose}>
+    <Dialog fullScreen open={open} onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <AppBar position={'relative'}>
           <Toolbar>
@@ -98,7 +86,7 @@ function UpdateProjectSprintDialog({
             </IconButton>
 
             <Breadcrumbs separator={'›'} sx={{ flexGrow: 1, ml: 2 }}>
-              {breadcrumbs.map(breadcrumb => (
+              {breadcrumbs.map((breadcrumb) => (
                 <Link key={breadcrumb.path} href={breadcrumb.path}>
                   {breadcrumb.name}
                 </Link>
@@ -122,7 +110,8 @@ function UpdateProjectSprintDialog({
                 onChange={handleChange}
                 onBlur={handleBlur}
                 error={touched.projectSprintName && !!errors.projectSprintName}
-                sx={{ fontSize: 24 }} />
+                sx={{ fontSize: 24 }}
+              />
               <Collapse in={touched.projectSprintName && !!errors.projectSprintName}>
                 <FormHelperText error={touched.projectSprintName && !!errors.projectSprintName}>
                   {errors.projectSprintName}
@@ -130,15 +119,20 @@ function UpdateProjectSprintDialog({
               </Collapse>
             </FormControl>
 
-            <Grid container rowSpacing={1} sx={{
-              width: 500
-            }}>
+            <Grid
+              container
+              rowSpacing={1}
+              sx={{
+                width: 500
+              }}
+            >
               <FormGridItem label={'Start Date'} justifyContent={'center'}>
                 <DatePicker
                   format={'DD/MM/YYYY'}
                   name={'startDate'}
                   value={startDate}
-                  onChange={(v) => setStartDate(v)} />
+                  onChange={(v) => setStartDate(v)}
+                />
               </FormGridItem>
 
               <FormGridItem label={'End Date'} justifyContent={'center'}>
@@ -148,7 +142,8 @@ function UpdateProjectSprintDialog({
                     name={'endDate'}
                     value={endDate}
                     onChange={(v) => setEndDate(v)}
-                    shouldDisableDate={(day) => day.isBefore(startDate)} />
+                    shouldDisableDate={(day) => day.isBefore(startDate)}
+                  />
                   <Collapse in={endDate?.isBefore(startDate)}>
                     <FormHelperText error={endDate?.isBefore(startDate)}>
                       End Date must happen after Start Date

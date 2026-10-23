@@ -8,7 +8,10 @@ function Unauthorized() {
         sx={{
           fontSize: 150,
           fontWeight: 600
-        }}>403</Typography>
+        }}
+      >
+        403
+      </Typography>
       <Typography>You are not authorized to access this page.</Typography>
     </Stack>
   )

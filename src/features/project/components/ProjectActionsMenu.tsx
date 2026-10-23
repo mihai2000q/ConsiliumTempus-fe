@@ -21,35 +21,41 @@ import ProjectLifecycle from '../../../utils/project/ProjectLifecycle.ts'
 import { useSnackbar } from 'notistack'
 
 interface ProjectActionsMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
-  color?: string | undefined,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  icon: ReactNode
+  children: ReactNode
+  color?: string | undefined
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
   disabled?: boolean | undefined
 }
 
-const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
+const ProjectActionsMenuItem = ({
+  onClick,
+  icon,
+  children,
+  disabled,
+  color
+}: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography color={color} sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface ProjectActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
-  projectId: string,
+  anchorEl: HTMLElement | null
+  onClose: () => void
+  projectId: string
   project: Project
 }
 
-function ProjectActionsMenu({
-                              anchorEl,
-                              onClose,
-                              projectId,
-                              project
-                            }: ProjectActionsMenuProps) {
+function ProjectActionsMenu({ anchorEl, onClose, projectId, project }: ProjectActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -100,7 +106,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
-    enqueueSnackbar('Project unset from \'Upcoming\'', { variant: 'info' })
+    enqueueSnackbar("Project unset from 'Upcoming'", { variant: 'info' })
     onClose()
   }
   const handleSetUpcomingProject = () => {
@@ -109,7 +115,7 @@ function ProjectActionsMenu({
       name: project.name,
       lifecycle: ProjectLifecycle.Upcoming
     })
-    enqueueSnackbar('Project set to \'Upcoming\'', { variant: 'info' })
+    enqueueSnackbar("Project set to 'Upcoming'", { variant: 'info' })
     onClose()
   }
 
@@ -144,32 +150,29 @@ function ProjectActionsMenu({
       </ProjectActionsMenuItem>
 
       <Divider variant={'middle'} />
-      {
-        project.lifecycle === 'Archived'
-          ?
-          <ProjectActionsMenuItem icon={<UnarchiveOutlined />} onClick={handleUnarchiveProject}>
-            Unarchive
-          </ProjectActionsMenuItem>
-          :
-          <ProjectActionsMenuItem icon={<Archive />} onClick={handleArchiveProject}>
-            Archive
-          </ProjectActionsMenuItem>
-      }
-      {
-        project.lifecycle === 'Upcoming'
-          ?
-          <ProjectActionsMenuItem icon={<HourglassEmpty />} onClick={handleUnsetUpcomingProject}>
-            Unset Upcoming
-          </ProjectActionsMenuItem>
-          :
-          <ProjectActionsMenuItem icon={<HourglassFull />} onClick={handleSetUpcomingProject}>
-            Set Upcoming
-          </ProjectActionsMenuItem>
-      }
+      {project.lifecycle === 'Archived' ? (
+        <ProjectActionsMenuItem icon={<UnarchiveOutlined />} onClick={handleUnarchiveProject}>
+          Unarchive
+        </ProjectActionsMenuItem>
+      ) : (
+        <ProjectActionsMenuItem icon={<Archive />} onClick={handleArchiveProject}>
+          Archive
+        </ProjectActionsMenuItem>
+      )}
+      {project.lifecycle === 'Upcoming' ? (
+        <ProjectActionsMenuItem icon={<HourglassEmpty />} onClick={handleUnsetUpcomingProject}>
+          Unset Upcoming
+        </ProjectActionsMenuItem>
+      ) : (
+        <ProjectActionsMenuItem icon={<HourglassFull />} onClick={handleSetUpcomingProject}>
+          Set Upcoming
+        </ProjectActionsMenuItem>
+      )}
       <ProjectActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
-        onClick={handleDeleteProject}>
+        onClick={handleDeleteProject}
+      >
         Delete Project
       </ProjectActionsMenuItem>
     </Menu>

@@ -10,13 +10,13 @@ import HttpMessageResponse from '../../../../../types/responses/HttpMessage.resp
 import createQueryParams from '../../../../../utils/createQueryParams.ts'
 
 export const sidebarApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getProjects: builder.query<CollectionResponse<'projects', Project>, GetProjectsRequest>({
-      query: arg => Urls.Projects + createQueryParams(arg),
+      query: (arg) => Urls.Projects + createQueryParams(arg),
       providesTags: [TagTypes.Projects]
     }),
     addProject: builder.mutation<HttpMessageResponse, CreateProjectRequest>({
-      query: body => ({
+      query: (body) => ({
         url: Urls.Projects,
         method: 'POST',
         body: body
@@ -24,12 +24,14 @@ export const sidebarApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.Projects]
     }),
 
-    getWorkspaces: builder.query<CollectionResponse<'workspaces', Workspace>, GetWorkspacesRequest>({
-      query: arg => Urls.Workspaces + createQueryParams(arg),
-      providesTags: [TagTypes.Workspaces]
-    }),
+    getWorkspaces: builder.query<CollectionResponse<'workspaces', Workspace>, GetWorkspacesRequest>(
+      {
+        query: (arg) => Urls.Workspaces + createQueryParams(arg),
+        providesTags: [TagTypes.Workspaces]
+      }
+    ),
     addWorkspace: builder.mutation<HttpMessageResponse, CreateWorkspaceRequest>({
-      query: body => ({
+      query: (body) => ({
         url: Urls.Workspaces,
         method: 'POST',
         body: body

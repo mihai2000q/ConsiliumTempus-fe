@@ -1,5 +1,5 @@
 export interface UpdateProjectStatusDialogForm {
-  projectStatusTitle: string,
+  projectStatusTitle: string
   projectStatusDescription: string
 }
 

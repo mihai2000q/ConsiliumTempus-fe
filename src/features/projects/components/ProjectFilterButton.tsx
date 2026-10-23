@@ -1,7 +1,10 @@
 import { FilterAlt } from '@mui/icons-material'
 import { Badge, Button } from '@mui/material'
 import { useState } from 'react'
-import { addToSearchQueryParamType, removeFromSearchQueryParamType } from '../../../hooks/useSearchQueryParam.ts'
+import {
+  addToSearchQueryParamType,
+  removeFromSearchQueryParamType
+} from '../../../hooks/useSearchQueryParam.ts'
 import FilterMenu from '../../../components/filter/FilterMenu.tsx'
 import { projectsSearchQueryParamsFilterOperators } from '../utils/ProjectsSearchQueryParamsFilterOperators.ts'
 import { projectFilterPropertiesData } from '../data/ProjectFilterPropertiesData.tsx'
@@ -13,9 +16,9 @@ interface ProjectFilterButtonProps {
 }
 
 function ProjectFilterButton({
-                               addToSearchQueryParam,
-                               removeFromSearchQueryParam
-                             }: ProjectFilterButtonProps) {
+  addToSearchQueryParam,
+  removeFromSearchQueryParam
+}: ProjectFilterButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [filtersSize, setFiltersSize] = useState(0)
 
@@ -26,7 +29,8 @@ function ProjectFilterButton({
           variant={'outlined'}
           startIcon={<FilterAlt />}
           onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-          sx={{ boxShadow: 4 }}>
+          sx={{ boxShadow: 4 }}
+        >
           Filter
         </Button>
       </Badge>

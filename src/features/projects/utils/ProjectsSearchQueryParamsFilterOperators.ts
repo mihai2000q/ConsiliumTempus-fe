@@ -1,14 +1,16 @@
 import FilterOperator from '../../../utils/enums/FilterOperator.ts'
 import ProjectsSearchQueryParams from './ProjectsSearchQueryParams.ts'
 
-export const projectsSearchQueryParamsFilterOperators =
-  new Map<string, FilterOperator[]>()
+export const projectsSearchQueryParamsFilterOperators = new Map<string, FilterOperator[]>()
 
 const eqAndNeq = [FilterOperator.Equal, FilterOperator.NotEqual]
 const others = [
-  FilterOperator.Equal, FilterOperator.NotEqual,
-  FilterOperator.GreaterThan, FilterOperator.GreaterThanOrEqual,
-  FilterOperator.LessThan, FilterOperator.LessThanOrEqual
+  FilterOperator.Equal,
+  FilterOperator.NotEqual,
+  FilterOperator.GreaterThan,
+  FilterOperator.GreaterThanOrEqual,
+  FilterOperator.LessThan,
+  FilterOperator.LessThanOrEqual
 ]
 
 projectsSearchQueryParamsFilterOperators.set(ProjectsSearchQueryParams.IsPrivate, eqAndNeq)

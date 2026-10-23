@@ -6,8 +6,8 @@ import { Check } from '@mui/icons-material'
 import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
 
 interface ProjectsMenuItemProps {
-  children: ReactNode,
-  selected: boolean,
+  children: ReactNode
+  selected: boolean
   onClick: () => void
 }
 
@@ -18,29 +18,30 @@ const ProjectsMenuItem = ({ selected, onClick, children }: ProjectsMenuItemProps
     sx={{
       '& .MuiSvgIcon-root': { fontSize: 17 },
       '& .MuiListItemIcon-root': { minWidth: 23 }
-    }}>
+    }}
+  >
     <ListItemIcon>{selected && <Check />}</ListItemIcon>
     <ListItemText sx={{ pt: 0.3 }}>{children}</ListItemText>
   </MenuItem>
 )
 
 interface SidebarProjectsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
-  order: ProjectsOrderQueryParams,
-  setOrder: Dispatch<SetStateAction<ProjectsOrderQueryParams>>,
-  lifecycle: ProjectLifecycle | null,
+  anchorEl: HTMLElement | null
+  onClose: () => void
+  order: ProjectsOrderQueryParams
+  setOrder: Dispatch<SetStateAction<ProjectsOrderQueryParams>>
+  lifecycle: ProjectLifecycle | null
   setLifecycle: Dispatch<SetStateAction<ProjectLifecycle | null>>
 }
 
 function SidebarProjectsMenu({
-                               anchorEl,
-                               onClose,
-                               order,
-                               setOrder,
-                               lifecycle,
-                               setLifecycle
-                             }: SidebarProjectsMenuProps) {
+  anchorEl,
+  onClose,
+  order,
+  setOrder,
+  lifecycle,
+  setLifecycle
+}: SidebarProjectsMenuProps) {
   function handleOrderClick(newOrder: string) {
     setOrder(newOrder as ProjectsOrderQueryParams)
   }
@@ -53,7 +54,7 @@ function SidebarProjectsMenu({
       <ProjectsMenuItem selected={lifecycle === null} onClick={() => setLifecycle(null)}>
         Show All
       </ProjectsMenuItem>
-      {Object.values(ProjectLifecycle).map(l => (
+      {Object.values(ProjectLifecycle).map((l) => (
         <ProjectsMenuItem key={l} selected={l === lifecycle} onClick={() => setLifecycle(l)}>
           {l}
         </ProjectsMenuItem>
@@ -62,11 +63,12 @@ function SidebarProjectsMenu({
       <ListSubheader sx={{ lineHeight: 0, p: '12px 17px 16px 17px', fontSize: '12px' }}>
         Orders
       </ListSubheader>
-      {projectOrderProperties.map(op => (
+      {projectOrderProperties.map((op) => (
         <ProjectsMenuItem
           key={op.property}
           selected={op.property === order}
-          onClick={() => handleOrderClick(op.property)}>
+          onClick={() => handleOrderClick(op.property)}
+        >
           {op.displayName}
         </ProjectsMenuItem>
       ))}

@@ -5,14 +5,14 @@ export interface GetStatusesFromProjectRequest {
 }
 
 export interface UpdateStatusFromProjectRequest {
-  id: string,
-  statusId: string,
-  title: string,
-  status: ProjectStatusType,
+  id: string
+  statusId: string
+  title: string
+  status: ProjectStatusType
   description: string
 }
 
 export interface RemoveStatusFromProjectRequest {
-  id: string,
+  id: string
   statusId: string
 }

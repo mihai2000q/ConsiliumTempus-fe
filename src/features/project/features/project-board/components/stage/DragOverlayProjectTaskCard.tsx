@@ -6,24 +6,28 @@ import AssigneeIconButton from '../task/AssigneeIconButton.tsx'
 import StyledCompleteButton from '../task/StyledCompleteButton.tsx'
 
 function DragOverlayProjectTaskCard() {
-  const task = useAppSelector(state => state.projectBoard.dragOverlayProjectTask)
+  const task = useAppSelector((state) => state.projectBoard.dragOverlayProjectTask)
 
   if (!task) return <></>
 
   return (
     <Box
       sx={{
-        position: "relative",
+        position: 'relative',
         backdropFilter: 'blur(2px)'
-      }}>
+      }}
+    >
       <StyledProjectTaskCard
         component={'div'}
         nativeButton={false}
         isSelected={true}
-        isCompleted={task.isCompleted}>
-        <Stack sx={{
-          width: '100%'
-        }}>
+        isCompleted={task.isCompleted}
+      >
+        <Stack
+          sx={{
+            width: '100%'
+          }}
+        >
           <Typography>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
@@ -32,9 +36,11 @@ function DragOverlayProjectTaskCard() {
       </StyledProjectTaskCard>
 
       <StyledCompleteButton isCompleted={task.isCompleted} variant={'circular'} size={'small'}>
-        {task.isCompleted
-          ? <CheckCircleRounded fontSize={'small'} />
-          : <CheckCircleOutlineRounded fontSize={'small'} />}
+        {task.isCompleted ? (
+          <CheckCircleRounded fontSize={'small'} />
+        ) : (
+          <CheckCircleOutlineRounded fontSize={'small'} />
+        )}
       </StyledCompleteButton>
 
       <Stack
@@ -43,10 +49,9 @@ function DragOverlayProjectTaskCard() {
           position: 'absolute',
           bottom: 0,
           margin: '14px 16px'
-        }}>
-        <AssigneeIconButton
-          isCompleted={task.isCompleted}
-          assignee={task.assignee} />
+        }}
+      >
+        <AssigneeIconButton isCompleted={task.isCompleted} assignee={task.assignee} />
       </Stack>
     </Box>
   )

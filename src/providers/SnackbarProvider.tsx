@@ -12,7 +12,11 @@ function SnackbarCloseButton({ snackbarKey }: { snackbarKey: SnackbarKey }) {
   const { closeSnackbar } = useSnackbar()
 
   return (
-    <IconButton variant={'circular'} onClick={() => closeSnackbar(snackbarKey)} sx={{ color: 'white' }}>
+    <IconButton
+      variant={'circular'}
+      onClick={() => closeSnackbar(snackbarKey)}
+      sx={{ color: 'white' }}
+    >
       <Close />
     </IconButton>
   )
@@ -20,7 +24,8 @@ function SnackbarCloseButton({ snackbarKey }: { snackbarKey: SnackbarKey }) {
 
 const DefaultMaterialDesignContent = styled(MaterialDesignContent)(({ theme }) => ({
   '&.notistack-MuiContent-default': {
-    backgroundColor: theme.palette.mode === 'dark' ? theme.palette.triadic[700] : theme.palette.primary[600]
+    backgroundColor:
+      theme.palette.mode === 'dark' ? theme.palette.triadic[700] : theme.palette.primary[600]
   }
 }))
 
@@ -51,7 +56,8 @@ function SnackbarProvider({ children }: { children: ReactNode }) {
         error: ErrorMaterialDesignContent,
         info: InfoMaterialDesignContent
       }}
-      action={snackbarKey => <SnackbarCloseButton snackbarKey={snackbarKey} />}>
+      action={(snackbarKey) => <SnackbarCloseButton snackbarKey={snackbarKey} />}
+    >
       {children}
     </NotistackSnackbarProvider>
   )

@@ -1,43 +1,62 @@
 import { MouseEventHandler, ReactNode } from 'react'
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
-import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from '@mui/icons-material'
-import { useDeleteProjectTaskMutation, useUpdateIsCompletedProjectTaskMutation } from '../../state/projectBoardApi.ts'
+import {
+  CheckCircleOutlineRounded,
+  ContentCopy,
+  DeleteOutlined,
+  LinkOutlined,
+  Visibility
+} from '@mui/icons-material'
+import {
+  useDeleteProjectTaskMutation,
+  useUpdateIsCompletedProjectTaskMutation
+} from '../../state/projectBoardApi.ts'
 import { useNavigate } from 'react-router'
 import Paths from '../../../../../../utils/enums/Paths.ts'
 import ProjectTask from '../../types/ProjectTask.model.ts'
 import { useSnackbar } from 'notistack'
 
 interface ProjectTaskActionsMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
-  color?: string | undefined,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  icon: ReactNode
+  children: ReactNode
+  color?: string | undefined
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
   disabled?: boolean | undefined
 }
 
 const ProjectTaskActionsMenuItem = ({
-                                      onClick,
-                                      icon,
-                                      children,
-                                      disabled,
-                                      color
-                                    }: ProjectTaskActionsMenuItemProps) => (
+  onClick,
+  icon,
+  children,
+  disabled,
+  color
+}: ProjectTaskActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography color={color} sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface ProjectTaskCardActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
-  task: ProjectTask,
+  anchorEl: HTMLElement | null
+  onClose: () => void
+  task: ProjectTask
   stageId: string
 }
 
-function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: ProjectTaskCardActionsMenuProps) {
+function ProjectTaskCardActionsMenu({
+  anchorEl,
+  onClose,
+  task,
+  stageId
+}: ProjectTaskCardActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -84,7 +103,8 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
       anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
       anchorEl={anchorEl}
       open={Boolean(anchorEl)}
-      onClose={onClose}>
+      onClose={onClose}
+    >
       <ProjectTaskActionsMenuItem icon={<Visibility />} onClick={handleViewDetails}>
         View Details
       </ProjectTaskActionsMenuItem>
@@ -94,23 +114,26 @@ function ProjectTaskCardActionsMenu({ anchorEl, onClose, task, stageId }: Projec
       <ProjectTaskActionsMenuItem icon={<ContentCopy />} onClick={handleDuplicateTask}>
         Duplicate Task
       </ProjectTaskActionsMenuItem>
-      {
-        task.isCompleted
-          ? (
-            <ProjectTaskActionsMenuItem icon={<CheckCircleOutlineRounded />} onClick={handleMarkIncompleteTask}>
-              Mark Incomplete
-            </ProjectTaskActionsMenuItem>
-          )
-          : (
-            <ProjectTaskActionsMenuItem icon={<CheckCircleOutlineRounded />} onClick={handleMarkCompleteTask}>
-              Mark Complete
-            </ProjectTaskActionsMenuItem>
-          )
-      }
+      {task.isCompleted ? (
+        <ProjectTaskActionsMenuItem
+          icon={<CheckCircleOutlineRounded />}
+          onClick={handleMarkIncompleteTask}
+        >
+          Mark Incomplete
+        </ProjectTaskActionsMenuItem>
+      ) : (
+        <ProjectTaskActionsMenuItem
+          icon={<CheckCircleOutlineRounded />}
+          onClick={handleMarkCompleteTask}
+        >
+          Mark Complete
+        </ProjectTaskActionsMenuItem>
+      )}
       <ProjectTaskActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
-        onClick={handleDeleteTask}>
+        onClick={handleDeleteTask}
+      >
         Delete Task
       </ProjectTaskActionsMenuItem>
     </Menu>

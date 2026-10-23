@@ -1,4 +1,13 @@
-import { alpha, ButtonProps, Components, darken, DrawerProps, lighten, ListItemButtonProps, Theme } from '@mui/material'
+import {
+  alpha,
+  ButtonProps,
+  Components,
+  darken,
+  DrawerProps,
+  lighten,
+  ListItemButtonProps,
+  Theme
+} from '@mui/material'
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from 'react'
 import type {} from '@mui/x-date-pickers/themeAugmentation'
 
@@ -18,7 +27,10 @@ export const components: Components<Theme> = {
           borderRadius: '6px',
           color: theme.palette.background[400],
           '&:hover': {
-            color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.primary.main,
+            color:
+              theme.palette.mode === 'dark'
+                ? theme.palette.background[100]
+                : theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.background[100], 0.1)
           }
         })
@@ -53,8 +65,14 @@ export const components: Components<Theme> = {
           border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
           color: theme.palette.background[300],
           '&:hover': {
-            borderColor: theme.palette.mode === 'dark' ? alpha(theme.palette.background[100], 0.5) : theme.palette.primary.main,
-            color: theme.palette.mode === 'dark' ? theme.palette.background[200] : theme.palette.primary.main,
+            borderColor:
+              theme.palette.mode === 'dark'
+                ? alpha(theme.palette.background[100], 0.5)
+                : theme.palette.primary.main,
+            color:
+              theme.palette.mode === 'dark'
+                ? theme.palette.background[200]
+                : theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.background[100], 0.1)
           }
         })
@@ -70,7 +88,7 @@ export const components: Components<Theme> = {
       }
     ],
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: ButtonProps, theme: Theme }) => ({
+      root: ({ ownerState, theme }: { ownerState: ButtonProps; theme: Theme }) => ({
         textTransform: 'none',
         '& .MuiButton-startIcon': {
           marginRight: '2px'
@@ -89,22 +107,27 @@ export const components: Components<Theme> = {
             backgroundColor: alpha(theme.palette.primary[100], 0.1)
           }
         }),
-        ...(ownerState.variant === 'text' && ownerState.size === 'small' && {
-          padding: '6px 8px',
-          borderRadius: '6px',
-          fontSize: '12px',
-          '&:hover': {
-            color: theme.palette.primary[100],
-            backgroundColor: alpha(theme.palette.primary[100], 0.1)
-          },
-          '& .MuiButton-startIcon': {
-            marginRight: '4px'
-          }
-        }),
+        ...(ownerState.variant === 'text' &&
+          ownerState.size === 'small' && {
+            padding: '6px 8px',
+            borderRadius: '6px',
+            fontSize: '12px',
+            '&:hover': {
+              color: theme.palette.primary[100],
+              backgroundColor: alpha(theme.palette.primary[100], 0.1)
+            },
+            '& .MuiButton-startIcon': {
+              marginRight: '4px'
+            }
+          }),
         ...(ownerState.variant === 'contained' && {
-          backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[700] : theme.palette.primary.main,
+          backgroundColor:
+            theme.palette.mode === 'dark' ? theme.palette.primary[700] : theme.palette.primary.main,
           '&:hover': {
-            backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[900] : theme.palette.primary[700]
+            backgroundColor:
+              theme.palette.mode === 'dark'
+                ? theme.palette.primary[900]
+                : theme.palette.primary[700]
           }
         })
       })
@@ -195,7 +218,7 @@ export const components: Components<Theme> = {
   },
   MuiListItemButton: {
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: ListItemButtonProps, theme: Theme }) => ({
+      root: ({ ownerState, theme }: { ownerState: ListItemButtonProps; theme: Theme }) => ({
         alignItems: 'center',
         borderRadius: '10px',
         margin: '1px 16px',
@@ -239,7 +262,7 @@ export const components: Components<Theme> = {
   },
   MuiDrawer: {
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: DrawerProps, theme: Theme }) => ({
+      root: ({ ownerState, theme }: { ownerState: DrawerProps; theme: Theme }) => ({
         ...(ownerState.variant === 'persistent' && {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
@@ -277,11 +300,20 @@ export const components: Components<Theme> = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }) => ({
         '& .MuiTooltip-arrow': {
-          color: theme.palette.mode === 'dark' ? darken(theme.palette.background[700], 0.35) : theme.palette.primary[600]
+          color:
+            theme.palette.mode === 'dark'
+              ? darken(theme.palette.background[700], 0.35)
+              : theme.palette.primary[600]
         },
         '& .MuiTooltip-tooltip': {
-          backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[700], 0.35) : theme.palette.primary[600],
-          color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.background[900]
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? darken(theme.palette.background[700], 0.35)
+              : theme.palette.primary[600],
+          color:
+            theme.palette.mode === 'dark'
+              ? theme.palette.background[100]
+              : theme.palette.background[900]
         }
       })
     }
@@ -290,7 +322,10 @@ export const components: Components<Theme> = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }) => ({
         '& .MuiPaper-root': {
-          backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.3) : theme.palette.primary[600]
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? darken(theme.palette.background[900], 0.3)
+              : theme.palette.primary[600]
         }
       })
     }
@@ -300,9 +335,10 @@ export const components: Components<Theme> = {
       root: ({ theme }: { theme: Theme }) => ({
         '& .MuiDialog-paper': {
           backgroundImage: 'none',
-          backgroundColor: theme.palette.mode === 'dark'
-            ? lighten(theme.palette.background[900], 0.02)
-            : lighten(theme.palette.background[800], 0.02)
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? lighten(theme.palette.background[900], 0.02)
+              : lighten(theme.palette.background[800], 0.02)
         }
       })
     }
@@ -310,9 +346,10 @@ export const components: Components<Theme> = {
   MuiAppBar: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark'
-          ? darken(theme.palette.background[900], 0.3)
-          : theme.palette.primary[700]
+        backgroundColor:
+          theme.palette.mode === 'dark'
+            ? darken(theme.palette.background[900], 0.3)
+            : theme.palette.primary[700]
       })
     }
   },
@@ -402,13 +439,13 @@ export const components: Components<Theme> = {
 
 declare module '@mui/material/IconButton' {
   interface IconButtonOwnProps {
-    variant?: 'standard' | 'dashed' | 'circular';
+    variant?: 'standard' | 'dashed' | 'circular'
   }
 }
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
-    'alt-outlined': true,
+    'alt-outlined': true
     'alt-text': true
   }
 
@@ -419,12 +456,12 @@ declare module '@mui/material/Button' {
 
 declare module '@mui/material/Typography' {
   interface TypographyOwnProps {
-    onKeyDown?: KeyboardEventHandler<HTMLSpanElement>,
-    onFocus?: FocusEventHandler<HTMLSpanElement>,
-    onBlur?: FocusEventHandler<HTMLSpanElement>,
-    onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,
-    contentEditable?: boolean,
-    suppressContentEditableWarning?: boolean,
+    onKeyDown?: KeyboardEventHandler<HTMLSpanElement>
+    onFocus?: FocusEventHandler<HTMLSpanElement>
+    onBlur?: FocusEventHandler<HTMLSpanElement>
+    onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
+    contentEditable?: boolean
+    suppressContentEditableWarning?: boolean
   }
 }
 

@@ -7,7 +7,7 @@ export default function useErrorRedirection() {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const errorPath = useAppSelector(state => state.global.errorPath)
+  const errorPath = useAppSelector((state) => state.global.errorPath)
   useEffect(() => {
     if (errorPath) {
       navigate(errorPath)

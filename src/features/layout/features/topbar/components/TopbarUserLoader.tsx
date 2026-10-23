@@ -6,9 +6,10 @@ function TopbarUserLoader() {
       <Stack
         direction="row"
         sx={{
-          justifyContent: "center",
+          justifyContent: 'center',
           alignItems: 'center'
-        }}>
+        }}
+      >
         <Skeleton variant={'circular'} width={40} height={40} />
       </Stack>
     </Button>

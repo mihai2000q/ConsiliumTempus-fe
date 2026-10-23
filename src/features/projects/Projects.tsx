@@ -31,11 +31,7 @@ import OrderType from '../../utils/enums/OrderType.ts'
 import useOrderByQueryParam from '../../hooks/useOrderByQueryParam.ts'
 
 const GridItem = ({ children }: { children: ReactNode }) => {
-  return (
-    <Grid size={4}>
-      {children}
-    </Grid>
-  )
+  return <Grid size={4}>{children}</Grid>
 }
 
 function Projects() {
@@ -45,15 +41,13 @@ function Projects() {
   const [lifecycleActive, setLifecycleActive] = useState(true)
   const [searchName, facadeName, setFacadeName] = useFacadeState('')
 
-  const [
-    searchQueryParam,
-    addToSearchQueryParam,
-    removeFromSearchQueryParam
-  ] = useSearchQueryParam({
-    property: ProjectsSearchQueryParams.Lifecycle,
-    operator: FilterOperator.Equal,
-    value: lifecycle
-  })
+  const [searchQueryParam, addToSearchQueryParam, removeFromSearchQueryParam] = useSearchQueryParam(
+    {
+      property: ProjectsSearchQueryParams.Lifecycle,
+      operator: FilterOperator.Equal,
+      value: lifecycle
+    }
+  )
   useUpdateEffect(() => {
     addToSearchQueryParam({
       property: ProjectsSearchQueryParams.Name,
@@ -71,11 +65,7 @@ function Projects() {
 
   const pageSize = 12
 
-  const {
-    data,
-    isLoading,
-    isFetching
-  } = useGetProjectsQuery({
+  const { data, isLoading, isFetching } = useGetProjectsQuery({
     orderBy: orderBy,
     pageSize: pageSize,
     currentPage: searchParams.currentPage,
@@ -111,10 +101,15 @@ function Projects() {
         width: '100%',
         height: '100%',
         alignItems: 'center'
-      }}>
-      <Typography variant={'h1'} align={'center'} sx={{
-        mb: 4
-      }}>
+      }}
+    >
+      <Typography
+        variant={'h1'}
+        align={'center'}
+        sx={{
+          mb: 4
+        }}
+      >
         Projects
       </Typography>
 
@@ -123,13 +118,15 @@ function Projects() {
         sx={{
           width: '100%',
           alignItems: 'center'
-        }}>
+        }}
+      >
         <Grid
           size={3}
           sx={{
             display: 'flex',
             alignItems: 'center'
-          }}>
+          }}
+        >
           <TextField
             name={'project-search'}
             label={'Search'}
@@ -140,9 +137,11 @@ function Projects() {
             sx={{ boxShadow: 8 }}
             slotProps={{
               input: { endAdornment: <Search /> }
-            }} />
-          {isFetching && !isLoading &&
-            <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 2 }} />}
+            }}
+          />
+          {isFetching && !isLoading && (
+            <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 2 }} />
+          )}
         </Grid>
 
         <Grid
@@ -150,13 +149,15 @@ function Projects() {
           sx={{
             display: 'flex',
             justifyContent: 'center'
-          }}>
+          }}
+        >
           <ProjectsLifecycleButtons
             lifecycle={lifecycle}
             setLifecycle={setLifecycle}
             active={lifecycleActive}
             setActive={setLifecycleActive}
-            addToSearchQueryParam={addToSearchQueryParam} />
+            addToSearchQueryParam={addToSearchQueryParam}
+          />
         </Grid>
 
         <Grid
@@ -165,10 +166,13 @@ function Projects() {
             display: 'flex',
             justifyContent: 'end',
             gap: 2
-          }}>
+          }}
+        >
           <ProjectSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
-          <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
-                               removeFromSearchQueryParam={removeFromSearchQueryParam} />
+          <ProjectFilterButton
+            addToSearchQueryParam={addToSearchQueryParam}
+            removeFromSearchQueryParam={removeFromSearchQueryParam}
+          />
         </Grid>
       </Grid>
 
@@ -181,15 +185,15 @@ function Projects() {
           px: 1.5,
           mt: 1,
           mb: 1.5
-        }}>
-        {
-          data
-            ?
-            <Typography>
-              {startPageCount} - {endPageCount} of {data.totalCount} projects
-            </Typography>
-            : <CircularProgress color={'secondary'} size={20} thickness={8} />
-        }
+        }}
+      >
+        {data ? (
+          <Typography>
+            {startPageCount} - {endPageCount} of {data.totalCount} projects
+          </Typography>
+        ) : (
+          <CircularProgress color={'secondary'} size={20} thickness={8} />
+        )}
 
         <ButtonGroup variant="text">
           <Button sx={{ paddingX: 4 }}>
@@ -201,11 +205,11 @@ function Projects() {
         </ButtonGroup>
       </Stack>
 
-      {
-        projects && searchName !== '' && projects.length === 0 && (
-          <Typography variant="body2" align={'center'}>No Projects to display</Typography>
-        )
-      }
+      {projects && searchName !== '' && projects.length === 0 && (
+        <Typography variant="body2" align={'center'}>
+          No Projects to display
+        </Typography>
+      )}
 
       <Grid
         container
@@ -213,38 +217,36 @@ function Projects() {
         spacing={4}
         sx={{
           flexGrow: 1
-        }}>
-        {
-          !projects
-            ? (
-              <>
-                {Array.from(Array(pageSize)).map((_, i) => (
-                  <GridItem key={i}>
-                    <Skeleton variant={'rectangular'} sx={{ height: 300, borderRadius: 2 }} />
-                  </GridItem>
-                ))}
-              </>
-            )
-            : (
-              projects?.map((project) => (
-                <GridItem key={project.id}>
-                  <ProjectCard project={project} />
-                </GridItem>
-              ))
-            )
-        }
+        }}
+      >
+        {!projects ? (
+          <>
+            {Array.from(Array(pageSize)).map((_, i) => (
+              <GridItem key={i}>
+                <Skeleton variant={'rectangular'} sx={{ height: 300, borderRadius: 2 }} />
+              </GridItem>
+            ))}
+          </>
+        ) : (
+          projects?.map((project) => (
+            <GridItem key={project.id}>
+              <ProjectCard project={project} />
+            </GridItem>
+          ))
+        )}
       </Grid>
-      {
-        !data
-          ? <CircularProgress color={'secondary'} size={27} thickness={7} />
-          : <Pagination
-            disabled={isFetching}
-            count={totalPages}
-            page={searchParams.currentPage}
-            onChange={handleCurrentPageChange}
-            color="primary"
-            sx={{ mt: 4 }} />
-      }
+      {!data ? (
+        <CircularProgress color={'secondary'} size={27} thickness={7} />
+      ) : (
+        <Pagination
+          disabled={isFetching}
+          count={totalPages}
+          page={searchParams.currentPage}
+          onChange={handleCurrentPageChange}
+          color="primary"
+          sx={{ mt: 4 }}
+        />
+      )}
     </Stack>
   )
 }
