@@ -44,7 +44,13 @@ function RichTooltip({
       leaveDelay={leaveDelay}
       placement={placement}
       title={
-        <Stack mx={0.3} my={0.5} spacing={0.5} width={width}>
+        <Stack
+          spacing={0.5}
+          sx={{
+            mx: 0.3,
+            my: 0.5,
+            width: width
+          }}>
           <Typography>{title}</Typography>
           <ThickDivider thickness={2} />
           <Typography variant={'subtitle1'}>{description}</Typography>

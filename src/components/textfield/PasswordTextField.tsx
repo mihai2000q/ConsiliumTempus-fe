@@ -32,10 +32,12 @@ function PasswordTextField({
       error={error}
       helperText={helperText}
       type={'password'}
-      inputProps={{ maxLength: maxLength }}
       value={value}
       onBlur={onBlur}
-      onChange={onChange} />
+      onChange={onChange}
+      slotProps={{
+        htmlInput: { maxLength: maxLength }
+      }} />
   )
 }
 

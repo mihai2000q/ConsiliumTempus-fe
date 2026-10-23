@@ -13,7 +13,7 @@ import {
   ListRounded,
   SpaceDashboardRounded,
   Star,
-  StarOutline,
+  StarOutlined,
   SubjectRounded,
   TimelineRounded
 } from '@mui/icons-material'
@@ -106,9 +106,17 @@ function Project() {
   if (!project) return <ProjectLoader />
 
   return (
-    <Stack alignItems="start" height={'100%'}>
-      <Stack direction={'row'} alignItems={'center'} spacing={0.75}>
-        <Stack direction={'row'} alignItems={'center'}>
+    <Stack
+      sx={{
+        alignItems: "start",
+        height: '100%'
+      }}>
+      <Stack direction={'row'} spacing={0.75} sx={{
+        alignItems: 'center'
+      }}>
+        <Stack direction={'row'} sx={{
+          alignItems: 'center'
+        }}>
           <Avatar
             alt={project.name}
             src={demoProjectPicture}
@@ -138,7 +146,7 @@ function Project() {
             color: theme.palette.primary[100],
             '&:hover': { color: theme.palette.secondary.main }
           }}>
-          {isFavorite ? <Star /> : <StarOutline />}
+          {isFavorite ? <Star /> : <StarOutlined />}
         </IconButton>
 
         <Button
@@ -153,7 +161,12 @@ function Project() {
             : (
               <>
                 <CircleOutlined sx={{ fontSize: '16px' }} />
-                <Typography fontWeight={500} ml={'4px'} pt={'2px'}>Set Status</Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 500,
+                    ml: '4px',
+                    pt: '2px'
+                  }}>Set Status</Typography>
               </>
             )}
         </Button>

@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import {
   Button,
   ButtonGroup,
@@ -97,16 +97,27 @@ function Workspaces() {
   }
 
   return (
-    <Stack width={'100%'} height={'100%'} alignItems={'center'}>
-      <Typography variant={'h1'} mb={4} align={'center'}>
+    <Stack
+      sx={{
+        width: '100%',
+        height: '100%',
+        alignItems: 'center'
+      }}>
+      <Typography variant={'h1'} align={'center'} sx={{
+        mb: 4
+      }}>
         Workspaces
       </Typography>
       <Stack
-        width={'100%'}
         direction={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}>
-        <Stack direction={'row'} alignItems={'center'}>
+        sx={{
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between'
+        }}>
+        <Stack direction={'row'} sx={{
+          alignItems: 'center'
+        }}>
           <TextField
             name={'workspace-search'}
             label={'Search'}
@@ -114,8 +125,10 @@ function Workspaces() {
             inputMode={'search'}
             value={facadeName}
             onChange={handleSearchNameChangeField}
-            InputProps={{ endAdornment: <Search /> }}
-            sx={{ boxShadow: 8 }} />
+            sx={{ boxShadow: 8 }}
+            slotProps={{
+              input: { endAdornment: <Search /> }
+            }} />
           {isFetching && !isLoading &&
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 1 }} />}
         </Stack>
@@ -128,13 +141,15 @@ function Workspaces() {
       </Stack>
 
       <Stack
-        width={'100%'}
         direction={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}
-        px={1.5}
-        mt={1}
-        mb={1.5}>
+        sx={{
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          px: 1.5,
+          mt: 1,
+          mb: 1.5
+        }}>
         {
           data
             ?
@@ -157,8 +172,10 @@ function Workspaces() {
       <Grid
         container
         columns={{ xs: 4, md: 8, xl: 16 }}
-        flexGrow={1}
-        spacing={4}>
+        spacing={4}
+        sx={{
+          flexGrow: 1
+        }}>
         {
           !workspaces
             ? (

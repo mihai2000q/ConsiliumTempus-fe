@@ -27,8 +27,16 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
   }
 
   return (
-    <Stack flexGrow={1} py={3} px={2} spacing={1}>
-      <Stack direction={'row'} justifyContent={'space-between'}>
+    <Stack
+      spacing={1}
+      sx={{
+        flexGrow: 1,
+        py: 3,
+        px: 2
+      }}>
+      <Stack direction={'row'} sx={{
+        justifyContent: 'space-between'
+      }}>
         <Typography variant={'h5'}>{sprint.name}</Typography>
 
         <Stack direction={'row'}>
@@ -43,7 +51,9 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
         </Stack>
       </Stack>
 
-      <Grid container rowSpacing={1.5} width={500}>
+      <Grid container rowSpacing={1.5} sx={{
+        width: 500
+      }}>
         <FormGridItem label={'Start Date'} labelSize={2}>
           <Typography>{sprint.startDate?.format('DD MMMM YYYY') ?? '?'}</Typography>
         </FormGridItem>
@@ -54,7 +64,12 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
 
         <FormGridItem label={'Publisher'} labelSize={2}>
           <UserLabel user={{ ...sprint.createdBy }} />
-          <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
+          <Typography
+            variant={'caption'}
+            sx={{
+              color: 'text.secondary',
+              mx: 0.75
+            }}>on</Typography>
           <Typography variant={'body2'}>
             {sprint.createdDateTime.format('DD MMMM YYYY')}
           </Typography>
@@ -63,7 +78,12 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
         {!sprint.createdDateTime.isSame(sprint.updatedDateTime) && (
           <FormGridItem label={'Updated By'} labelSize={2}>
             <UserLabel user={{ ...sprint.updatedBy }} />
-            <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
+            <Typography
+              variant={'caption'}
+              sx={{
+                color: 'text.secondary',
+                mx: 0.75
+              }}>on</Typography>
             <Typography variant={'body2'}>
               {sprint.updatedDateTime.format('DD MMMM YYYY')}
             </Typography>

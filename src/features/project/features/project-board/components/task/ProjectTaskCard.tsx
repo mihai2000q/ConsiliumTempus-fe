@@ -55,7 +55,11 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
   if (task.id === draggedProjectTask?.id) {
     return (
       <EmptyStyledProjectTaskCard>
-        <Stack width={'100%'} sx={{ visibility: 'hidden' }}>
+        <Stack
+          sx={{
+            width: '100%',
+            visibility: 'hidden'
+          }}>
           <Paragraph paragraph={false} lines={5}>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
@@ -66,14 +70,21 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
   }
 
   return (
-    <Box position={'relative'} my={1}>
+    <Box
+      sx={{
+        position: 'relative',
+        my: 1
+      }}>
       <StyledProjectTaskCard
         component={'div'}
+        nativeButton={false}
         isSelected={selected}
         isCompleted={isCompleted}
         onClick={handleClick}
         onContextMenu={handleRightClick}>
-        <Stack width={'100%'}>
+        <Stack sx={{
+          width: '100%'
+        }}>
           <Paragraph paragraph={false} lines={5}>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
@@ -94,7 +105,13 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
           : <CheckCircleOutlineRounded fontSize={'small'} />}
       </StyledCompleteButton>
 
-      <Stack direction={'row'} position={'absolute'} bottom={0} margin={'14px 16px'}>
+      <Stack
+        direction={'row'}
+        sx={{
+          position: 'absolute',
+          bottom: 0,
+          margin: '14px 16px'
+        }}>
         <AssigneeIconButton
           isCompleted={isCompleted}
           assignee={task.assignee}

@@ -65,7 +65,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
 
   return (
     <Dialog onClose={onClose} open={open} fullWidth>
-      <DialogTitle variant={'h4'} mt={1} fontWeight={600}>
+      <DialogTitle variant={'h4'} sx={{ mt: 1, fontWeight: 600 }}>
         Add Project
       </DialogTitle>
       <form onSubmit={handleSubmit}>

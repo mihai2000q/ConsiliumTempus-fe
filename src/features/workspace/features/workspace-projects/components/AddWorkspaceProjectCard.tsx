@@ -38,9 +38,21 @@ const DashedBorder = styled(Box)<BoxProps>(({ theme }) => ({
 function AddWorkspaceProjectCard() {
   return (
     <StyledAddWorkspaceProjectCard>
-      <Stack direction={'row'} alignItems={'center'} spacing={2.5} pl={3.3} py={1.4}>
+      <Stack
+        direction={'row'}
+        spacing={2.5}
+        sx={{
+          alignItems: 'center',
+          pl: 3.3,
+          py: 1.4
+        }}>
         <DashedBorder><Add /></DashedBorder>
-        <Typography variant={'h6'} fontWeight={400} fontSize={15}>New Project</Typography>
+        <Typography
+          variant={'h6'}
+          sx={{
+            fontWeight: 400,
+            fontSize: 15
+          }}>New Project</Typography>
       </Stack>
       <Divider variant={'middle'} />
     </StyledAddWorkspaceProjectCard>

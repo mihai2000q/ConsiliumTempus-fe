@@ -18,15 +18,19 @@ function Layout() {
 
   return (
     <Stack
-      display={'flex'}
       direction={'row'}
-      width={'100%'}
-      height={'100%'}>
+      sx={{
+        display: 'flex',
+        width: '100%',
+        height: '100%'
+      }}>
       <Sidebar
         width={drawerWidth}
         hidden={isLayoutHidden}
         open={isSidebarOpen} />
-      <Stack width={'100%'}>
+      <Stack sx={{
+        width: '100%'
+      }}>
         <Topbar
           drawerWidth={drawerWidth}
           hidden={isLayoutHidden}

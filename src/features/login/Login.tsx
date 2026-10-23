@@ -56,26 +56,47 @@ function Login() {
 
   return (
     <Box
-      display={'flex'}
-      justifyContent={'center'}
-      alignItems={'center'}
-      width={'100%'}
-      height={'100%'}>
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: '100%',
+        height: '100%'
+      }}>
       <Paper>
         <Stack direction={'row'}>
-          <Stack gap={3} mx={8} my={4}>
-            <Stack direction={'row'} alignItems={'center'} pb={4}>
+          <Stack
+            sx={{
+              gap: 3,
+              mx: 8,
+              my: 4
+            }}>
+            <Stack
+              direction={'row'}
+              sx={{
+                alignItems: 'center',
+                pb: 4
+              }}>
               <img src={demoLogo} alt={'logo'} width={50} />
-              <Typography fontWeight={700} ml={1} fontSize={18}>Some Logo</Typography>
+              <Typography
+                sx={{
+                  fontWeight: 700,
+                  ml: 1,
+                  fontSize: 18
+                }}>Some Logo</Typography>
             </Stack>
 
-            <Stack gap={2}>
+            <Stack sx={{
+              gap: 2
+            }}>
               <Typography variant={'h5'}>Login to <strong>Consilium Tempus</strong></Typography>
               <Typography variant={'body2'}>lorem lorem lorem lorem lorem lorem</Typography>
             </Stack>
 
             <form onSubmit={handleSubmit}>
-              <Stack gap={2}>
+              <Stack sx={{
+                gap: 2
+              }}>
                 <TextField
                   value={values.email}
                   onChange={handleChange}
@@ -84,9 +105,11 @@ function Login() {
                   name={'email'}
                   label={'Email'}
                   placeholder={'Enter your email'}
-                  inputProps={{ maxLength: 256 }}
                   error={touched.email && !!errors.email || isError}
-                  helperText={touched.email && errors.email || isError && loginError?.title} />
+                  helperText={touched.email && errors.email || isError && loginError?.title}
+                  slotProps={{
+                    htmlInput: { maxLength: 256 }
+                  }} />
 
                 <PasswordTextField
                   value={values.password}
@@ -96,12 +119,21 @@ function Login() {
                   error={touched.password && !!errors.password || isError}
                   helperText={touched.password && errors.password || isError && loginError?.title} />
 
-                <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                  <Stack direction={'row'} alignItems={'center'}>
+                <Stack
+                  direction={'row'}
+                  sx={{
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
+                  }}>
+                  <Stack direction={'row'} sx={{
+                    alignItems: 'center'
+                  }}>
                     <Checkbox value={values.rememberMe} onChange={handleChange} />
                     <Typography variant={'subtitle1'}>Remember me</Typography>
                   </Stack>
-                  <Typography fontWeight={600} variant={'body2'}>Forgot Password?</Typography>
+                  <Typography variant={'body2'} sx={{
+                    fontWeight: 600
+                  }}>Forgot Password?</Typography>
                 </Stack>
 
                 <Button
@@ -113,10 +145,16 @@ function Login() {
               </Stack>
             </form>
 
-            <Stack direction={'row'} justifyContent={'center'}>
+            <Stack direction={'row'} sx={{
+              justifyContent: 'center'
+            }}>
               <Stack direction={'row'}>
-                <Typography mr={1}>Not a member yet?</Typography>
-                <Typography fontWeight={600}>
+                <Typography sx={{
+                  mr: 1
+                }}>Not a member yet?</Typography>
+                <Typography sx={{
+                  fontWeight: 600
+                }}>
                   <Link to={Paths.Signup} style={{ color: 'white', textDecoration: 'none' }}>
                     Join Us
                   </Link>

@@ -54,25 +54,46 @@ function UserPopper({
           <Grow {...TransitionProps}>
             <Stack
               direction={'row'}
-              alignItems={'center'}
-              bgcolor={theme.palette.background.default}
-              boxShadow={15}
-              borderRadius={'8px'}>
+              sx={{
+                alignItems: 'center',
+                bgcolor: theme.palette.background.default,
+                boxShadow: 15,
+                borderRadius: '8px'
+              }}>
               <img src={demoUserPic} alt={'user profile picture'} style={{ width: 150, borderRadius: '8px' }} />
               <Stack
-                px={2}
-                alignSelf={'stretch'}
-                justifyContent={'center'}
-                position={'relative'}
-                minWidth={user?.id === userId ? 258 : 0}
-                maxWidth={258}>
-                <Stack mb={4}>
-                  <Typography variant={'h6'} fontWeight={700} noWrap>{user?.name}</Typography>
-                  <Typography variant={'body2'} fontWeight={400} color={'text.secondary'} noWrap>
+                sx={{
+                  px: 2,
+                  alignSelf: 'stretch',
+                  justifyContent: 'center',
+                  position: 'relative',
+                  minWidth: user?.id === userId ? 258 : 0,
+                  maxWidth: 258
+                }}>
+                <Stack sx={{
+                  mb: 4
+                }}>
+                  <Typography variant={'h6'} noWrap sx={{
+                    fontWeight: 700
+                  }}>{user?.name}</Typography>
+                  <Typography
+                    variant={'body2'}
+                    noWrap
+                    sx={{
+                      fontWeight: 400,
+                      color: 'text.secondary'
+                    }}>
                     {user?.email}
                   </Typography>
                 </Stack>
-                <Stack direction={'row'} alignItems={'end'} position={'absolute'} bottom={'8%'} spacing={1.5}>
+                <Stack
+                  direction={'row'}
+                  spacing={1.5}
+                  sx={{
+                    alignItems: 'end',
+                    position: 'absolute',
+                    bottom: '8%'
+                  }}>
                   {user?.id === userId &&
                     <Button variant={'alt-outlined'} size={'small'} sx={{ padding: '4px 20px' }}>
                       Edit Profile

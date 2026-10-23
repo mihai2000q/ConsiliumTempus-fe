@@ -11,12 +11,19 @@ function DragOverlayProjectTaskCard() {
   if (!task) return <></>
 
   return (
-    <Box position="relative" sx={{ backdropFilter: 'blur(2px)' }}>
+    <Box
+      sx={{
+        position: "relative",
+        backdropFilter: 'blur(2px)'
+      }}>
       <StyledProjectTaskCard
         component={'div'}
+        nativeButton={false}
         isSelected={true}
         isCompleted={task.isCompleted}>
-        <Stack width={'100%'}>
+        <Stack sx={{
+          width: '100%'
+        }}>
           <Typography>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
@@ -30,7 +37,13 @@ function DragOverlayProjectTaskCard() {
           : <CheckCircleOutlineRounded fontSize={'small'} />}
       </StyledCompleteButton>
 
-      <Stack direction={'row'} position={'absolute'} bottom={0} margin={'14px 16px'}>
+      <Stack
+        direction={'row'}
+        sx={{
+          position: 'absolute',
+          bottom: 0,
+          margin: '14px 16px'
+        }}>
         <AssigneeIconButton
           isCompleted={task.isCompleted}
           assignee={task.assignee} />

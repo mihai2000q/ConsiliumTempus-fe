@@ -27,7 +27,9 @@ interface ProjectActionsMenuItemProps {
 const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon sx={{ '& .MuiSvgIcon': { color: color } }}>{icon}</ListItemIcon>
-    <Typography pt={0.5} color={color}>{children}</Typography>
+    <Typography color={color} sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 

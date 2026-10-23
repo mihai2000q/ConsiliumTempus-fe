@@ -78,7 +78,7 @@ export default function useProjects(
       },
       true
     ).then(res => {
-      setProjects([...projects ?? [], ...res.data?.projects ?? []])
+      setProjects([...(projects ?? []), ...(res.data?.projects ?? [])])
       setTotalCount(res.data?.totalCount ?? 0)
     })
   }

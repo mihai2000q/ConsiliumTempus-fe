@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material'
-import { Variant } from '@mui/material/styles/createTypography'
+import { TypographyVariant } from '@mui/material/styles'
 import { ReactNode } from 'react'
 
 interface ParagraphProps {
@@ -7,7 +7,7 @@ interface ParagraphProps {
   paragraph?: boolean | undefined,
   fontWeight?: string | number | undefined,
   color?: string | undefined,
-  variant?: Variant | undefined,
+  variant?: TypographyVariant | undefined,
   lines?: number | undefined
 }
 
@@ -21,16 +21,16 @@ function Paragraph({
                    }: ParagraphProps) {
   return (
     <Typography
-      paragraph={paragraph}
-      fontWeight={fontWeight}
       color={color}
       variant={variant}
       sx={{
+        fontWeight: fontWeight,
         display: '-webkit-box',
         WebkitLineClamp: lines,
         WebkitBoxOrient: 'vertical',
         textOverflow: 'ellipsis',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        marginBottom: paragraph ? "16px" : undefined
       }}>
       {children}
     </Typography>

@@ -41,7 +41,7 @@ function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
 
   return (
     <Dialog onClose={onClose} open={open} fullWidth>
-      <DialogTitle variant={'h4'} mt={1} fontWeight={600}>
+      <DialogTitle variant={'h4'} sx={{ mt: 1, fontWeight: 600 }}>
         Add Workspace
       </DialogTitle>
       <form onSubmit={handleSubmit}>

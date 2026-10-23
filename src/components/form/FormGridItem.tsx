@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import { FormLabel } from '@mui/material'
 import { ReactNode } from 'react'
 
@@ -21,15 +21,21 @@ function FormGridItem({
 
   return (
     <>
-      <Grid size={labelSize} display={'flex'} alignItems={'center'}>
+      <Grid
+        size={labelSize}
+        sx={{
+          display: 'flex',
+          alignItems: 'center'
+        }}>
         {typeof label === 'string' ? <FormLabel>{label}</FormLabel> : label}
       </Grid>
       <Grid
         size={12 - labelSize}
-        display={'flex'}
-        justifyContent={justifyContent}
-        alignItems={'center'}
-      >
+        sx={{
+          display: 'flex',
+          justifyContent: justifyContent,
+          alignItems: 'center'
+        }}>
         {children}
       </Grid>
     </>

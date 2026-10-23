@@ -51,14 +51,44 @@ function ProjectSprintsDialog() {
       open={open}
       onClose={handleClose}
       maxWidth={'md'}>
-      <Stack height={720} sx={{ overflowY: 'hidden' }}>
-        <Stack direction={'row'} alignItems={'center'} px={3} py={2} spacing={2}>
-          <Stack flexGrow={1}>
-            <Stack direction={'row'} alignItems={'center'} spacing={0.5}>
-              <Typography variant={'h5'} fontSize={20} fontWeight={500}>Sprints of</Typography>
-              <Typography variant={'h5'} fontSize={20} fontWeight={600}>{projectName}</Typography>
+      <Stack
+        sx={{
+          height: 720,
+          overflowY: 'hidden'
+        }}>
+        <Stack
+          direction={'row'}
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+            px: 3,
+            py: 2
+          }}>
+          <Stack sx={{
+            flexGrow: 1
+          }}>
+            <Stack direction={'row'} spacing={0.5} sx={{
+              alignItems: 'center'
+            }}>
+              <Typography
+                variant={'h5'}
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 500
+                }}>Sprints of</Typography>
+              <Typography
+                variant={'h5'}
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 600
+                }}>{projectName}</Typography>
             </Stack>
-            <Typography variant={'subtitle2'} fontWeight={400} color={'text.secondary'}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{
+                fontWeight: 400,
+                color: 'text.secondary'
+              }}>
               {data.totalCount} sprint{data.totalCount > 1 ? 's' : ''}
             </Typography>
           </Stack>
@@ -73,21 +103,40 @@ function ProjectSprintsDialog() {
         </Stack>
         <Divider />
 
-        <Stack direction={'row'} flexGrow={1} sx={{ overflowY: 'hidden' }}>
-          <Stack minWidth={280} sx={{ overflowY: 'auto' }}>
+        <Stack
+          direction={'row'}
+          sx={{
+            flexGrow: 1,
+            overflowY: 'hidden'
+          }}>
+          <Stack
+            sx={{
+              minWidth: 280,
+              overflowY: 'auto'
+            }}>
             {sprints?.map((sprint) => (
               <div key={sprint.id}>
                 <VerticalLargeRadioButton
                   isSelected={sprint.id === projectSprintIdSelected}
                   onClick={() => handleSprintClick(sprint.id)}>
-                  <Stack alignItems="start" spacing={0.5}>
+                  <Stack spacing={0.5} sx={{
+                    alignItems: "start"
+                  }}>
                     <Stack
                       direction={'row'}
-                      justifyContent={'space-between'}
-                      alignItems={'center'}
                       spacing={1}
-                      width={240}>
-                      <Typography variant={'body1'} fontWeight={400} fontSize={16} noWrap>{sprint.name}</Typography>
+                      sx={{
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: 240
+                      }}>
+                      <Typography
+                        variant={'body1'}
+                        noWrap
+                        sx={{
+                          fontWeight: 400,
+                          fontSize: 16
+                        }}>{sprint.name}</Typography>
                       <Typography>{sprint.createdDateTime.format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <Stack direction={'row'} spacing={'4px'}>

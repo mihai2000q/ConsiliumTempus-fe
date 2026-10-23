@@ -25,7 +25,9 @@ const ProjectStatusActionsMenuItem = ({
                                       }: ProjectStatusActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     {icon && <ListItemIcon>{icon}</ListItemIcon>}
-    <Typography pt={icon ? 0.5 : 0} color={color}>{children}</Typography>
+    <Typography color={color} sx={{
+      pt: icon ? 0.5 : 0
+    }}>{children}</Typography>
   </MenuItem>
 )
 

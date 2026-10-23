@@ -72,20 +72,36 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
         width: width,
         '& .MuiDrawer-paper': { width: width }
       }}>
-      <Stack pt={1.5} height={'100%'} sx={{ overflowY: 'hidden' }}>
-        <Stack direction={'row'} alignItems={'center'} mb={2}>
+      <Stack
+        sx={{
+          pt: 1.5,
+          height: '100%',
+          overflowY: 'hidden'
+        }}>
+        <Stack
+          direction={'row'}
+          sx={{
+            alignItems: 'center',
+            mb: 2
+          }}>
           <img src={demoLogo} alt={'logo'} width={50} style={{ marginLeft: '14px' }} />
           <Typography
             variant="h6"
-            pl={2}
             color={theme.palette.background[200]}
-            fontWeight={500}
-            sx={{ textShadow: `1px 1px 2px ${theme.palette.background[200]}` }}>
+            sx={{
+              pl: 2,
+              fontWeight: 500,
+              textShadow: `1px 1px 2px ${theme.palette.background[200]}`
+            }}>
             Consilium Tempus
           </Typography>
         </Stack>
 
-        <Stack flexGrow={1} sx={{ overflowY: 'auto' }}>
+        <Stack
+          sx={{
+            flexGrow: 1,
+            overflowY: 'auto'
+          }}>
           <DrawerList drawerItems={topDrawerItems} />
           <DrawerList
             subheader={'Workspaces'}
@@ -138,9 +154,12 @@ function Sidebar({ width, hidden, open }: SidebarProps) {
           </Button>
           <Typography
             variant={'caption'}
-            ml={1} mb={0.5}
-            fontWeight={400}
-            color={theme.palette.background[300]}>
+            color={theme.palette.background[300]}
+            sx={{
+              ml: 1,
+              mb: 0.5,
+              fontWeight: 400
+            }}>
             © {new Date().getFullYear()} Consilium Tempus
           </Typography>
         </Stack>

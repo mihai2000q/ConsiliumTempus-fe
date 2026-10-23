@@ -80,8 +80,9 @@ function FilterChip({
           label={
             <Stack
               direction={'row'}
-              alignItems={'center'}
               sx={{
+                alignItems: 'center',
+
                 '& .MuiSvgIcon-root': {
                   fontSize: 17,
                   ...((selected && {
@@ -90,7 +91,11 @@ function FilterChip({
                 }
               }}>
               {selected ? <Check /> : icon}
-              <Typography ml={0.5} pt={'3px'}>{title}</Typography>
+              <Typography
+                sx={{
+                  ml: 0.5,
+                  pt: '3px'
+                }}>{title}</Typography>
             </Stack>
           }
           clickable

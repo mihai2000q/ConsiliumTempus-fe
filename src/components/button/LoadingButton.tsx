@@ -16,7 +16,9 @@ function LoadingButton({
                          type
                        }: LoadingButtonProps) {
   return (
-    <Box position={'relative'}>
+    <Box sx={{
+      position: 'relative'
+    }}>
       <Button disabled={isLoading} variant={variant} type={type}>
         <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
           {children}

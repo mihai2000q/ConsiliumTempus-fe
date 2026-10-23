@@ -45,7 +45,12 @@ function TopbarUser() {
   return (
     <>
       <StyledButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
-        <Stack direction={'row'} justifyContent="center" alignItems={'center'}>
+        <Stack
+          direction={'row'}
+          sx={{
+            justifyContent: "center",
+            alignItems: 'center'
+          }}>
           <StyledAvatar alt={'User Profile Picture'} src={demoUserPic} />
           <ArrowDropDownOutlined sx={{ mx: '2px' }} />
         </Stack>

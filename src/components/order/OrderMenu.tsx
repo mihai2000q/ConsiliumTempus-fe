@@ -78,63 +78,72 @@ function OrderMenu({
     }
   }
 
-  return (
-    orders.length === 0
-      ? <OrderPropertiesMenu
-        anchorEl={anchorEl}
-        onClose={onClose}
+  return (orders.length === 0 ? <OrderPropertiesMenu
+      anchorEl={anchorEl}
+      onClose={onClose}
+      orderProperties={orderProperties}
+      orders={orders}
+      onClick={handleOrderPropertyClick} /> : (<Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
+    <Stack
+      sx={{
+        pt: 2,
+        pb: 1,
+        width: 550,
+        gap: 2,
+        alignItems: 'start'
+      }}>
+      <Stack
+        direction={'row'}
+        sx={{
+          px: 3,
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+        <Typography sx={{
+          fontSize: 16
+        }}>Sort</Typography>
+        {!initialOrder && <Button variant={'alt-text'} size={'small'} onClick={handleClear}>
+          Clear
+        </Button>}
+      </Stack>
+
+      <DndContext
+        modifiers={[restrictToFirstScrollableAncestor]}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}>
+        <SortableContext strategy={verticalListSortingStrategy} items={orders.map((o) => o.property)}>
+          <TransitionGroup style={{ display: 'block', width: '100%', gap: '4px', padding: '0 16px' }}>
+            {orders.map((order, index) => (
+              <Collapse key={JSON.stringify(order)} unmountOnExit>
+                <OrderProperty
+                  initialOrder={order}
+                  orders={orders}
+                  index={index}
+                  orderProperties={orderProperties}
+                  handleOrder={handleOrder}
+                  handleRemoveOrder={handleRemoveOrder}
+                  disableRemove={initialOrder && orders.length === 1} />
+              </Collapse>
+            ))}
+          </TransitionGroup>
+        </SortableContext>
+      </DndContext>
+
+      <Button
+        variant={'alt-text'}
+        startIcon={<AddRounded />}
+        onClick={(e) => setOrderPropertiesMenuAnchorEl(e.currentTarget)}
+        sx={{ ml: 2 }}>
+        Add Sort
+      </Button>
+      <OrderPropertiesMenu
+        anchorEl={orderPropertiesMenuAnchorEl}
+        onClose={() => setOrderPropertiesMenuAnchorEl(null)}
         orderProperties={orderProperties}
         orders={orders}
         onClick={handleOrderPropertyClick} />
-      : (
-        <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
-          <Stack pt={2} pb={1} width={550} gap={2} alignItems={'start'}>
-            <Stack px={3} direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-              <Typography fontSize={16}>Sort</Typography>
-              {!initialOrder && <Button variant={'alt-text'} size={'small'} onClick={handleClear}>
-                Clear
-              </Button>}
-            </Stack>
-
-            <DndContext
-              modifiers={[restrictToFirstScrollableAncestor]}
-              collisionDetection={closestCenter}
-              onDragEnd={handleDragEnd}>
-              <SortableContext strategy={verticalListSortingStrategy} items={orders.map((o) => o.property)}>
-                <TransitionGroup style={{ display: 'block', width: '100%', gap: '4px', padding: '0 16px' }}>
-                  {orders.map((order, index) => (
-                    <Collapse key={JSON.stringify(order)} unmountOnExit>
-                      <OrderProperty
-                        initialOrder={order}
-                        orders={orders}
-                        index={index}
-                        orderProperties={orderProperties}
-                        handleOrder={handleOrder}
-                        handleRemoveOrder={handleRemoveOrder}
-                        disableRemove={initialOrder && orders.length === 1} />
-                    </Collapse>
-                  ))}
-                </TransitionGroup>
-              </SortableContext>
-            </DndContext>
-
-            <Button
-              variant={'alt-text'}
-              startIcon={<AddRounded />}
-              onClick={(e) => setOrderPropertiesMenuAnchorEl(e.currentTarget)}
-              sx={{ ml: 2 }}>
-              Add Sort
-            </Button>
-            <OrderPropertiesMenu
-              anchorEl={orderPropertiesMenuAnchorEl}
-              onClose={() => setOrderPropertiesMenuAnchorEl(null)}
-              orderProperties={orderProperties}
-              orders={orders}
-              onClick={handleOrderPropertyClick} />
-          </Stack>
-        </Menu>
-      )
-  )
+    </Stack>
+  </Menu>))
 }
 
 export default OrderMenu

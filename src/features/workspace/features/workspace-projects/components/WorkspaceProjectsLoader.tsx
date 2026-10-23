@@ -2,12 +2,20 @@ import { Card, CardContent, CardHeader, Divider, Skeleton, Stack } from '@mui/ma
 
 function WorkspaceProjectsLoader() {
   return (
-    <Stack width={'100%'} height={'100%'} alignItems={'center'} py={2}>
+    <Stack
+      sx={{
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        py: 2
+      }}>
       <Card variant={'outlined-panel'} sx={{ width: 720 }}>
         <CardHeader
           title={<Skeleton width={100} height={50} />}
           action={
-            <Stack direction={'row'} alignItems={'center'} spacing={1}>
+            <Stack direction={'row'} spacing={1} sx={{
+              alignItems: 'center'
+            }}>
               <Skeleton variant={'rectangular'} width={50} height={23} sx={{ borderRadius: 1 }} />
               <Skeleton variant={'rectangular'} width={50} height={23} sx={{ borderRadius: 1 }} />
             </Stack>
