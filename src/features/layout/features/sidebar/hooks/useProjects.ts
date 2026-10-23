@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Project from '../types/Project.model.ts'
 import { useGetProjectsQuery, useLazyGetProjectsQuery } from '../state/sidebarApi.ts'
 import ProjectsOrderQueryParams from '../utils/ProjectsOrderQueryParams.ts'
@@ -26,7 +26,7 @@ export default function useProjects(
   const [totalCount, setTotalCount] = useState(0)
 
   const orderType = order === ProjectsOrderQueryParams.Name ? OrderType.Ascending : OrderType.Descending
-  const orderSearchQueryParam = useMemo(() => [order + '.' + orderType], [order, orderType])
+  const orderSearchQueryParam = [order + '.' + orderType]
 
   const [searchQueryParam, addToSearchQueryParam] = useSearchQueryParam({
     property: ProjectsSearchQueryParams.Lifecycle,

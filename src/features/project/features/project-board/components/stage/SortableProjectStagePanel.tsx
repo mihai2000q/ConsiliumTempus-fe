@@ -2,7 +2,7 @@ import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import ProjectStage from '../../types/ProjectStage.model.ts'
 import ProjectStagePanel from './ProjectStagePanel.tsx'
-import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { useTheme } from '@mui/material'
 import Droppable from '../../../../../../components/dnd/Droppable.tsx'
 
@@ -53,16 +53,14 @@ function SortableProjectStagePanel({
         zIndex: isDragged ? theme.zIndex.modal : 0
       }}>
       <Droppable id={stage.id}>
-        {useMemo(() =>
-            <ProjectStagePanel
-              stage={stage}
-              showAddTaskCard={showAddTaskCard}
-              setShowAddTaskCard={setShowAddTaskCard}
-              listeners={listeners}
-              setActivatorNodeRef={setActivatorNodeRef}
-              isDragged={isDragged}
-              isDragging={isDragging} />
-          , [stage, showAddTaskCard, setShowAddTaskCard, listeners, setActivatorNodeRef, isDragged, isDragging])}
+        <ProjectStagePanel
+          stage={stage}
+          showAddTaskCard={showAddTaskCard}
+          setShowAddTaskCard={setShowAddTaskCard}
+          listeners={listeners}
+          setActivatorNodeRef={setActivatorNodeRef}
+          isDragged={isDragged}
+          isDragging={isDragging} />
       </Droppable>
     </div>
   )
