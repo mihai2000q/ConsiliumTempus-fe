@@ -4,6 +4,7 @@ import reactLint from 'eslint-plugin-react'
 import prettier from 'eslint-config-prettier'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
+import reactCompiler from 'eslint-plugin-react-compiler'
 
 export default [
   {
@@ -23,7 +24,8 @@ export default [
   {
     plugins: {
       'react-hooks': reactHooks,
-      'react-refresh': reactRefresh
+      'react-refresh': reactRefresh,
+      'react-compiler': reactCompiler
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -31,6 +33,7 @@ export default [
         'warn',
         { allowConstantExport: true }
       ],
+      'react-compiler/react-compiler': 'error',
       'react/react-in-jsx-scope': 'off',
       'no-console': 'warn',
       '@typescript-eslint/no-require-imports': 'warn'
