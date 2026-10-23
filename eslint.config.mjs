@@ -9,6 +9,9 @@ export default [
   { ignores: ['dist', '.vite'] },
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   {
+    settings: {
+      react: { version: 'detect' }
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
