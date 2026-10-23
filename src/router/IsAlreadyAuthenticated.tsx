@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom'
+import { Navigate, Outlet } from 'react-router'
 import Paths from '../utils/enums/Paths.ts'
 import useAuth from '../hooks/useAuth.ts'
 

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux'
 import { useLoginMutation } from './state/loginApi.ts'
 import { LoginForm, loginFormInitialValues } from './state/loginState.ts'
 import { setRefreshToken, setToken } from '../../state/auth/authSlice.ts'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router'
 import Paths from '../../utils/enums/Paths.ts'
 import HttpErrorResponse from '../../types/responses/HttpError.response.ts'
 

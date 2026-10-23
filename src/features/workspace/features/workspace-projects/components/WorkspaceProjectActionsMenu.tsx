@@ -1,6 +1,6 @@
 import Project from '../type/Project.model.ts'
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
 import Paths from '../../../../../utils/enums/Paths.ts'
 import {

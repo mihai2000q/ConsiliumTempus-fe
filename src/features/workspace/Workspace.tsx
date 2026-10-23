@@ -1,7 +1,7 @@
 import { Avatar, Divider, IconButton, Stack, Tab, Tabs, useTheme } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../state/store.ts'
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { Route, Routes, useNavigate, useParams } from 'react-router'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { setWorkspaceId } from '../../state/workspace/workspaceSlice.ts'
 import useDependencyFacadeState from '../../hooks/useDependencyFacadeState.ts'

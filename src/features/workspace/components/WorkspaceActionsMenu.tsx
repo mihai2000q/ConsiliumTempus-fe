@@ -1,7 +1,7 @@
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
 import { CreateNewFolder, DeleteOutlined, Edit, ManageAccounts } from '@mui/icons-material'
 import Paths from '../../../utils/enums/Paths.ts'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { MouseEventHandler, ReactNode } from 'react'
 import { useDeleteWorkspaceMutation } from '../state/workspaceApi.ts'
 import { useSnackbar } from 'notistack'

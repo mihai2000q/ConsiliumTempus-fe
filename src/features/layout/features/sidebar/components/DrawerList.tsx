@@ -15,7 +15,7 @@ import {
 } from '@mui/material'
 import DrawerItem from '../types/DrawerItem.ts'
 import DrawerListItem from './DrawerListItem.tsx'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { ArrowDropDownRounded } from '@mui/icons-material'
 import DrawerListLoader from './DrawerListLoader.tsx'

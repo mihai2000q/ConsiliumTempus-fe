@@ -13,7 +13,7 @@ import {
   UnarchiveOutlined
 } from '@mui/icons-material'
 import Paths from '../../../utils/enums/Paths.ts'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { MouseEventHandler, ReactNode } from 'react'
 import Project from '../types/Project.model.ts'
 import { useDeleteProjectMutation, useUpdateProjectMutation } from '../state/projectApi.ts'

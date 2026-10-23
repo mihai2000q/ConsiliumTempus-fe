@@ -1,6 +1,6 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import DrawerItem from '../types/DrawerItem.ts'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 
 interface DrawerListItemProps {
   drawerItem: DrawerItem

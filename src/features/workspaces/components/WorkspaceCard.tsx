@@ -1,6 +1,6 @@
 import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography } from '@mui/material'
 import Paragraph from '../../../components/text/Paragraph.tsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import Paths from '../../../utils/enums/Paths.ts'
 import Workspace from '../types/Workspace.model.ts'
 

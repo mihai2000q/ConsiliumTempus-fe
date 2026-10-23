@@ -1,4 +1,4 @@
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useParams, useSearchParams } from 'react-router'
 import { useGetProjectQuery, useUpdateFavoritesProjectMutation, useUpdateProjectMutation } from './state/projectApi.ts'
 import { Avatar, Button, Divider, IconButton, Stack, Tab, Tabs, Typography, useTheme } from '@mui/material'
 import demoProjectPicture from './../../assets/demo-projects.jpg'

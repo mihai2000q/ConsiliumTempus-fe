@@ -1,7 +1,7 @@
 import { Stack } from '@mui/material'
 import Topbar from './features/topbar/Topbar.tsx'
 import Sidebar from './features/sidebar/Sidebar.tsx'
-import { Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router'
 import { useState } from 'react'
 import Main from './components/Main.tsx'
 import useAuth from '../../hooks/useAuth.ts'

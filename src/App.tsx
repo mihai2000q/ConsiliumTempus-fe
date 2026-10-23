@@ -1,4 +1,4 @@
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router'
 import Layout from './features/layout/Layout.tsx'
 import Login from './features/login/Login.tsx'
 import Signup from './features/signup/Signup.tsx'

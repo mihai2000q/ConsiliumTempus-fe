@@ -13,7 +13,7 @@ import {
   Typography,
   useTheme
 } from '@mui/material'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink } from 'react-router'
 import demoProjectPic from './../../../../../assets/demo-projects.jpg'
 import demoUserPic from './../../../../../assets/demo-user-pic.jpg'
 import Paths from '../../../../../utils/enums/Paths.ts'
