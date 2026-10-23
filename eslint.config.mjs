@@ -8,7 +8,7 @@ import reactCompiler from 'eslint-plugin-react-compiler'
 
 export default [
   {
-    ignores: ['dist'],
+    ignores: ['dist', '.vite'],
     files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}']
   },
   {
