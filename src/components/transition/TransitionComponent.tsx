@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react'
 
 const TransitionComponent = React.forwardRef(
-  function(
+  function TransitionComponent(
     props: { children: ReactNode },
     ref
   ) {

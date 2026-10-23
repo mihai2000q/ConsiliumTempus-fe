@@ -13,17 +13,17 @@ import {
 } from '@mui/icons-material'
 
 const randomProjectIcons = [
-  <DashboardRounded />,
-  <SpaceDashboardRounded />,
-  <GridViewRounded />,
-  <DashboardCustomizeRounded />,
-  <ViewWeekRounded />,
-  <AutoAwesomeRounded />,
-  <ViewComfyRounded />,
-  <ViewKanbanRounded />,
-  <ViewQuiltRounded />,
-  <ViewModuleRounded />,
-  <ViewCarouselRounded />
+  <DashboardRounded key="DashboardRounded" />,
+  <SpaceDashboardRounded key="SpaceDashboardRounded" />,
+  <GridViewRounded key="GridViewRounded" />,
+  <DashboardCustomizeRounded key="DashboardCustomizeRounded" />,
+  <ViewWeekRounded key="ViewWeekRounded" />,
+  <AutoAwesomeRounded key="AutoAwesomeRounded" />,
+  <ViewComfyRounded key="ViewComfyRounded" />,
+  <ViewKanbanRounded key="ViewKanbanRounded" />,
+  <ViewQuiltRounded key="ViewQuiltRounded" />,
+  <ViewModuleRounded key="ViewModuleRounded" />,
+  <ViewCarouselRounded key="ViewCarouselRounded" />
 ]
 
 export default randomProjectIcons

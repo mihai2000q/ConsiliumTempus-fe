@@ -50,6 +50,7 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
   enum Placement { Left = 'left', Right = 'right' }
 
   const handleAddNewStage = (placement: Placement) => {
+    // eslint-disable-next-line no-console
     console.log(placement)
     onClose()
   }

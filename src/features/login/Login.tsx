@@ -50,7 +50,7 @@ function Login() {
       dispatch(setToken(res.token))
       dispatch(setRefreshToken(res.refreshToken))
       navigate(location.state?.from?.pathname ?? Paths.Home)
-    } catch (e) { /* empty */
+    } catch { /* empty */
     }
   }
 

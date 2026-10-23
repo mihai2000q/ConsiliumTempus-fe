@@ -1,16 +1,14 @@
-import React from 'react'
-import { SnackbarContent } from 'notistack'
+import React, { HTMLAttributes } from 'react'
+import { CustomContentProps, SnackbarContent } from 'notistack'
 
-const DefaultSnackbar = React.forwardRef<HTMLDivElement>((props, ref) => {
+const DefaultSnackbar = React.forwardRef<HTMLDivElement, CustomContentProps>(function DefaultSnackbar(props, ref) {
   const {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
     message,
     ...other
   } = props
 
   return (
-    <SnackbarContent ref={ref} role="alert" {...other}>
+    <SnackbarContent ref={ref} role="alert" {...(other as HTMLAttributes<HTMLDivElement>)}>
       {message}
     </SnackbarContent>
   )
