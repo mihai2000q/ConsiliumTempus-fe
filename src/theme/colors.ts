@@ -75,4 +75,6 @@ function reverseColorsOrder(themeColors: ThemePaletteColors) {
   return reversedThemeColors
 }
 
-export const lightThemeColors: ThemePaletteColors = reverseColorsOrder(darkThemeColors) as ThemePaletteColors
+export const lightThemeColors: ThemePaletteColors = reverseColorsOrder(
+  darkThemeColors
+) as ThemePaletteColors

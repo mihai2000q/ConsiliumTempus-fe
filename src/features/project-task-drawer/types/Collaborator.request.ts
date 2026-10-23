@@ -1,4 +1,4 @@
 export interface GetCollaboratorsRequest {
-  workspaceId: string,
+  workspaceId: string
   searchValue: string
 }

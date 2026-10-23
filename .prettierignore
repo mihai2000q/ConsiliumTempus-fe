@@ -2,3 +2,4 @@ node_modules/
 *.md
 tsconfig.json
 tsconfig.*.json
+package-lock.json

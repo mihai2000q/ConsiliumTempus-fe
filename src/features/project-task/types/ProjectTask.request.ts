@@ -3,8 +3,8 @@ export interface GetProjectTaskRequest {
 }
 
 export interface UpdateOverviewProjectTaskRequest {
-  id: string,
-  name: string,
-  description: string,
+  id: string
+  name: string
+  description: string
   assigneeId: string
 }

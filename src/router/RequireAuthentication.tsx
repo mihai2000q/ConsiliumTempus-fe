@@ -6,10 +6,10 @@ function RequireAuthentication() {
   const location = useLocation()
   const isAuthenticated = useAuth()
 
-  return (
-    isAuthenticated
-      ? <Outlet />
-      : <Navigate to={Paths.Login} state={{ from: location }} replace />
+  return isAuthenticated ? (
+    <Outlet />
+  ) : (
+    <Navigate to={Paths.Login} state={{ from: location }} replace />
   )
 }
 

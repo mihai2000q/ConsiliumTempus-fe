@@ -7,5 +7,5 @@ export enum ProjectTabs {
   Timeline,
   EventStorming,
   Files,
-  Announcements,
+  Announcements
 }

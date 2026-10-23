@@ -7,33 +7,40 @@ import { useDeleteWorkspaceMutation } from '../state/workspaceApi.ts'
 import { useSnackbar } from 'notistack'
 
 interface ProjectActionsMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
-  color?: string | undefined,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  icon: ReactNode
+  children: ReactNode
+  color?: string | undefined
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
   disabled?: boolean | undefined
 }
 
-const WorkspaceActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
+const WorkspaceActionsMenuItem = ({
+  onClick,
+  icon,
+  children,
+  disabled,
+  color
+}: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography color={color} sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface WorkspaceActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   workspaceId: string
 }
 
-function WorkspaceActionsMenu({
-                                anchorEl,
-                                onClose,
-                                workspaceId
-                              }: WorkspaceActionsMenuProps) {
+function WorkspaceActionsMenu({ anchorEl, onClose, workspaceId }: WorkspaceActionsMenuProps) {
   const theme = useTheme()
 
   const navigate = useNavigate()
@@ -71,7 +78,8 @@ function WorkspaceActionsMenu({
       <WorkspaceActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
-        onClick={handleDeleteWorkspace}>
+        onClick={handleDeleteWorkspace}
+      >
         Delete Workspace
       </WorkspaceActionsMenuItem>
     </Menu>

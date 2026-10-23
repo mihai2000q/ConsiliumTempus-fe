@@ -4,18 +4,18 @@ import { Dispatch, SetStateAction } from 'react'
 import FilterSelector from '../FilterSelector.tsx'
 
 interface FilterOperatorSelectorProps {
-  filterOperators: FilterOperator[],
-  operator: FilterOperator,
-  setOperator: Dispatch<SetStateAction<FilterOperator>>,
+  filterOperators: FilterOperator[]
+  operator: FilterOperator
+  setOperator: Dispatch<SetStateAction<FilterOperator>>
   availableOperators: FilterOperator[]
 }
 
 function FilterOperatorSelector({
-                                  filterOperators,
-                                  availableOperators,
-                                  operator,
-                                  setOperator
-                                }: FilterOperatorSelectorProps) {
+  filterOperators,
+  availableOperators,
+  operator,
+  setOperator
+}: FilterOperatorSelectorProps) {
   const filterOperatorToDisplay = new Map<FilterOperator, string>()
   filterOperatorToDisplay.set(FilterOperator.Equal, '=')
   filterOperatorToDisplay.set(FilterOperator.NotEqual, '≠')
@@ -27,14 +27,9 @@ function FilterOperatorSelector({
   filterOperatorToDisplay.set(FilterOperator.StartsWith, 'Starts With')
 
   return (
-    <FilterSelector
-      value={operator}
-      onChange={(o) => setOperator(o as FilterOperator)}>
+    <FilterSelector value={operator} onChange={(o) => setOperator(o as FilterOperator)}>
       {availableOperators.map((o) => (
-        <MenuItem
-          key={o}
-          value={o}
-          disabled={filterOperators.some(op => op === o)}>
+        <MenuItem key={o} value={o} disabled={filterOperators.some((op) => op === o)}>
           {filterOperatorToDisplay.get(o) ?? 'Not known'}
         </MenuItem>
       ))}

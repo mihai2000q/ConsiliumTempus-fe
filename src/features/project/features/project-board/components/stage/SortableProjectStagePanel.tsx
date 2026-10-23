@@ -7,28 +7,22 @@ import { useTheme } from '@mui/material'
 import Droppable from '../../../../../../components/dnd/Droppable.tsx'
 
 interface SortableStagePanelProps {
-  stage: ProjectStage,
-  showAddTaskCard?: boolean | undefined,
-  setShowAddTaskCard?: Dispatch<SetStateAction<boolean>> | undefined,
+  stage: ProjectStage
+  showAddTaskCard?: boolean | undefined
+  setShowAddTaskCard?: Dispatch<SetStateAction<boolean>> | undefined
   draggedStageId: string | null
 }
 
 function SortableProjectStagePanel({
-                                     stage,
-                                     showAddTaskCard,
-                                     setShowAddTaskCard,
-                                     draggedStageId
-                                   }: SortableStagePanelProps) {
+  stage,
+  showAddTaskCard,
+  setShowAddTaskCard,
+  draggedStageId
+}: SortableStagePanelProps) {
   const theme = useTheme()
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    setActivatorNodeRef
-  } = useSortable({ id: stage.id })
+  const { attributes, listeners, setNodeRef, transform, transition, setActivatorNodeRef } =
+    useSortable({ id: stage.id })
 
   const [isDragged, setIsDragged] = useState(false)
   useEffect(() => {
@@ -51,7 +45,8 @@ function SortableProjectStagePanel({
         width: 'inherit',
         position: 'relative',
         zIndex: isDragged ? theme.zIndex.modal : 0
-      }}>
+      }}
+    >
       <Droppable id={stage.id}>
         <ProjectStagePanel
           stage={stage}
@@ -60,7 +55,8 @@ function SortableProjectStagePanel({
           listeners={listeners}
           setActivatorNodeRef={setActivatorNodeRef}
           isDragged={isDragged}
-          isDragging={isDragging} />
+          isDragging={isDragging}
+        />
       </Droppable>
     </div>
   )

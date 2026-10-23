@@ -1,8 +1,8 @@
 import { ThemeMode } from '../../theme/theme.ts'
 
 interface GlobalState {
-  mode: ThemeMode,
-  userId: string | undefined,
+  mode: ThemeMode
+  userId: string | undefined
   errorPath: string | undefined
 }
 

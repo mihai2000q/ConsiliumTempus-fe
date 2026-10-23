@@ -11,16 +11,12 @@ import AddProjectStatusDialog from './AddProjectStatusDialog.tsx'
 import dayjs from 'dayjs'
 
 interface ProjectStatusMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   latestStatus: ProjectStatus | null
 }
 
-function ProjectStatusMenu({
-                             anchorEl,
-                             onClose,
-                             latestStatus
-                           }: ProjectStatusMenuProps) {
+function ProjectStatusMenu({ anchorEl, onClose, latestStatus }: ProjectStatusMenuProps) {
   const dispatch = useDispatch<AppDispatch>()
 
   const [addStatusDialogOpen, setAddStatusDialogOpen] = useState(false)
@@ -30,10 +26,12 @@ function ProjectStatusMenu({
 
   function handleLatestStatusClick() {
     onClose()
-    dispatch(openProjectStatusesDialog({
-      open: true,
-      statusIdSelected: latestStatus!.id
-    }))
+    dispatch(
+      openProjectStatusesDialog({
+        open: true,
+        statusIdSelected: latestStatus!.id
+      })
+    )
   }
 
   function handleStatusClick(status: ProjectStatusType) {
@@ -54,39 +52,56 @@ function ProjectStatusMenu({
               paddingTop: 0
             }
           })
-        }}>
-        {latestStatus &&
+        }}
+      >
+        {latestStatus && (
           <Stack>
-            <Divider color={projectStatusToColor.get(latestStatus.status) ?? 'white'} sx={{ height: 10 }} />
+            <Divider
+              color={projectStatusToColor.get(latestStatus.status) ?? 'white'}
+              sx={{ height: 10 }}
+            />
             <MenuItem onClick={handleLatestStatusClick}>
-              <Stack sx={{
-                maxWidth: 200
-              }}>
+              <Stack
+                sx={{
+                  maxWidth: 200
+                }}
+              >
                 <Typography
                   variant={'subtitle1'}
                   sx={{
                     color: 'text.secondary',
                     fontWeight: 600
-                  }}>View latest
-                                                                                            update</Typography>
-                <Typography variant={'h6'} noWrap>{latestStatus.title}</Typography>
+                  }}
+                >
+                  View latest update
+                </Typography>
+                <Typography variant={'h6'} noWrap>
+                  {latestStatus.title}
+                </Typography>
                 <Stack direction={'row'} spacing={0.5}>
-                  <Typography variant={'body2'} noWrap sx={{
-                    color: 'text.triadic'
-                  }}>
+                  <Typography
+                    variant={'body2'}
+                    noWrap
+                    sx={{
+                      color: 'text.triadic'
+                    }}
+                  >
                     {latestStatus.createdBy.name} -
                   </Typography>
-                  <Typography variant={'body2'} sx={{
-                    color: 'text.triadic'
-                  }}>
+                  <Typography
+                    variant={'body2'}
+                    sx={{
+                      color: 'text.triadic'
+                    }}
+                  >
                     {dayjs(latestStatus.createdDateTime).format('DD/MM/YYYY')}
                   </Typography>
                 </Stack>
               </Stack>
             </MenuItem>
           </Stack>
-        }
-        {Object.values(ProjectStatusType).map(status => (
+        )}
+        {Object.values(ProjectStatusType).map((status) => (
           <MenuItem key={status} onClick={() => handleStatusClick(status)}>
             <ProjectStatusLabel status={status} />
           </MenuItem>
@@ -96,7 +111,8 @@ function ProjectStatusMenu({
       <AddProjectStatusDialog
         open={addStatusDialogOpen}
         onClose={handleCloseAddStatusDialog}
-        initialStatus={status} />
+        initialStatus={status}
+      />
     </>
   )
 }

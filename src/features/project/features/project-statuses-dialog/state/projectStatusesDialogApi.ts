@@ -11,13 +11,16 @@ import {
 } from '../types/ProjectStatus.request.ts'
 
 export const projectApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
-    getStatusesFromProject: builder.query<CollectionResponse<'statuses', ProjectStatus>, GetStatusesFromProjectRequest>({
-      query: arg => `${Urls.Projects}/${arg.id}/statuses`,
+  endpoints: (builder) => ({
+    getStatusesFromProject: builder.query<
+      CollectionResponse<'statuses', ProjectStatus>,
+      GetStatusesFromProjectRequest
+    >({
+      query: (arg) => `${Urls.Projects}/${arg.id}/statuses`,
       providesTags: [TagTypes.ProjectStatuses]
     }),
     updateStatusFromProject: builder.mutation<HttpMessageResponse, UpdateStatusFromProjectRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.Projects}/update-status`,
         method: 'PUT',
         body: body
@@ -25,7 +28,7 @@ export const projectApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.Projects, TagTypes.ProjectStatuses]
     }),
     removeStatusFromProject: builder.mutation<HttpMessageResponse, RemoveStatusFromProjectRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: `${Urls.Projects}/${arg.id}/remove-status/${arg.statusId}`,
         method: 'DELETE'
       }),

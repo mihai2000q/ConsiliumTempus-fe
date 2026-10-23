@@ -10,12 +10,14 @@ export const workspaceFilterChipsData: FilterChipItem[] = [
   {
     icon: <Person />,
     title: 'Personal',
-    filters: [{
-      property: WorkspacesSearchQueryParams.IsPersonal,
-      operator: FilterOperator.Equal,
-      value: true,
-      valueType: FilterPropertyValueType.Boolean
-    }]
+    filters: [
+      {
+        property: WorkspacesSearchQueryParams.IsPersonal,
+        operator: FilterOperator.Equal,
+        value: true,
+        valueType: FilterPropertyValueType.Boolean
+      }
+    ]
   },
   {
     icon: <CalendarIcon />,

@@ -42,24 +42,24 @@ const StyledOrderProperty = styled(Box, {
 }))
 
 interface OrderPropertyProps {
-  initialOrder: Order,
-  orders: Order[],
-  index: number,
-  orderProperties: OrderPropertyModel[];
-  handleOrder: (index: number, order: Order) => void,
-  handleRemoveOrder: (order: Order) => void,
+  initialOrder: Order
+  orders: Order[]
+  index: number
+  orderProperties: OrderPropertyModel[]
+  handleOrder: (index: number, order: Order) => void
+  handleRemoveOrder: (order: Order) => void
   disableRemove?: boolean
 }
 
 function OrderProperty({
-                         initialOrder,
-                         orders,
-                         index,
-                         orderProperties,
-                         handleOrder,
-                         handleRemoveOrder,
-                         disableRemove
-                       }: OrderPropertyProps) {
+  initialOrder,
+  orders,
+  index,
+  orderProperties,
+  handleOrder,
+  handleRemoveOrder,
+  disableRemove
+}: OrderPropertyProps) {
   const [property, setProperty] = useState(initialOrder.property)
   const [type, setType] = useState(initialOrder.type)
   const [displayName, setDisplayName] = useState(initialOrder.displayName)
@@ -67,9 +67,8 @@ function OrderProperty({
   const [isDragHandleHovered, setIsDragHandleHovered] = useState(false)
 
   function handlePropertyChange(newProperty: string) {
-    const newDisplayName = orderProperties
-      .find(op => op.property === newProperty)
-      ?.displayName ?? ''
+    const newDisplayName =
+      orderProperties.find((op) => op.property === newProperty)?.displayName ?? ''
 
     setProperty(newProperty)
     setDisplayName(newDisplayName)
@@ -85,14 +84,8 @@ function OrderProperty({
     handleRemoveOrder({ property, type, displayName })
   }
 
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    setActivatorNodeRef
-  } = useSortable({ id: property })
+  const { attributes, listeners, setNodeRef, transform, transition, setActivatorNodeRef } =
+    useSortable({ id: property })
 
   return (
     <StyledOrderProperty
@@ -103,7 +96,8 @@ function OrderProperty({
         transform: CSS.Translate.toString(transform),
         transition,
         cursor: transform ? 'grabbing' : 'unset'
-      }}>
+      }}
+    >
       <IconButton
         ref={setActivatorNodeRef}
         {...listeners}
@@ -111,7 +105,8 @@ function OrderProperty({
         onMouseLeave={() => setIsDragHandleHovered(false)}
         disableRipple
         disabled={disableRemove === true}
-        sx={{ cursor: transform ? 'unset' : 'grab' }}>
+        sx={{ cursor: transform ? 'unset' : 'grab' }}
+      >
         <DragIndicator />
       </IconButton>
 
@@ -128,20 +123,22 @@ function OrderProperty({
           },
           '& .MuiSelect-select': { p: '2px 14px', display: 'flex', alignItems: 'center' },
           '& .MuiListItemIcon-root': { mr: 1 }
-        }}>
+        }}
+      >
         {orderProperties.map((op) => (
           <MenuItem
             key={op.property}
             value={op.property}
             selected={property === op.property}
-            disabled={orders.some(o => o.property === op.property)}
+            disabled={orders.some((o) => o.property === op.property)}
             sx={{
               '& .MuiListItemIcon-root': {
                 minWidth: 0,
                 mr: 0.75,
                 '& .MuiSvgIcon-root': { fontSize: 18 }
               }
-            }}>
+            }}
+          >
             <ListItemIcon>{op.icon}</ListItemIcon>
             <ListItemText sx={{ pt: 0.5 }}>{op.displayName}</ListItemText>
           </MenuItem>
@@ -161,7 +158,8 @@ function OrderProperty({
           '& .MuiListItemIcon-root': { mr: 1 }
         }}
         value={type}
-        onChange={(e) => handleTypeChange(e.target.value as OrderType)}>
+        onChange={(e) => handleTypeChange(e.target.value as OrderType)}
+      >
         <MenuItem
           value={OrderType.Ascending}
           selected={type === OrderType.Ascending}
@@ -171,8 +169,11 @@ function OrderProperty({
               mr: 0.75,
               '& .MuiSvgIcon-root': { fontSize: 18 }
             }
-          }}>
-          <ListItemIcon><NorthOutlined /></ListItemIcon>
+          }}
+        >
+          <ListItemIcon>
+            <NorthOutlined />
+          </ListItemIcon>
           <ListItemText>Ascending</ListItemText>
         </MenuItem>
         <MenuItem
@@ -184,8 +185,11 @@ function OrderProperty({
               mr: 0.75,
               '& .MuiSvgIcon-root': { fontSize: 18 }
             }
-          }}>
-          <ListItemIcon><SouthOutlined /></ListItemIcon>
+          }}
+        >
+          <ListItemIcon>
+            <SouthOutlined />
+          </ListItemIcon>
           <ListItemText sx={{ pt: 0.5 }}>Descending</ListItemText>
         </MenuItem>
       </Select>
@@ -195,15 +199,17 @@ function OrderProperty({
         disableHoverListener={disableRemove === true}
         enterDelay={500}
         placement={'top'}
-        title={'Remove Order'}>
+        title={'Remove Order'}
+      >
         <span>
-            <IconButton
-              variant={'circular'}
-              size={'small'}
-              disabled={disableRemove === true}
-              onClick={handleRemoveCurrentOrder}>
-              <Close sx={{ fontSize: 17, m: '1px' }} />
-            </IconButton>
+          <IconButton
+            variant={'circular'}
+            size={'small'}
+            disabled={disableRemove === true}
+            onClick={handleRemoveCurrentOrder}
+          >
+            <Close sx={{ fontSize: 17, m: '1px' }} />
+          </IconButton>
         </span>
       </Tooltip>
     </StyledOrderProperty>

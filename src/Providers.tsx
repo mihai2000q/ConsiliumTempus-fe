@@ -9,8 +9,6 @@ import { themeSettings } from './theme/theme.ts'
 
 function Providers({ children }: { children: React.ReactNode }) {
   const mode = useAppSelector((state) => state.global.mode)
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
   const theme = createTheme(themeSettings(mode))
 
   return (

@@ -2,12 +2,18 @@ import { Skeleton, Stack } from '@mui/material'
 
 function ProjectBoardLoader() {
   return (
-    <Stack sx={{
-      mt: 1
-    }}>
-      <Stack direction={'row'} spacing={1.5} sx={{
-        alignItems: 'center'
-      }}>
+    <Stack
+      sx={{
+        mt: 1
+      }}
+    >
+      <Stack
+        direction={'row'}
+        spacing={1.5}
+        sx={{
+          alignItems: 'center'
+        }}
+      >
         <Skeleton variant={'rectangular'} width={100} height={30} sx={{ borderRadius: 1.5 }} />
         <Skeleton variant={'rectangular'} width={50} height={27} sx={{ borderRadius: 1.5 }} />
         <Skeleton variant={'rectangular'} width={50} height={27} sx={{ borderRadius: 1.5 }} />
@@ -20,9 +26,16 @@ function ProjectBoardLoader() {
         sx={{
           mt: 2,
           height: 800
-        }}>
+        }}
+      >
         {Array.from(Array(4)).map((_, i) => (
-          <Skeleton key={i} variant={'rectangular'} height={'100%'} width={335} sx={{ borderRadius: 4 }} />
+          <Skeleton
+            key={i}
+            variant={'rectangular'}
+            height={'100%'}
+            width={335}
+            sx={{ borderRadius: 4 }}
+          />
         ))}
       </Stack>
     </Stack>

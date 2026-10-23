@@ -13,13 +13,13 @@ import Project from '../types/Project.model.ts'
 import { GetProjectSprintsResponse } from '../types/ProjectSprint.response.ts'
 
 export const projectApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     getProject: builder.query<Project, GetProjectRequest>({
-      query: arg => `${Urls.Projects}/${arg.id}`,
+      query: (arg) => `${Urls.Projects}/${arg.id}`,
       providesTags: [TagTypes.Projects]
     }),
     updateProject: builder.mutation<HttpMessageResponse, UpdateProjectRequest>({
-      query: body => ({
+      query: (body) => ({
         url: Urls.Projects,
         method: 'PUT',
         body: body
@@ -27,7 +27,7 @@ export const projectApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.Projects]
     }),
     updateFavoritesProject: builder.mutation<HttpMessageResponse, UpdateFavoritesProjectRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.Projects}/favorites`,
         method: 'PUT',
         body: body
@@ -35,7 +35,7 @@ export const projectApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.Projects]
     }),
     deleteProject: builder.mutation<HttpMessageResponse, DeleteProjectRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: `${Urls.Projects}/${arg.id}`,
         method: 'DELETE'
       }),
@@ -43,7 +43,7 @@ export const projectApiSlice = api.injectEndpoints({
     }),
 
     getProjectSprints: builder.query<GetProjectSprintsResponse, GetProjectSprintsRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: Urls.ProjectSprints,
         params: arg
       }),

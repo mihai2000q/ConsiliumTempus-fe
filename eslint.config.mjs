@@ -9,6 +9,9 @@ export default [
   { ignores: ['dist', '.vite'] },
   { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
   {
+    settings: {
+      react: { version: 'detect' }
+    },
     languageOptions: {
       globals: {
         ...globals.browser,
@@ -24,10 +27,7 @@ export default [
       'react-refresh': reactRefresh
     },
     rules: {
-      'react-refresh/only-export-components': [
-        'warn',
-        { allowConstantExport: true }
-      ],
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       'react/react-in-jsx-scope': 'off',
       'no-console': 'warn',
       '@typescript-eslint/no-require-imports': 'warn'

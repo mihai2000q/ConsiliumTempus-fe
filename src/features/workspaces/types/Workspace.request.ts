@@ -1,6 +1,6 @@
 export interface GetWorkspacesQueryParameters {
-  pageSize: number,
-  currentPage: number,
-  orderBy?: string[] | undefined,
-  search?: string[] | undefined,
+  pageSize: number
+  currentPage: number
+  orderBy?: string[] | undefined
+  search?: string[] | undefined
 }

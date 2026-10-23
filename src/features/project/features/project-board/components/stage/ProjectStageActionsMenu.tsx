@@ -7,31 +7,36 @@ import { RootState } from '../../../../../../state/store.ts'
 import { useSnackbar } from 'notistack'
 
 interface ProjectStageActionsMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
-  color?: string | undefined,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  icon: ReactNode
+  children: ReactNode
+  color?: string | undefined
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
   disabled?: boolean | undefined
 }
 
 const ProjectStageActionsMenuItem = ({
-                                       onClick,
-                                       icon,
-                                       children,
-                                       disabled,
-                                       color
-                                     }: ProjectStageActionsMenuItemProps) => (
+  onClick,
+  icon,
+  children,
+  disabled,
+  color
+}: ProjectStageActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography color={color} sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface ProjectStageActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   stageId: string
 }
 
@@ -49,7 +54,10 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
     onClose()
   }
 
-  enum Placement { Left = 'left', Right = 'right' }
+  enum Placement {
+    Left = 'left',
+    Right = 'right'
+  }
 
   const handleAddNewStage = (placement: Placement) => {
     // eslint-disable-next-line no-console
@@ -75,16 +83,23 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
       <ProjectStageActionsMenuItem icon={<PlaylistAdd />}>
         Add New Stage
       </ProjectStageActionsMenuItem>
-      <ProjectStageActionsMenuItem icon={<West />} onClick={() => handleAddNewStage(Placement.Left)}>
+      <ProjectStageActionsMenuItem
+        icon={<West />}
+        onClick={() => handleAddNewStage(Placement.Left)}
+      >
         To Left
       </ProjectStageActionsMenuItem>
-      <ProjectStageActionsMenuItem icon={<East />} onClick={() => handleAddNewStage(Placement.Right)}>
+      <ProjectStageActionsMenuItem
+        icon={<East />}
+        onClick={() => handleAddNewStage(Placement.Right)}
+      >
         To Right
       </ProjectStageActionsMenuItem>
       <ProjectStageActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
-        onClick={handleDeleteStage}>
+        onClick={handleDeleteStage}
+      >
         Delete Stage
       </ProjectStageActionsMenuItem>
     </Menu>

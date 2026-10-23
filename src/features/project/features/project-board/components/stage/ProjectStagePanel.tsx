@@ -42,43 +42,44 @@ const StyledDragHandle = styled(Box)<BoxProps>(() => ({
 }))
 
 interface ProjectStagePanelProps {
-  stage: ProjectStage,
-  showAddTaskCard?: boolean | undefined,
-  setShowAddTaskCard?: Dispatch<SetStateAction<boolean>> | undefined,
-  listeners: SyntheticListenerMap | undefined,
-  setActivatorNodeRef: (element: (HTMLElement | null)) => void,
-  isDragged: boolean,
-  isDragging: boolean,
+  stage: ProjectStage
+  showAddTaskCard?: boolean | undefined
+  setShowAddTaskCard?: Dispatch<SetStateAction<boolean>> | undefined
+  listeners: SyntheticListenerMap | undefined
+  setActivatorNodeRef: (element: HTMLElement | null) => void
+  isDragged: boolean
+  isDragging: boolean
 }
 
 function ProjectStagePanel({
-                             stage,
-                             showAddTaskCard,
-                             setShowAddTaskCard,
-                             listeners,
-                             setActivatorNodeRef,
-                             isDragged,
-                             isDragging
-                           }: ProjectStagePanelProps) {
+  stage,
+  showAddTaskCard,
+  setShowAddTaskCard,
+  listeners,
+  setActivatorNodeRef,
+  isDragged,
+  isDragging
+}: ProjectStagePanelProps) {
   const theme = useTheme()
 
   const sprintId = useAppSelector((state) => state.project.sprintId)
   const [stageName, setStageName] = useState(stage.name)
   const [updateStageFromProjectSprint] = useUpdateStageFromProjectSprintMutation()
-  useTimeoutCallback(() =>
-    updateStageFromProjectSprint({
-      id: sprintId,
-      stageId: stage.id,
-      name: stageName
-    }), [stageName])
+  useTimeoutCallback(
+    () =>
+      updateStageFromProjectSprint({
+        id: sprintId,
+        stageId: stage.id,
+        name: stageName
+      }),
+    [stageName]
+  )
 
-  const {
-    tasks,
-    totalTasksCount,
-    isFetching,
-    isLoading,
-    fetchMoreTasks
-  } = useProjectTasks(stage.id, undefined, undefined)
+  const { tasks, totalTasksCount, isFetching, isLoading, fetchMoreTasks } = useProjectTasks(
+    stage.id,
+    undefined,
+    undefined
+  )
 
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
 
@@ -100,10 +101,13 @@ function ProjectStagePanel({
     <StyledProjectStagePanel
       isDragHandleHovered={isDragHandleHovered}
       isDragged={isDragged}
-      isDragging={isDragging}>
-      <Box sx={{
-        position: 'relative'
-      }}>
+      isDragging={isDragging}
+    >
+      <Box
+        sx={{
+          position: 'relative'
+        }}
+      >
         <StyledDragHandle
           ref={setActivatorNodeRef}
           {...listeners}
@@ -111,15 +115,19 @@ function ProjectStagePanel({
           onMouseLeave={() => setIsDragHandleHovered(false)}
           sx={{ cursor: isDragged ? 'unset' : 'grab' }}
         />
-        <Stack direction={'row'} sx={{
-          justifyContent: 'space-between'
-        }}>
+        <Stack
+          direction={'row'}
+          sx={{
+            justifyContent: 'space-between'
+          }}
+        >
           <Stack
             direction={'row'}
             sx={{
               alignItems: 'center',
               zIndex: 1
-            }}>
+            }}
+          >
             <OutlinedContentEditable
               typographyVariant={'h6'}
               value={stageName}
@@ -130,21 +138,26 @@ function ProjectStagePanel({
                 color: theme.palette.background[200],
                 maxWidth: 180,
                 mr: '1px'
-              }} />
-            {
-              totalTasksCount === undefined
-                ? <CircularProgress size={16} />
-                :
-                <Tooltip
-                  arrow
-                  placement={'top'}
-                  sx={{ cursor: 'default' }}
-                  title={`There are ${totalTasksCount} task${plural(totalTasksCount)} in this stage`}>
-                  <Typography sx={{
+              }}
+            />
+            {totalTasksCount === undefined ? (
+              <CircularProgress size={16} />
+            ) : (
+              <Tooltip
+                arrow
+                placement={'top'}
+                sx={{ cursor: 'default' }}
+                title={`There are ${totalTasksCount} task${plural(totalTasksCount)} in this stage`}
+              >
+                <Typography
+                  sx={{
                     fontWeight: 300
-                  }}>{totalTasksCount}</Typography>
-                </Tooltip>
-            }
+                  }}
+                >
+                  {totalTasksCount}
+                </Typography>
+              </Tooltip>
+            )}
           </Stack>
 
           <Stack direction={'row'}>
@@ -160,7 +173,8 @@ function ProjectStagePanel({
             <ProjectStageActionsMenu
               anchorEl={menuAnchorEl}
               onClose={() => setMenuAnchorEl(null)}
-              stageId={stage.id} />
+              stageId={stage.id}
+            />
           </Stack>
         </Stack>
       </Box>
@@ -172,37 +186,44 @@ function ProjectStagePanel({
           pt: 1,
           overflowY: 'auto',
           maxHeight: '100%'
-        }}>
-        <Zoom in={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)} unmountOnExit>
+        }}
+      >
+        <Zoom
+          in={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)}
+          unmountOnExit
+        >
           <TransitionComponent>
             <AddProjectTaskCard
-              closeCard={() => showAddTaskCard === true && setShowAddTaskCard !== undefined
-                ? setShowAddTaskCard(false)
-                : setShowTopAddTaskCard(false)}
+              closeCard={() =>
+                showAddTaskCard === true && setShowAddTaskCard !== undefined
+                  ? setShowAddTaskCard(false)
+                  : setShowTopAddTaskCard(false)
+              }
               projectStageId={stage.id}
               onTop={true}
-              show={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)} />
+              show={
+                showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)
+              }
+            />
           </TransitionComponent>
         </Zoom>
-        {
-          !tasks
-            ? <ProjectTasksLoader />
-            : (
-              <SortableContext strategy={rectSortingStrategy} items={tasks.map((task) => task.id)}>
-                <TransitionGroup>
-                  {tasks.map((task) => (
-                    <Grow key={task.id} unmountOnExit>
-                      <TransitionComponent>
-                        <SortableItem id={task.id}>
-                          <ProjectTaskCard task={task} stageId={stage.id} />
-                        </SortableItem>
-                      </TransitionComponent>
-                    </Grow>
-                  ))}
-                </TransitionGroup>
-              </SortableContext>
-            )
-        }
+        {!tasks ? (
+          <ProjectTasksLoader />
+        ) : (
+          <SortableContext strategy={rectSortingStrategy} items={tasks.map((task) => task.id)}>
+            <TransitionGroup>
+              {tasks.map((task) => (
+                <Grow key={task.id} unmountOnExit>
+                  <TransitionComponent>
+                    <SortableItem id={task.id}>
+                      <ProjectTaskCard task={task} stageId={stage.id} />
+                    </SortableItem>
+                  </TransitionComponent>
+                </Grow>
+              ))}
+            </TransitionGroup>
+          </SortableContext>
+        )}
         <Zoom in={showBottomAddTaskCard} unmountOnExit>
           <TransitionComponent>
             <AddProjectTaskCard
@@ -210,17 +231,20 @@ function ProjectStagePanel({
               closeCard={() => setShowBottomAddTaskCard(false)}
               projectStageId={stage.id}
               onTop={false}
-              show={showBottomAddTaskCard} />
+              show={showBottomAddTaskCard}
+            />
           </TransitionComponent>
         </Zoom>
         <Button
           startIcon={<Add />}
           onClick={() => setShowBottomAddTaskCard(!showBottomAddTaskCard)}
-          sx={{ mb: 1.5, mt: 0.25 }}>
+          sx={{ mb: 1.5, mt: 0.25 }}
+        >
           Add Task
         </Button>
-        {isFetching && !isLoading &&
-          <CircularProgress thickness={6} size={35} sx={{ mb: 4, mt: 2, alignSelf: 'center' }} />}
+        {isFetching && !isLoading && (
+          <CircularProgress thickness={6} size={35} sx={{ mb: 4, mt: 2, alignSelf: 'center' }} />
+        )}
       </Stack>
     </StyledProjectStagePanel>
   )

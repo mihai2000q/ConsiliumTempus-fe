@@ -39,7 +39,10 @@ function App() {
               <Route path={Paths.Calendar} element={<Calendar />} />
               <Route path={Paths.Projects} element={<Projects />} />
               <Route path={`${Paths.Project}/:${ProjectParams.Id}`} element={<Project />} />
-              <Route path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`} element={<ProjectTask />} />
+              <Route
+                path={`${Paths.ProjectTask}/:${ProjectTaskParams.Id}`}
+                element={<ProjectTask />}
+              />
               <Route path={Paths.Workspaces} element={<Workspaces />} />
               <Route path={`${Paths.Workspace}/:${WorkspaceParams.Id}/*`} element={<Workspace />} />
               {/* Errors */}

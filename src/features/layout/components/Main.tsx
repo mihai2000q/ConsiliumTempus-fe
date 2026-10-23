@@ -1,20 +1,15 @@
 import { styled } from '@mui/material'
 
 interface MainProps {
-  isSidebarOpen: boolean,
-  isLayoutHidden: boolean,
+  isSidebarOpen: boolean
+  isLayoutHidden: boolean
   drawerWidth: number
 }
 
-const Main = styled(
-  'main',
-  {
-    shouldForwardProp: (prop) =>
-      prop !== 'isSidebarOpen' &&
-      prop !== 'drawerWidth' &&
-      prop !== 'isLayoutHidden'
-  }
-)<MainProps>(({ theme, isSidebarOpen, isLayoutHidden, drawerWidth }) => ({
+const Main = styled('main', {
+  shouldForwardProp: (prop) =>
+    prop !== 'isSidebarOpen' && prop !== 'drawerWidth' && prop !== 'isLayoutHidden'
+})<MainProps>(({ theme, isSidebarOpen, isLayoutHidden, drawerWidth }) => ({
   padding: '76px 30px 12px 30px',
   flexGrow: 1,
   marginLeft: `-${isLayoutHidden ? 0 : drawerWidth}px`,

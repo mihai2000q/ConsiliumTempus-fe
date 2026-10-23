@@ -1,5 +1,10 @@
 import { Mutex } from 'async-mutex'
-import { BaseQueryFn, FetchArgs, fetchBaseQuery, FetchBaseQueryError } from '@reduxjs/toolkit/query/react'
+import {
+  BaseQueryFn,
+  FetchArgs,
+  fetchBaseQuery,
+  FetchBaseQueryError
+} from '@reduxjs/toolkit/query/react'
 import { RootState } from './store.ts'
 import Urls from '../utils/enums/Urls.ts'
 import RefreshResponse from '../types/responses/Refresh.response.ts'
@@ -91,6 +96,8 @@ export const queryWithRedirection: BaseQueryFn<
 }
 
 function isAuthRequest(args: string | FetchArgs) {
-  return typeof args === 'string' && args.includes(Urls.Auth) ||
-    typeof args === 'object' && args.url.includes(Urls.Auth)
+  return (
+    (typeof args === 'string' && args.includes(Urls.Auth)) ||
+    (typeof args === 'object' && args.url.includes(Urls.Auth))
+  )
 }

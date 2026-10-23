@@ -16,33 +16,36 @@ const OutlinedBorder = styled(Box, {
   borderRadius: '6px',
   ...(isFocused
     ? {
-      borderColor: alpha(theme.palette.background[100], 0.7)
-    }
-    : {
-      '&:hover': {
-        padding: '1px',
-        border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`
+        borderColor: alpha(theme.palette.background[100], 0.7)
       }
-    })
+    : {
+        '&:hover': {
+          padding: '1px',
+          border: `solid 1px ${alpha(theme.palette.background[100], 0.7)}`
+        }
+      })
 }))
 
 interface OutlinedInputTextFieldProps {
-  value: string,
-  handleChange: (change: string) => void,
-  typographyVariant?: OverridableStringUnion<TypographyVariant | 'inherit', TypographyPropsVariantOverrides>,
-  sx?: SxProps<Theme> | undefined,
-  noWrap?: boolean | undefined,
-  maxLength?: number | undefined,
+  value: string
+  handleChange: (change: string) => void
+  typographyVariant?: OverridableStringUnion<
+    TypographyVariant | 'inherit',
+    TypographyPropsVariantOverrides
+  >
+  sx?: SxProps<Theme> | undefined
+  noWrap?: boolean | undefined
+  maxLength?: number | undefined
 }
 
 function OutlinedContentEditable({
-                                   value,
-                                   handleChange,
-                                   typographyVariant,
-                                   sx,
-                                   noWrap,
-                                   maxLength
-                                 }: OutlinedInputTextFieldProps) {
+  value,
+  handleChange,
+  typographyVariant,
+  sx,
+  noWrap,
+  maxLength
+}: OutlinedInputTextFieldProps) {
   const [isFocused, setIsFocused] = useState(false)
   const [localNoWrap, setLocalNoWrap] = useState(noWrap)
   useEffect(() => {
@@ -85,7 +88,8 @@ function OutlinedContentEditable({
         sx={{
           px: '4px',
           outline: 0
-        }} />
+        }}
+      />
     </OutlinedBorder>
   )
 }

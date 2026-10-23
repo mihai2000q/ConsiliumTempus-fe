@@ -13,13 +13,15 @@ import TagTypes from '../../../../../utils/enums/TagTypes.ts'
 import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
 
 export const workspaceProjectsApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
-    getProjects: builder.query<CollectionResponse<'projects', Project>, GetProjectsQueryParameters>({
-      query: arg => Urls.Projects + createQueryParams(arg),
-      providesTags: [TagTypes.Projects]
-    }),
+  endpoints: (builder) => ({
+    getProjects: builder.query<CollectionResponse<'projects', Project>, GetProjectsQueryParameters>(
+      {
+        query: (arg) => Urls.Projects + createQueryParams(arg),
+        providesTags: [TagTypes.Projects]
+      }
+    ),
     updateProject: builder.mutation<HttpMessageResponse, UpdateProjectRequest>({
-      query: body => ({
+      query: (body) => ({
         url: Urls.Projects,
         method: 'PUT',
         body: body
@@ -27,7 +29,7 @@ export const workspaceProjectsApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.Projects]
     }),
     updateFavoritesProject: builder.mutation<HttpMessageResponse, UpdateFavoritesProjectRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.Projects}/favorites`,
         method: 'PUT',
         body: body
@@ -35,7 +37,7 @@ export const workspaceProjectsApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.Projects]
     }),
     deleteProject: builder.mutation<HttpMessageResponse, DeleteProjectRequest>({
-      query: arg => ({
+      query: (arg) => ({
         url: `${Urls.Projects}/${arg.id}`,
         method: 'DELETE'
       }),

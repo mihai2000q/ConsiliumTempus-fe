@@ -23,8 +23,8 @@ import LoadingButton from '../../../../../components/button/LoadingButton.tsx'
 import { useSnackbar } from 'notistack'
 
 interface AddProjectDialogProps {
-  workspaces: Workspace[] | undefined,
-  open: boolean,
+  workspaces: Workspace[] | undefined
+  open: boolean
   onClose: () => void
 }
 
@@ -80,7 +80,8 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.projectName && !!errors.projectName}
-              helperText={touched.projectName && errors.projectName} />
+              helperText={touched.projectName && errors.projectName}
+            />
             <FormControl>
               <InputLabel variant={'filled'}>Workspace</InputLabel>
               <Select
@@ -92,15 +93,16 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
                 sx={{ '& .MuiListItemIcon-root': { mr: 1 } }}
                 SelectDisplayProps={{
                   style: { display: 'flex', alignItems: 'center' }
-                }}>
-                {
-                  workspaces?.map((workspace) => (
-                    <MenuItem key={workspace.id} value={workspace.id}>
-                      <ListItemIcon><People /></ListItemIcon>
-                      <ListItemText>{workspace.name}</ListItemText>
-                    </MenuItem>
-                  ))
-                }
+                }}
+              >
+                {workspaces?.map((workspace) => (
+                  <MenuItem key={workspace.id} value={workspace.id}>
+                    <ListItemIcon>
+                      <People />
+                    </ListItemIcon>
+                    <ListItemText>{workspace.name}</ListItemText>
+                  </MenuItem>
+                ))}
               </Select>
             </FormControl>
           </Stack>

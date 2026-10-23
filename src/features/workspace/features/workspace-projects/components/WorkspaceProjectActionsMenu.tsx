@@ -13,29 +13,43 @@ import {
   UnarchiveOutlined
 } from '@mui/icons-material'
 import { MouseEventHandler, ReactNode } from 'react'
-import { useDeleteProjectMutation, useUpdateProjectMutation } from '../state/workspaceProjectsApi.ts'
+import {
+  useDeleteProjectMutation,
+  useUpdateProjectMutation
+} from '../state/workspaceProjectsApi.ts'
 import { useSnackbar } from 'notistack'
 
 interface ProjectActionsMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
-  color?: string | undefined,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  icon: ReactNode
+  children: ReactNode
+  color?: string | undefined
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
   disabled?: boolean | undefined
 }
 
-const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
+const ProjectActionsMenuItem = ({
+  onClick,
+  icon,
+  children,
+  disabled,
+  color
+}: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon sx={{ '& .MuiSvgIcon': { color: color } }}>{icon}</ListItemIcon>
-    <Typography color={color} sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface ProjectActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
+  anchorEl: HTMLElement | null
+  onClose: () => void
   project: Project
 }
 
@@ -81,7 +95,7 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
       name: project.name,
       lifecycle: ProjectLifecycle.Active
     })
-    enqueueSnackbar('Project unset from \'Upcoming\'', { variant: 'info' })
+    enqueueSnackbar("Project unset from 'Upcoming'", { variant: 'info' })
     onClose()
   }
   const handleSetUpcomingProject = () => {
@@ -90,7 +104,7 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
       name: project.name,
       lifecycle: ProjectLifecycle.Upcoming
     })
-    enqueueSnackbar('Project set to \'Upcoming\'', { variant: 'info' })
+    enqueueSnackbar("Project set to 'Upcoming'", { variant: 'info' })
     onClose()
   }
 
@@ -111,32 +125,29 @@ function WorkspaceProjectActionsMenu({ anchorEl, onClose, project }: ProjectActi
         Add To Portfolio
       </ProjectActionsMenuItem>
 
-      {
-        project.lifecycle === 'Archived'
-          ?
-          <ProjectActionsMenuItem icon={<UnarchiveOutlined />} onClick={handleUnarchiveProject}>
-            Unarchive
-          </ProjectActionsMenuItem>
-          :
-          <ProjectActionsMenuItem icon={<Archive />} onClick={handleArchiveProject}>
-            Archive
-          </ProjectActionsMenuItem>
-      }
-      {
-        project.lifecycle === 'Upcoming'
-          ?
-          <ProjectActionsMenuItem icon={<HourglassEmpty />} onClick={handleUnsetUpcomingProject}>
-            Unset Upcoming
-          </ProjectActionsMenuItem>
-          :
-          <ProjectActionsMenuItem icon={<HourglassFull />} onClick={handleSetUpcomingProject}>
-            Set Upcoming
-          </ProjectActionsMenuItem>
-      }
+      {project.lifecycle === 'Archived' ? (
+        <ProjectActionsMenuItem icon={<UnarchiveOutlined />} onClick={handleUnarchiveProject}>
+          Unarchive
+        </ProjectActionsMenuItem>
+      ) : (
+        <ProjectActionsMenuItem icon={<Archive />} onClick={handleArchiveProject}>
+          Archive
+        </ProjectActionsMenuItem>
+      )}
+      {project.lifecycle === 'Upcoming' ? (
+        <ProjectActionsMenuItem icon={<HourglassEmpty />} onClick={handleUnsetUpcomingProject}>
+          Unset Upcoming
+        </ProjectActionsMenuItem>
+      ) : (
+        <ProjectActionsMenuItem icon={<HourglassFull />} onClick={handleSetUpcomingProject}>
+          Set Upcoming
+        </ProjectActionsMenuItem>
+      )}
       <ProjectActionsMenuItem
         color={theme.palette.error.light}
         icon={<DeleteOutlined sx={{ color: theme.palette.error.light }} />}
-        onClick={handleDeleteProject}>
+        onClick={handleDeleteProject}
+      >
         Delete Project
       </ProjectActionsMenuItem>
     </Menu>

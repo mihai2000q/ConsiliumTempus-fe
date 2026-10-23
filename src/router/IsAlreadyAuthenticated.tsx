@@ -5,11 +5,7 @@ import useAuth from '../hooks/useAuth.ts'
 function IsAlreadyAuthenticated() {
   const isAuthenticated = useAuth()
 
-  return (
-    isAuthenticated
-      ? <Navigate to={Paths.Home} replace />
-      : <Outlet />
-  )
+  return isAuthenticated ? <Navigate to={Paths.Home} replace /> : <Outlet />
 }
 
 export default IsAlreadyAuthenticated

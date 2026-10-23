@@ -3,15 +3,8 @@ import { useState } from 'react'
 
 export default function useOrderByQueryParam(
   initialOrder: Order | null = null
-): [
-  orderBy: string[],
-  setOrderBy: (orders: Order[] | Order) => void
-] {
-  const [orderBy, setOrderBy] = useState<string[]>(
-    initialOrder
-      ? [createOrder(initialOrder)]
-      : []
-  )
+): [orderBy: string[], setOrderBy: (orders: Order[] | Order) => void] {
+  const [orderBy, setOrderBy] = useState<string[]>(initialOrder ? [createOrder(initialOrder)] : [])
 
   function constructOrderBy(arg: Order[] | Order) {
     if ((arg as Order).property !== undefined) {

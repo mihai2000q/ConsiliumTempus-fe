@@ -5,17 +5,17 @@ import Paths from '../../../../../utils/enums/Paths.ts'
 const topDrawerItems: DrawerItem[] = [
   {
     text: 'Home',
-    icon: (<HomeRounded />),
+    icon: <HomeRounded />,
     link: Paths.Home
   },
   {
     text: 'My Tasks',
-    icon: (<ChecklistRounded />),
+    icon: <ChecklistRounded />,
     link: Paths.Tasks
   },
   {
     text: 'Calendar',
-    icon: (<CalendarMonth />),
+    icon: <CalendarMonth />,
     link: Paths.Calendar
   }
 ]

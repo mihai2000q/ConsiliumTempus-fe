@@ -7,14 +7,15 @@ import CollectionResponse from '../../../types/responses/Collection.response.ts'
 import { GetWorkspacesQueryParameters } from '../types/Workspace.request.ts'
 
 export const projectsApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
-    getWorkspaces: builder.query<CollectionResponse<'workspaces', Workspace>, GetWorkspacesQueryParameters>({
-      query: arg => Urls.Workspaces + createQueryParams(arg),
+  endpoints: (builder) => ({
+    getWorkspaces: builder.query<
+      CollectionResponse<'workspaces', Workspace>,
+      GetWorkspacesQueryParameters
+    >({
+      query: (arg) => Urls.Workspaces + createQueryParams(arg),
       providesTags: [TagTypes.Workspaces]
     })
   })
 })
 
-export const {
-  useGetWorkspacesQuery
-} = projectsApiSlice
+export const { useGetWorkspacesQuery } = projectsApiSlice

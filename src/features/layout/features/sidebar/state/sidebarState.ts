@@ -1,5 +1,5 @@
 export interface AddProjectDialogForm {
-  projectName: string,
+  projectName: string
   workspaceId: string | undefined
 }
 

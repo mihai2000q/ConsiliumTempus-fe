@@ -18,29 +18,25 @@ import { useGetStatusesFromProjectQuery } from './state/projectStatusesDialogApi
 import dayjs from 'dayjs'
 
 function ProjectStatusesDialog() {
-  const {
-    open,
-    statusIdSelected
-  } = useSelector((state: RootState) => state.project.projectStatusesDialog)
+  const { open, statusIdSelected } = useSelector(
+    (state: RootState) => state.project.projectStatusesDialog
+  )
   const projectId = useSelector((state: RootState) => state.project.projectId)
   const projectName = useSelector((state: RootState) => state.project.projectName)
 
   const dispatch = useDispatch<AppDispatch>()
 
-  const { data } = useGetStatusesFromProjectQuery(
-    { id: projectId },
-    { skip: projectId === '' }
-  )
+  const { data } = useGetStatusesFromProjectQuery({ id: projectId }, { skip: projectId === '' })
   const statuses = data?.statuses
 
-  const [projectStatusSelected, setProjectStatusSelected] = useState<ProjectStatus | undefined>(undefined)
+  const [projectStatusSelected, setProjectStatusSelected] = useState<ProjectStatus | undefined>(
+    undefined
+  )
   useEffect(() => {
     if (statusIdSelected) {
-      const st = statuses?.filter(s => s.id === statusIdSelected)[0]
-      if (st)
-        setProjectStatusSelected(st)
-      else
-        setProjectStatusSelected(statuses && statuses[0])
+      const st = statuses?.filter((s) => s.id === statusIdSelected)[0]
+      if (st) setProjectStatusSelected(st)
+      else setProjectStatusSelected(statuses && statuses[0])
     } else {
       setProjectStatusSelected(statuses && statuses[0])
     }
@@ -60,16 +56,13 @@ function ProjectStatusesDialog() {
   }
 
   return (
-    <Dialog
-      open={open}
-      onClose={handleClose}
-      fullWidth
-      maxWidth={'lg'}>
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth={'lg'}>
       <Stack
         sx={{
           height: 720,
           overflowY: 'hidden'
-        }}>
+        }}
+      >
         <Stack
           direction={'row'}
           spacing={2}
@@ -77,32 +70,46 @@ function ProjectStatusesDialog() {
             alignItems: 'center',
             px: 3,
             py: 2
-          }}>
-          <Stack sx={{
-            flexGrow: 1
-          }}>
-            <Stack direction={'row'} spacing={0.5} sx={{
-              alignItems: 'center'
-            }}>
+          }}
+        >
+          <Stack
+            sx={{
+              flexGrow: 1
+            }}
+          >
+            <Stack
+              direction={'row'}
+              spacing={0.5}
+              sx={{
+                alignItems: 'center'
+              }}
+            >
               <Typography
                 variant={'h5'}
                 sx={{
                   fontSize: 20,
                   fontWeight: 500
-                }}>Statuses of</Typography>
+                }}
+              >
+                Statuses of
+              </Typography>
               <Typography
                 variant={'h5'}
                 sx={{
                   fontSize: 20,
                   fontWeight: 600
-                }}>{projectName}</Typography>
+                }}
+              >
+                {projectName}
+              </Typography>
             </Stack>
             <Typography
               variant={'subtitle2'}
               sx={{
                 fontWeight: 400,
                 color: 'text.secondary'
-              }}>
+              }}
+            >
               {data.totalCount} status update{data.totalCount > 1 ? 's' : ''}
             </Typography>
           </Stack>
@@ -113,7 +120,8 @@ function ProjectStatusesDialog() {
           <ProjectStatusMenu
             anchorEl={menuAnchorEl}
             onClose={() => setMenuAnchorEl(null)}
-            latestStatus={null} />
+            latestStatus={null}
+          />
 
           <IconButton variant={'circular'} onClick={handleClose}>
             <Close />
@@ -126,20 +134,26 @@ function ProjectStatusesDialog() {
           sx={{
             flexGrow: 1,
             overflowY: 'hidden'
-          }}>
+          }}
+        >
           <Stack
             sx={{
               minWidth: 280,
               overflowY: 'auto'
-            }}>
+            }}
+          >
             {statuses?.map((status) => (
               <div key={status.id}>
                 <VerticalLargeRadioButton
                   isSelected={status.id === projectStatusSelected.id}
-                  onClick={() => handleStatusClick(status)}>
-                  <Stack spacing={0.5} sx={{
-                    alignItems: "start"
-                  }}>
+                  onClick={() => handleStatusClick(status)}
+                >
+                  <Stack
+                    spacing={0.5}
+                    sx={{
+                      alignItems: 'start'
+                    }}
+                  >
                     <Stack
                       direction={'row'}
                       spacing={1}
@@ -147,14 +161,18 @@ function ProjectStatusesDialog() {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                         width: 240
-                      }}>
+                      }}
+                    >
                       <Typography
                         variant={'body1'}
                         noWrap
                         sx={{
                           fontWeight: 400,
                           fontSize: 16
-                        }}>{status.title}</Typography>
+                        }}
+                      >
+                        {status.title}
+                      </Typography>
                       <Typography>{dayjs(status.createdDateTime).format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <ProjectStatusLabel status={status.status} />
@@ -166,20 +184,29 @@ function ProjectStatusesDialog() {
           </Stack>
           <Divider orientation={'vertical'} />
 
-          <Stack sx={{
-            flexGrow: 1
-          }}>
-            <Divider color={projectStatusToColor.get(projectStatusSelected.status) ?? 'white'} sx={{ height: 8 }} />
+          <Stack
+            sx={{
+              flexGrow: 1
+            }}
+          >
+            <Divider
+              color={projectStatusToColor.get(projectStatusSelected.status) ?? 'white'}
+              sx={{ height: 8 }}
+            />
             <Stack
               spacing={2}
               sx={{
                 flexGrow: 1,
                 py: 3,
                 px: 2
-              }}>
-              <Stack direction={'row'} sx={{
-                justifyContent: 'space-between'
-              }}>
+              }}
+            >
+              <Stack
+                direction={'row'}
+                sx={{
+                  justifyContent: 'space-between'
+                }}
+              >
                 <Typography variant={'h5'}>{projectStatusSelected.title}</Typography>
 
                 <Stack direction={'row'}>
@@ -189,13 +216,18 @@ function ProjectStatusesDialog() {
                   <ProjectStatusActionsMenu
                     anchorEl={actionsMenuAnchorEl}
                     onClose={() => setActionsMenuAnchorEl(null)}
-                    projectStatus={projectStatusSelected} />
+                    projectStatus={projectStatusSelected}
+                  />
                 </Stack>
               </Stack>
 
-              <Grid container rowSpacing={1} sx={{
-                width: 500
-              }}>
+              <Grid
+                container
+                rowSpacing={1}
+                sx={{
+                  width: 500
+                }}
+              >
                 <FormGridItem label={'Status'} labelSize={2}>
                   <ProjectStatusLabel status={projectStatusSelected.status} />
                 </FormGridItem>
@@ -207,13 +239,18 @@ function ProjectStatusesDialog() {
                     sx={{
                       color: 'text.secondary',
                       mx: 0.75
-                    }}>on</Typography>
+                    }}
+                  >
+                    on
+                  </Typography>
                   <Typography variant={'body2'}>
                     {dayjs(projectStatusSelected.createdDateTime).format('DD MMMM YYYY')}
                   </Typography>
                 </FormGridItem>
 
-                {!dayjs(projectStatusSelected.createdDateTime).isSame(projectStatusSelected.updatedDateTime) && (
+                {!dayjs(projectStatusSelected.createdDateTime).isSame(
+                  projectStatusSelected.updatedDateTime
+                ) && (
                   <FormGridItem label={'Updated By'} labelSize={2}>
                     <UserLabel user={{ ...projectStatusSelected.updatedBy }} />
                     <Typography
@@ -221,7 +258,10 @@ function ProjectStatusesDialog() {
                       sx={{
                         color: 'text.secondary',
                         mx: 0.75
-                      }}>on</Typography>
+                      }}
+                    >
+                      on
+                    </Typography>
                     <Typography variant={'body2'}>
                       {dayjs(projectStatusSelected.updatedDateTime).format('DD MMMM YYYY')}
                     </Typography>
@@ -230,12 +270,15 @@ function ProjectStatusesDialog() {
               </Grid>
 
               <Stack>
-                <Typography variant={'h6'} sx={{
-                  mb: 0.5
-                }}>Description</Typography>
-                <Typography>
-                  {projectStatusSelected.description}
+                <Typography
+                  variant={'h6'}
+                  sx={{
+                    mb: 0.5
+                  }}
+                >
+                  Description
                 </Typography>
+                <Typography>{projectStatusSelected.description}</Typography>
               </Stack>
             </Stack>
           </Stack>

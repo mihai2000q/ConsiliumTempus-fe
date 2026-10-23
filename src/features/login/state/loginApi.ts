@@ -4,9 +4,9 @@ import AuthResponse from '../../../types/responses/Auth.response.ts'
 import LoginRequest from '../types/Login.request.ts'
 
 export const loginApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
+  endpoints: (builder) => ({
     login: builder.mutation<AuthResponse, LoginRequest>({
-      query: body => ({
+      query: (body) => ({
         url: `${Urls.Auth}/login`,
         method: 'POST',
         body: body
@@ -15,6 +15,4 @@ export const loginApiSlice = api.injectEndpoints({
   })
 })
 
-export const {
-  useLoginMutation
-} = loginApiSlice
+export const { useLoginMutation } = loginApiSlice

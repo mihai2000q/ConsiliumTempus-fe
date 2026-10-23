@@ -7,22 +7,14 @@ import LoadingButton from '../../../../../components/button/LoadingButton.tsx'
 import { useSnackbar } from 'notistack'
 
 interface AddWorkspaceDialogProps {
-  open: boolean,
+  open: boolean
   onClose: () => void
 }
 
 function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
   const [addWorkspace, { isLoading }] = useAddWorkspaceMutation()
 
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    resetForm
-  } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: addWorkspaceDialogFormInitialValues,
     validationSchema: addWorkspaceDialogSchema,
     onSubmit: handleSubmitForm
@@ -56,7 +48,8 @@ function AddWorkspaceDialog({ open, onClose }: AddWorkspaceDialogProps) {
               onChange={handleChange}
               onBlur={handleBlur}
               error={touched.workspaceName && !!errors.workspaceName}
-              helperText={touched.workspaceName && errors.workspaceName} />
+              helperText={touched.workspaceName && errors.workspaceName}
+            />
           </Stack>
         </DialogContent>
         <DialogActions>

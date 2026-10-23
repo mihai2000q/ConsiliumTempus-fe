@@ -10,24 +10,24 @@ import useUpdateEffect from '../../../hooks/useUpdateEffect.ts'
 import { default as FilterPropertyType } from '../../../types/FilterProperty.ts'
 
 interface FilterPropertyProps {
-  filterProperties: FilterPropertyType[],
-  operatorsMap: Map<string, FilterOperator[]>,
-  initialFilter: Filter,
-  filters: Filter[],
-  index: number,
-  handleFilter: (index: number, filter: Filter) => void,
+  filterProperties: FilterPropertyType[]
+  operatorsMap: Map<string, FilterOperator[]>
+  initialFilter: Filter
+  filters: Filter[]
+  index: number
+  handleFilter: (index: number, filter: Filter) => void
   handleRemoveFilter: (filter: Filter) => void
 }
 
 function FilterProperty({
-                          filterProperties,
-                          operatorsMap,
-                          initialFilter,
-                          filters,
-                          index,
-                          handleFilter,
-                          handleRemoveFilter
-                        }: FilterPropertyProps) {
+  filterProperties,
+  operatorsMap,
+  initialFilter,
+  filters,
+  index,
+  handleFilter,
+  handleRemoveFilter
+}: FilterPropertyProps) {
   const [property, setProperty] = useState(initialFilter.property)
   const [operator, setOperator] = useState(initialFilter.operator)
   const [value, setValue] = useState(initialFilter.value)
@@ -42,23 +42,21 @@ function FilterProperty({
 
   function setPropertyAndReset(newProperty: string) {
     const currentOperatorsOnProperty = filters
-      .filter(f => f.property === newProperty)
-      .map(f => f.operator)
+      .filter((f) => f.property === newProperty)
+      .map((f) => f.operator)
 
-    const filterProperty = filterProperties.find(d => d.property === newProperty)
+    const filterProperty = filterProperties.find((d) => d.property === newProperty)
     if (!filterProperty) return
 
     const newOperator = currentOperatorsOnProperty.includes(filterProperty.defaultOperator)
-      ? operatorsMap.get(newProperty)?.find(o => !currentOperatorsOnProperty.includes(o))
+      ? operatorsMap.get(newProperty)?.find((o) => !currentOperatorsOnProperty.includes(o))
       : operatorsMap.get(newProperty)?.includes(operator)
         ? operator
         : filterProperty.defaultOperator
 
     if (!newOperator) return
 
-    const newValue = filterProperty.valueType === valueType
-      ? value
-      : filterProperty.defaultValue
+    const newValue = filterProperty.valueType === valueType ? value : filterProperty.defaultValue
 
     setOperator(newOperator)
     setProperty(newProperty)
@@ -66,32 +64,31 @@ function FilterProperty({
     setValueType(filterProperty.valueType)
   }
 
-  const filterOperators = filters.filter(f => f.property === property).map(f => f.operator)
+  const filterOperators = filters.filter((f) => f.property === property).map((f) => f.operator)
 
   return (
-    <Stack direction={'row'} spacing={1} sx={{
-      alignItems: 'center'
-    }}>
+    <Stack
+      direction={'row'}
+      spacing={1}
+      sx={{
+        alignItems: 'center'
+      }}
+    >
       <FilterPropertySelector
         filterProperties={filterProperties}
         filters={filters}
         operatorsMap={operatorsMap}
         property={property}
-        setProperty={setPropertyAndReset} />
+        setProperty={setPropertyAndReset}
+      />
       <FilterOperatorSelector
         filterOperators={filterOperators}
         operator={operator}
         setOperator={setOperator}
-        availableOperators={operatorsMap.get(property) ?? []} />
-      <FilterValueSelector
-        type={valueType}
-        value={value}
-        setValue={setValue} />
-      <Tooltip
-        arrow
-        enterDelay={500}
-        placement={'top'}
-        title={'Remove Filter'}>
+        availableOperators={operatorsMap.get(property) ?? []}
+      />
+      <FilterValueSelector type={valueType} value={value} setValue={setValue} />
+      <Tooltip arrow enterDelay={500} placement={'top'} title={'Remove Filter'}>
         <IconButton variant={'circular'} size={'small'} onClick={handleRemoveCurrentFilter}>
           <Close sx={{ fontSize: 17, m: '1px' }} />
         </IconButton>

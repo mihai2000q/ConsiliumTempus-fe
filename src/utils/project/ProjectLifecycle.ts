@@ -1,7 +1,7 @@
 enum ProjectLifecycle {
   Archived = 'Archived',
   Active = 'Active',
-  Upcoming = 'Upcoming',
+  Upcoming = 'Upcoming'
 }
 
 export default ProjectLifecycle

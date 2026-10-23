@@ -2,7 +2,10 @@ import { Box, IconButton, Stack } from '@mui/material'
 import { CheckCircleOutlineRounded, CheckCircleRounded } from '@mui/icons-material'
 import React, { useEffect, useState } from 'react'
 import ProjectTaskCardActionsMenu from './ProjectTaskCardActionsMenu.tsx'
-import { useUpdateIsCompletedProjectTaskMutation, useUpdateProjectTaskMutation } from '../../state/projectBoardApi.ts'
+import {
+  useUpdateIsCompletedProjectTaskMutation,
+  useUpdateProjectTaskMutation
+} from '../../state/projectBoardApi.ts'
 import AssigneeIconButton from './AssigneeIconButton.tsx'
 import ProjectTask from '../../types/ProjectTask.model.ts'
 import StyledProjectTaskCard from './StyledProjectTaskCard.tsx'
@@ -13,12 +16,12 @@ import EmptyStyledProjectTaskCard from './EmptyStyledProjectTaskCard.tsx'
 import Paragraph from '../../../../../../components/text/Paragraph.tsx'
 
 interface ProjectTaskCardProps {
-  task: ProjectTask,
+  task: ProjectTask
   stageId: string
 }
 
 function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
-  const draggedProjectTask = useAppSelector(state => state.projectBoard.draggedProjectTask)
+  const draggedProjectTask = useAppSelector((state) => state.projectBoard.draggedProjectTask)
 
   const [selected, setSelected] = useState(false)
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
@@ -42,9 +45,7 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
   const [updateProjectTask] = useUpdateProjectTaskMutation()
   const [updateIsCompletedProjectTask] = useUpdateIsCompletedProjectTaskMutation()
 
-  function updateTask({
-                        assigneeId = task.assignee?.id ?? null
-                      }) {
+  function updateTask({ assigneeId = task.assignee?.id ?? null }) {
     updateProjectTask({
       id: task.id,
       name: task.name,
@@ -59,7 +60,8 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
           sx={{
             width: '100%',
             visibility: 'hidden'
-          }}>
+          }}
+        >
           <Paragraph paragraph={false} lines={5}>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
@@ -74,17 +76,21 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
       sx={{
         position: 'relative',
         my: 1
-      }}>
+      }}
+    >
       <StyledProjectTaskCard
         component={'div'}
         nativeButton={false}
         isSelected={selected}
         isCompleted={isCompleted}
         onClick={handleClick}
-        onContextMenu={handleRightClick}>
-        <Stack sx={{
-          width: '100%'
-        }}>
+        onContextMenu={handleRightClick}
+      >
+        <Stack
+          sx={{
+            width: '100%'
+          }}
+        >
           <Paragraph paragraph={false} lines={5}>
             <IconButton hidden={true} sx={{ height: 15 }} />
             {task.name}
@@ -99,10 +105,13 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
         onClick={() => {
           setIsCompleted(!isCompleted)
           updateIsCompletedProjectTask({ id: task.id, isCompleted: !isCompleted })
-        }}>
-        {isCompleted
-          ? <CheckCircleRounded fontSize={'small'} />
-          : <CheckCircleOutlineRounded fontSize={'small'} />}
+        }}
+      >
+        {isCompleted ? (
+          <CheckCircleRounded fontSize={'small'} />
+        ) : (
+          <CheckCircleOutlineRounded fontSize={'small'} />
+        )}
       </StyledCompleteButton>
 
       <Stack
@@ -111,20 +120,23 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
           position: 'absolute',
           bottom: 0,
           margin: '14px 16px'
-        }}>
+        }}
+      >
         <AssigneeIconButton
           isCompleted={isCompleted}
           assignee={task.assignee}
-          setAssigneeId={(newAssigneeId) => updateTask({ assigneeId: newAssigneeId })} />
+          setAssigneeId={(newAssigneeId) => updateTask({ assigneeId: newAssigneeId })}
+        />
       </Stack>
 
-      {task &&
+      {task && (
         <>
           <ProjectTaskCardActionsMenu
             anchorEl={taskMenuAnchorEl}
             onClose={() => setTaskMenuAnchorEl(null)}
             task={task}
-            stageId={stageId} />
+            stageId={stageId}
+          />
 
           <ProjectTaskDrawer
             isDrawerOpen={isDrawerOpen}
@@ -132,8 +144,10 @@ function ProjectTaskCard({ task, stageId }: ProjectTaskCardProps) {
               setIsDrawerOpen(false)
               setSelected(false)
             }}
-            taskId={task.id} />
-        </>}
+            taskId={task.id}
+          />
+        </>
+      )}
     </Box>
   )
 }

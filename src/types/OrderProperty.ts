@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
 export default interface OrderProperty {
-  property: string,
+  property: string
   displayName: string
-  icon?: ReactNode | undefined,
+  icon?: ReactNode | undefined
 }

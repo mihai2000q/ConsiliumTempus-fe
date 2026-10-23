@@ -1,19 +1,19 @@
 import Breadcrumb from '../../types/Breadcrumb.ts'
 
 interface ProjectState {
-  projectId: string,
-  projectName: string,
-  workspaceId: string,
-  sprintId: string,
-  breadcrumbs: Breadcrumb[],
-  projectStatusesDialog: ProjectStatusesDialogState,
-  projectSprintsDialog: ProjectSprintsDialogState,
-  addProjectSprintDialog: AddProjectSprintDialogState,
+  projectId: string
+  projectName: string
+  workspaceId: string
+  sprintId: string
+  breadcrumbs: Breadcrumb[]
+  projectStatusesDialog: ProjectStatusesDialogState
+  projectSprintsDialog: ProjectSprintsDialogState
+  addProjectSprintDialog: AddProjectSprintDialogState
 }
 
 export interface ProjectStatusesDialogState {
-  open: boolean,
-  statusIdSelected: string | undefined,
+  open: boolean
+  statusIdSelected: string | undefined
 }
 
 export interface ProjectSprintsDialogState {

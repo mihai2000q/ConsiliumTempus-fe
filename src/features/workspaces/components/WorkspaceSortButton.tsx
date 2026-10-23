@@ -7,18 +7,16 @@ import SimpleOrderMenu from '../../../components/order/SimpleOrderMenu.tsx'
 import Order from '../../../types/Order.ts'
 
 interface WorkspaceSortButtonProps {
-  initialOrder: Order,
+  initialOrder: Order
   setOrderBy: (order: Order) => void
 }
 
 function WorkspaceSortButton({ initialOrder, setOrderBy }: WorkspaceSortButtonProps) {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
-  const [order, setOrder] = useState<Order>(
-    {
-      ...workspaceOrderProperties.find(op => op.property === initialOrder.property)!,
-      type: initialOrder.type
-    }
-  )
+  const [order, setOrder] = useState<Order>({
+    ...workspaceOrderProperties.find((op) => op.property === initialOrder.property)!,
+    type: initialOrder.type
+  })
 
   return (
     <>
@@ -26,11 +24,14 @@ function WorkspaceSortButton({ initialOrder, setOrderBy }: WorkspaceSortButtonPr
         variant={'outlined'}
         startIcon={<Sort />}
         onClick={(e) => setMenuAnchorEl(e.currentTarget)}
-        sx={{ boxShadow: 4 }}>
+        sx={{ boxShadow: 4 }}
+      >
         {order.displayName}
-        {order.type === OrderType.Descending
-          ? <ArrowDownward sx={{ ml: 0.5 }} />
-          : <ArrowUpward sx={{ ml: 0.5 }} />}
+        {order.type === OrderType.Descending ? (
+          <ArrowDownward sx={{ ml: 0.5 }} />
+        ) : (
+          <ArrowUpward sx={{ ml: 0.5 }} />
+        )}
       </Button>
 
       <SimpleOrderMenu
@@ -39,7 +40,8 @@ function WorkspaceSortButton({ initialOrder, setOrderBy }: WorkspaceSortButtonPr
         initialOrder={initialOrder}
         orderProperties={workspaceOrderProperties}
         setOrderBy={setOrderBy}
-        onOrderChange={setOrder} />
+        onOrderChange={setOrder}
+      />
     </>
   )
 }

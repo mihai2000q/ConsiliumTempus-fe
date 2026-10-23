@@ -3,6 +3,6 @@ export interface GetWorkspaceOverviewRequest {
 }
 
 export interface UpdateWorkspaceOverviewRequest {
-  id: string,
+  id: string
   description: string
 }

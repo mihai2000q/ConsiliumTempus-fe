@@ -25,19 +25,12 @@ function WorkspaceProjects() {
     displayName: ''
   }
   const [orderBy, setOrderByQueryParam] = useOrderByQueryParam(initialOrder)
-  const [lifecycle, setLifecycle] =
-    useState<ProjectLifecycle | null>(ProjectLifecycle.Active)
+  const [lifecycle, setLifecycle] = useState<ProjectLifecycle | null>(ProjectLifecycle.Active)
 
-  const [filterMenuAnchorEl, setFilterMenuAnchorEl] =
-    useState<HTMLElement | null>(null)
-  const [sortMenuAnchorEl, setSortMenuAnchorEl] =
-    useState<HTMLElement | null>(null)
+  const [filterMenuAnchorEl, setFilterMenuAnchorEl] = useState<HTMLElement | null>(null)
+  const [sortMenuAnchorEl, setSortMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const {
-    projects,
-    isFetching,
-    fetchMore
-  } = useProjects(workspaceId, orderBy, lifecycle)
+  const { projects, isFetching, fetchMore } = useProjects(workspaceId, orderBy, lifecycle)
 
   if (!projects) return <WorkspaceProjectsLoader />
 
@@ -49,7 +42,8 @@ function WorkspaceProjects() {
         alignItems: 'center',
         py: 2,
         overflow: 'auto'
-      }}>
+      }}
+    >
       <Card variant={'outlined-panel'} sx={{ width: 720 }}>
         <CardHeader
           title="Projects"
@@ -59,14 +53,16 @@ function WorkspaceProjects() {
                 startIcon={<Sort />}
                 variant={'alt-text'}
                 size={'extra-small'}
-                onClick={(e) => setSortMenuAnchorEl(e.currentTarget)}>
+                onClick={(e) => setSortMenuAnchorEl(e.currentTarget)}
+              >
                 Sort
               </Button>
               <Button
                 startIcon={<FilterList />}
                 variant={'alt-text'}
                 size={'extra-small'}
-                onClick={(e) => setFilterMenuAnchorEl(e.currentTarget)}>
+                onClick={(e) => setFilterMenuAnchorEl(e.currentTarget)}
+              >
                 Filter
               </Button>
             </Stack>
@@ -76,17 +72,25 @@ function WorkspaceProjects() {
         <CardContent>
           <AddWorkspaceProjectCard />
           {projects?.map((project, i) => (
-            <WorkspaceProjectCard key={project.id} project={project} isLast={i === projects.length - 1} />
+            <WorkspaceProjectCard
+              key={project.id}
+              project={project}
+              isLast={i === projects.length - 1}
+            />
           ))}
-          {fetchMore &&
-            <Stack direction={'row'} sx={{
-              alignItems: 'center'
-            }}>
+          {fetchMore && (
+            <Stack
+              direction={'row'}
+              sx={{
+                alignItems: 'center'
+              }}
+            >
               <Button variant={'alt-text'} onClick={fetchMore} sx={{ m: 2 }}>
                 Show more
               </Button>
               {isFetching && <CircularProgress size={21} thickness={7} />}
-            </Stack>}
+            </Stack>
+          )}
         </CardContent>
       </Card>
 
@@ -95,12 +99,14 @@ function WorkspaceProjects() {
         onClose={() => setSortMenuAnchorEl(null)}
         initialOrder={initialOrder}
         orderProperties={projectOrderProperties}
-        setOrderBy={setOrderByQueryParam} />
+        setOrderBy={setOrderByQueryParam}
+      />
       <WorkspaceProjectsFilterMenu
         lifecycle={lifecycle}
         setLifecycle={setLifecycle}
         anchorEl={filterMenuAnchorEl}
-        onClose={() => setFilterMenuAnchorEl(null)} />
+        onClose={() => setFilterMenuAnchorEl(null)}
+      />
     </Stack>
   )
 }

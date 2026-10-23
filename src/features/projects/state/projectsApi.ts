@@ -7,14 +7,14 @@ import Project from '../types/Project.model.ts'
 import CollectionResponse from '../../../types/responses/Collection.response.ts'
 
 export const projectsApiSlice = api.injectEndpoints({
-  endpoints: builder => ({
-    getProjects: builder.query<CollectionResponse<'projects', Project>, GetProjectsQueryParameters>({
-      query: arg => Urls.Projects + createQueryParams(arg),
-      providesTags: [TagTypes.Projects]
-    })
+  endpoints: (builder) => ({
+    getProjects: builder.query<CollectionResponse<'projects', Project>, GetProjectsQueryParameters>(
+      {
+        query: (arg) => Urls.Projects + createQueryParams(arg),
+        providesTags: [TagTypes.Projects]
+      }
+    )
   })
 })
 
-export const {
-  useGetProjectsQuery
-} = projectsApiSlice
+export const { useGetProjectsQuery } = projectsApiSlice

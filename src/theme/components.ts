@@ -1,7 +1,17 @@
-import { alpha, ButtonProps, darken, DrawerProps, lighten, ListItemButtonProps, Theme } from '@mui/material'
+import {
+  alpha,
+  ButtonProps,
+  Components,
+  darken,
+  DrawerProps,
+  lighten,
+  ListItemButtonProps,
+  Theme
+} from '@mui/material'
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from 'react'
+import type {} from '@mui/x-date-pickers/themeAugmentation'
 
-export const components = {
+export const components: Components<Theme> = {
   MuiTextField: {
     styleOverrides: {
       root: {
@@ -17,7 +27,10 @@ export const components = {
           borderRadius: '6px',
           color: theme.palette.background[400],
           '&:hover': {
-            color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.primary.main,
+            color:
+              theme.palette.mode === 'dark'
+                ? theme.palette.background[100]
+                : theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.background[100], 0.1)
           }
         })
@@ -52,8 +65,14 @@ export const components = {
           border: `1px solid ${alpha(theme.palette.background[100], 0.3)}`,
           color: theme.palette.background[300],
           '&:hover': {
-            borderColor: theme.palette.mode === 'dark' ? alpha(theme.palette.background[100], 0.5) : theme.palette.primary.main,
-            color: theme.palette.mode === 'dark' ? theme.palette.background[200] : theme.palette.primary.main,
+            borderColor:
+              theme.palette.mode === 'dark'
+                ? alpha(theme.palette.background[100], 0.5)
+                : theme.palette.primary.main,
+            color:
+              theme.palette.mode === 'dark'
+                ? theme.palette.background[200]
+                : theme.palette.primary.main,
             backgroundColor: alpha(theme.palette.background[100], 0.1)
           }
         })
@@ -69,7 +88,7 @@ export const components = {
       }
     ],
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: ButtonProps, theme: Theme }) => ({
+      root: ({ ownerState, theme }: { ownerState: ButtonProps; theme: Theme }) => ({
         textTransform: 'none',
         '& .MuiButton-startIcon': {
           marginRight: '2px'
@@ -88,22 +107,27 @@ export const components = {
             backgroundColor: alpha(theme.palette.primary[100], 0.1)
           }
         }),
-        ...(ownerState.variant === 'text' && ownerState.size === 'small' && {
-          padding: '6px 8px',
-          borderRadius: '6px',
-          fontSize: '12px',
-          '&:hover': {
-            color: theme.palette.primary[100],
-            backgroundColor: alpha(theme.palette.primary[100], 0.1)
-          },
-          '& .MuiButton-startIcon': {
-            marginRight: '4px'
-          }
-        }),
+        ...(ownerState.variant === 'text' &&
+          ownerState.size === 'small' && {
+            padding: '6px 8px',
+            borderRadius: '6px',
+            fontSize: '12px',
+            '&:hover': {
+              color: theme.palette.primary[100],
+              backgroundColor: alpha(theme.palette.primary[100], 0.1)
+            },
+            '& .MuiButton-startIcon': {
+              marginRight: '4px'
+            }
+          }),
         ...(ownerState.variant === 'contained' && {
-          backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[700] : theme.palette.primary.main,
+          backgroundColor:
+            theme.palette.mode === 'dark' ? theme.palette.primary[700] : theme.palette.primary.main,
           '&:hover': {
-            backgroundColor: theme.palette.mode === 'dark' ? theme.palette.primary[900] : theme.palette.primary[700]
+            backgroundColor:
+              theme.palette.mode === 'dark'
+                ? theme.palette.primary[900]
+                : theme.palette.primary[700]
           }
         })
       })
@@ -167,7 +191,7 @@ export const components = {
       iconPosition: 'start'
     },
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: { selected: true }, theme: Theme }) => ({
+      root: ({ theme }) => ({
         textTransform: 'none',
         borderRadius: '8px 8px 0px 0px',
         padding: '8px 8px 10px 6px',
@@ -176,8 +200,11 @@ export const components = {
           duration: theme.transitions.duration.short
         }),
         '&:hover': {
-          color: ownerState.selected ? theme.palette.primary[200] : theme.palette.primary[50],
+          color: theme.palette.primary[50],
           backgroundColor: alpha(theme.palette.primary[100], 0.1)
+        },
+        '&.Mui-selected:hover': {
+          color: theme.palette.primary[200]
         }
       })
     }
@@ -191,7 +218,7 @@ export const components = {
   },
   MuiListItemButton: {
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: ListItemButtonProps, theme: Theme }) => ({
+      root: ({ ownerState, theme }: { ownerState: ListItemButtonProps; theme: Theme }) => ({
         alignItems: 'center',
         borderRadius: '10px',
         margin: '1px 16px',
@@ -235,7 +262,7 @@ export const components = {
   },
   MuiDrawer: {
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: DrawerProps, theme: Theme }) => ({
+      root: ({ ownerState, theme }: { ownerState: DrawerProps; theme: Theme }) => ({
         ...(ownerState.variant === 'persistent' && {
           flexShrink: 0,
           '& .MuiDrawer-paper': {
@@ -273,11 +300,20 @@ export const components = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }) => ({
         '& .MuiTooltip-arrow': {
-          color: theme.palette.mode === 'dark' ? darken(theme.palette.background[700], 0.35) : theme.palette.primary[600]
+          color:
+            theme.palette.mode === 'dark'
+              ? darken(theme.palette.background[700], 0.35)
+              : theme.palette.primary[600]
         },
         '& .MuiTooltip-tooltip': {
-          backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[700], 0.35) : theme.palette.primary[600],
-          color: theme.palette.mode === 'dark' ? theme.palette.background[100] : theme.palette.background[900]
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? darken(theme.palette.background[700], 0.35)
+              : theme.palette.primary[600],
+          color:
+            theme.palette.mode === 'dark'
+              ? theme.palette.background[100]
+              : theme.palette.background[900]
         }
       })
     }
@@ -286,7 +322,10 @@ export const components = {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }) => ({
         '& .MuiPaper-root': {
-          backgroundColor: theme.palette.mode === 'dark' ? darken(theme.palette.background[900], 0.3) : theme.palette.primary[600]
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? darken(theme.palette.background[900], 0.3)
+              : theme.palette.primary[600]
         }
       })
     }
@@ -296,9 +335,10 @@ export const components = {
       root: ({ theme }: { theme: Theme }) => ({
         '& .MuiDialog-paper': {
           backgroundImage: 'none',
-          backgroundColor: theme.palette.mode === 'dark'
-            ? lighten(theme.palette.background[900], 0.02)
-            : lighten(theme.palette.background[800], 0.02)
+          backgroundColor:
+            theme.palette.mode === 'dark'
+              ? lighten(theme.palette.background[900], 0.02)
+              : lighten(theme.palette.background[800], 0.02)
         }
       })
     }
@@ -306,9 +346,10 @@ export const components = {
   MuiAppBar: {
     styleOverrides: {
       root: ({ theme }: { theme: Theme }) => ({
-        backgroundColor: theme.palette.mode === 'dark'
-          ? darken(theme.palette.background[900], 0.3)
-          : theme.palette.primary[700]
+        backgroundColor:
+          theme.palette.mode === 'dark'
+            ? darken(theme.palette.background[900], 0.3)
+            : theme.palette.primary[700]
       })
     }
   },
@@ -398,13 +439,13 @@ export const components = {
 
 declare module '@mui/material/IconButton' {
   interface IconButtonOwnProps {
-    variant?: 'standard' | 'dashed' | 'circular';
+    variant?: 'standard' | 'dashed' | 'circular'
   }
 }
 
 declare module '@mui/material/Button' {
   interface ButtonPropsVariantOverrides {
-    'alt-outlined': true,
+    'alt-outlined': true
     'alt-text': true
   }
 
@@ -415,12 +456,12 @@ declare module '@mui/material/Button' {
 
 declare module '@mui/material/Typography' {
   interface TypographyOwnProps {
-    onKeyDown?: KeyboardEventHandler<HTMLSpanElement>,
-    onFocus?: FocusEventHandler<HTMLSpanElement>,
-    onBlur?: FocusEventHandler<HTMLSpanElement>,
-    onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>,
-    contentEditable?: boolean,
-    suppressContentEditableWarning?: boolean,
+    onKeyDown?: KeyboardEventHandler<HTMLSpanElement>
+    onFocus?: FocusEventHandler<HTMLSpanElement>
+    onBlur?: FocusEventHandler<HTMLSpanElement>
+    onChange?: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>
+    contentEditable?: boolean
+    suppressContentEditableWarning?: boolean
   }
 }
 

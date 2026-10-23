@@ -1,7 +1,7 @@
 import { styled, Toolbar, ToolbarProps } from '@mui/material'
 
 interface AppToolbarProps extends ToolbarProps {
-  isSidebarOpen: boolean,
+  isSidebarOpen: boolean
   drawerWidth: number
 }
 

@@ -30,36 +30,22 @@ import { useAddStatusToProjectMutation } from '../state/sharedProjectApi.ts'
 import { useSnackbar } from 'notistack'
 
 interface AddProjectStatusDialogProps {
-  open: boolean,
-  onClose: () => void,
+  open: boolean
+  onClose: () => void
   initialStatus?: ProjectStatusType | undefined
 }
 
-function AddProjectStatusDialog({
-                                  open,
-                                  onClose,
-                                  initialStatus
-                                }: AddProjectStatusDialogProps) {
+function AddProjectStatusDialog({ open, onClose, initialStatus }: AddProjectStatusDialogProps) {
   const titlePlaceholder = 'Status Update'
 
   const projectId = useSelector((state: RootState) => state.project.projectId)
   const breadcrumbs = useSelector((state: RootState) => state.project.breadcrumbs)
 
-  const [addStatusToProject, {
-    isLoading
-  }] = useAddStatusToProjectMutation()
+  const [addStatusToProject, { isLoading }] = useAddStatusToProjectMutation()
 
   const [statusType, setStatusType] = useState(ProjectStatusType.OnTrack)
 
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit,
-    resetForm
-  } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit, resetForm } = useFormik({
     initialValues: addProjectStatusDialogFormInitialValues,
     validationSchema: addProjectStatusDialogSchema,
     onSubmit: handleSubmitForm
@@ -83,10 +69,7 @@ function AddProjectStatusDialog({
   }
 
   return (
-    <Dialog
-      fullScreen
-      open={open}
-      onClose={onClose}>
+    <Dialog fullScreen open={open} onClose={onClose}>
       <form onSubmit={handleSubmit}>
         <AppBar position={'relative'}>
           <Toolbar>
@@ -95,7 +78,7 @@ function AddProjectStatusDialog({
             </IconButton>
 
             <Breadcrumbs separator={'›'} sx={{ flexGrow: 1, ml: 2 }}>
-              {breadcrumbs.map(breadcrumb => (
+              {breadcrumbs.map((breadcrumb) => (
                 <Link key={breadcrumb.path} href={breadcrumb.path}>
                   {breadcrumb.name}
                 </Link>
@@ -117,25 +100,35 @@ function AddProjectStatusDialog({
               value={values.projectStatusTitle}
               onChange={handleChange}
               onBlur={handleBlur}
-              sx={{ fontSize: 24 }} />
+              sx={{ fontSize: 24 }}
+            />
 
-            <Grid container rowSpacing={1} sx={{
-              width: 500
-            }}>
+            <Grid
+              container
+              rowSpacing={1}
+              sx={{
+                width: 500
+              }}
+            >
               <FormGridItem label={'Status'} labelSize={3}>
                 <ProjectStatusSelector value={statusType} onChange={setStatusType} />
               </FormGridItem>
             </Grid>
 
-            <Stack sx={{
-              width: '100%'
-            }}>
+            <Stack
+              sx={{
+                width: '100%'
+              }}
+            >
               <Typography
                 variant={'h5'}
                 sx={{
                   mt: 2,
                   mb: 1
-                }}>Description</Typography>
+                }}
+              >
+                Description
+              </Typography>
               <FormControl>
                 <OutlinedInputTextField
                   multiline
@@ -146,9 +139,14 @@ function AddProjectStatusDialog({
                   onChange={handleChange}
                   onBlur={handleBlur}
                   error={touched.projectStatusDescription && !!errors.projectStatusDescription}
-                  sx={{ width: 500 }} />
-                <Collapse in={touched.projectStatusDescription && !!errors.projectStatusDescription}>
-                  <FormHelperText error={touched.projectStatusDescription && !!errors.projectStatusDescription}>
+                  sx={{ width: 500 }}
+                />
+                <Collapse
+                  in={touched.projectStatusDescription && !!errors.projectStatusDescription}
+                >
+                  <FormHelperText
+                    error={touched.projectStatusDescription && !!errors.projectStatusDescription}
+                  >
                     {errors.projectStatusDescription}
                   </FormHelperText>
                 </Collapse>

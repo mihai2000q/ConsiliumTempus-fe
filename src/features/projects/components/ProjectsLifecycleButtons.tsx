@@ -17,8 +17,8 @@ const StyledButtonGroup = styled(Stack)<StackProps>(({ theme }) => ({
 }))
 
 interface StyledButtonProps extends ButtonProps {
-  selected: boolean,
-  active: boolean,
+  selected: boolean
+  active: boolean
 }
 
 const StyledButton = styled(Button, {
@@ -34,8 +34,8 @@ const StyledButton = styled(Button, {
     marginRight: '6px'
   },
   ...(selected
-      ? theme.palette.mode === 'dark'
-        ? {
+    ? theme.palette.mode === 'dark'
+      ? {
           backgroundColor: theme.palette.primary[600],
           color: theme.palette.background[50],
           '&: hover': {
@@ -44,7 +44,7 @@ const StyledButton = styled(Button, {
           },
           padding: '9px 10px'
         }
-        : {
+      : {
           backgroundColor: theme.palette.primary[300],
           color: theme.palette.background[700],
           '&: hover': {
@@ -53,11 +53,10 @@ const StyledButton = styled(Button, {
           },
           padding: '9px 10px'
         }
-      : {}
-  ),
+    : {}),
   ...(!active && selected
-      ? theme.palette.mode === 'dark'
-        ? {
+    ? theme.palette.mode === 'dark'
+      ? {
           backgroundColor: theme.palette.grey[700],
           color: theme.palette.grey[400],
           '&: hover': {
@@ -65,7 +64,7 @@ const StyledButton = styled(Button, {
             color: theme.palette.background[50]
           }
         }
-        : {
+      : {
           backgroundColor: theme.palette.grey[500],
           color: theme.palette.grey[300],
           '&: hover': {
@@ -73,25 +72,24 @@ const StyledButton = styled(Button, {
             color: theme.palette.background[700]
           }
         }
-      : {}
-  )
+    : {})
 }))
 
 interface ProjectsLifecycleButtonsProps {
-  lifecycle: ProjectLifecycle,
-  setLifecycle: Dispatch<SetStateAction<ProjectLifecycle>>,
-  active: boolean,
-  setActive: Dispatch<SetStateAction<boolean>>,
+  lifecycle: ProjectLifecycle
+  setLifecycle: Dispatch<SetStateAction<ProjectLifecycle>>
+  active: boolean
+  setActive: Dispatch<SetStateAction<boolean>>
   addToSearchQueryParam: addToSearchQueryParamType
 }
 
 function ProjectsLifecycleButtons({
-                                    lifecycle,
-                                    setLifecycle,
-                                    active,
-                                    setActive,
-                                    addToSearchQueryParam
-                                  }: ProjectsLifecycleButtonsProps) {
+  lifecycle,
+  setLifecycle,
+  active,
+  setActive,
+  addToSearchQueryParam
+}: ProjectsLifecycleButtonsProps) {
   const handleClick = (newLifecycle: ProjectLifecycle) => {
     if (newLifecycle === lifecycle) {
       setActive(!active)
@@ -115,21 +113,24 @@ function ProjectsLifecycleButtons({
         startIcon={<ArchiveOutlined />}
         selected={lifecycle === ProjectLifecycle.Archived}
         active={active}
-        onClick={() => handleClick(ProjectLifecycle.Archived)}>
+        onClick={() => handleClick(ProjectLifecycle.Archived)}
+      >
         Archived Projects
       </StyledButton>
       <StyledButton
         startIcon={<SkipNextOutlined />}
         selected={lifecycle === ProjectLifecycle.Active}
         active={active}
-        onClick={() => handleClick(ProjectLifecycle.Active)}>
+        onClick={() => handleClick(ProjectLifecycle.Active)}
+      >
         Active Projects
       </StyledButton>
       <StyledButton
         startIcon={<HourglassEmptyOutlined />}
         selected={lifecycle === ProjectLifecycle.Upcoming}
         active={active}
-        onClick={() => handleClick(ProjectLifecycle.Upcoming)}>
+        onClick={() => handleClick(ProjectLifecycle.Upcoming)}
+      >
         Upcoming Projects
       </StyledButton>
     </StyledButtonGroup>

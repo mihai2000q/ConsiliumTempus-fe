@@ -1,4 +1,4 @@
 export default interface Breadcrumb {
-  path: string,
+  path: string
   name: string
 }

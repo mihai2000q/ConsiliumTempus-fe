@@ -1,17 +1,16 @@
 import { useSearchParams } from 'react-router'
 
 export interface SearchParamsState<TState> {
-  initialState: TState,
-  serialize: (state: TState) => URLSearchParams,
+  initialState: TState
+  serialize: (state: TState) => URLSearchParams
   deserialize: (params: URLSearchParams) => TState
 }
 
 export default function useSearchParamsState<TState>({
-                                                       initialState,
-                                                       serialize,
-                                                       deserialize
-                                                     }: SearchParamsState<TState>)
-  : [TState, (state: TState) => void] {
+  initialState,
+  serialize,
+  deserialize
+}: SearchParamsState<TState>): [TState, (state: TState) => void] {
   const [searchParams, setSearchParams] = useSearchParams(serialize(initialState))
 
   const state = deserialize(searchParams)

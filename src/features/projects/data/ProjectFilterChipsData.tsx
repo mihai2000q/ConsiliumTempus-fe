@@ -11,42 +11,50 @@ export const projectFilterChipsData: FilterChipItem[] = [
   {
     icon: <TrendingUp />,
     title: 'On Track',
-    filters: [{
-      property: ProjectsSearchQueryParams.LatestStatus,
-      operator: FilterOperator.Equal,
-      value: ProjectStatusType.OnTrack,
-      valueType: FilterPropertyValueType.ProjectStatusType
-    }]
+    filters: [
+      {
+        property: ProjectsSearchQueryParams.LatestStatus,
+        operator: FilterOperator.Equal,
+        value: ProjectStatusType.OnTrack,
+        valueType: FilterPropertyValueType.ProjectStatusType
+      }
+    ]
   },
   {
     icon: <TrendingDown />,
     title: 'Off Track',
-    filters: [{
-      property: ProjectsSearchQueryParams.LatestStatus,
-      operator: FilterOperator.Equal,
-      value: ProjectStatusType.OffTrack,
-      valueType: FilterPropertyValueType.ProjectStatusType
-    }]
+    filters: [
+      {
+        property: ProjectsSearchQueryParams.LatestStatus,
+        operator: FilterOperator.Equal,
+        value: ProjectStatusType.OffTrack,
+        valueType: FilterPropertyValueType.ProjectStatusType
+      }
+    ]
   },
   {
     icon: <CheckCircleOutlineRounded />,
     title: 'Completed',
-    filters: [{
-      property: ProjectsSearchQueryParams.LatestStatus,
-      operator: FilterOperator.Equal,
-      value: ProjectStatusType.Completed,
-      valueType: FilterPropertyValueType.ProjectStatusType
-    }]
+    filters: [
+      {
+        property: ProjectsSearchQueryParams.LatestStatus,
+        operator: FilterOperator.Equal,
+        value: ProjectStatusType.Completed,
+        valueType: FilterPropertyValueType.ProjectStatusType
+      }
+    ]
   },
   {
     icon: <Lock />,
     title: 'Private',
-    filters: [{
-      property: ProjectsSearchQueryParams.IsPrivate,
-      operator: FilterOperator.Equal,
-      value: true,
-      valueType: FilterPropertyValueType.Boolean
-    }]
+    filters: [
+      {
+        property: ProjectsSearchQueryParams.IsPrivate,
+        operator: FilterOperator.Equal,
+        value: true,
+        valueType: FilterPropertyValueType.Boolean
+      }
+    ]
   },
   {
     icon: <CalendarIcon />,

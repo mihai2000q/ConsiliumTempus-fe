@@ -1,6 +1,20 @@
 import { useParams, useSearchParams } from 'react-router'
-import { useGetProjectQuery, useUpdateFavoritesProjectMutation, useUpdateProjectMutation } from './state/projectApi.ts'
-import { Avatar, Button, Divider, IconButton, Stack, Tab, Tabs, Typography, useTheme } from '@mui/material'
+import {
+  useGetProjectQuery,
+  useUpdateFavoritesProjectMutation,
+  useUpdateProjectMutation
+} from './state/projectApi.ts'
+import {
+  Avatar,
+  Button,
+  Divider,
+  IconButton,
+  Stack,
+  Tab,
+  Tabs,
+  Typography,
+  useTheme
+} from '@mui/material'
 import demoProjectPicture from './../../assets/demo-projects.jpg'
 import {
   AccessTimeRounded,
@@ -36,7 +50,12 @@ import ProjectLoader from './components/ProjectLoader.tsx'
 import ProjectStatusMenu from './shared/components/ProjectStatusMenu.tsx'
 import ProjectStatusLabel from './shared/components/ProjectStatusLabel.tsx'
 import ProjectStatusesDialog from './features/project-statuses-dialog/ProjectStatusesDialog.tsx'
-import { setBreadcrumbs, setProjectId, setProjectName, setWorkspaceId } from '../../state/project/projectSlice.ts'
+import {
+  setBreadcrumbs,
+  setProjectId,
+  setProjectName,
+  setWorkspaceId
+} from '../../state/project/projectSlice.ts'
 import Paths from '../../utils/enums/Paths.ts'
 import AddProjectSprintDialog from './shared/components/AddProjectSprintDialog.tsx'
 import ProjectSprintsDialog from './features/project-sprints-dialog/ProjectSprintsDialog.tsx'
@@ -58,10 +77,7 @@ function Project() {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [statusMenuAnchorEl, setStatusMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const project = useGetProjectQuery(
-    { id: projectId },
-    { skip: projectId === '' }
-  )?.data
+  const project = useGetProjectQuery({ id: projectId }, { skip: projectId === '' })?.data
 
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
   useEffect(() => {
@@ -71,10 +87,12 @@ function Project() {
 
       dispatch(setProjectName(project.name))
       dispatch(setWorkspaceId(project.workspace.id))
-      dispatch(setBreadcrumbs([
-        { path: `${Paths.Workspace}/${project.workspace.id}`, name: project.workspace.name },
-        { path: `${Paths.Project}/${projectId}`, name: project.name }
-      ]))
+      dispatch(
+        setBreadcrumbs([
+          { path: `${Paths.Workspace}/${project.workspace.id}`, name: project.workspace.name },
+          { path: `${Paths.Project}/${projectId}`, name: project.name }
+        ])
+      )
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [project]) // TODO: Referential Equality
@@ -105,25 +123,31 @@ function Project() {
   return (
     <Stack
       sx={{
-        alignItems: "start",
+        alignItems: 'start',
         height: '100%'
-      }}>
-      <Stack direction={'row'} spacing={0.75} sx={{
-        alignItems: 'center'
-      }}>
-        <Stack direction={'row'} sx={{
+      }}
+    >
+      <Stack
+        direction={'row'}
+        spacing={0.75}
+        sx={{
           alignItems: 'center'
-        }}>
-          <Avatar
-            alt={project.name}
-            src={demoProjectPicture}
-            sx={{ borderRadius: 2 }} />
+        }}
+      >
+        <Stack
+          direction={'row'}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
+          <Avatar alt={project.name} src={demoProjectPicture} sx={{ borderRadius: 2 }} />
           <OutlinedContentEditable
             typographyVariant={'h6'}
             maxLength={100}
             value={facadeName}
             handleChange={(n) => setFacadeName(n, true)}
-            sx={{ ml: 1 }} />
+            sx={{ ml: 1 }}
+          />
           <IconButton onClick={(e) => setMenuAnchorEl(e.currentTarget)}>
             <ArrowDropDown />
           </IconButton>
@@ -131,7 +155,8 @@ function Project() {
             anchorEl={menuAnchorEl}
             onClose={() => setMenuAnchorEl(null)}
             projectId={projectId}
-            project={project} />
+            project={project}
+          />
         </Stack>
 
         <IconButton
@@ -142,7 +167,8 @@ function Project() {
           sx={{
             color: theme.palette.primary[100],
             '&:hover': { color: theme.palette.secondary.main }
-          }}>
+          }}
+        >
           {isFavorite ? <Star /> : <StarOutlined />}
         </IconButton>
 
@@ -152,25 +178,30 @@ function Project() {
             color: theme.palette.primary[100],
             justifyContent: 'center',
             borderRadius: 2
-          }}>
-          {project.latestStatus !== null
-            ? (<ProjectStatusLabel status={project.latestStatus.status} />)
-            : (
-              <>
-                <CircleOutlined sx={{ fontSize: '16px' }} />
-                <Typography
-                  sx={{
-                    fontWeight: 500,
-                    ml: '4px',
-                    pt: '2px'
-                  }}>Set Status</Typography>
-              </>
-            )}
+          }}
+        >
+          {project.latestStatus !== null ? (
+            <ProjectStatusLabel status={project.latestStatus.status} />
+          ) : (
+            <>
+              <CircleOutlined sx={{ fontSize: '16px' }} />
+              <Typography
+                sx={{
+                  fontWeight: 500,
+                  ml: '4px',
+                  pt: '2px'
+                }}
+              >
+                Set Status
+              </Typography>
+            </>
+          )}
         </Button>
         <ProjectStatusMenu
           anchorEl={statusMenuAnchorEl}
           onClose={() => setStatusMenuAnchorEl(null)}
-          latestStatus={project.latestStatus} />
+          latestStatus={project.latestStatus}
+        />
 
         <ProjectSprintsSelector projectId={projectId} />
       </Stack>

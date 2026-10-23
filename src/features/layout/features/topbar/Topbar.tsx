@@ -6,23 +6,20 @@ import { AppToolbar } from './components/AppToolbar.tsx'
 import TopbarSearchBar from './components/TopbarSearchBar.tsx'
 
 interface TopbarProps {
-  hidden: boolean,
-  isSidebarOpen: boolean,
-  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>,
+  hidden: boolean
+  isSidebarOpen: boolean
+  setIsSidebarOpen: Dispatch<SetStateAction<boolean>>
   drawerWidth: number
 }
 
 function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: TopbarProps) {
-  if (hidden)
-    return <></>
+  if (hidden) return <></>
 
   function handleMenu() {
     setIsSidebarOpen((prev) => !prev)
   }
 
-  function handleNotifications() {
-
-  }
+  function handleNotifications() {}
 
   return (
     <AppToolbar drawerWidth={drawerWidth} isSidebarOpen={isSidebarOpen}>
@@ -35,7 +32,8 @@ function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: Topbar
         spacing={1}
         sx={{
           alignItems: 'center'
-        }}>
+        }}
+      >
         <TopbarSearchBar />
         <IconButton variant={'circular'} onClick={handleNotifications}>
           <NotificationsOutlined />
@@ -45,6 +43,5 @@ function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: Topbar
     </AppToolbar>
   )
 }
-
 
 export default Topbar

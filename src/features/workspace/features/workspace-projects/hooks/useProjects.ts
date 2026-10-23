@@ -11,8 +11,8 @@ export default function useProjects(
   orderByQueryParam: string[],
   lifecycle: ProjectLifecycle | null
 ): {
-  projects: Project[] | undefined,
-  isFetching: boolean,
+  projects: Project[] | undefined
+  isFetching: boolean
   fetchMore: (() => void) | undefined
 } {
   const pageSize = 7
@@ -60,7 +60,7 @@ export default function useProjects(
         pageSize: pageSize
       },
       true
-    ).then(res => {
+    ).then((res) => {
       setProjects([...(projects ?? []), ...(res.data?.projects ?? [])])
       setTotalCount(res.data?.totalCount ?? 0)
     })

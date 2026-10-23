@@ -5,18 +5,18 @@ import { Filter } from '../../../types/Filter.ts'
 import FilterOperator from '../../../utils/enums/FilterOperator.ts'
 
 interface FiltersActionsMenuItemProps {
-  icon: ReactNode,
-  children: ReactNode,
-  disabled: boolean,
-  onClick?: MouseEventHandler<HTMLLIElement> | undefined,
+  icon: ReactNode
+  children: ReactNode
+  disabled: boolean
+  onClick?: MouseEventHandler<HTMLLIElement> | undefined
 }
 
 const FilterPropertyMenuItem = ({
-                                  onClick,
-                                  icon,
-                                  children,
-                                  disabled
-                                }: FiltersActionsMenuItemProps) => (
+  onClick,
+  icon,
+  children,
+  disabled
+}: FiltersActionsMenuItemProps) => (
   <MenuItem
     disabled={disabled}
     onClick={onClick}
@@ -28,41 +28,46 @@ const FilterPropertyMenuItem = ({
           fontSize: 18
         }
       }
-    }}>
+    }}
+  >
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography sx={{
-      pt: 0.5
-    }}>{children}</Typography>
+    <Typography
+      sx={{
+        pt: 0.5
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface FilterPropertyMenuProps {
-  filters: Filter[],
-  operatorsMap: Map<string, FilterOperator[]>,
-  filterProperties: FilterProperty[],
-  handleFilter: (filter: Filter) => void,
-  menuAnchorEl: HTMLElement | null,
+  filters: Filter[]
+  operatorsMap: Map<string, FilterOperator[]>
+  filterProperties: FilterProperty[]
+  handleFilter: (filter: Filter) => void
+  menuAnchorEl: HTMLElement | null
   onClose: () => void
 }
 
 function FilterPropertyMenu({
-                              filterProperties,
-                              filters,
-                              operatorsMap,
-                              menuAnchorEl,
-                              handleFilter,
-                              onClose
-                            }: FilterPropertyMenuProps) {
+  filterProperties,
+  filters,
+  operatorsMap,
+  menuAnchorEl,
+  handleFilter,
+  onClose
+}: FilterPropertyMenuProps) {
   function handleClick(filterProperty: FilterProperty) {
     const defaultOperator = filters
-      .filter(f => f.property === filterProperty.property)
-      .map(f => f.operator)
-      .find(o => o === filterProperty.defaultOperator)
+      .filter((f) => f.property === filterProperty.property)
+      .map((f) => f.operator)
+      .find((o) => o === filterProperty.defaultOperator)
 
     handleFilter({
       property: filterProperty.property,
       operator: defaultOperator
-        ? operatorsMap.get(filterProperty.property)!.find(o => o !== defaultOperator)!
+        ? operatorsMap.get(filterProperty.property)!.find((o) => o !== defaultOperator)!
         : filterProperty.defaultOperator,
       value: filterProperty.defaultValue,
       valueType: filterProperty.valueType
@@ -71,7 +76,9 @@ function FilterPropertyMenu({
   }
 
   const isDisabled = (property: string) => {
-    return filters.filter(x => x.property === property).length === operatorsMap.get(property)?.length
+    return (
+      filters.filter((x) => x.property === property).length === operatorsMap.get(property)?.length
+    )
   }
 
   return (
@@ -81,7 +88,8 @@ function FilterPropertyMenu({
           key={fp.property}
           disabled={isDisabled(fp.property)}
           icon={fp.icon}
-          onClick={() => handleClick(fp)}>
+          onClick={() => handleClick(fp)}
+        >
           {fp.title}
         </FilterPropertyMenuItem>
       ))}

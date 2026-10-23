@@ -18,7 +18,9 @@ const workspacesSearchParamsSerializer = (state: WorkspacesSearchParamsState) =>
   return params
 }
 
-const workspacesSearchParamsDeserializer = (params: URLSearchParams): WorkspacesSearchParamsState => {
+const workspacesSearchParamsDeserializer = (
+  params: URLSearchParams
+): WorkspacesSearchParamsState => {
   return {
     currentPage: Number(params.get(WorkspacesSearchParams.CurrentPage)) ?? 1
   }

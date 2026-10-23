@@ -7,39 +7,44 @@ import { useDeleteProjectSprintMutation } from '../state/projectSprintsDialogApi
 import { useSnackbar } from 'notistack'
 
 interface ProjectSprintActionsMenuItemProps {
-  children: ReactNode,
-  onClick: MouseEventHandler<HTMLLIElement> | undefined,
-  icon?: ReactNode | undefined,
-  color?: string | undefined,
+  children: ReactNode
+  onClick: MouseEventHandler<HTMLLIElement> | undefined
+  icon?: ReactNode | undefined
+  color?: string | undefined
 }
 
 const ProjectSprintActionsMenuItem = ({
-                                        onClick,
-                                        icon,
-                                        children,
-                                        color
-                                      }: ProjectSprintActionsMenuItemProps) => (
+  onClick,
+  icon,
+  children,
+  color
+}: ProjectSprintActionsMenuItemProps) => (
   <MenuItem onClick={onClick}>
     {icon && <ListItemIcon>{icon}</ListItemIcon>}
-    <Typography color={color} sx={{
-      pt: icon ? 0.5 : 0
-    }}>{children}</Typography>
+    <Typography
+      color={color}
+      sx={{
+        pt: icon ? 0.5 : 0
+      }}
+    >
+      {children}
+    </Typography>
   </MenuItem>
 )
 
 interface ProjectSprintActionsMenuProps {
-  anchorEl: HTMLElement | null,
-  onClose: () => void,
-  sprintId: string,
+  anchorEl: HTMLElement | null
+  onClose: () => void
+  sprintId: string
   projectSprint: ProjectSprint
 }
 
 function ProjectSprintActionsMenu({
-                                    anchorEl,
-                                    onClose,
-                                    sprintId,
-                                    projectSprint
-                                  }: ProjectSprintActionsMenuProps) {
+  anchorEl,
+  onClose,
+  sprintId,
+  projectSprint
+}: ProjectSprintActionsMenuProps) {
   const [isUpdateProjectSprintDialogOpen, setIsUpdateProjectSprintDialogOpen] = useState(false)
   const handleCloseUpdateProjectStatusDialog = () => setIsUpdateProjectSprintDialogOpen(false)
 
@@ -60,17 +65,15 @@ function ProjectSprintActionsMenu({
 
   return (
     <>
-      <Menu
-        open={Boolean(anchorEl)}
-        anchorEl={anchorEl}
-        onClose={onClose}>
+      <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
         <ProjectSprintActionsMenuItem icon={<EditOutlined />} onClick={handleUpdate}>
           Update Sprint
         </ProjectSprintActionsMenuItem>
         <ProjectSprintActionsMenuItem
           color={'error.light'}
           icon={<DeleteOutlined sx={{ color: 'error.light' }} />}
-          onClick={handleDelete}>
+          onClick={handleDelete}
+        >
           Delete Sprint
         </ProjectSprintActionsMenuItem>
       </Menu>
@@ -78,7 +81,8 @@ function ProjectSprintActionsMenu({
         open={isUpdateProjectSprintDialogOpen}
         onClose={handleCloseUpdateProjectStatusDialog}
         sprintId={sprintId}
-        initialProjectSprint={projectSprint} />
+        initialProjectSprint={projectSprint}
+      />
     </>
   )
 }

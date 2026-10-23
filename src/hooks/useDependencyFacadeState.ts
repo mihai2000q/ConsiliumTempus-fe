@@ -2,12 +2,9 @@ import { useState } from 'react'
 import useTimeoutCallback from './useTimeoutCallback.ts'
 import DependencyState from '../types/DependencyState.ts'
 
-export default function useDependencyFacadeState<T>(initialValue: T): [
-  DependencyState<T>,
-  () => void,
-  T,
-  (newValue: T, isUser?: boolean | undefined) => void
-] {
+export default function useDependencyFacadeState<T>(
+  initialValue: T
+): [DependencyState<T>, () => void, T, (newValue: T, isUser?: boolean | undefined) => void] {
   const [state, setState] = useState<DependencyState<T>>({
     value: initialValue,
     isUser: false
@@ -17,10 +14,7 @@ export default function useDependencyFacadeState<T>(initialValue: T): [
     isUser: false
   })
 
-  useTimeoutCallback(
-    () => setState(facadeState),
-    [facadeState]
-  )
+  useTimeoutCallback(() => setState(facadeState), [facadeState])
 
   const refreshIsUserState = () => {
     setState({ value: state.value, isUser: false })

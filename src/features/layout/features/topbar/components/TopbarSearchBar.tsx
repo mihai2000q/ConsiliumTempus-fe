@@ -1,4 +1,14 @@
-import { alpha, Box, BoxProps, darken, InputBase, InputBaseProps, lighten, Stack, styled } from '@mui/material'
+import {
+  alpha,
+  Box,
+  BoxProps,
+  darken,
+  InputBase,
+  InputBaseProps,
+  lighten,
+  Stack,
+  styled
+} from '@mui/material'
 import { useState } from 'react'
 import { Search } from '@mui/icons-material'
 
@@ -12,19 +22,19 @@ const Searchbar = styled(Box, {
   boxShadow:
     theme.palette.mode === 'dark'
       ? '0px 10px 15px -3px rgba(0, 0, 0, 0.1)'
-      :
-      '0px 10px 15px -6px rgba(0,0,0,0.05),' +
-      '-10px 10px 15px -6px rgba(0,0,0,0.05),' +
-      '10px 10px 15px -6px rgba(0,0,0,0.05),' +
-      '10px -3px 15px -6px rgba(0,0,0,0.05),' +
-      '-10px -3px 15px -6px rgba(0,0,0,0.05)',
+      : '0px 10px 15px -6px rgba(0,0,0,0.05),' +
+        '-10px 10px 15px -6px rgba(0,0,0,0.05),' +
+        '10px 10px 15px -6px rgba(0,0,0,0.05),' +
+        '10px -3px 15px -6px rgba(0,0,0,0.05),' +
+        '-10px -3px 15px -6px rgba(0,0,0,0.05)',
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'space-between',
   alignItems: 'center',
-  backgroundColor: theme.palette.mode === 'dark'
-    ? alpha(theme.palette.background[900], 0.8)
-    : lighten(theme.palette.background[900], 0.5),
+  backgroundColor:
+    theme.palette.mode === 'dark'
+      ? alpha(theme.palette.background[900], 0.8)
+      : lighten(theme.palette.background[900], 0.5),
   borderRadius: '16px',
   padding: '4px 8px',
   marginTop: '4px',
@@ -33,34 +43,34 @@ const Searchbar = styled(Box, {
     duration: theme.transitions.duration.standard
   }),
   '&:hover': {
-    backgroundColor: theme.palette.mode === 'dark'
-      ? darken(theme.palette.background[900], 0.15)
-      : lighten(theme.palette.background[900], 1),
+    backgroundColor:
+      theme.palette.mode === 'dark'
+        ? darken(theme.palette.background[900], 0.15)
+        : lighten(theme.palette.background[900], 1),
     borderRadius: '8px',
     boxShadow:
       theme.palette.mode === 'dark'
         ? '0px 5px 10px -3px rgba(0, 0, 0, 0.3)'
-        :
-        '0px 10px 15px -4px rgba(0,0,0,0.08),' +
-        '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
-        '10px 10px 15px -4px rgba(0,0,0,0.08),' +
-        '10px -3px 15px -4px rgba(0,0,0,0.08),' +
-        '-10px -3px 15px -3px rgba(0,0,0,0.08)'
+        : '0px 10px 15px -4px rgba(0,0,0,0.08),' +
+          '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
+          '10px 10px 15px -4px rgba(0,0,0,0.08),' +
+          '10px -3px 15px -4px rgba(0,0,0,0.08),' +
+          '-10px -3px 15px -3px rgba(0,0,0,0.08)'
   },
   ...(isFocused && {
-    backgroundColor: theme.palette.mode === 'dark'
-      ? darken(theme.palette.background[900], 0.15)
-      : lighten(theme.palette.background[900], 1),
+    backgroundColor:
+      theme.palette.mode === 'dark'
+        ? darken(theme.palette.background[900], 0.15)
+        : lighten(theme.palette.background[900], 1),
     borderRadius: '8px',
     boxShadow:
       theme.palette.mode === 'dark'
         ? '0px 5px 10px -3px rgba(0, 0, 0, 0.3)'
-        :
-        '0px 10px 15px -4px rgba(0,0,0,0.08),' +
-        '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
-        '10px 10px 15px -4px rgba(0,0,0,0.08),' +
-        '10px -3px 15px -4px rgba(0,0,0,0.08),' +
-        '-10px -3px 15px -3px rgba(0,0,0,0.08)'
+        : '0px 10px 15px -4px rgba(0,0,0,0.08),' +
+          '-10px 10px 15px -4px rgba(0,0,0,0.08),' +
+          '10px 10px 15px -4px rgba(0,0,0,0.08),' +
+          '10px -3px 15px -4px rgba(0,0,0,0.08),' +
+          '-10px -3px 15px -3px rgba(0,0,0,0.08)'
   })
 }))
 
@@ -75,16 +85,20 @@ function TopbarSearchBar() {
 
   return (
     <Searchbar isFocused={isFocused}>
-      <Stack direction={'row'} sx={{
-        alignItems: 'center'
-      }}>
+      <Stack
+        direction={'row'}
+        sx={{
+          alignItems: 'center'
+        }}
+      >
         <Search />
         <SearchInput
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder="Search"
           value={search}
-          onChange={(e) => setSearch(e.target.value)} />
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </Stack>
     </Searchbar>
   )

@@ -4,29 +4,33 @@ import FilterOperator from '../utils/enums/FilterOperator.ts'
 import { Filter } from '../types/Filter.ts'
 
 interface FilterSearchQueryParam {
-  property: string,
-  operator: FilterOperator,
-  value: SearchQueryParamValue,
+  property: string
+  operator: FilterOperator
+  value: SearchQueryParamValue
 }
 
 export type addToSearchQueryParamType = (filter: FilterSearchQueryParam | Filter) => void
 export type removeFromSearchQueryParamType = (filter: FilterSearchQueryParam | Filter) => void
 
-export default function useSearchQueryParam(initialFilter: FilterSearchQueryParam | null = null): [
+export default function useSearchQueryParam(
+  initialFilter: FilterSearchQueryParam | null = null
+): [
   searchQueryParam: string[],
   addToSearchQueryParam: addToSearchQueryParamType,
   removeFromSearchQueryParam: removeFromSearchQueryParamType
 ] {
-  const propertyOperators = useRef(new Map<string, SearchQueryParamValue>(
+  const propertyOperators = useRef(
+    new Map<string, SearchQueryParamValue>(
+      initialFilter
+        ? [[createKey(initialFilter), initialFilter.value as SearchQueryParamValue]]
+        : []
+    )
+  )
+  const [searchQueryParam, setSearchQueryParam] = useState<string[]>(
     initialFilter
-      ? [[createKey(initialFilter), initialFilter.value as SearchQueryParamValue]]
-      : []
-  ))
-  const [searchQueryParam, setSearchQueryParam] =
-    useState<string[]>(initialFilter
       ? [`${initialFilter.property} ${initialFilter.operator} ${initialFilter.value}`]
       : []
-    )
+  )
 
   function createSearchQueryParam() {
     const newParams: string[] = []

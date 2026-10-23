@@ -3,8 +3,8 @@ import SearchQueryParamValue from './SearchQueryParamValue.ts'
 import FilterPropertyValueType from '../utils/enums/FilterPropertyValueType.ts'
 
 export interface Filter {
-  property: string,
-  operator: FilterOperator,
-  value: SearchQueryParamValue,
+  property: string
+  operator: FilterOperator
+  value: SearchQueryParamValue
   valueType: FilterPropertyValueType
 }

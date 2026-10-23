@@ -1,5 +1,5 @@
 export default interface Collaborator {
-  id: string,
-  name: string,
+  id: string
+  name: string
   email: string
 }

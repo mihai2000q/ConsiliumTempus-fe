@@ -16,27 +16,13 @@ import HttpErrorResponse from '../../types/responses/HttpError.response.ts'
 function Login() {
   const dispatch = useDispatch<AppDispatch>()
 
-  const [
-    login,
-    {
-      error,
-      isError,
-      isLoading
-    }
-  ] = useLoginMutation()
+  const [login, { error, isError, isLoading }] = useLoginMutation()
   const loginError = (error as HttpErrorResponse | undefined)?.data
 
   const navigate = useNavigate()
   const location = useLocation()
 
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleChange,
-    handleSubmit
-  } = useFormik({
+  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: loginFormInitialValues,
     validationSchema: validationSchema,
     onSubmit: handleSubmitForm
@@ -50,7 +36,8 @@ function Login() {
       dispatch(setToken(res.token))
       dispatch(setRefreshToken(res.refreshToken))
       navigate(location.state?.from?.pathname ?? Paths.Home)
-    } catch { /* empty */
+    } catch {
+      /* empty */
     }
   }
 
@@ -62,7 +49,8 @@ function Login() {
         alignItems: 'center',
         width: '100%',
         height: '100%'
-      }}>
+      }}
+    >
       <Paper>
         <Stack direction={'row'}>
           <Stack
@@ -70,33 +58,44 @@ function Login() {
               gap: 3,
               mx: 8,
               my: 4
-            }}>
+            }}
+          >
             <Stack
               direction={'row'}
               sx={{
                 alignItems: 'center',
                 pb: 4
-              }}>
+              }}
+            >
               <img src={demoLogo} alt={'logo'} width={50} />
               <Typography
                 sx={{
                   fontWeight: 700,
                   ml: 1,
                   fontSize: 18
-                }}>Some Logo</Typography>
+                }}
+              >
+                Some Logo
+              </Typography>
             </Stack>
 
-            <Stack sx={{
-              gap: 2
-            }}>
-              <Typography variant={'h5'}>Login to <strong>Consilium Tempus</strong></Typography>
+            <Stack
+              sx={{
+                gap: 2
+              }}
+            >
+              <Typography variant={'h5'}>
+                Login to <strong>Consilium Tempus</strong>
+              </Typography>
               <Typography variant={'body2'}>lorem lorem lorem lorem lorem lorem</Typography>
             </Stack>
 
             <form onSubmit={handleSubmit}>
-              <Stack sx={{
-                gap: 2
-              }}>
+              <Stack
+                sx={{
+                  gap: 2
+                }}
+              >
                 <TextField
                   value={values.email}
                   onChange={handleChange}
@@ -105,56 +104,75 @@ function Login() {
                   name={'email'}
                   label={'Email'}
                   placeholder={'Enter your email'}
-                  error={touched.email && !!errors.email || isError}
-                  helperText={touched.email && errors.email || isError && loginError?.title}
+                  error={(touched.email && !!errors.email) || isError}
+                  helperText={(touched.email && errors.email) || (isError && loginError?.title)}
                   slotProps={{
                     htmlInput: { maxLength: 256 }
-                  }} />
+                  }}
+                />
 
                 <PasswordTextField
                   value={values.password}
                   onChange={handleChange}
                   maxLength={100}
                   onBlur={handleBlur}
-                  error={touched.password && !!errors.password || isError}
-                  helperText={touched.password && errors.password || isError && loginError?.title} />
+                  error={(touched.password && !!errors.password) || isError}
+                  helperText={
+                    (touched.password && errors.password) || (isError && loginError?.title)
+                  }
+                />
 
                 <Stack
                   direction={'row'}
                   sx={{
                     justifyContent: 'space-between',
                     alignItems: 'center'
-                  }}>
-                  <Stack direction={'row'} sx={{
-                    alignItems: 'center'
-                  }}>
+                  }}
+                >
+                  <Stack
+                    direction={'row'}
+                    sx={{
+                      alignItems: 'center'
+                    }}
+                  >
                     <Checkbox value={values.rememberMe} onChange={handleChange} />
                     <Typography variant={'subtitle1'}>Remember me</Typography>
                   </Stack>
-                  <Typography variant={'body2'} sx={{
-                    fontWeight: 600
-                  }}>Forgot Password?</Typography>
+                  <Typography
+                    variant={'body2'}
+                    sx={{
+                      fontWeight: 600
+                    }}
+                  >
+                    Forgot Password?
+                  </Typography>
                 </Stack>
 
-                <Button
-                  variant={'contained'}
-                  type={'submit'}
-                  disabled={isLoading}>
+                <Button variant={'contained'} type={'submit'} disabled={isLoading}>
                   Login
                 </Button>
               </Stack>
             </form>
 
-            <Stack direction={'row'} sx={{
-              justifyContent: 'center'
-            }}>
+            <Stack
+              direction={'row'}
+              sx={{
+                justifyContent: 'center'
+              }}
+            >
               <Stack direction={'row'}>
-                <Typography sx={{
-                  mr: 1
-                }}>Not a member yet?</Typography>
-                <Typography sx={{
-                  fontWeight: 600
-                }}>
+                <Typography
+                  sx={{
+                    mr: 1
+                  }}
+                >
+                  Not a member yet?
+                </Typography>
+                <Typography
+                  sx={{
+                    fontWeight: 600
+                  }}
+                >
                   <Link to={Paths.Signup} style={{ color: 'white', textDecoration: 'none' }}>
                     Join Us
                   </Link>

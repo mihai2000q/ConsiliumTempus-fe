@@ -2,20 +2,18 @@ import { Dialog, Divider, Skeleton, Stack } from '@mui/material'
 import ProjectSprintLoader from './ProjectSprintLoader.tsx'
 
 interface ProjectSprintsDialogLoaderProps {
-  open: boolean,
+  open: boolean
   onClose: () => void
 }
 
 function ProjectSprintsDialogLoader({ open, onClose }: ProjectSprintsDialogLoaderProps) {
   return (
-    <Dialog
-      fullWidth
-      open={open}
-      onClose={onClose}
-      maxWidth={'lg'}>
-      <Stack sx={{
-        height: 720
-      }}>
+    <Dialog fullWidth open={open} onClose={onClose} maxWidth={'lg'}>
+      <Stack
+        sx={{
+          height: 720
+        }}
+      >
         <Stack
           direction={'row'}
           spacing={2}
@@ -23,10 +21,13 @@ function ProjectSprintsDialogLoader({ open, onClose }: ProjectSprintsDialogLoade
             alignItems: 'center',
             px: 3,
             py: 2
-          }}>
-          <Stack sx={{
-            flexGrow: 1
-          }}>
+          }}
+        >
+          <Stack
+            sx={{
+              flexGrow: 1
+            }}
+          >
             <Skeleton width={250} height={40} />
           </Stack>
           <Skeleton variant={'rectangular'} width={140} height={30} />
@@ -38,10 +39,13 @@ function ProjectSprintsDialogLoader({ open, onClose }: ProjectSprintsDialogLoade
           sx={{
             height: '100%',
             overflowY: 'hidden'
-          }}>
-          <Stack sx={{
-            width: 280
-          }}>
+          }}
+        >
+          <Stack
+            sx={{
+              width: 280
+            }}
+          >
             {Array.from(Array(7)).map((_, i) => (
               <div key={i}>
                 <Skeleton variant={'rectangular'} height={100} />

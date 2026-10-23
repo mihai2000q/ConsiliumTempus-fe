@@ -45,14 +45,20 @@ function AddWorkspaceProjectCard() {
           alignItems: 'center',
           pl: 3.3,
           py: 1.4
-        }}>
-        <DashedBorder><Add /></DashedBorder>
+        }}
+      >
+        <DashedBorder>
+          <Add />
+        </DashedBorder>
         <Typography
           variant={'h6'}
           sx={{
             fontWeight: 400,
             fontSize: 15
-          }}>New Project</Typography>
+          }}
+        >
+          New Project
+        </Typography>
       </Stack>
       <Divider variant={'middle'} />
     </StyledAddWorkspaceProjectCard>

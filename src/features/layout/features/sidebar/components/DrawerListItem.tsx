@@ -21,9 +21,14 @@ function DrawerListItem({ drawerItem }: DrawerListItemProps) {
       <ListItemButton selected={isSelected} onClick={handleClick}>
         <ListItemIcon>{drawerItem.icon}</ListItemIcon>
         <ListItemText>
-          <Typography noWrap sx={{
-            fontWeight: 600
-          }}>{drawerItem.text}</Typography>
+          <Typography
+            noWrap
+            sx={{
+              fontWeight: 600
+            }}
+          >
+            {drawerItem.text}
+          </Typography>
         </ListItemText>
       </ListItemButton>
     </ListItem>

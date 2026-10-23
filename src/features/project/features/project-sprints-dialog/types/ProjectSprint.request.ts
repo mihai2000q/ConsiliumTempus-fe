@@ -7,9 +7,9 @@ export interface GetProjectSprintsRequest {
 }
 
 export interface UpdateProjectSprintRequest {
-  id: string,
-  name: string,
-  startDate: string | undefined,
+  id: string
+  name: string
+  startDate: string | undefined
   endDate: string | undefined
 }
 

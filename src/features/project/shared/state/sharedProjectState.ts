@@ -1,9 +1,9 @@
 export interface AddProjectSprintDialogForm {
-  projectSprintName: string,
-  keepPreviousStages: boolean,
-  isProjectStatusAccordionOpen: boolean,
-  projectStatusTitle: string,
-  projectStatusDescription: string,
+  projectSprintName: string
+  keepPreviousStages: boolean
+  isProjectStatusAccordionOpen: boolean
+  projectStatusTitle: string
+  projectStatusDescription: string
 }
 
 export const addProjectSprintDialogInitialValues: AddProjectSprintDialogForm = {
@@ -15,7 +15,7 @@ export const addProjectSprintDialogInitialValues: AddProjectSprintDialogForm = {
 }
 
 export interface AddProjectStatusDialogForm {
-  projectStatusTitle: string,
+  projectStatusTitle: string
   projectStatusDescription: string
 }
 

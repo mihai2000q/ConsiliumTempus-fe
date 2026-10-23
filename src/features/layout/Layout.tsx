@@ -23,23 +23,25 @@ function Layout() {
         display: 'flex',
         width: '100%',
         height: '100%'
-      }}>
-      <Sidebar
-        width={drawerWidth}
-        hidden={isLayoutHidden}
-        open={isSidebarOpen} />
-      <Stack sx={{
-        width: '100%'
-      }}>
+      }}
+    >
+      <Sidebar width={drawerWidth} hidden={isLayoutHidden} open={isSidebarOpen} />
+      <Stack
+        sx={{
+          width: '100%'
+        }}
+      >
         <Topbar
           drawerWidth={drawerWidth}
           hidden={isLayoutHidden}
           isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen} />
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
         <Main
           isSidebarOpen={isSidebarOpen}
           isLayoutHidden={isLayoutHidden}
-          drawerWidth={drawerWidth}>
+          drawerWidth={drawerWidth}
+        >
           <Outlet />
         </Main>
       </Stack>
