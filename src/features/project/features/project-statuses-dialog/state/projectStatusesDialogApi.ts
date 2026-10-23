@@ -2,7 +2,8 @@ import { api } from '../../../../../state/api.ts'
 import Urls from '../../../../../utils/enums/Urls.ts'
 import TagTypes from '../../../../../utils/enums/TagTypes.ts'
 import HttpMessageResponse from '../../../../../types/responses/HttpMessage.response.ts'
-import { GetProjectStatusesResponse } from '../types/ProjectStatus.response.ts'
+import ProjectStatus from '../types/ProjectStatus.model.ts'
+import CollectionResponse from '../../../../../types/responses/Collection.response.ts'
 import {
   GetStatusesFromProjectRequest,
   RemoveStatusFromProjectRequest,
@@ -11,7 +12,7 @@ import {
 
 export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getStatusesFromProject: builder.query<GetProjectStatusesResponse, GetStatusesFromProjectRequest>({
+    getStatusesFromProject: builder.query<CollectionResponse<'statuses', ProjectStatus>, GetStatusesFromProjectRequest>({
       query: arg => `${Urls.Projects}/${arg.id}/statuses`,
       providesTags: [TagTypes.ProjectStatuses]
     }),
