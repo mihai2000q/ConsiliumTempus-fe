@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router'
 import { useGetProjectTaskQuery } from './state/projectTaskApi.ts'
 import { Stack, Typography } from '@mui/material'
 import ProjectTaskParams from './utils/ProjectTaskParams.ts'

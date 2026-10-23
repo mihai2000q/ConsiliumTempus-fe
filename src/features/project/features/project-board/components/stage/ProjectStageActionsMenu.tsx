@@ -23,7 +23,9 @@ const ProjectStageActionsMenuItem = ({
                                      }: ProjectStageActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography pt={0.5} color={color}>{children}</Typography>
+    <Typography color={color} sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 
@@ -50,6 +52,7 @@ function ProjectStageActionsMenu({ anchorEl, onClose, stageId }: ProjectStageAct
   enum Placement { Left = 'left', Right = 'right' }
 
   const handleAddNewStage = (placement: Placement) => {
+    // eslint-disable-next-line no-console
     console.log(placement)
     onClose()
   }

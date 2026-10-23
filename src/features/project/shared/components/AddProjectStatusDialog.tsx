@@ -119,14 +119,23 @@ function AddProjectStatusDialog({
               onBlur={handleBlur}
               sx={{ fontSize: 24 }} />
 
-            <Grid container rowSpacing={1} width={500}>
+            <Grid container rowSpacing={1} sx={{
+              width: 500
+            }}>
               <FormGridItem label={'Status'} labelSize={3}>
                 <ProjectStatusSelector value={statusType} onChange={setStatusType} />
               </FormGridItem>
             </Grid>
 
-            <Stack width={'100%'}>
-              <Typography variant={'h5'} mt={2} mb={1}>Description</Typography>
+            <Stack sx={{
+              width: '100%'
+            }}>
+              <Typography
+                variant={'h5'}
+                sx={{
+                  mt: 2,
+                  mb: 1
+                }}>Description</Typography>
               <FormControl>
                 <OutlinedInputTextField
                   multiline

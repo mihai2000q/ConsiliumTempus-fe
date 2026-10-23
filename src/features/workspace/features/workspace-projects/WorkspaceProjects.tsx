@@ -42,7 +42,14 @@ function WorkspaceProjects() {
   if (!projects) return <WorkspaceProjectsLoader />
 
   return (
-    <Stack width={'100%'} height={'100%'} alignItems={'center'} py={2} overflow={'auto'}>
+    <Stack
+      sx={{
+        width: '100%',
+        height: '100%',
+        alignItems: 'center',
+        py: 2,
+        overflow: 'auto'
+      }}>
       <Card variant={'outlined-panel'} sx={{ width: 720 }}>
         <CardHeader
           title="Projects"
@@ -72,7 +79,9 @@ function WorkspaceProjects() {
             <WorkspaceProjectCard key={project.id} project={project} isLast={i === projects.length - 1} />
           ))}
           {fetchMore &&
-            <Stack direction={'row'} alignItems={'center'}>
+            <Stack direction={'row'} sx={{
+              alignItems: 'center'
+            }}>
               <Button variant={'alt-text'} onClick={fetchMore} sx={{ m: 2 }}>
                 Show more
               </Button>

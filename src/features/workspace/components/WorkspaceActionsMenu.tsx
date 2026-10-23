@@ -1,7 +1,7 @@
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
 import { CreateNewFolder, DeleteOutlined, Edit, ManageAccounts } from '@mui/icons-material'
 import Paths from '../../../utils/enums/Paths.ts'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { MouseEventHandler, ReactNode } from 'react'
 import { useDeleteWorkspaceMutation } from '../state/workspaceApi.ts'
 import { useSnackbar } from 'notistack'
@@ -17,7 +17,9 @@ interface ProjectActionsMenuItemProps {
 const WorkspaceActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography pt={0.5} color={color}>{children}</Typography>
+    <Typography color={color} sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 

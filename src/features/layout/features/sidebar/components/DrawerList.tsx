@@ -15,7 +15,7 @@ import {
 } from '@mui/material'
 import DrawerItem from '../types/DrawerItem.ts'
 import DrawerListItem from './DrawerListItem.tsx'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 import React, { ReactElement, ReactNode, useState } from 'react'
 import { ArrowDropDownRounded } from '@mui/icons-material'
 import DrawerListLoader from './DrawerListLoader.tsx'
@@ -95,22 +95,42 @@ function DrawerList({
                       onContextMenu={handleSubheaderRightClick}
                       selected={location.pathname === subheaderDestination}
                       onClick={handleSubheaderClick}>
-                      <Typography fontWeight={500}>{subheader}</Typography>
+                      <Typography sx={{
+                        fontWeight: 500
+                      }}>{subheader}</Typography>
                     </StyledListItemButton>
                     {menu && menu(menuAnchorEl, () => setMenuAnchorEl(null))}
 
-                    <Box position={'absolute'} bottom={0} top={'-5px'} left={'5px'}>
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        bottom: 0,
+                        top: '-5px',
+                        left: '5px'
+                      }}>
                       <CollapseButton isCollapsed={hideItems} onClick={() => setHideItems(!hideItems)}>
                         <ArrowDropDownRounded />
                       </CollapseButton>
                     </Box>
 
-                    <Box display={'flex'} position={'absolute'} bottom={'13%'} right={'0'} pr={'8px'}>
+                    <Box
+                      sx={{
+                        display: 'flex',
+                        position: 'absolute',
+                        bottom: '13%',
+                        right: '0',
+                        pr: '8px'
+                      }}>
                       {subheaderAction}
                     </Box>
                   </Box>
                 )
-                : <Typography fontWeight={500} px={1.6} py={1}>{subheader}</Typography>
+                : <Typography
+                sx={{
+                  fontWeight: 500,
+                  px: 1.6,
+                  py: 1
+                }}>{subheader}</Typography>
             }
           </ListSubheader>
         )
@@ -120,7 +140,12 @@ function DrawerList({
           ? (
             drawerItems.length === 0
               ?
-              <Typography ml={5} my={1} variant={'body2'}>
+              <Typography
+                variant={'body2'}
+                sx={{
+                  ml: 5,
+                  my: 1
+                }}>
                 No {subheader ?? 'data'}
               </Typography>
               : <Collapse in={!hideItems} unmountOnExit>
@@ -128,7 +153,13 @@ function DrawerList({
                   <DrawerListItem key={item.link} drawerItem={item} />
                 )}
                 {fetchMore &&
-                  <Stack direction={'row'} alignItems={'center'} spacing={1} ml={2}>
+                  <Stack
+                    direction={'row'}
+                    spacing={1}
+                    sx={{
+                      alignItems: 'center',
+                      ml: 2
+                    }}>
                     <Button
                       variant={'alt-text'}
                       size={'small'}

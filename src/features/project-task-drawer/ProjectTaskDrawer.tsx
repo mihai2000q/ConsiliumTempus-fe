@@ -22,7 +22,7 @@ import useUpdateEffect from '../../hooks/useUpdateEffect.ts'
 import useDependencyFacadeState from '../../hooks/useDependencyFacadeState.ts'
 import { isNoneUserDependencyState } from '../../types/DependencyState.ts'
 import OutlinedInputTextField from '../../components/textfield/OutlinedInputTextField.tsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import ProjectTaskDrawerLoader from './components/ProjectTaskDrawerLoader.tsx'
 import FormGridItem from '../../components/form/FormGridItem.tsx'
 import AssigneeButton from './components/AssigneeButton.tsx'
@@ -143,8 +143,17 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
         !task
           ? <ProjectTaskDrawerLoader />
           : (
-            <Stack mt={1}>
-              <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} mx={2} mb={1}>
+            <Stack sx={{
+              mt: 1
+            }}>
+              <Stack
+                direction={'row'}
+                sx={{
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  mx: 2,
+                  mb: 1
+                }}>
                 <CompletedButton
                   variant={'alt-outlined'}
                   size={'small'}
@@ -179,7 +188,9 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
               </Stack>
               <Divider sx={{ mb: 1 }} />
 
-              <Stack mx={2} spacing={0.5}>
+              <Stack spacing={0.5} sx={{
+                mx: 2
+              }}>
                 <OutlinedInputTextField
                   fullWidth
                   multiline
@@ -207,7 +218,12 @@ function ProjectTaskDrawer({ isDrawerOpen, onClose, taskId }: ProjectTaskDrawerP
                   </FormGridItem>
                 </Grid>
 
-                <Stack spacing={1} pt={1.5} alignItems={'start'}>
+                <Stack
+                  spacing={1}
+                  sx={{
+                    pt: 1.5,
+                    alignItems: 'start'
+                  }}>
                   <RichTooltip title={'Description'} description={'Write a few things about the task.'}>
                     <Typography>Description</Typography>
                   </RichTooltip>

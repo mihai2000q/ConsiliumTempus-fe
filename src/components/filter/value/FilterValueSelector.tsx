@@ -71,7 +71,7 @@ function PastDateSelector({ value, setValue }: ValueSelectorProps) {
       value={value}
       onChange={(e) => setValue(e)}
       sx={{
-        '& .MuiInputBase-input': {
+        '& .MuiPickersInputBase-sectionsContainer': {
           paddingY: '8.5px',
           width: 76
         },

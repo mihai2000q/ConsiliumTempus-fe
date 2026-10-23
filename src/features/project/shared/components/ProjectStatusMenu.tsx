@@ -58,15 +58,26 @@ function ProjectStatusMenu({
           <Stack>
             <Divider color={projectStatusToColor.get(latestStatus.status) ?? 'white'} sx={{ height: 10 }} />
             <MenuItem onClick={handleLatestStatusClick}>
-              <Stack maxWidth={200}>
-                <Typography variant={'subtitle1'} color={'text.secondary'} fontWeight={600}>View latest
+              <Stack sx={{
+                maxWidth: 200
+              }}>
+                <Typography
+                  variant={'subtitle1'}
+                  sx={{
+                    color: 'text.secondary',
+                    fontWeight: 600
+                  }}>View latest
                                                                                             update</Typography>
                 <Typography variant={'h6'} noWrap>{latestStatus.title}</Typography>
                 <Stack direction={'row'} spacing={0.5}>
-                  <Typography variant={'body2'} color={'text.triadic'} noWrap>
+                  <Typography variant={'body2'} noWrap sx={{
+                    color: 'text.triadic'
+                  }}>
                     {latestStatus.createdBy.name} -
                   </Typography>
-                  <Typography variant={'body2'} color={'text.triadic'}>
+                  <Typography variant={'body2'} sx={{
+                    color: 'text.triadic'
+                  }}>
                     {latestStatus.createdDateTime.format('DD/MM/YYYY')}
                   </Typography>
                 </Stack>

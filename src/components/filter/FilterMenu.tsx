@@ -89,17 +89,40 @@ function FilterMenu({
 
   return (
     <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
-      <Stack pt={2} pb={1} px={3} width={550}>
-        <Stack direction={'row'} justifyContent={'space-between'} alignItems={'center'}>
-          <Typography fontSize={16}>Filters</Typography>
+      <Stack
+        sx={{
+          pt: 2,
+          pb: 1,
+          px: 3,
+          width: 550
+        }}>
+        <Stack
+          direction={'row'}
+          sx={{
+            justifyContent: 'space-between',
+            alignItems: 'center'
+          }}>
+          <Typography sx={{
+            fontSize: 16
+          }}>Filters</Typography>
           <Button variant={'alt-text'} size={'small'} disabled={filters.length === 0} onClick={handleClear}>
             Clear
           </Button>
         </Stack>
 
-        <Stack spacing={1} my={3}>
-          <Typography color={'text.secondary'}>Quick Filters</Typography>
-          <Stack flexWrap={'wrap'} direction={'row'} alignItems={'center'} gap={1}>
+        <Stack spacing={1} sx={{
+          my: 3
+        }}>
+          <Typography sx={{
+            color: 'text.secondary'
+          }}>Quick Filters</Typography>
+          <Stack
+            direction={'row'}
+            sx={{
+              flexWrap: 'wrap',
+              alignItems: 'center',
+              gap: 1
+            }}>
             {filterChips.map((chip) => (
               <FilterChip
                 {...chip}
@@ -112,8 +135,12 @@ function FilterMenu({
         </Stack>
 
         <Collapse in={filters.length > 0} unmountOnExit>
-          <Stack spacing={1} mb={3}>
-            <Typography color={'text.secondary'}>All Filters</Typography>
+          <Stack spacing={1} sx={{
+            mb: 3
+          }}>
+            <Typography sx={{
+              color: 'text.secondary'
+            }}>All Filters</Typography>
             <Stack spacing={1}>
               {filters.map((filter, index) => (
                 <Collapse key={JSON.stringify(filter)} in={true} unmountOnExit>

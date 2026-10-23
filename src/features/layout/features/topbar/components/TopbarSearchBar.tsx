@@ -75,7 +75,9 @@ function TopbarSearchBar() {
 
   return (
     <Searchbar isFocused={isFocused}>
-      <Stack direction={'row'} alignItems={'center'}>
+      <Stack direction={'row'} sx={{
+        alignItems: 'center'
+      }}>
         <Search />
         <SearchInput
           onFocus={() => setIsFocused(true)}

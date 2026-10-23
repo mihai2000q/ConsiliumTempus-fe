@@ -2,7 +2,7 @@ import { MouseEventHandler, ReactNode } from 'react'
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
 import { CheckCircleOutlineRounded, ContentCopy, DeleteOutlined, LinkOutlined, Visibility } from '@mui/icons-material'
 import { useDeleteProjectTaskMutation, useUpdateIsCompletedProjectTaskMutation } from '../../state/projectBoardApi.ts'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import Paths from '../../../../../../utils/enums/Paths.ts'
 import ProjectTask from '../../types/ProjectTask.model.ts'
 import { useSnackbar } from 'notistack'
@@ -24,7 +24,9 @@ const ProjectTaskActionsMenuItem = ({
                                     }: ProjectTaskActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography pt={0.5} color={color}>{children}</Typography>
+    <Typography color={color} sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 

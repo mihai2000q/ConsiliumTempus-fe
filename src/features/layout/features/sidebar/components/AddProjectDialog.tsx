@@ -38,6 +38,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
     handleBlur,
     handleChange,
     handleSubmit,
+    setFieldValue,
     resetForm
   } = useFormik({
     initialValues: addProjectDialogFormInitialValues,
@@ -46,8 +47,9 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
   })
 
   useEffect(() => {
-    if (values.workspaceId === undefined) values.workspaceId = workspaces && workspaces[0].id
-  }, [values, workspaces])
+    if (values.workspaceId === undefined && workspaces)
+      setFieldValue('workspaceId', workspaces[0].id).then()
+  }, [values.workspaceId, workspaces, setFieldValue])
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -63,7 +65,7 @@ function AddProjectDialog({ workspaces, open, onClose }: AddProjectDialogProps) 
 
   return (
     <Dialog onClose={onClose} open={open} fullWidth>
-      <DialogTitle variant={'h4'} mt={1} fontWeight={600}>
+      <DialogTitle variant={'h4'} sx={{ mt: 1, fontWeight: 600 }}>
         Add Project
       </DialogTitle>
       <form onSubmit={handleSubmit}>

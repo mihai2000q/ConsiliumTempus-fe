@@ -33,7 +33,13 @@ function ProjectOverview() {
   if (!projectOverview) return <></>
 
   return (
-    <Stack alignItems="start" mt={4} ml={2} spacing={1}>
+    <Stack
+      spacing={1}
+      sx={{
+        alignItems: "start",
+        mt: 4,
+        ml: 2
+      }}>
       <Typography variant={'h6'}>Description</Typography>
       <TextField
         placeholder={'Enter a description'}

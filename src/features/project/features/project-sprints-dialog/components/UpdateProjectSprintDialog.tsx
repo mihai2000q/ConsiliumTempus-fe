@@ -130,7 +130,9 @@ function UpdateProjectSprintDialog({
               </Collapse>
             </FormControl>
 
-            <Grid container rowSpacing={1} width={500}>
+            <Grid container rowSpacing={1} sx={{
+              width: 500
+            }}>
               <FormGridItem label={'Start Date'} justifyContent={'center'}>
                 <DatePicker
                   format={'DD/MM/YYYY'}

@@ -69,7 +69,9 @@ function FilterProperty({
   const filterOperators = filters.filter(f => f.property === property).map(f => f.operator)
 
   return (
-    <Stack direction={'row'} spacing={1} alignItems={'center'}>
+    <Stack direction={'row'} spacing={1} sx={{
+      alignItems: 'center'
+    }}>
       <FilterPropertySelector
         filterProperties={filterProperties}
         filters={filters}

@@ -32,7 +32,9 @@ const TopbarUserMenuItem = ({
     onClick={onClick}
     sx={{ '& .MuiListItemIcon-root': { minWidth: 0 } }}>
     <ListItemIcon sx={{ mr: 1 }}>{icon}</ListItemIcon>
-    <Typography pt={0.5}>{children}</Typography>
+    <Typography sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 
@@ -66,8 +68,18 @@ const MultipleAccountMenuItem = ({
           filter: selected ? 'saturate(1)' : 'saturate(25%)'
         }} />
     </ListItemIcon>
-    <Stack direction={'row'} width={'100%'} justifyContent={'space-between'} alignItems={'center'}>
-      <Typography pt={0.5} fontWeight={500}>{children}</Typography>
+    <Stack
+      direction={'row'}
+      sx={{
+        width: '100%',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+      }}>
+      <Typography
+        sx={{
+          pt: 0.5,
+          fontWeight: 500
+        }}>{children}</Typography>
       {selected && <Check sx={{ mb: '1px' }} />}
     </Stack>
   </MenuItem>
@@ -114,9 +126,20 @@ function TopbarUserMenu({ anchorEl, onClose, user }: TopbarUserMenuProps) {
       open={Boolean(anchorEl)}
       onClose={onClose}>
       <Stack direction={'row'}>
-        <Stack justifyContent={'space-between'} width={230} sx={{ overflowY: 'auto' }}>
+        <Stack
+          sx={{
+            justifyContent: 'space-between',
+            width: 230,
+            overflowY: 'auto'
+          }}>
           <Stack>
-            <Typography variant={'h6'} fontSize={18} px={1.5} py={1}>Accounts</Typography>
+            <Typography
+              variant={'h6'}
+              sx={{
+                fontSize: 18,
+                px: 1.5,
+                py: 1
+              }}>Accounts</Typography>
             <MultipleAccountMenuItem selected={true} onClick={handleMultipleAccount}>
               {user.email}
             </MultipleAccountMenuItem>
@@ -136,28 +159,41 @@ function TopbarUserMenu({ anchorEl, onClose, user }: TopbarUserMenuProps) {
         <Divider orientation={'vertical'} flexItem />
 
         <Stack>
-          <Stack alignItems={'center'} mt={1} mb={2}>
+          <Stack
+            sx={{
+              alignItems: 'center',
+              mt: 1,
+              mb: 2
+            }}>
             <Avatar alt={'User Profile Picture'} src={demoUserPic} sx={{ width: 60, height: 60, mb: 1 }} />
             <Typography
               variant={'h6'}
-              fontWeight={'bold'}
-              noWrap>
+              noWrap
+              sx={{
+                fontWeight: 'bold'
+              }}>
               {user.firstName} {user.lastName}
             </Typography>
             <Typography
               variant={'body2'}
-              fontWeight={isDarkMode ? 'light' : 400}
-              noWrap>
+              noWrap
+              sx={{
+                fontWeight: isDarkMode ? 'light' : 400
+              }}>
               {user.email}
             </Typography>
           </Stack>
 
-          <Box position={'relative'}>
+          <Box sx={{
+            position: 'relative'
+          }}>
             <MenuItem
               onClick={handleDarkModeToggle}
               sx={{ '& .MuiListItemIcon-root': { minWidth: 0 } }}>
               <ListItemIcon sx={{ mr: 1 }}><DarkModeRounded /></ListItemIcon>
-              <Typography pt={0.5}>Dark Mode</Typography>
+              <Typography sx={{
+                pt: 0.5
+              }}>Dark Mode</Typography>
             </MenuItem>
             <Switch
               checked={isDarkMode}

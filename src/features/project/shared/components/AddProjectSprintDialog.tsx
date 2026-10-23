@@ -147,7 +147,9 @@ function AddProjectSprintDialog() {
               </Collapse>
             </FormControl>
 
-            <Grid container rowSpacing={1} width={500}>
+            <Grid container rowSpacing={1} sx={{
+              width: 500
+            }}>
               <FormGridItem label={'Start Date'} justifyContent={'center'}>
                 <DatePicker
                   format={'DD/MM/YYYY'}
@@ -200,7 +202,9 @@ function AddProjectSprintDialog() {
                 Add Status (optional)
               </AccordionSummary>
               <AccordionDetails>
-                <Stack mb={1} spacing={2}>
+                <Stack spacing={2} sx={{
+                  mb: 1
+                }}>
                   <FormControl>
                     <InputBase
                       fullWidth
@@ -212,13 +216,19 @@ function AddProjectSprintDialog() {
                       sx={{ fontSize: 16 }} />
                   </FormControl>
 
-                  <Stack direction={'row'} alignItems={'center'} spacing={10}>
+                  <Stack direction={'row'} spacing={10} sx={{
+                    alignItems: 'center'
+                  }}>
                     <Typography>Status</Typography>
                     <ProjectStatusSelector value={projectStatus} onChange={setProjectStatus} />
                   </Stack>
 
-                  <Stack width={'100%'}>
-                    <Typography variant={'h6'} mb={1}>Description</Typography>
+                  <Stack sx={{
+                    width: '100%'
+                  }}>
+                    <Typography variant={'h6'} sx={{
+                      mb: 1
+                    }}>Description</Typography>
                     <FormControl>
                       <OutlinedInputTextField
                         multiline

@@ -1,6 +1,6 @@
 import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography } from '@mui/material'
 import Paragraph from '../../../components/text/Paragraph.tsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import Paths from '../../../utils/enums/Paths.ts'
 import Workspace from '../types/Workspace.model.ts'
 
@@ -33,7 +33,9 @@ function WorkspaceCard({ workspace }: WorkspaceCardProps) {
 
   return (
     <StyledWorkspaceCard onClick={handleClick}>
-      <Box position="relative">
+      <Box sx={{
+        position: "relative"
+      }}>
         <CardMedia
           image={'src/assets/demo-workspace-pic.jpg'}
           title={workspace.name}
@@ -42,7 +44,9 @@ function WorkspaceCard({ workspace }: WorkspaceCardProps) {
 
       <CardContent>
         <Stack direction={'row'}>
-          <Typography variant={'h5'} flexGrow={1} noWrap>{workspace.name}</Typography>
+          <Typography variant={'h5'} noWrap sx={{
+            flexGrow: 1
+          }}>{workspace.name}</Typography>
         </Stack>
         <Paragraph
           variant={'subtitle1'}

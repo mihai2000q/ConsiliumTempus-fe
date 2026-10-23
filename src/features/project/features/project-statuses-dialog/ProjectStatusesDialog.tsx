@@ -1,4 +1,4 @@
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import { Button, Dialog, Divider, IconButton, Stack, Typography } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../../state/store.ts'
@@ -66,14 +66,44 @@ function ProjectStatusesDialog() {
       onClose={handleClose}
       fullWidth
       maxWidth={'lg'}>
-      <Stack height={720} sx={{ overflowY: 'hidden' }}>
-        <Stack direction={'row'} alignItems={'center'} px={3} py={2} spacing={2}>
-          <Stack flexGrow={1}>
-            <Stack direction={'row'} alignItems={'center'} spacing={0.5}>
-              <Typography variant={'h5'} fontSize={20} fontWeight={500}>Statuses of</Typography>
-              <Typography variant={'h5'} fontSize={20} fontWeight={600}>{projectName}</Typography>
+      <Stack
+        sx={{
+          height: 720,
+          overflowY: 'hidden'
+        }}>
+        <Stack
+          direction={'row'}
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+            px: 3,
+            py: 2
+          }}>
+          <Stack sx={{
+            flexGrow: 1
+          }}>
+            <Stack direction={'row'} spacing={0.5} sx={{
+              alignItems: 'center'
+            }}>
+              <Typography
+                variant={'h5'}
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 500
+                }}>Statuses of</Typography>
+              <Typography
+                variant={'h5'}
+                sx={{
+                  fontSize: 20,
+                  fontWeight: 600
+                }}>{projectName}</Typography>
             </Stack>
-            <Typography variant={'subtitle2'} fontWeight={400} color={'text.secondary'}>
+            <Typography
+              variant={'subtitle2'}
+              sx={{
+                fontWeight: 400,
+                color: 'text.secondary'
+              }}>
               {data.totalCount} status update{data.totalCount > 1 ? 's' : ''}
             </Typography>
           </Stack>
@@ -92,21 +122,40 @@ function ProjectStatusesDialog() {
         </Stack>
         <Divider />
 
-        <Stack direction={'row'} flexGrow={1} sx={{ overflowY: 'hidden' }}>
-          <Stack minWidth={280} sx={{ overflowY: 'auto' }}>
+        <Stack
+          direction={'row'}
+          sx={{
+            flexGrow: 1,
+            overflowY: 'hidden'
+          }}>
+          <Stack
+            sx={{
+              minWidth: 280,
+              overflowY: 'auto'
+            }}>
             {statuses?.map((status) => (
               <div key={status.id}>
                 <VerticalLargeRadioButton
                   isSelected={status.id === projectStatusSelected.id}
                   onClick={() => handleStatusClick(status)}>
-                  <Stack alignItems="start" spacing={0.5}>
+                  <Stack spacing={0.5} sx={{
+                    alignItems: "start"
+                  }}>
                     <Stack
                       direction={'row'}
-                      justifyContent={'space-between'}
-                      alignItems={'center'}
                       spacing={1}
-                      width={240}>
-                      <Typography variant={'body1'} fontWeight={400} fontSize={16} noWrap>{status.title}</Typography>
+                      sx={{
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        width: 240
+                      }}>
+                      <Typography
+                        variant={'body1'}
+                        noWrap
+                        sx={{
+                          fontWeight: 400,
+                          fontSize: 16
+                        }}>{status.title}</Typography>
                       <Typography>{status.createdDateTime.format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <ProjectStatusLabel status={status.status} />
@@ -118,10 +167,20 @@ function ProjectStatusesDialog() {
           </Stack>
           <Divider orientation={'vertical'} />
 
-          <Stack flexGrow={1}>
+          <Stack sx={{
+            flexGrow: 1
+          }}>
             <Divider color={projectStatusToColor.get(projectStatusSelected.status) ?? 'white'} sx={{ height: 8 }} />
-            <Stack flexGrow={1} py={3} px={2} spacing={2}>
-              <Stack direction={'row'} justifyContent={'space-between'}>
+            <Stack
+              spacing={2}
+              sx={{
+                flexGrow: 1,
+                py: 3,
+                px: 2
+              }}>
+              <Stack direction={'row'} sx={{
+                justifyContent: 'space-between'
+              }}>
                 <Typography variant={'h5'}>{projectStatusSelected.title}</Typography>
 
                 <Stack direction={'row'}>
@@ -135,14 +194,21 @@ function ProjectStatusesDialog() {
                 </Stack>
               </Stack>
 
-              <Grid container rowSpacing={1} width={500}>
+              <Grid container rowSpacing={1} sx={{
+                width: 500
+              }}>
                 <FormGridItem label={'Status'} labelSize={2}>
                   <ProjectStatusLabel status={projectStatusSelected.status} />
                 </FormGridItem>
 
                 <FormGridItem label={'Publisher'} labelSize={2}>
                   <UserLabel user={{ ...projectStatusSelected.createdBy }} />
-                  <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
+                  <Typography
+                    variant={'caption'}
+                    sx={{
+                      color: 'text.secondary',
+                      mx: 0.75
+                    }}>on</Typography>
                   <Typography variant={'body2'}>
                     {projectStatusSelected.createdDateTime.format('DD MMMM YYYY')}
                   </Typography>
@@ -151,7 +217,12 @@ function ProjectStatusesDialog() {
                 {!projectStatusSelected.createdDateTime.isSame(projectStatusSelected.updatedDateTime) && (
                   <FormGridItem label={'Updated By'} labelSize={2}>
                     <UserLabel user={{ ...projectStatusSelected.updatedBy }} />
-                    <Typography variant={'caption'} color={'text.secondary'} mx={0.75}>on</Typography>
+                    <Typography
+                      variant={'caption'}
+                      sx={{
+                        color: 'text.secondary',
+                        mx: 0.75
+                      }}>on</Typography>
                     <Typography variant={'body2'}>
                       {projectStatusSelected.updatedDateTime.format('DD MMMM YYYY')}
                     </Typography>
@@ -160,7 +231,9 @@ function ProjectStatusesDialog() {
               </Grid>
 
               <Stack>
-                <Typography variant={'h6'} mb={0.5}>Description</Typography>
+                <Typography variant={'h6'} sx={{
+                  mb: 0.5
+                }}>Description</Typography>
                 <Typography>
                   {projectStatusSelected.description}
                 </Typography>

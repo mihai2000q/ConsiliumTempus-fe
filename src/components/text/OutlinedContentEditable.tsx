@@ -1,8 +1,8 @@
 import { alpha, Box, BoxProps, styled, SxProps, Theme, Typography } from '@mui/material'
 import { useEffect, useRef, useState } from 'react'
 import { OverridableStringUnion } from '@mui/types'
-import { Variant } from '@mui/material/styles/createTypography'
-import { TypographyPropsVariantOverrides } from '@mui/material/Typography/Typography'
+import { TypographyVariant } from '@mui/material/styles'
+import { TypographyPropsVariantOverrides } from '@mui/material/Typography'
 
 interface OutlinedBorderProps extends BoxProps {
   isFocused: boolean
@@ -29,7 +29,7 @@ const OutlinedBorder = styled(Box, {
 interface OutlinedInputTextFieldProps {
   value: string,
   handleChange: (change: string) => void,
-  typographyVariant?: OverridableStringUnion<Variant | 'inherit', TypographyPropsVariantOverrides>,
+  typographyVariant?: OverridableStringUnion<TypographyVariant | 'inherit', TypographyPropsVariantOverrides>,
   sx?: SxProps<Theme> | undefined,
   noWrap?: boolean | undefined,
   maxLength?: number | undefined,

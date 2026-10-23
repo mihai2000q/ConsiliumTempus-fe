@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { useAppDispatch, useAppSelector } from '../state/store.ts'
 import { useEffect } from 'react'
 import { setErrorPath } from '../state/global/globalSlice.ts'

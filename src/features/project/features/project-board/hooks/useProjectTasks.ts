@@ -55,7 +55,7 @@ export default function useProjectTasks(
       },
       true
     ).then(res => {
-      setTasks([...tasks ?? [], ...res.data?.tasks ?? []])
+      setTasks([...(tasks ?? []), ...(res.data?.tasks ?? [])])
       setTotalCount(res.data?.totalCount ?? 0)
     })
   }

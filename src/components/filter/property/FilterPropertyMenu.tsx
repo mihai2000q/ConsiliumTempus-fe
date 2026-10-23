@@ -30,7 +30,9 @@ const FilterPropertyMenuItem = ({
       }
     }}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography pt={0.5}>{children}</Typography>
+    <Typography sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 

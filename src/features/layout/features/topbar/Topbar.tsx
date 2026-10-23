@@ -31,9 +31,11 @@ function Topbar({ hidden, isSidebarOpen, setIsSidebarOpen, drawerWidth }: Topbar
       </IconButton>
 
       <Stack
-        alignItems={'center'}
         direction={'row'}
-        spacing={1}>
+        spacing={1}
+        sx={{
+          alignItems: 'center'
+        }}>
         <TopbarSearchBar />
         <IconButton variant={'circular'} onClick={handleNotifications}>
           <NotificationsOutlined />

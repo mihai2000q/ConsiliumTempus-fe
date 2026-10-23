@@ -1,7 +1,7 @@
 import Project from '../types/Project.model.ts'
 import { alpha, Box, BoxProps, CardContent, CardMedia, Stack, styled, Typography } from '@mui/material'
 import Paragraph from '../../../components/text/Paragraph.tsx'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import Paths from '../../../utils/enums/Paths.ts'
 import useProjectStatusHeader from '../hooks/useProjectStatusHeader.ts'
 
@@ -51,13 +51,22 @@ function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <StyledProjectCard onClick={handleClick}>
-      <Box position="relative">
+      <Box sx={{
+        position: "relative"
+      }}>
         <CardMedia
           image={'src/assets/demo-projects.jpg'}
           title={project.name}
           sx={{ height: 200, borderRadius: '6px 6px 0px 0px' }} />
         <ProjectStatusHeader headerColor={projectStatusHeaderColor}>
-          <Typography align={'center'} padding={1} fontWeight={500} variant={'subtitle1'} color={'white'}>
+          <Typography
+            align={'center'}
+            variant={'subtitle1'}
+            color={'white'}
+            sx={{
+              padding: 1,
+              fontWeight: 500
+            }}>
             {projectStatusHeader}
           </Typography>
         </ProjectStatusHeader>
@@ -65,7 +74,9 @@ function ProjectCard({ project }: ProjectCardProps) {
 
       <CardContent>
         <Stack direction={'row'}>
-          <Typography variant={'h5'} flexGrow={1} noWrap>{project.name}</Typography>
+          <Typography variant={'h5'} noWrap sx={{
+            flexGrow: 1
+          }}>{project.name}</Typography>
         </Stack>
         <Paragraph
           variant={'subtitle1'}

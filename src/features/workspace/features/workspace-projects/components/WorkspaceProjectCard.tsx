@@ -13,11 +13,11 @@ import {
   Typography,
   useTheme
 } from '@mui/material'
-import { Link as ReactRouterLink } from 'react-router-dom'
+import { Link as ReactRouterLink } from 'react-router'
 import demoProjectPic from './../../../../../assets/demo-projects.jpg'
 import demoUserPic from './../../../../../assets/demo-user-pic.jpg'
 import Paths from '../../../../../utils/enums/Paths.ts'
-import { Lock, MoreHoriz, Star, StarOutline } from '@mui/icons-material'
+import { Lock, MoreHoriz, Star, StarOutlined } from '@mui/icons-material'
 import UserPopper from '../../../../../components/popper/UserPopper.tsx'
 import { useState } from 'react'
 import WorkspaceProjectActionsMenu from './WorkspaceProjectActionsMenu.tsx'
@@ -101,22 +101,39 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
       isHovering={isHovering}
       onMouseEnter={() => setIsHovering(true)}
       onMouseLeave={() => setIsHovering(false)}>
-      <Stack direction="row" alignItems={'center'} spacing={2} py={1} px={3}>
-        <Stack direction="row" alignItems={'center'} spacing={2} flexGrow={1}>
+      <Stack
+        direction="row"
+        spacing={2}
+        sx={{
+          alignItems: 'center',
+          py: 1,
+          px: 3
+        }}>
+        <Stack
+          direction="row"
+          spacing={2}
+          sx={{
+            alignItems: 'center',
+            flexGrow: 1
+          }}>
           <Link component={ReactRouterLink} to={`${Paths.Project}/${project.id}`}>
             <StyledProjectAvatar src={demoProjectPic} />
           </Link>
           <Stack>
-            <Stack direction={'row'} justifyContent={'end'} spacing={1}>
+            <Stack direction={'row'} spacing={1} sx={{
+              justifyContent: 'end'
+            }}>
               <Link
                 component={ReactRouterLink}
-                ml={0.4}
                 variant={'h6'}
                 noWrap
-                maxWidth={400}
                 underline={'none'}
                 to={`${Paths.Project}/${project.id}`}
-                sx={{ '&:hover': { color: 'inherit' } }}>
+                sx={{
+                  ml: 0.4,
+                  maxWidth: 400,
+                  '&:hover': { color: 'inherit' }
+                }}>
                 {project.name}
               </Link>
 
@@ -135,20 +152,30 @@ function WorkspaceProjectCard({ project, isLast }: WorkspaceProjectCardProps) {
                     width: 25,
                     height: 25
                   }}>
-                  {isFavorite ? <Star fontSize={'inherit'} /> : <StarOutline fontSize={'inherit'} />}
+                  {isFavorite ? <Star fontSize={'inherit'} /> : <StarOutlined fontSize={'inherit'} />}
                 </IconButton>
               </HoverToDisplay>
             </Stack>
             {project.isPrivate &&
-              <Stack direction={'row'} alignItems={'center'} spacing={'2px'} color={'text.secondary'}>
+              <Stack
+                direction={'row'}
+                spacing={'2px'}
+                sx={{
+                  alignItems: 'center',
+                  color: 'text.secondary'
+                }}>
                 <Lock color={'inherit'} />
-                <Typography pt={0.5}>Private</Typography>
+                <Typography sx={{
+                  pt: 0.5
+                }}>Private</Typography>
               </Stack>}
           </Stack>
         </Stack>
 
         <HoverToDisplay isHovering={isHovering}>
-          <Stack direction={'row'} alignItems={'center'} spacing={2}>
+          <Stack direction={'row'} spacing={2} sx={{
+            alignItems: 'center'
+          }}>
             <UserPopper user={{ ...project.owner }} placement={'top'}>
               <StyledOwnerAvatar src={demoUserPic} />
             </UserPopper>

@@ -215,8 +215,15 @@ function ProjectBoard() {
   if (isLoading) return <ProjectBoardLoader />
 
   return (
-    <Stack alignItems="start" height={'100%'} mt={1}>
-      <Stack direction={'row'} alignItems={'center'} spacing={2}>
+    <Stack
+      sx={{
+        alignItems: "start",
+        height: '100%',
+        mt: 1
+      }}>
+      <Stack direction={'row'} spacing={2} sx={{
+        alignItems: 'center'
+      }}>
         <ButtonGroup variant={'outlined'} size={'small'}>
           <Button
             startIcon={<Add />}
@@ -255,7 +262,9 @@ function ProjectBoard() {
           ))}
         </Menu>
 
-        <Stack direction={'row'} alignItems={'center'} spacing={1}>
+        <Stack direction={'row'} spacing={1} sx={{
+          alignItems: 'center'
+        }}>
           <Button startIcon={<FilterList />} size={'small'}>
             Filter
           </Button>
@@ -271,7 +280,12 @@ function ProjectBoard() {
         </Stack>
       </Stack>
 
-      <Stack direction={'row'} mt={3} height={800}>
+      <Stack
+        direction={'row'}
+        sx={{
+          mt: 3,
+          height: 800
+        }}>
         <Collapse in={showLeftAddStagePanel} orientation={'horizontal'} unmountOnExit>
           <AddProjectStagePanel
             sprintId={sprintId}
@@ -313,9 +327,19 @@ function ProjectBoard() {
           </DragOverlay>}
         </DndContext>
 
-        <Box display={'grid'} ml={'18px'} height={'100%'}>
+        <Box
+          sx={{
+            display: 'grid',
+            ml: '18px',
+            height: '100%'
+          }}>
           <Fade in={showRightAddStagePanel} mountOnEnter unmountOnExit>
-            <Box height={'100%'} gridRow={1} gridColumn={1}>
+            <Box
+              sx={{
+                height: '100%',
+                gridRow: 1,
+                gridColumn: 1
+              }}>
               <AddProjectStagePanel
                 sprintId={sprintId}
                 closeCard={() => setShowRightAddStagePanel(false)}
@@ -325,7 +349,12 @@ function ProjectBoard() {
           </Fade>
 
           <Fade in={!showRightAddStagePanel} mountOnEnter unmountOnExit>
-            <Box height={'100%'} gridRow={1} gridColumn={1}>
+            <Box
+              sx={{
+                height: '100%',
+                gridRow: 1,
+                gridColumn: 1
+              }}>
               <Button
                 size={'large'}
                 startIcon={<Add />}

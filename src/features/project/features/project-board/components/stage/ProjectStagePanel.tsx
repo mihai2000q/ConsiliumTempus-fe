@@ -101,7 +101,9 @@ function ProjectStagePanel({
       isDragHandleHovered={isDragHandleHovered}
       isDragged={isDragged}
       isDragging={isDragging}>
-      <Box position={'relative'}>
+      <Box sx={{
+        position: 'relative'
+      }}>
         <StyledDragHandle
           ref={setActivatorNodeRef}
           {...listeners}
@@ -109,8 +111,15 @@ function ProjectStagePanel({
           onMouseLeave={() => setIsDragHandleHovered(false)}
           sx={{ cursor: isDragged ? 'unset' : 'grab' }}
         />
-        <Stack direction={'row'} justifyContent={'space-between'}>
-          <Stack direction={'row'} alignItems={'center'} zIndex={1}>
+        <Stack direction={'row'} sx={{
+          justifyContent: 'space-between'
+        }}>
+          <Stack
+            direction={'row'}
+            sx={{
+              alignItems: 'center',
+              zIndex: 1
+            }}>
             <OutlinedContentEditable
               typographyVariant={'h6'}
               value={stageName}
@@ -131,7 +140,9 @@ function ProjectStagePanel({
                   placement={'top'}
                   sx={{ cursor: 'default' }}
                   title={`There are ${totalTasksCount} task${plural(totalTasksCount)} in this stage`}>
-                  <Typography fontWeight={300}>{totalTasksCount}</Typography>
+                  <Typography sx={{
+                    fontWeight: 300
+                  }}>{totalTasksCount}</Typography>
                 </Tooltip>
             }
           </Stack>
@@ -154,7 +165,14 @@ function ProjectStagePanel({
         </Stack>
       </Box>
 
-      <Stack px={0.75} pt={1} sx={{ overflowY: 'auto', maxHeight: '100%' }} onScroll={handleScroll}>
+      <Stack
+        onScroll={handleScroll}
+        sx={{
+          px: 0.75,
+          pt: 1,
+          overflowY: 'auto',
+          maxHeight: '100%'
+        }}>
         <Zoom in={showTopAddTaskCard || (showAddTaskCard === true && setShowAddTaskCard !== undefined)} unmountOnExit>
           <TransitionComponent>
             <AddProjectTaskCard

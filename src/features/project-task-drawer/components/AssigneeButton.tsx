@@ -39,15 +39,21 @@ function AssigneeButton({
             </Button>
           )
           : (
-            <Stack direction={'row'} alignItems={'center'} spacing={0.5}>
+            <Stack direction={'row'} spacing={0.5} sx={{
+              alignItems: 'center'
+            }}>
               <UserPopper user={{ ...assignee }} placement={'bottom'}>
                 <Button
                   disabled={isFetching}
                   onClick={(e) => setMenuAnchorEl(e.currentTarget)}
                   sx={{ borderRadius: 2 }}>
-                  <Stack direction={'row'} alignItems={'center'} spacing={1}>
+                  <Stack direction={'row'} spacing={1} sx={{
+                    alignItems: 'center'
+                  }}>
                     <Avatar src={demoUsePic} sx={{ width: 30, height: 30 }} />
-                    <Typography color={'text.primary'}>{assignee.name}</Typography>
+                    <Typography sx={{
+                      color: 'text.primary'
+                    }}>{assignee.name}</Typography>
                   </Stack>
                 </Button>
               </UserPopper>

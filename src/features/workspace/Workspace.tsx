@@ -1,7 +1,7 @@
 import { Avatar, Divider, IconButton, Stack, Tab, Tabs, useTheme } from '@mui/material'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '../../state/store.ts'
-import { Route, Routes, useNavigate, useParams } from 'react-router-dom'
+import { Route, Routes, useNavigate, useParams } from 'react-router'
 import { SyntheticEvent, useEffect, useState } from 'react'
 import { setWorkspaceId } from '../../state/workspace/workspaceSlice.ts'
 import useDependencyFacadeState from '../../hooks/useDependencyFacadeState.ts'
@@ -14,7 +14,7 @@ import {
   CalendarTodayRounded,
   CampaignRounded,
   Star,
-  StarOutline,
+  StarOutlined,
   SubjectRounded,
   TimelineRounded
 } from '@mui/icons-material'
@@ -86,9 +86,17 @@ function Workspace() {
   if (!workspace) return <WorkspaceLoader />
 
   return (
-    <Stack alignItems="start" height={'100%'}>
-      <Stack direction={'row'} alignItems={'center'} spacing={0.75}>
-        <Stack direction={'row'} alignItems={'center'}>
+    <Stack
+      sx={{
+        alignItems: "start",
+        height: '100%'
+      }}>
+      <Stack direction={'row'} spacing={0.75} sx={{
+        alignItems: 'center'
+      }}>
+        <Stack direction={'row'} sx={{
+          alignItems: 'center'
+        }}>
           <Avatar
             alt={workspace.name}
             src={demoWorkspacePicture}
@@ -120,7 +128,7 @@ function Workspace() {
             color: theme.palette.primary[100],
             '&:hover': { color: theme.palette.secondary.main }
           }}>
-          {isFavorite ? <Star /> : <StarOutline />}
+          {isFavorite ? <Star /> : <StarOutlined />}
         </IconButton>
       </Stack>
 

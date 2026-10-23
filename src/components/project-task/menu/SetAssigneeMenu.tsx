@@ -66,9 +66,16 @@ function SetAssigneeMenu({
 
   return (
     <Menu open={Boolean(anchorEl)} anchorEl={anchorEl} onClose={onClose}>
-      <Stack spacing={0.5} px={2} py={1}>
+      <Stack
+        spacing={0.5}
+        sx={{
+          px: 2,
+          py: 1
+        }}>
         <FormLabel>Assignee</FormLabel>
-        <Stack direction={'row'} alignItems={'center'} spacing={1}>
+        <Stack direction={'row'} spacing={1} sx={{
+          alignItems: 'center'
+        }}>
           <Autocomplete
             value={collaborator}
             onChange={(_e, newValue) => {
@@ -83,15 +90,18 @@ function SetAssigneeMenu({
             getOptionLabel={(c) => c.name}
             filterOptions={(options) => options}
             isOptionEqualToValue={(option, value) => option.id === value.id}
-            PopperComponent={(props) =>
-              <StyledPopper {...props} />
-            }
             renderOption={(props, option, { selected }) => (
               <MenuItem {...props} key={option.id} selected={selected}>
-                <Stack direction={'row'} alignItems={'center'}>
+                <Stack direction={'row'} sx={{
+                  alignItems: 'center'
+                }}>
                   <Avatar src={demoUserPic} sx={{ width: 25, height: 25, mr: 1 }} />
-                  <Typography mr={2}>{option.name}</Typography>
-                  <Typography variant={'subtitle1'} color={'text.secondary'}>{option.email}</Typography>
+                  <Typography sx={{
+                    mr: 2
+                  }}>{option.name}</Typography>
+                  <Typography variant={'subtitle1'} sx={{
+                    color: 'text.secondary'
+                  }}>{option.email}</Typography>
                 </Stack>
               </MenuItem>
             )}
@@ -104,6 +114,10 @@ function SetAssigneeMenu({
                 borderRadius: 2,
                 py: '5px'
               }
+            }}
+            slots={{
+              popper: (props) =>
+                <StyledPopper {...props} />
             }}
           />
 

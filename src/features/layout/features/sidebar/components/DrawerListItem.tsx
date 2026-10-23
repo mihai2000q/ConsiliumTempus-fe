@@ -1,6 +1,6 @@
 import { ListItem, ListItemButton, ListItemIcon, ListItemText, Typography } from '@mui/material'
 import DrawerItem from '../types/DrawerItem.ts'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router'
 
 interface DrawerListItemProps {
   drawerItem: DrawerItem
@@ -21,7 +21,9 @@ function DrawerListItem({ drawerItem }: DrawerListItemProps) {
       <ListItemButton selected={isSelected} onClick={handleClick}>
         <ListItemIcon>{drawerItem.icon}</ListItemIcon>
         <ListItemText>
-          <Typography fontWeight={600} noWrap>{drawerItem.text}</Typography>
+          <Typography noWrap sx={{
+            fontWeight: 600
+          }}>{drawerItem.text}</Typography>
         </ListItemText>
       </ListItemButton>
     </ListItem>

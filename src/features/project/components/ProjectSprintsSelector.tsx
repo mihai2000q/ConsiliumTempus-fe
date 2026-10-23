@@ -73,9 +73,15 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
               <Typography>{sprint.name}</Typography>
               {(sprint.startDate || sprint.endDate) &&
                 <Stack direction={'row'} spacing={'4px'}>
-                  <Typography color={'text.secondary'}>{sprint.startDate?.format('DD MMM') ?? '?'}</Typography>
-                  <Typography color={'text.secondary'}>-</Typography>
-                  <Typography color={'text.secondary'}>{sprint.endDate?.format('DD MMM') ?? '?'}</Typography>
+                  <Typography sx={{
+                    color: 'text.secondary'
+                  }}>{sprint.startDate?.format('DD MMM') ?? '?'}</Typography>
+                  <Typography sx={{
+                    color: 'text.secondary'
+                  }}>-</Typography>
+                  <Typography sx={{
+                    color: 'text.secondary'
+                  }}>{sprint.endDate?.format('DD MMM') ?? '?'}</Typography>
                 </Stack>
               }
             </Stack>

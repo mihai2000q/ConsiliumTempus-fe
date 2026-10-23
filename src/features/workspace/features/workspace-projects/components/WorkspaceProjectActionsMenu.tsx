@@ -1,6 +1,6 @@
 import Project from '../type/Project.model.ts'
 import { ListItemIcon, Menu, MenuItem, Typography, useTheme } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
 import Paths from '../../../../../utils/enums/Paths.ts'
 import {
@@ -27,7 +27,9 @@ interface ProjectActionsMenuItemProps {
 const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon sx={{ '& .MuiSvgIcon': { color: color } }}>{icon}</ListItemIcon>
-    <Typography pt={0.5} color={color}>{children}</Typography>
+    <Typography color={color} sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 

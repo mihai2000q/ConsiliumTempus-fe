@@ -13,7 +13,7 @@ import {
   UnarchiveOutlined
 } from '@mui/icons-material'
 import Paths from '../../../utils/enums/Paths.ts'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router'
 import { MouseEventHandler, ReactNode } from 'react'
 import Project from '../types/Project.model.ts'
 import { useDeleteProjectMutation, useUpdateProjectMutation } from '../state/projectApi.ts'
@@ -31,7 +31,9 @@ interface ProjectActionsMenuItemProps {
 const ProjectActionsMenuItem = ({ onClick, icon, children, disabled, color }: ProjectActionsMenuItemProps) => (
   <MenuItem disabled={disabled} onClick={onClick}>
     <ListItemIcon>{icon}</ListItemIcon>
-    <Typography pt={0.5} color={color}>{children}</Typography>
+    <Typography color={color} sx={{
+      pt: 0.5
+    }}>{children}</Typography>
   </MenuItem>
 )
 

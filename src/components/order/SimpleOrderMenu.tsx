@@ -41,7 +41,9 @@ function SimpleOrderMenu({
       open={Boolean(anchorEl)}
       anchorEl={anchorEl}
       onClose={onClose}>
-      <Stack direction={'row'} justifyContent={'space-evenly'}>
+      <Stack direction={'row'} sx={{
+        justifyContent: 'space-evenly'
+      }}>
         <IconButton
           variant={'circular'}
           disabled={orderType === OrderType.Ascending}

@@ -1,5 +1,5 @@
 import { useGetProjectsQuery } from './state/projectsApi.ts'
-import Grid from '@mui/material/Grid2'
+import Grid from '@mui/material/Grid'
 import {
   Button,
   ButtonGroup,
@@ -108,13 +108,30 @@ function Projects() {
   }
 
   return (
-    <Stack width={'100%'} height={'100%'} alignItems={'center'}>
-      <Typography variant={'h1'} mb={4} align={'center'}>
+    <Stack
+      sx={{
+        width: '100%',
+        height: '100%',
+        alignItems: 'center'
+      }}>
+      <Typography variant={'h1'} align={'center'} sx={{
+        mb: 4
+      }}>
         Projects
       </Typography>
 
-      <Grid container width={'100%'} alignItems={'center'}>
-        <Grid size={3} display={'flex'} alignItems={'center'}>
+      <Grid
+        container
+        sx={{
+          width: '100%',
+          alignItems: 'center'
+        }}>
+        <Grid
+          size={3}
+          sx={{
+            display: 'flex',
+            alignItems: 'center'
+          }}>
           <TextField
             name={'project-search'}
             label={'Search'}
@@ -122,13 +139,20 @@ function Projects() {
             inputMode={'search'}
             value={facadeName}
             onChange={handleSearchNameChangeField}
-            InputProps={{ endAdornment: <Search /> }}
-            sx={{ boxShadow: 8 }} />
+            sx={{ boxShadow: 8 }}
+            slotProps={{
+              input: { endAdornment: <Search /> }
+            }} />
           {isFetching && !isLoading &&
             <CircularProgress size={33} thickness={5} color={'secondary'} sx={{ ml: 2 }} />}
         </Grid>
 
-        <Grid size={6} display={'flex'} justifyContent={'center'}>
+        <Grid
+          size={6}
+          sx={{
+            display: 'flex',
+            justifyContent: 'center'
+          }}>
           <ProjectsLifecycleButtons
             lifecycle={lifecycle}
             setLifecycle={setLifecycle}
@@ -137,7 +161,13 @@ function Projects() {
             addToSearchQueryParam={addToSearchQueryParam} />
         </Grid>
 
-        <Grid size={3} display={'flex'} justifyContent={'end'} gap={2}>
+        <Grid
+          size={3}
+          sx={{
+            display: 'flex',
+            justifyContent: 'end',
+            gap: 2
+          }}>
           <ProjectSortButton initialOrder={initialOrder} setOrderBy={setOrderBy} />
           <ProjectFilterButton addToSearchQueryParam={addToSearchQueryParam}
                                removeFromSearchQueryParam={removeFromSearchQueryParam} />
@@ -145,13 +175,15 @@ function Projects() {
       </Grid>
 
       <Stack
-        width={'100%'}
         direction={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}
-        px={1.5}
-        mt={1}
-        mb={1.5}>
+        sx={{
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          px: 1.5,
+          mt: 1,
+          mb: 1.5
+        }}>
         {
           data
             ?
@@ -180,8 +212,10 @@ function Projects() {
       <Grid
         container
         columns={{ xs: 4, md: 8, lg: 12, xl: 16 }}
-        flexGrow={1}
-        spacing={4}>
+        spacing={4}
+        sx={{
+          flexGrow: 1
+        }}>
         {
           !projects
             ? (

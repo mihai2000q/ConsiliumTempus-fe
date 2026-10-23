@@ -48,6 +48,7 @@ function AddProjectTaskCard({ closeCard, projectStageId, onTop, mb, mt, show }: 
   return (
     <StyledProjectTaskCard
       component={'div'}
+      nativeButton={false}
       disableRipple
       onBlur={handleBlur}
       onKeyDown={handleOnKeyDown}
