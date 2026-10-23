@@ -1,11 +1,9 @@
-import { Dayjs } from 'dayjs'
-
 export default interface ProjectSprint {
   name: string,
-  startDate: Dayjs | null,
-  endDate: Dayjs | null,
-  createdDateTime: Dayjs,
-  updatedDateTime: Dayjs,
+  startDate: string | null,
+  endDate: string | null,
+  createdDateTime: string,
+  updatedDateTime: string,
   createdBy: User,
   updatedBy: User
 }

@@ -1,12 +1,7 @@
-import { Dayjs } from 'dayjs'
-
-type ProjectSprints = ProjectSprint[]
-export default ProjectSprints
-
-interface ProjectSprint {
+export default interface ProjectSprints {
   id: string,
   name: string,
-  startDate: Dayjs | null,
-  endDate: Dayjs | null,
-  createdDateTime: Dayjs
+  startDate: string | null,
+  endDate: string | null,
+  createdDateTime: string
 }

@@ -1,7 +1,8 @@
-import GetProjectsResponse from '../types/Project.response.ts'
+import Project from '../types/Project.model.ts'
+import CollectionResponse from '../../../types/responses/Collection.response.ts'
 
 export default function useProjectsPages(
-  data: GetProjectsResponse | undefined,
+  data: CollectionResponse<'projects', Project> | undefined,
   pageSize: number,
   currentPage: number
 ): [number, number, number] {

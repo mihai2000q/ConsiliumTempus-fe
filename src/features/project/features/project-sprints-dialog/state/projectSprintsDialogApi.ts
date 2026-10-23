@@ -8,7 +8,8 @@ import {
   GetProjectSprintsRequest,
   UpdateProjectSprintRequest
 } from '../types/ProjectSprint.request.ts'
-import { GetProjectSprintsResponse } from '../types/ProjectSprints.response.ts'
+import ProjectSprints from '../types/ProjectSprints.model.ts'
+import CollectionResponse from '../../../../../types/responses/Collection.response.ts'
 import ProjectSprintResponse from '../types/ProjectSprint.response.ts'
 
 export const projectSprintsDialogApiSlice = api.injectEndpoints({
@@ -17,7 +18,7 @@ export const projectSprintsDialogApiSlice = api.injectEndpoints({
       query: arg => `${Urls.ProjectSprints}/${arg.id}`,
       providesTags: [TagTypes.ProjectSprints]
     }),
-    getProjectSprints: builder.query<GetProjectSprintsResponse, GetProjectSprintsRequest>({
+    getProjectSprints: builder.query<CollectionResponse<'sprints', ProjectSprints>, GetProjectSprintsRequest>({
       query: arg => ({
         url: Urls.ProjectSprints,
         params: arg

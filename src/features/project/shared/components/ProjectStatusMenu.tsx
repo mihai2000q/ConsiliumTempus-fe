@@ -8,6 +8,7 @@ import { AppDispatch } from '../../../../state/store.ts'
 import { openProjectStatusesDialog } from '../../../../state/project/projectSlice.ts'
 import ProjectStatusType from '../../../../utils/project/ProjectStatusType.ts'
 import AddProjectStatusDialog from './AddProjectStatusDialog.tsx'
+import dayjs from 'dayjs'
 
 interface ProjectStatusMenuProps {
   anchorEl: HTMLElement | null,
@@ -78,7 +79,7 @@ function ProjectStatusMenu({
                   <Typography variant={'body2'} sx={{
                     color: 'text.triadic'
                   }}>
-                    {latestStatus.createdDateTime.format('DD/MM/YYYY')}
+                    {dayjs(latestStatus.createdDateTime).format('DD/MM/YYYY')}
                   </Typography>
                 </Stack>
               </Stack>

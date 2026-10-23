@@ -1,7 +1,8 @@
-import GetWorkspacesResponse from '../types/Workspace.response.ts'
+import Workspace from '../types/Workspace.model.ts'
+import CollectionResponse from '../../../types/responses/Collection.response.ts'
 
 export default function useWorkspacesPage(
-  data: GetWorkspacesResponse | undefined,
+  data: CollectionResponse<'workspaces', Workspace> | undefined,
   pageSize: number,
   currentPage: number
 ): [number, number, number] {

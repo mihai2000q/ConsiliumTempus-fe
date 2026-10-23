@@ -8,7 +8,8 @@ import {
   RemoveStageFromProjectSprintRequest,
   UpdateStageFromProjectSprintRequest
 } from '../types/ProjectStage.request.ts'
-import { ProjectTaskResponse } from '../types/ProjectTask.response.ts'
+import ProjectTask from '../types/ProjectTask.model.ts'
+import CollectionResponse from '../../../../../types/responses/Collection.response.ts'
 import {
   AddProjectTaskRequest,
   DeleteProjectTaskRequest,
@@ -59,7 +60,7 @@ export const projectBoardApiSlice = api.injectEndpoints({
       invalidatesTags: [TagTypes.ProjectStages]
     }),
 
-    getProjectTasks: builder.query<ProjectTaskResponse, GetProjectTasksQueryParameters>({
+    getProjectTasks: builder.query<CollectionResponse<'tasks', ProjectTask>, GetProjectTasksQueryParameters>({
       query: arg => Urls.ProjectTasks + createQueryParams(arg),
       providesTags: [TagTypes.ProjectTasks]
     }),

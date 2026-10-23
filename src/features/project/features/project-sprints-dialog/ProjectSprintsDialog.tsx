@@ -3,13 +3,12 @@ import { Close } from '@mui/icons-material'
 import VerticalLargeRadioButton from '../../../../components/button/radio/VerticalLargeRadioButton.tsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../../state/store.ts'
-import useAdapterState from '../../../../hooks/useAdapterState.ts'
 import { useEffect, useState } from 'react'
 import { closeProjectSprintsDialog, openAddProjectSprintDialog } from '../../../../state/project/projectSlice.ts'
 import ProjectSprintsDialogLoader from './components/ProjectSprintsDialogLoader.tsx'
 import { useGetProjectSprintsQuery } from './state/projectSprintsDialogApi.ts'
-import ProjectSprintsAdapter from './adapters/ProjectSprints.adapter.ts'
 import ProjectSprint from './components/ProjectSprint.tsx'
+import dayjs from 'dayjs'
 
 function ProjectSprintsDialog() {
   const { open } = useSelector((state: RootState) => state.project.projectSprintsDialog)
@@ -23,7 +22,7 @@ function ProjectSprintsDialog() {
     { projectId: projectId },
     { skip: projectId === '' }
   )
-  const sprints = useAdapterState(data?.sprints, ProjectSprintsAdapter.adapt)
+  const sprints = data?.sprints
 
   const [projectSprintIdSelected, setProjectSprintIdSelected] = useState<string>('')
   useEffect(() => {
@@ -137,12 +136,12 @@ function ProjectSprintsDialog() {
                           fontWeight: 400,
                           fontSize: 16
                         }}>{sprint.name}</Typography>
-                      <Typography>{sprint.createdDateTime.format('DD/MM/YYYY')}</Typography>
+                      <Typography>{dayjs(sprint.createdDateTime).format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <Stack direction={'row'} spacing={'4px'}>
-                      <Typography variant={'body2'}>{sprint.startDate?.format('DD/MM/YYYY') ?? '?'}</Typography>
+                      <Typography variant={'body2'}>{sprint.startDate ? dayjs(sprint.startDate).format('DD/MM/YYYY') : '?'}</Typography>
                       <Typography variant={'body2'}>-</Typography>
-                      <Typography variant={'body2'}>{sprint.endDate?.format('DD/MM/YYYY') ?? '?'}</Typography>
+                      <Typography variant={'body2'}>{sprint.endDate ? dayjs(sprint.endDate).format('DD/MM/YYYY') : '?'}</Typography>
                     </Stack>
                   </Stack>
                 </VerticalLargeRadioButton>

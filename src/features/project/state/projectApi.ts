@@ -9,12 +9,12 @@ import {
 } from '../types/Project.request.ts'
 import HttpMessageResponse from '../../../types/responses/HttpMessage.response.ts'
 import { GetProjectSprintsRequest } from '../types/ProjectSprint.request.ts'
-import ProjectResponse from '../types/Project.response.ts'
+import Project from '../types/Project.model.ts'
 import { GetProjectSprintsResponse } from '../types/ProjectSprint.response.ts'
 
 export const projectApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getProject: builder.query<ProjectResponse, GetProjectRequest>({
+    getProject: builder.query<Project, GetProjectRequest>({
       query: arg => `${Urls.Projects}/${arg.id}`,
       providesTags: [TagTypes.Projects]
     }),

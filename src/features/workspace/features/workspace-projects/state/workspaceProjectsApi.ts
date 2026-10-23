@@ -1,5 +1,6 @@
 import { api } from '../../../../../state/api.ts'
-import GetProjectsResponse from '../type/Project.response.ts'
+import Project from '../type/Project.model.ts'
+import CollectionResponse from '../../../../../types/responses/Collection.response.ts'
 import {
   DeleteProjectRequest,
   GetProjectsQueryParameters,
@@ -13,7 +14,7 @@ import HttpMessageResponse from '../../../../../types/responses/HttpMessage.resp
 
 export const workspaceProjectsApiSlice = api.injectEndpoints({
   endpoints: builder => ({
-    getProjects: builder.query<GetProjectsResponse, GetProjectsQueryParameters>({
+    getProjects: builder.query<CollectionResponse<'projects', Project>, GetProjectsQueryParameters>({
       query: arg => Urls.Projects + createQueryParams(arg),
       providesTags: [TagTypes.Projects]
     }),
