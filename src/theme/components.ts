@@ -1,7 +1,8 @@
-import { alpha, ButtonProps, darken, DrawerProps, lighten, ListItemButtonProps, Theme } from '@mui/material'
+import { alpha, ButtonProps, Components, darken, DrawerProps, lighten, ListItemButtonProps, Theme } from '@mui/material'
 import { ChangeEventHandler, FocusEventHandler, KeyboardEventHandler } from 'react'
+import type {} from '@mui/x-date-pickers/themeAugmentation'
 
-export const components = {
+export const components: Components<Theme> = {
   MuiTextField: {
     styleOverrides: {
       root: {
@@ -167,7 +168,7 @@ export const components = {
       iconPosition: 'start'
     },
     styleOverrides: {
-      root: ({ ownerState, theme }: { ownerState: { selected: true }, theme: Theme }) => ({
+      root: ({ theme }) => ({
         textTransform: 'none',
         borderRadius: '8px 8px 0px 0px',
         padding: '8px 8px 10px 6px',
@@ -176,8 +177,11 @@ export const components = {
           duration: theme.transitions.duration.short
         }),
         '&:hover': {
-          color: ownerState.selected ? theme.palette.primary[200] : theme.palette.primary[50],
+          color: theme.palette.primary[50],
           backgroundColor: alpha(theme.palette.primary[100], 0.1)
+        },
+        '&.Mui-selected:hover': {
+          color: theme.palette.primary[200]
         }
       })
     }
