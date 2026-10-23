@@ -1,6 +1,5 @@
 import ProjectStatusType from '../../../utils/project/ProjectStatusType.ts'
 import ProjectLifecycle from '../../../utils/project/ProjectLifecycle.ts'
-import { Dayjs } from 'dayjs'
 
 export default interface Project {
   id: string,
@@ -11,7 +10,7 @@ export default interface Project {
   owner: Owner,
   isPrivate: boolean,
   latestStatus: ProjectStatus | null,
-  createdDateTime: Dayjs
+  createdDateTime: string
 }
 
 interface Owner {
@@ -23,5 +22,5 @@ interface Owner {
 export interface ProjectStatus {
   id: string,
   status: ProjectStatusType,
-  updatedDateTime: Dayjs
+  updatedDateTime: string
 }

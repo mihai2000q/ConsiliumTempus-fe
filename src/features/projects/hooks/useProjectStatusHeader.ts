@@ -3,10 +3,10 @@ import { useTheme } from '@mui/material'
 import useIsDarkMode from '../../../hooks/useIsDarkMode.ts'
 import ProjectStatusType from '../../../utils/project/ProjectStatusType.ts'
 import normalize from '../../../utils/normalize.ts'
-import { Dayjs } from 'dayjs'
+import dayjs from 'dayjs'
 
 export default function useProjectStatusHeader(
-  createdDateTime: Dayjs,
+  createdDateTime: string,
   latestStatus: ProjectStatus | null
 ): [string, string] {
   const theme = useTheme()
@@ -14,13 +14,13 @@ export default function useProjectStatusHeader(
 
   if (latestStatus === null)
     return [
-      `Project started on ${createdDateTime.format('DD MMMM YYYY')}`,
+      `Project started on ${dayjs(createdDateTime).format('DD MMMM YYYY')}`,
       isDarkMode ? theme.palette.primary[900] : theme.palette.primary[100]
     ]
 
   return [
     `Project has been ${normalize(latestStatus.status, true)} since
-    ${latestStatus.updatedDateTime.format('DD MMMM YYYY')}`,
+    ${dayjs(latestStatus.updatedDateTime).format('DD MMMM YYYY')}`,
     statusTypeToColor.get(latestStatus.status)!
   ]
 }

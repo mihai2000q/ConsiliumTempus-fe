@@ -12,11 +12,10 @@ import ProjectStatusActionsMenu from './components/ProjectStatusActionsMenu.tsx'
 import UserLabel from '../../../../components/label/UserLabel.tsx'
 import ProjectStatusMenu from '../../shared/components/ProjectStatusMenu.tsx'
 import ProjectStatusesDialogLoader from './components/ProjectStatusesDialogLoader.tsx'
-import ProjectStatusAdapter from './adapters/ProjectStatus.adapter.ts'
-import useAdapterState from '../../../../hooks/useAdapterState.ts'
 import FormGridItem from '../../../../components/form/FormGridItem.tsx'
 import VerticalLargeRadioButton from '../../../../components/button/radio/VerticalLargeRadioButton.tsx'
 import { useGetStatusesFromProjectQuery } from './state/projectStatusesDialogApi.ts'
+import dayjs from 'dayjs'
 
 function ProjectStatusesDialog() {
   const {
@@ -32,7 +31,7 @@ function ProjectStatusesDialog() {
     { id: projectId },
     { skip: projectId === '' }
   )
-  const statuses = useAdapterState(data?.statuses, ProjectStatusAdapter.adapt)
+  const statuses = data?.statuses
 
   const [projectStatusSelected, setProjectStatusSelected] = useState<ProjectStatus | undefined>(undefined)
   useEffect(() => {
@@ -156,7 +155,7 @@ function ProjectStatusesDialog() {
                           fontWeight: 400,
                           fontSize: 16
                         }}>{status.title}</Typography>
-                      <Typography>{status.createdDateTime.format('DD/MM/YYYY')}</Typography>
+                      <Typography>{dayjs(status.createdDateTime).format('DD/MM/YYYY')}</Typography>
                     </Stack>
                     <ProjectStatusLabel status={status.status} />
                   </Stack>
@@ -210,11 +209,11 @@ function ProjectStatusesDialog() {
                       mx: 0.75
                     }}>on</Typography>
                   <Typography variant={'body2'}>
-                    {projectStatusSelected.createdDateTime.format('DD MMMM YYYY')}
+                    {dayjs(projectStatusSelected.createdDateTime).format('DD MMMM YYYY')}
                   </Typography>
                 </FormGridItem>
 
-                {!projectStatusSelected.createdDateTime.isSame(projectStatusSelected.updatedDateTime) && (
+                {!dayjs(projectStatusSelected.createdDateTime).isSame(projectStatusSelected.updatedDateTime) && (
                   <FormGridItem label={'Updated By'} labelSize={2}>
                     <UserLabel user={{ ...projectStatusSelected.updatedBy }} />
                     <Typography
@@ -224,7 +223,7 @@ function ProjectStatusesDialog() {
                         mx: 0.75
                       }}>on</Typography>
                     <Typography variant={'body2'}>
-                      {projectStatusSelected.updatedDateTime.format('DD MMMM YYYY')}
+                      {dayjs(projectStatusSelected.updatedDateTime).format('DD MMMM YYYY')}
                     </Typography>
                   </FormGridItem>
                 )}

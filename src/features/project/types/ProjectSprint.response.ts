@@ -1,10 +1,5 @@
-export interface GetProjectSprintsResponse {
-  sprints: ProjectSprintResponse[]
-}
+import ProjectSprint from './ProjectSprint.model.ts'
 
-export interface ProjectSprintResponse {
-  id: string,
-  name: string,
-  startDate?: string | null,
-  endDate?: string | null,
+export interface GetProjectSprintsResponse {
+  sprints: ProjectSprint[]
 }

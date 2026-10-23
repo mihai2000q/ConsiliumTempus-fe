@@ -5,20 +5,18 @@ import ProjectSprintActionsMenu from './ProjectSprintActionsMenu.tsx'
 import FormGridItem from '../../../../../components/form/FormGridItem.tsx'
 import UserLabel from '../../../../../components/label/UserLabel.tsx'
 import ProjectSprintLoader from './ProjectSprintLoader.tsx'
-import useAdapterState from '../../../../../hooks/useAdapterState.ts'
-import ProjectSprintAdapter from '../adapters/ProjectSprint.adapter.ts'
 import { useGetProjectSprintQuery } from '../state/projectSprintsDialogApi.ts'
+import dayjs from 'dayjs'
 
 interface ProjectSprintProps {
   sprintId: string
 }
 
 function ProjectSprint({ sprintId }: ProjectSprintProps) {
-  const { data } = useGetProjectSprintQuery(
+  const { data: sprint } = useGetProjectSprintQuery(
     { id: sprintId },
     { skip: sprintId === '' }
   )
-  const sprint = useAdapterState(data, ProjectSprintAdapter.adapt)
 
   const [actionsMenuAnchorEl, setActionsMenuAnchorEl] = useState<HTMLElement | null>(null)
 
@@ -55,11 +53,11 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
         width: 500
       }}>
         <FormGridItem label={'Start Date'} labelSize={2}>
-          <Typography>{sprint.startDate?.format('DD MMMM YYYY') ?? '?'}</Typography>
+          <Typography>{sprint.startDate ? dayjs(sprint.startDate).format('DD MMMM YYYY') : '?'}</Typography>
         </FormGridItem>
 
         <FormGridItem label={'End Date'} labelSize={2}>
-          <Typography>{sprint.endDate?.format('DD MMMM YYYY') ?? '?'}</Typography>
+          <Typography>{sprint.endDate ? dayjs(sprint.endDate).format('DD MMMM YYYY') : '?'}</Typography>
         </FormGridItem>
 
         <FormGridItem label={'Publisher'} labelSize={2}>
@@ -71,11 +69,11 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
               mx: 0.75
             }}>on</Typography>
           <Typography variant={'body2'}>
-            {sprint.createdDateTime.format('DD MMMM YYYY')}
+            {dayjs(sprint.createdDateTime).format('DD MMMM YYYY')}
           </Typography>
         </FormGridItem>
 
-        {!sprint.createdDateTime.isSame(sprint.updatedDateTime) && (
+        {!dayjs(sprint.createdDateTime).isSame(sprint.updatedDateTime) && (
           <FormGridItem label={'Updated By'} labelSize={2}>
             <UserLabel user={{ ...sprint.updatedBy }} />
             <Typography
@@ -85,7 +83,7 @@ function ProjectSprint({ sprintId }: ProjectSprintProps) {
                 mx: 0.75
               }}>on</Typography>
             <Typography variant={'body2'}>
-              {sprint.updatedDateTime.format('DD MMMM YYYY')}
+              {dayjs(sprint.updatedDateTime).format('DD MMMM YYYY')}
             </Typography>
           </FormGridItem>
         )}

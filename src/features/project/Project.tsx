@@ -36,11 +36,9 @@ import ProjectLoader from './components/ProjectLoader.tsx'
 import ProjectStatusMenu from './shared/components/ProjectStatusMenu.tsx'
 import ProjectStatusLabel from './shared/components/ProjectStatusLabel.tsx'
 import ProjectStatusesDialog from './features/project-statuses-dialog/ProjectStatusesDialog.tsx'
-import ProjectAdapter from './adapters/Project.adapter.ts'
 import { setBreadcrumbs, setProjectId, setProjectName, setWorkspaceId } from '../../state/project/projectSlice.ts'
 import Paths from '../../utils/enums/Paths.ts'
 import AddProjectSprintDialog from './shared/components/AddProjectSprintDialog.tsx'
-import useAdapterState from '../../hooks/useAdapterState.ts'
 import ProjectSprintsDialog from './features/project-sprints-dialog/ProjectSprintsDialog.tsx'
 
 function Project() {
@@ -60,11 +58,10 @@ function Project() {
   const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLElement | null>(null)
   const [statusMenuAnchorEl, setStatusMenuAnchorEl] = useState<HTMLElement | null>(null)
 
-  const projectResponse = useGetProjectQuery(
+  const project = useGetProjectQuery(
     { id: projectId },
     { skip: projectId === '' }
   )?.data
-  const project = useAdapterState(projectResponse, ProjectAdapter.adapt)
 
   const [name, refreshName, facadeName, setFacadeName] = useDependencyFacadeState('')
   useEffect(() => {

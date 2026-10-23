@@ -1,16 +1,4 @@
-export default interface ProjectSprintResponse {
-  id: string,
-  name: string,
-  startDate: string | null,
-  endDate: string | null,
-  createdDateTime: string,
-  updatedDateTime: string,
-  createdBy: UserResponse,
-  updatedBy: UserResponse
-}
+import ProjectSprint from './ProjectSprint.model.ts'
 
-interface UserResponse {
-  id: string,
-  name: string,
-  email: string,
-}
+type ProjectSprintResponse = ProjectSprint
+export default ProjectSprintResponse

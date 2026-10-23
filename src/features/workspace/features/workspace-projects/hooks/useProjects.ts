@@ -1,5 +1,4 @@
 import { useGetProjectsQuery, useLazyGetProjectsQuery } from '../state/workspaceProjectsApi.ts'
-import ProjectAdapter from '../adapters/Project.adapter.ts'
 import Project from '../type/Project.model.ts'
 import ProjectLifecycle from '../../../../../utils/project/ProjectLifecycle.ts'
 import { useEffect, useRef, useState } from 'react'
@@ -44,7 +43,7 @@ export default function useProjects(
   })
   useEffect(() => {
     if (data) {
-      setProjects([...ProjectAdapter.adapt(data.projects)!])
+      setProjects([...data.projects])
       setTotalCount(data.totalCount)
     }
   }, [data])
@@ -62,7 +61,7 @@ export default function useProjects(
       },
       true
     ).then(res => {
-      setProjects([...(projects ?? []), ...(ProjectAdapter.adapt(res.data?.projects) ?? [])])
+      setProjects([...(projects ?? []), ...(res.data?.projects ?? [])])
       setTotalCount(res.data?.totalCount ?? 0)
     })
   }

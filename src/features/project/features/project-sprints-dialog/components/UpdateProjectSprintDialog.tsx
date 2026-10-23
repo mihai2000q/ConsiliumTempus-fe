@@ -67,8 +67,8 @@ function UpdateProjectSprintDialog({
     if (!initialProjectSprint) return
 
     values.projectSprintName = initialProjectSprint.name
-    setStartDate(initialProjectSprint.startDate)
-    setEndDate(initialProjectSprint.endDate)
+    setStartDate(initialProjectSprint.startDate ? dayjs(initialProjectSprint.startDate) : null)
+    setEndDate(initialProjectSprint.endDate ? dayjs(initialProjectSprint.endDate) : null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [initialProjectSprint])
 

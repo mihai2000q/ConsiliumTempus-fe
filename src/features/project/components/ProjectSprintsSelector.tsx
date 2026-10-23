@@ -6,8 +6,7 @@ import { ArrowDropDown } from '@mui/icons-material'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState } from '../../../state/store.ts'
 import { openProjectSprintsDialog, setProjectSprintId } from '../../../state/project/projectSlice.ts'
-import useAdapterState from '../../../hooks/useAdapterState.ts'
-import ProjectSprintAdapter from '../adapters/ProjectSprint.adapter.ts'
+import dayjs from 'dayjs'
 
 interface ProjectSprintsSelectorProps {
   projectId: string
@@ -23,7 +22,7 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
     projectId: projectId,
     fromThisYear: true
   })
-  const sprints = useAdapterState(data?.sprints, ProjectSprintAdapter.adapt)
+  const sprints = data?.sprints
   const [currentSprint, setCurrentSprint] = useState<ProjectSprint>()
   useEffect(() => {
     if (sprints) setCurrentSprint(sprints[0])
@@ -75,13 +74,13 @@ function ProjectSprintsSelector({ projectId }: ProjectSprintsSelectorProps) {
                 <Stack direction={'row'} spacing={'4px'}>
                   <Typography sx={{
                     color: 'text.secondary'
-                  }}>{sprint.startDate?.format('DD MMM') ?? '?'}</Typography>
+                  }}>{sprint.startDate ? dayjs(sprint.startDate).format('DD MMM') : '?'}</Typography>
                   <Typography sx={{
                     color: 'text.secondary'
                   }}>-</Typography>
                   <Typography sx={{
                     color: 'text.secondary'
-                  }}>{sprint.endDate?.format('DD MMM') ?? '?'}</Typography>
+                  }}>{sprint.endDate ? dayjs(sprint.endDate).format('DD MMM') : '?'}</Typography>
                 </Stack>
               }
             </Stack>
